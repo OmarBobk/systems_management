@@ -1,26 +1,26 @@
 <?php
 
 use App\Http\Livewire\Admin\AdminDashboardComponent;
-use App\Http\Livewire\TestingComponent;
+use App\Http\Livewire\CategoryComponent;
+use App\Http\Livewire\ProductsComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/testing', function () {
+    $is_admin = (Auth::user() == null) ? redirect(route('login')) : Auth::user()->is_admin;
+
+    return $is_admin;
+
+});
 
 
+
+// Users and Admins
 Route::group([
     'middleware' => ['auth:sanctum', 'verified'],
 ], function() {
 
+    // Admins & Users
     Route::get('/', function () {
         $is_admin = Auth::user()->is_admin;
 
@@ -31,14 +31,20 @@ Route::group([
         }
 
     });
+    Route::get('/products', ProductsComponent::class)->name('products');
+    Route::get('/categories', CategoryComponent::class)->name('categories');
 
-    Route::name('user.')
+    // Users
+    Route::middleware('userAuth')
+        ->name('user.')
         ->prefix('user')
         ->group(function () {
         Route::get('/dashboard', UserDashboardComponent::class)->name('dashboard');
     });
 
-    Route::name('admin.')
+    // Admins
+    Route::middleware('adminAuth')
+        ->name('admin.')
         ->prefix('admin')
         ->group(function () {
         Route::get('/dashboard', AdminDashboardComponent::class)->name('dashboard');
