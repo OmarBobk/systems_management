@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Http\Livewire\CashierComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\ProductsComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
@@ -30,9 +31,24 @@ Route::group([
             return redirect(route('user.dashboard'));
         }
 
-    });
+    })->name('home');
+
+    Route::get('dashboard', function () {
+        $is_admin = Auth::user()->is_admin;
+
+        if ($is_admin) {
+            return redirect(route('admin.dashboard'));
+        } else {
+            return redirect(route('user.dashboard'));
+        }
+
+    })->name('dashboard');
+
+
+
     Route::get('/products', ProductsComponent::class)->name('products');
     Route::get('/categories', CategoryComponent::class)->name('categories');
+    Route::get('/cashier', CashierComponent::class)->name('cashier');
 
     // Users
     Route::middleware('userAuth')

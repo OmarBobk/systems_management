@@ -57,11 +57,13 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect2">Categories</label>
                                 <select class="form-control" id="exampleFormControlSelect2" wire:model="category_id">
+                                        <option >...</option>
                                     @forelse($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @empty
                                     @endforelse
                                 </select>
+                                @error('category_id') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="custom-control custom-control-alternative custom-checkbox">

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -79,6 +80,13 @@ class CategoryComponent extends Component
 
     }
 
+    public function delete(int $id)
+    {
+        Category::find($id)->delete();
+        session()->flash('message', 'Product deleted.');
+        session()->flash('alert', 'success');
+    }
+
     public function openModal()
     {
         $this->isModalOpen = true;
@@ -91,9 +99,13 @@ class CategoryComponent extends Component
 
     public function resetForm()
     {
-        $this->name         = '';
-        $this->slug         = '';
-        $this->updatemode   = false;
+        $this->reset('name', 'updateMode');
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
 }

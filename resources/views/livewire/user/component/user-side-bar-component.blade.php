@@ -12,9 +12,21 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="examples/dashboard.html">
+                        <a class="nav-link active" href="{{route('dashboard')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('products')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('categories')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Categories</span>
                         </a>
                     </li>
                     <li class="nav-item">

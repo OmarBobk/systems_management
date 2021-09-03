@@ -17,6 +17,18 @@ class ProductsComponent extends Component
     public bool $updateMode            = false;
     public $name, $price, $cost, $serial, $product_id, $category_id, $categories;
 
+    protected array $rules = [
+        'name'   => 'required',
+        'serial' => 'required',
+        'price'  => 'required',
+        'cost'   => 'required',
+        'category_id'   => 'integer',
+    ];
+
+    protected array $messages = [
+        'category_id.integer' => 'You must select a Category'
+    ];
+
     public function render()
     {
         return view('livewire.products.index-component', [
@@ -28,17 +40,13 @@ class ProductsComponent extends Component
     {
         $this->resetCreateComponent();
         $this->openCreateComponent();
+
     }
 
     public function store()
     {
 
-        $this->validate([
-            'name'   => 'required',
-            'serial' => 'required',
-            'price'  => 'required',
-            'cost'   => 'required',
-        ]);
+        $this->validate();
 
         Product::create([
             'name'        => $this->name,
@@ -78,6 +86,7 @@ class ProductsComponent extends Component
             'serial' => 'required',
             'price'  => 'required',
             'cost'   => 'required',
+            'category_id'   => 'integer',
         ]);
 
         Product::find($this->product_id)->update([
@@ -99,7 +108,9 @@ class ProductsComponent extends Component
 
     public function delete(int $id)
     {
-        dd('hi');
+        Product::find($id)->delete();
+        session()->flash('message', 'Product deleted.');
+        session()->flash('alert', 'success');
     }
 
     public function openCreateComponent()
@@ -115,12 +126,13 @@ class ProductsComponent extends Component
 
     public function resetCreateComponent()
     {
-        $this->name         = '';
-        $this->price        = '';
-        $this->cost         = '';
-        $this->serial       = '';
-        $this->updateMode   = false;
-        $this->category_id  = '';
+        $this->reset('name', 'price', 'cost', 'serial', 'updateMode', 'category_id');
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
 
