@@ -20,6 +20,11 @@ class CategorySeeder extends Seeder
         $fake = Factory::create();
         $categories = [];
 
+        $categories[] = [
+            'name'          => 'default',
+            'slug'          => Str::slug('default'),
+        ];
+
         for ($i=0;$i<=5;$i++) {
             $name  = $fake->name();
 

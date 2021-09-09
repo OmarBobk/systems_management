@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Livewire\Admin\AdminDashboardComponent;
-use App\Http\Livewire\CashierComponent;
-use App\Http\Livewire\CategoryComponent;
-use App\Http\Livewire\ProductsComponent;
-use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/testing', function () {
@@ -46,16 +41,18 @@ Route::group([
 
 
 
-    Route::get('/products', ProductsComponent::class)->name('products');
-    Route::get('/categories', CategoryComponent::class)->name('categories');
-    Route::get('/cashier', CashierComponent::class)->name('cashier');
+    Route::get('/products',         App\Http\Livewire\ProductsComponent::class)      ->name('products');
+    Route::get('/categories',       App\Http\Livewire\CategoryComponent::class)      ->name('categories');
+    Route::get('/cashier',          App\Http\Livewire\CashierComponent::class)       ->name('cashier');
+    Route::get('/sales',            App\Http\Livewire\SaleComponent::class)          ->name('sales');
+    Route::get('/debts-management', App\Http\Livewire\DebtManagementComponent::class)->name('debts');
 
     // Users
     Route::middleware('userAuth')
         ->name('user.')
         ->prefix('user')
         ->group(function () {
-        Route::get('/dashboard', UserDashboardComponent::class)->name('dashboard');
+        Route::get('/dashboard', App\Http\Livewire\User\UserDashboardComponent::class)->name('dashboard');
     });
 
     // Admins
@@ -63,6 +60,6 @@ Route::group([
         ->name('admin.')
         ->prefix('admin')
         ->group(function () {
-        Route::get('/dashboard', AdminDashboardComponent::class)->name('dashboard');
+        Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
     });
 });

@@ -82,9 +82,24 @@ class CategoryComponent extends Component
 
     public function delete(int $id)
     {
-        Category::find($id)->delete();
-        session()->flash('message', 'Product deleted.');
-        session()->flash('alert', 'success');
+
+        if($id == 1) {
+            session()->flash('message', 'You Can\'t Delete This Category');
+            session()->flash('alert', 'danger');
+        } else {
+            $category = Category::find($id);
+            $products = $category->products;
+            if ($products->count() > 0) {
+                foreach ($products as $product) {
+                    $product->update(['category_id' => 1]);
+                }
+            }
+
+            $category->delete();
+            session()->flash('message', 'Category Deleted Successfully');
+            session()->flash('alert', 'success');
+        }
+
     }
 
     public function openModal()
