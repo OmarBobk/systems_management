@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/testing', function () {
-    $is_admin = (Auth::user() == null) ? redirect(route('login')) : Auth::user()->is_admin;
-
-    return $is_admin;
-
-});
+Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
 
 
 

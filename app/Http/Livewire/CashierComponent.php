@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Cart;
+use App\Models\Debt;
+use App\Models\Debtor;
 use App\Models\Product;
 use App\Models\Sale;
 use Carbon\Carbon;
@@ -13,6 +15,28 @@ class CashierComponent extends Component
 {
 
     public $searchKeyword, $result, $cart, $amount, $net_price, $isEditAmount, $isEditPrice;
+    public $is_checkout, $is_checkout_with_debt, $is_create_new_debtor_form, $is_checkout_with_debtor_exists;
+
+    public $debtorSearchKeyword, $debtorsSearched, $is_ask_for_debts_due, $whoToAskForDebtsDueDebtorId, $due_date;
+    public $newDebtorName, $newDebtorPhone;
+    public $counter;
+    protected array $rules = [
+        'newDebtorName'  => 'required',
+        'newDebtorPhone' => 'required',
+    ];
+
+    public function increment()
+
+    {
+
+        $this->count++;
+
+    }
+
+    public function mount()
+    {
+        $this->counter = 0;
+    }
 
     public function render()
     {
@@ -115,9 +139,21 @@ class CashierComponent extends Component
         $this->result = Product::where("serial", "like", "$this->searchKeyword%")->orderBy('id')->get();
     }
 
-    public function checkoutCash()
-    {
 
+
+    public function checkout()
+    {
+        if ($this->cart->products()->count() < 1) {
+            session()->flash('message', 'Your Cart Is Empty');
+            session()->flash('alert', 'danger');
+            return;
+        }
+        $this->is_checkout           = true;
+        $this->is_checkout_with_debt = false;
+    }
+
+    public function createSales()
+    {
         $products     = $this->cart->products;
         $sales        = [];
 
@@ -143,13 +179,143 @@ class CashierComponent extends Component
 
         $this->emptyTheCart();
 
+        session()->flash('sales_message', 'Sales Created Successfully');
+        session()->flash('sales_alert', 'success');
+
+    }
+
+    public function checkoutCash()
+    {
+
+        $this->createSales();
+
         return redirect(route('cashier'));
 
     }
 
+
+    public function checkoutDebt()
+    {
+        $this->is_checkout_with_debt = true;
+    }
+
+    public function checkoutDebtorExists()
+    {
+        $this->is_checkout_with_debtor_exists = true;
+        $this->is_create_new_debtor_form = false;
+    }
+
+    public function updatedDebtorSearchKeyword()
+    {
+        $this->debtorsSearched = Debtor::orWhere('name', 'like', "%$this->debtorSearchKeyword%")
+            ->orWhere('phone', 'like', "%$this->debtorSearchKeyword%")->get();
+    }
+
+    public function whoToAskForDebtsDue(Debtor $debtor)
+    {
+        $id = $debtor->id;
+
+        $this->whoToAskForDebtsDueDebtorId = $id;
+        $this->is_ask_for_debts_due = true;
+
+        $this->emit('askForDueEvent', $id);
+    }
+
+    /**
+     * Create Debts for the given debtor
+     * and until the given due from the
+     * given items in the cart.
+     *
+     * @param Debtor $debtor
+     */
+    public function createDebtsFromCart(Debtor $debtor)
+    {
+        $debts = [];
+
+        $products = $this->cart->products;
+
+        foreach($products as $product) {
+            $debts[] = [
+                'item_name'     => $product->name,
+                'description'   => '',
+                'cost'          => $product->cost,
+                'price'         => $product->pivot->net_price,
+                'amount'        => $product->pivot->amount,
+                'is_paid'       => 0,
+                'due'           => $this->due_date ?? Carbon::now()->addMonth()->toDateString(),
+                'product_id'    => $product->id,
+                'debtor_id'     => $debtor->id,
+            ];
+        }
+
+
+        $chunks = array_chunk($debts, 50);
+
+        foreach ($chunks as $chunk) Debt::insert($chunk);
+
+        $this->createSales();
+
+        session()->flash('debts_message', 'Debts Created Successfully');
+        session()->flash('debts_alert', 'success');
+
+        redirect(route('cashier'));
+
+    }
+
+    /**
+     * if debtor doesn't exists.
+     */
+    public function createNewDebtorForm()
+    {
+        $this->resetCreateNewDebtorForm();
+        $this->is_create_new_debtor_form = true;
+    }
+
+    /**
+     * create new debtor.
+     */
+    public function store()
+    {
+
+        $this->validate();
+
+        $debtor = Debtor::create([
+            'name'        => $this->newDebtorName,
+            'phone'       => $this->newDebtorPhone,
+            'user_id'     => Auth::user()->id,
+        ]);
+
+        session()->flash('message', 'Debtor Created');
+        session()->flash('alert' , 'success');
+
+        $this->closeCreateDebtorComponent();
+        $this->resetCreateNewDebtorForm();
+
+        $this->createDebtsFromCart($debtor);
+
+    }
+
+    public function closeCreateDebtorComponent()
+    {
+        $this->is_create_new_debtor_form = false;
+    }
+
+
+
+    public function resetCreateNewDebtorForm()
+    {
+        $this->reset('newDebtorName', 'newDebtorPhone');
+    }
+
+    public function hydrate()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+
     public function testingAction()
     {
-        dd('hi there');
+        dd($this->askDue);
     }
 
 }

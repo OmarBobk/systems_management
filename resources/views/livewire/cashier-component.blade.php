@@ -2,6 +2,23 @@
     <div class="py-12">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
 
+            <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                 role="alert">
+                <div class="flex">
+                    <div>
+                        @if(session()->has('message'))
+                            <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
+                        @endif
+                        @if(session()->has('sales_message'))
+                            <p class="text-sm alert alert-{{session('sales_alert')}}">{{session('sales_message')}}</p>
+                        @endif
+                        @if(session()->has('debts_message'))
+                            <p class="text-sm alert alert-{{session('debts_alert')}}">{{session('debts_message')}}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             <form>
                 <div class="form-group mb-3">
                     <div class="input-group input-group-merge input-group-alternative">
@@ -9,7 +26,7 @@
                             <span class="input-group-text"><i class="ni ni-search"></i></span>
                         </div>
                         <input class="form-control" placeholder="Search"
-                               type="text" wire:model="searchKeyword" >
+                               type="text" wire:model="searchKeyword">
                     </div>
                 </div>
             </form>
@@ -37,124 +54,216 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @if(isset($cart))
-                            @forelse($cart->products as $product)
-                                <tr>
-                                    <td class="border px-4 py-2">{{$product->id}}</td>
-                                    <td class="border px-4 py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>
-                                    <td class="border px-4 py-2">{{$product->name}}</td>
-                                    <td class="border px-4 py-2">{{$product->serial}}</td>
+                    @if(isset($cart))
+                        @forelse($cart->products as $product)
+                            <tr>
+                                <td class="border px-4 py-2">{{$product->id}}</td>
+                                <td class="border px-4 py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>
+                                <td class="border px-4 py-2">{{$product->name}}</td>
+                                <td class="border px-4 py-2">{{$product->serial}}</td>
 
-                                    {{--Edit Amount--}}
-                                    <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
-                                        @if(isset($isEditAmount[$product->id]))
-                                            @if($isEditAmount[$product->id])
-                                                <input type="text"
-                                                       class="form-control"
-                                                       wire:model.lazy="amount.{{$product->id}}" wire:keydown.enter="updateAmountAttach('{{$product->id}}')">
-                                            @else
-                                                {{$product->carts()->first()->pivot->amount}}
-                                            @endif
+                                {{--Edit Amount--}}
+                                <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
+                                    @if(isset($isEditAmount[$product->id]))
+                                        @if($isEditAmount[$product->id])
+                                            <input type="text"
+                                                   class="form-control"
+                                                   wire:model.lazy="amount.{{$product->id}}"
+                                                   wire:keydown.enter="updateAmountAttach('{{$product->id}}')">
                                         @else
                                             {{$product->carts()->first()->pivot->amount}}
                                         @endif
-                                    </td>
+                                    @else
+                                        {{$product->carts()->first()->pivot->amount}}
+                                    @endif
+                                </td>
 
-                                    {{--Edit Price--}}
-                                    <td class="border px-4 py-2" wire:click="editPrice('{{$product->id}}')">
+                                {{--Edit Price--}}
+                                <td class="border px-4 py-2" wire:click="editPrice('{{$product->id}}')">
 
-                                        @if(isset($isEditPrice[$product->id]))
-                                            @if($isEditPrice[$product->id])
-                                                <input type="text" class="form-control"
-                                                       wire:model.lazy="net_price.{{$product->id}}" wire:keydown.enter="updatePriceAttach('{{$product->id}}')">
-                                            @else
-                                                {{$product->carts()->first()->pivot->net_price}}
-                                            @endif
+                                    @if(isset($isEditPrice[$product->id]))
+                                        @if($isEditPrice[$product->id])
+                                            <input type="text" class="form-control"
+                                                   wire:model.lazy="net_price.{{$product->id}}"
+                                                   wire:keydown.enter="updatePriceAttach('{{$product->id}}')">
                                         @else
                                             {{$product->carts()->first()->pivot->net_price}}
                                         @endif
-                                    </td>
-                                    <td class="border px-4 py-2">{{$product->cost}}</td>
-                                    <td class="border px-4 py-2">{{$product->carts()->first()->pivot->net_price * $product->carts()->first()->pivot->amount}}</td>
-                                    <td class="border px-4 py-2">{{$product->carts()->first()->pivot->amount * $product->cost}}</td>
+                                    @else
+                                        {{$product->carts()->first()->pivot->net_price}}
+                                    @endif
+                                </td>
+                                <td class="border px-4 py-2">{{$product->cost}}</td>
+                                <td class="border px-4 py-2">{{$product->carts()->first()->pivot->net_price * $product->carts()->first()->pivot->amount}}</td>
+                                <td class="border px-4 py-2">{{$product->carts()->first()->pivot->amount * $product->cost}}</td>
 
-                                    {{--Actions--}}
-                                    <td class="border px-4 py-2">
-                                        <div class="d-flex">
-                                            @if(isset($isEditAmount[$product->id]) or isset($isEditPrice[$product->id]))
-                                                @if($isEditAmount[$product->id] or $isEditPrice[$product->id])
-                                                    <button class="btn-success btn-sm float-left"
-                                                            wire:click="@if ($isEditAmount[$product->id]) updateAmountAttach('{{$product->id}}') @else updatePriceAttach('{{$product->id}}') @endif">
-                                                        <i class="ni ni-2x ni-active-40"></i>
-                                                    </button>
+                                {{--Actions--}}
+                                <td class="border px-4 py-2">
+                                    <div class="d-flex">
+                                        @if(isset($isEditAmount[$product->id]) or isset($isEditPrice[$product->id]))
+                                            @if($isEditAmount[$product->id] or $isEditPrice[$product->id])
+                                                <button class="btn-success btn-sm float-left"
+                                                        wire:click="@if ($isEditAmount[$product->id]) updateAmountAttach('{{$product->id}}') @else updatePriceAttach('{{$product->id}}') @endif">
+                                                    <i class="ni ni-2x ni-active-40"></i>
+                                                </button>
 
-                                                    <button class="btn-danger btn-sm float-right"
-                                                            wire:click="@if ($isEditAmount[$product->id]) closeUpdateAmountAttach('{{$product->id}}') @else closeUpdatePriceAttach('{{$product->id}}')) @endif">
-                                                        <i class="ni ni-2x ni-fat-remove"></i>
-                                                    </button>
+                                                <button class="btn-danger btn-sm float-right"
+                                                        wire:click="@if ($isEditAmount[$product->id]) closeUpdateAmountAttach('{{$product->id}}') @else closeUpdatePriceAttach('{{$product->id}}')) @endif">
+                                                    <i class="ni ni-2x ni-fat-remove"></i>
+                                                </button>
 
-                                                @else
-                                                    <button class="btn-danger btn-sm float-right"
-                                                            wire:click="removeItemFromCart('{{$product->id}}')">
-                                                        <i class="ni ni-2x ni-fat-remove"></i>
-                                                    </button>
-                                                @endif
                                             @else
                                                 <button class="btn-danger btn-sm float-right"
                                                         wire:click="removeItemFromCart('{{$product->id}}')">
                                                     <i class="ni ni-2x ni-fat-remove"></i>
                                                 </button>
                                             @endif
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                            @endforelse
-                        @else
-                            <tr>
-                                <td colspan="10" class="border text-center px-4 py-2">You didn't add any items to your cart yet.</td>
+                                        @else
+                                            <button class="btn-danger btn-sm float-right"
+                                                    wire:click="removeItemFromCart('{{$product->id}}')">
+                                                <i class="ni ni-2x ni-fat-remove"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
-                        @endif
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center">
+                                    <h1>Your Card is Empty</h1>
+                                </td>
+                            </tr>
+                        @endforelse
+                    @else
+                        <tr>
+                            <td colspan="10" class="border text-center px-4 py-2">You didn't add any items to your cart
+                                yet.
+                            </td>
+                        </tr>
+                    @endif
 
                     </tbody>
                 </table>
             </div>
 
             {{--Checkout--}}
-            <div style="padding-right:20px;margin-top:25px;float:right">
-                <button wire:click="emptyTheCart" class="btn btn-danger btn-m">Empty</button>
-                <button type="button" class="btn btn-m btn-success"
-                        data-toggle="modal" data-target="#checkoutModal">Checkout</button>
-            </div>
+            <div class="flex-column d-flex align-items-center" style="padding-right:20px;margin-top:25px;">
+                <div>
+                    <button wire:click="emptyTheCart" class="btn btn-danger btn-m">Empty</button>
+                    <button type="button" class="btn btn-m btn-success"
+                            wire:click="checkout"
+                    >Checkout
+                    </button>
+                </div>
 
-            <!-- Checkout Modal -->
-            <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                {{--Cash Or Debt--}}
+                @if(isset($is_checkout) and $is_checkout)
+                    <div style="margin-top:10px;">
+                        <h1>Is it Cash Or Debt?</h1>
+                        <button wire:click="checkoutCash" class="btn btn-info">Cash</button>
+                        <button wire:click="checkoutDebt" class="btn btn-primary">Debt</button>
+                    </div>
+                @endif
 
-                    <div class="modal-content">
+                {{--Debtor Exists Or Not--}}
+                @if(isset($is_checkout_with_debt) and $is_checkout_with_debt)
+                    <div style="margin-top:10px;">
+                        <h1>Is The Debtor Exists?</h1>
+                        <button class="btn btn-info" wire:click="checkoutDebtorExists">Yes</button>
+                        <button class="btn btn-primary" wire:click="createNewDebtorForm">No</button>
+                    </div>
+                @endif
 
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="checkoutModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                {{--Debtor Exists--}}
+                @if(isset($is_checkout_with_debtor_exists) and $is_checkout_with_debtor_exists)
+                    <div class="form-group mb-3">
+                        <div class="mt-4">
+                            <input class="form-control" placeholder="Name or Phone Number"
+                                   type="text" wire:model.debounce.500ms="debtorSearchKeyword">
                         </div>
-
-                        <div class="modal-body d-flex justify-content-around">
-                            <button wire:click="checkoutCash" class="btn btn-info">Cash</button>
-                            <button type="button" class="btn btn-primary">Debt</button>
-                        </div>
-
-                        <div class="modal-footer">
-
-                        </div>
-
                     </div>
 
-                </div>
-            </div>
+                    {{--Search Result--}}
+                    @if($debtorSearchKeyword != '' or $debtorSearchKeyword != null)
+                        <div class="row">
+                            @forelse($debtorsSearched as $debtor)
+                                <div class="col">
+                                    <div class="card card-stats" style="background: rgb(0 0 0 / 8%);">
+                                        <!-- Card body -->
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <button class="btn"
+                                                        wire:click="whoToAskForDebtsDue('{{$debtor->id}}')">
+                                                    <div class="col">
+                                                        {{--Product Name--}}
+                                                        <h4 class="card-title mb-0">id: {{$debtor->id}} </h4>
+                                                        <h4 class="card-title mb-0">Name: {{$debtor->name}} </h4>
 
+                                                        {{--Product Cost--}}
+                                                        <span class="d-block mb-0">Phone: {{$debtor->phone}}</span>
+                                                        {{--Product Price--}}
+                                                        <span class="mb-0">Total: {{$debtor->debts_sum_price}}TL</span>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            @empty
+                                {{--Debtor Not Exists--}}
+                                <h1>No Results</h1>
+                                <br>
+                                <div>
+                                    <button class="btn btn-success" wire:click="createNewDebtorForm">Create</button>
+                                </div>
+                            @endforelse
+                        </div>
+                    @endif
+                @endif
+
+                @if(isset($is_ask_for_debts_due))
+                    @if($is_ask_for_debts_due)
+                    <!-- Modal -->
+                        <div class="modal fade" id="askForDueModal" tabindex="-1" role="dialog"
+                             aria-labelledby="askForDueModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="askForDueModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h1>Set A Due: </h1>
+                                        <input type="date" min="{{\Carbon\Carbon::now()->toDateString()}}" wire:model.defer="due_date">
+                                        <p>Default: After One Month From Now</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" wire:click="createDebtsFromCart('{{$whoToAskForDebtsDueDebtorId}}')">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+
+            </div>
+            {{--Create New Debtor Form--}}
+            @if(isset($is_create_new_debtor_form))
+                @if($is_create_new_debtor_form)
+                    @include('livewire.debts.create-new-debtor-component')
+                @endif
+            @endif
         </div>
     </div>
 
+
+    <script>
+        Livewire.on('askForDueEvent', debtorId => {
+            $('#askForDueModal').modal('show');
+        })
+    </script>
 </div>

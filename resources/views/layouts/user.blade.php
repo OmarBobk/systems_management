@@ -29,6 +29,7 @@
         @livewireStyles
 
         <!-- Scripts -->
+        @livewireScripts
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
@@ -44,7 +45,7 @@
             {{$slot}}
         </div>
 
-        @livewireScripts
+
         <!-- Argon Scripts -->
         <!-- Core -->
         <script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
