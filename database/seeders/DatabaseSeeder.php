@@ -18,9 +18,13 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             CartSeeder::class,
-            SaleSeeder::class,
             DebtorSeeder::class,
             DebtSeeder::class,
+            ContributorSeeder::class,
+            ContributionSeeder::class,
+            SaleSeeder::class,
+            ProfitSeeder::class,
+            ExpenseSeeder::class,
         ]);
     }
 }

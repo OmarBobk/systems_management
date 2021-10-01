@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
+//Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
+Route::get('/testing', function () {
+    dd(\App\Models\SalesCounter::all());
+});
 
 
 
@@ -36,11 +40,12 @@ Route::group([
 
 
 
-    Route::get('/products',         App\Http\Livewire\ProductsComponent::class)      ->name('products');
-    Route::get('/categories',       App\Http\Livewire\CategoryComponent::class)      ->name('categories');
-    Route::get('/cashier',          App\Http\Livewire\CashierComponent::class)       ->name('cashier');
-    Route::get('/sales',            App\Http\Livewire\SaleComponent::class)          ->name('sales');
-    Route::get('/debts-management', App\Http\Livewire\DebtManagementComponent::class)->name('debts');
+    Route::get('/products',                 App\Http\Livewire\ProductsComponent::class)      ->name('products');
+    Route::get('/categories',               App\Http\Livewire\CategoryComponent::class)      ->name('categories');
+    Route::get('/cashier',                  App\Http\Livewire\CashierComponent::class)       ->name('cashier');
+    Route::get('/sales',                    App\Http\Livewire\SaleComponent::class)          ->name('sales');
+    Route::get('/debts-management',         App\Http\Livewire\DebtManagementComponent::class)->name('debts');
+    Route::get('/contributions-management', App\Http\Livewire\Contributions::class)          ->name('contributions');
 
     // Users
     Route::middleware('userAuth')

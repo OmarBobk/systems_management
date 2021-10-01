@@ -38,5 +38,8 @@ class CategorySeeder extends Seeder
         foreach ($chunks as $chunk) {
             Category::insert($chunk);
         }
+
+        $phone_screen_protector = ['id' => 1472, 'name' => 'Screen Protector', 'slug' => Str::slug('Screen Protector')];
+
     }
 }

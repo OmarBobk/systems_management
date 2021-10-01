@@ -23,6 +23,7 @@ class CreateSalesTable extends Migration
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('contribution_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

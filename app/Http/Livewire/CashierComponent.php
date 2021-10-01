@@ -7,6 +7,8 @@ use App\Models\Debt;
 use App\Models\Debtor;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\sales_counter;
+use App\Models\SalesCounter;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -154,14 +156,14 @@ class CashierComponent extends Component
 
     public function createSales()
     {
-        $products     = $this->cart->products;
-        $sales        = [];
+        $products      = $this->cart->products;
+        $sales         = [];
 
         foreach($products as $product) {
             $amount    = $product->carts()->first()->pivot->amount;
             $net_price = $product->carts()->first()->pivot->net_price;
             $sales[] = [
-                'net_price'    => $product->price,
+                'net_price'    => $net_price,
                 'cost'         => $product->cost,
                 'amount'       => $amount,
                 'total'        => $product->price * $amount,
@@ -169,13 +171,21 @@ class CashierComponent extends Component
                 'user_id'      => Auth::user()->id,
                 'product_id'   => $product->id,
             ];
+
+            $product_counter = SalesCounter::where('product_id', $product->id);
+
+            ($product_counter->count() > 0)
+                ? $product_counter->increment('counter', $amount)
+                : SalesCounter::create(['product_id' => $product->id, 'counter' => $amount]);
+
         }
 
         $chunks = array_chunk($sales, 50);
 
         foreach ($chunks as $chunk) Sale::insert($chunk);
 
-        // Create New Bill and save the details inside of it
+
+        // Create New Bill and save the details inside it
 
         $this->emptyTheCart();
 

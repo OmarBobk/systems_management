@@ -10,7 +10,8 @@ use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class ProductSeeder extends Seeder
+class
+ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -31,6 +32,8 @@ class ProductSeeder extends Seeder
             $products[] = [
                 'serial'        => random_int(1324567891234, 9876543214321),
                 'name'          => $name,
+                'code'          => $name,
+                'amount'        => 2,
                 'price'         => $price,
                 'cost'          => $cost,
                 'slug'          => Str::slug($name),
@@ -43,6 +46,5 @@ class ProductSeeder extends Seeder
         foreach ($chunks as $chunk) {
             Product::insert($chunk);
         }
-
     }
 }

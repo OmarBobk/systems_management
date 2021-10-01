@@ -17,6 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('serial')->unique();
             $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('code')->comment('Product Code ex: KH-K17');
+            $table->integer('amount')->comment('Amount in the stock.');
             $table->integer('price')->comment('Selling Price.');
             $table->integer('cost')->comment('The price of the product when you bought it.');
             $table->string('slug');

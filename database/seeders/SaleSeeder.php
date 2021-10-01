@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contribution;
 use App\Models\Product;
 use App\Models\Sale;
 use Exception;
@@ -19,18 +20,20 @@ class SaleSeeder extends Seeder
     {
         $sales = [];
         $product_ids = collect(Product::all()->modelKeys());
+        $contributions_ids = collect(Contribution::all()->modelKeys());
 
-        for ($i=0;$i<=10;$i++) {
+        for ($i=0;$i<=100;$i++) {
             $price = random_int(10, 200);
             $cost  = intval(floor(($price * 20) / 100));
             $sales[] = [
-                'net_price'     => $price,
-                'cost'          => $cost,
-                'amount'        => $price,
-                'total'         => $cost,
-                'profit'        => $cost,
-                'user_id'       => 1,
-                'product_id'    => $product_ids->random(),
+                'net_price'          => $price,
+                'cost'               => $cost,
+                'amount'             => $price,
+                'total'              => $cost,
+                'profit'             => $cost,
+                'user_id'            => 1,
+                'product_id'         => $product_ids->random(),
+                'contribution_id'    => $contributions_ids->random(),
             ];
         }
 
