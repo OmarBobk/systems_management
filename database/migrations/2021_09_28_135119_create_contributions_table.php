@@ -21,6 +21,8 @@ class CreateContributionsTable extends Migration
             $table->date('deposit_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('due_date');
             $table->integer('profits_percent');
+            $table->tinyInteger('status')->default(0)->comment('0: working, 1: returned');
+            $table->date('returned_date')->nullable();
 
             $table->foreignId('contributor_id')->constrained();
             $table->timestamps();

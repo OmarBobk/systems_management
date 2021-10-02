@@ -4,23 +4,22 @@ namespace App\Http\Livewire;
 
 use App\Models\Contributor;
 use App\Models\Contribution;
-use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Contributions extends Component
 {
-    public $contributors, $results, $editName, $editPhone, $editNotes, $name, $phone, $notes, $is_view_contributions;
-    public $is_contribution_description, $is_contribution_profits_percent, $is_contribution_due_date, $is_contribution_amount;
-    public $contribution_description, $contribution_profits_percent, $contribution_due_date, $contribution_deposit_date, $contribution_amount;
-    public $is_create_new_contributor, $is_create_new_contribution;
-    public $newContributorName, $newContributorPhone, $newContributorNotes;
-    public $new_contribution_description, $new_contribution_profits_percent, $new_contribution_due, $new_contribution_amount;
 
-    protected array $rules = [
-        'newContributorName'  => 'required',
-        'newContributorPhone' => 'required',
-    ];
+    public $contributors, $results, $editName, $editPhone, $editNotes, $name, $phone, $notes, $is_view_contributions;
+
+    public $is_contribution_description, $is_contribution_profits_percent, $is_contribution_due_date,
+        $is_contribution_deposit_date, $is_contribution_amount, $is_contribution_returned_date, $is_contribution_status;
+    public $contribution_description, $contribution_profits_percent, $contribution_due_date, $contribution_deposit_date,
+        $contribution_amount, $contribution_returned_date, $contribution_status;
+
+    public $is_create_new_contributor, $is_create_new_contribution;
+    public $new_contribution_description, $new_contribution_profits_percent, $new_contribution_due_date,
+        $new_contribution_deposit_date, $new_contribution_amount;
 
     public function render()
     {
@@ -208,6 +207,7 @@ class Contributions extends Component
 
     public function updateContributionAmount($id, Contribution $contribution)
     {
+        $this->validate(["contribution_amount.$id.$contribution->id" => 'required|numeric']);
         $contribution->update(['amount' => $this->contribution_amount[$id][$contribution->id]]);
         $this->is_contribution_amount = [$id => [$contribution->id => false]];
     }
@@ -219,21 +219,105 @@ class Contributions extends Component
 
 
 
+    public function editDepositDate($id, Contribution $contribution)
+    {
+        $this->determineWhatToEdit($id, $contribution->id, 'deposit_date');
+        $this->contribution_deposit_date[$id][$contribution->id]  = $contribution->deposit_date;
+    }
+
+    public function updateContributionDepositDate($id, Contribution $contribution)
+    {
+        $contribution->update(['deposit_date' => $this->contribution_deposit_date[$id][$contribution->id]]);
+        $this->is_contribution_deposit_date = [$id => [$contribution->id => false]];
+    }
+
+    public function closeDepositDate($contributor_id, $contribution_id)
+    {
+        $this->is_contribution_deposit_date = [$contributor_id => [$contribution_id => false]];
+    }
+
+
+
+
+    public function editDueDate($id, Contribution $contribution)
+    {
+        $this->determineWhatToEdit($id, $contribution->id, 'due_date');
+        $this->contribution_due_date[$id][$contribution->id]  = $contribution->due_date;
+    }
+
+    public function updateContributionDueDate($id, Contribution $contribution)
+    {
+        $contribution->update(['due_date' => $this->contribution_due_date[$id][$contribution->id]]);
+        $this->is_contribution_due_date = [$id => [$contribution->id => false]];
+    }
+
+    public function closeDueDate($contributor_id, $contribution_id)
+    {
+        $this->is_contribution_due_date = [$contributor_id => [$contribution_id => false]];
+    }
+
+
+    public function editReturnedDate($id, Contribution $contribution)
+    {
+        $this->determineWhatToEdit($id, $contribution->id, 'returned_date');
+        $this->contribution_returned_date[$id][$contribution->id]  = $contribution->returned_date;
+    }
+
+    public function updateContributionReturnedDate($id, Contribution $contribution)
+    {
+        $contribution->update(['returned_date' => $this->contribution_returned_date[$id][$contribution->id]]);
+        $this->is_contribution_returned_date = [$id => [$contribution->id => false]];
+    }
+
+    public function closeReturnedDate($contributor_id, $contribution_id)
+    {
+        $this->is_contribution_returned_date = [$contributor_id => [$contribution_id => false]];
+    }
+
+
+
+
+    public function editStatus($id, Contribution $contribution)
+    {
+        $this->determineWhatToEdit($id, $contribution->id, 'status');
+        $this->contribution_status[$id][$contribution->id]  = $contribution->status;
+    }
+
+    public function updateContributionStatus($id, Contribution $contribution)
+    {
+        $contribution->update(['status' => $this->contribution_status[$id][$contribution->id]]);
+        if ($contribution->returned_date == null) {
+            $contribution->update(['returned_date' => Carbon::now()]);
+        }
+        $this->is_contribution_status = [$id => [$contribution->id => false]];
+    }
+
+    public function closeStatus($contributor_id, $contribution_id)
+    {
+        $this->is_contribution_status = [$contributor_id => [$contribution_id => false]];
+    }
+
+
+
     public function addNewContributor()
     {
         $this->resetCreateNewContributorForm();
         $this->is_create_new_contributor = true;
     }
 
-    public function store()
+    public function storeContributor()
     {
 
-        $this->validate();
+        $this->validate([
+            'name'  => 'required',
+            'phone' => 'required',
+            'notes' => 'required',
+            ]);
 
         Contributor::create([
-            'name'        => $this->newContributorName,
-            'phone'       => $this->newContributorPhone,
-            'notes'       => $this->newContributorNotes,
+            'name'        => $this->name,
+            'phone'       => $this->phone,
+            'notes'       => $this->notes,
         ]);
 
         session()->flash('message', 'Contributor Created');
@@ -251,7 +335,7 @@ class Contributions extends Component
 
     public function resetCreateNewContributorForm()
     {
-        $this->reset('newContributorName', 'newContributorPhone', 'newContributorNotes');
+        $this->reset('name', 'phone', 'notes');
     }
 
 
@@ -318,6 +402,10 @@ class Contributions extends Component
             $this->is_contribution_description     [$contributor_id][$contribution->id] => 'updateContributionDescription',
             $this->is_contribution_profits_percent [$contributor_id][$contribution->id] => 'updateContributionProfitsPercent',
             $this->is_contribution_amount          [$contributor_id][$contribution->id] => 'updateContributionAmount',
+            $this->is_contribution_deposit_date    [$contributor_id][$contribution->id] => 'updateContributionDepositDate',
+            $this->is_contribution_due_date        [$contributor_id][$contribution->id] => 'updateContributionDueDate',
+            $this->is_contribution_returned_date   [$contributor_id][$contribution->id] => 'updateContributionReturnedDate',
+            $this->is_contribution_status          [$contributor_id][$contribution->id] => 'updateContributionStatus',
         ];
 
         // calling the method
@@ -336,6 +424,10 @@ class Contributions extends Component
             $this->is_contribution_description     [$contributor_id][$contribution_id] => 'closeDescription',
             $this->is_contribution_profits_percent [$contributor_id][$contribution_id] => 'closeProfitsPercent',
             $this->is_contribution_amount          [$contributor_id][$contribution_id] => 'closeAmount',
+            $this->is_contribution_deposit_date    [$contributor_id][$contribution_id] => 'closeDepositDate',
+            $this->is_contribution_due_date        [$contributor_id][$contribution_id] => 'closeDueDate',
+            $this->is_contribution_returned_date   [$contributor_id][$contribution_id] => 'closeReturnedDate',
+            $this->is_contribution_status          [$contributor_id][$contribution_id] => 'closeStatus',
         ];
 
         // calling the method
@@ -348,11 +440,23 @@ class Contributions extends Component
         $description        = [$contributor_id => [$contribution_id => false]];
         $profits_percent    = [$contributor_id => [$contribution_id => false]];
         $amount             = [$contributor_id => [$contribution_id => false]];
+        $deposit_date       = [$contributor_id => [$contribution_id => false]];
+        $due_date           = [$contributor_id => [$contribution_id => false]];
+        $returned_date      = [$contributor_id => [$contribution_id => false]];
+        $status             = [$contributor_id => [$contribution_id => false]];
+
+        // overwrite one of the defined variables.
         $$field             = [$contributor_id => [$contribution_id => true]];
+
+//        $this->{"is_contribution_$field"}           = $$field;
 
         $this->is_contribution_description          = $description;
         $this->is_contribution_profits_percent      = $profits_percent;
         $this->is_contribution_amount               = $amount;
+        $this->is_contribution_deposit_date         = $deposit_date;
+        $this->is_contribution_due_date             = $due_date;
+        $this->is_contribution_returned_date        = $returned_date;
+        $this->is_contribution_status               = $status;
 
     }
 

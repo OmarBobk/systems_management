@@ -12,72 +12,48 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Name"
-                                           type="text" wire:model="name">
+                                    <label>
+                                        <input class="form-control" placeholder="Name"
+                                               type="text" wire:model="name">
+                                    </label>
                                     @error('name') <span class="text-red-500">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
-                            {{--Serial--}}
+                            {{--Phone--}}
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Serial"
-                                           type="text" wire:model="serial">
-                                    @error('serial') <span class="text-red-500">{{ $message }}</span> @enderror
+                                    <label>
+                                        <input class="form-control" placeholder="Phone"
+                                               type="tel" wire:model="phone">
+                                    </label>
+                                    @error('phone') <span class="text-red-500">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
-                            {{--Prcie--}}
+                            {{--Notes--}}
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Price"
-                                           type="number" wire:model="price">
-                                    @error('price') <span class="text-red-500">{{ $message }}</span> @enderror
+                                    <label>
+                                        <textarea placeholder="Notes..."
+                                                  wire:model="notes"></textarea>
+                                    </label>
+                                    @error('notes') <span class="text-red-500">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
-                            {{--Cost--}}
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group-merge input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Cost"
-                                           type="number" wire:model="cost">
-                                    @error('cost') <span class="text-red-500">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect2">Categories</label>
-                                <select class="form-control" id="exampleFormControlSelect2" wire:model="category_id">
-                                        <option >...</option>
-                                    @forelse($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @empty
-                                    @endforelse
-                                </select>
-                                @error('category_id') <span class="text-red-500">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                <label class="custom-control-label" for=" customCheckLogin">
-                                    <span class="text-muted">Remember me</span>
-                                </label>
-                            </div>
+                            {{--Actions--}}
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary my-4"
-                                        wire:click="@if($updateMode) update @else store @endif">Save</button>
-                                <button wire:click="closeCreateComponent"
-                                        type="button"
-                                        class="btn btn-danger my-4">Back</button>
+                                        wire:click="storeContributor">Save</button>
+                                <button type="button" class="btn btn-danger my-4"
+                                        wire:click="closeCreateContributorComponent">Back</button>
                             </div>
                         </form>
                     </div>
