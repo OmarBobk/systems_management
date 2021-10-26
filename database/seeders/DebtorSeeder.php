@@ -15,20 +15,57 @@ class DebtorSeeder extends Seeder
      */
     public function run()
     {
-        $fake    = Factory::create();
         $debtors = [];
 
-        for ($i=0;$i<=10;$i++) {
-            $debtors[] = [
-                'name'    => $fake->name(),
-                'phone'   => $fake->phoneNumber(),
-                'user_id' => 1,
-            ];
-        }
+        $debtors[] = [
+            "id"      => 1,
+            'name'    => "Ahmad Market",
+            'phone'   => '5377490740',
+            'user_id' => 1,
+        ];
 
-        $chunks = array_chunk($debtors, 50);
-        foreach ($chunks as $chunk) {
-            Debtor::insert($chunk);
-        }
+        $debtors[] = [
+            "id"      => 2,
+            'name'    => "Yasser Google Play",
+            'phone'   => '5374288972',
+            'user_id' => 1,
+        ];
+
+        $debtors[] = [
+            "id"      => 3,
+            'name'    => "Shems",
+            'phone'   => '5369968949',
+            'user_id' => 1,
+        ];
+
+        $debtors[] = [
+            "id"      => 4,
+            'name'    => "Mom",
+            'phone'   => '5376023354',
+            'user_id' => 1,
+        ];
+
+        $debtors[] = [
+            "id"      => 5,
+            'name'    => "Abo Ali",
+            'phone'   => '5397939835',
+            'user_id' => 1,
+        ];
+
+        $debtors[] = [
+            "id"      => 6,
+            'name'    => "Ahmad Hammadeh",
+            'phone'   => '5373366615',
+            'user_id' => 1,
+        ];
+
+        $debtors[] = [
+            "id"      => 7,
+            'name'    => "Abo Gamal",
+            'phone'   => '5393580596',
+            'user_id' => 1,
+        ];
+
+        Debtor::insert($debtors);
     }
 }

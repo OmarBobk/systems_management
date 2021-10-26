@@ -26,10 +26,10 @@ class CreateProductsTable extends Migration
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('contribution_id')->constrained();
 //            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
 //            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
-//            $table->foreignId('factory_id')->constrained()->onDelete('cascade');
-//            $table->foreignId('contribution_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

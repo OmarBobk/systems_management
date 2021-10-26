@@ -63,29 +63,37 @@
                                 <td class="border px-4 py-2">{{$product->serial}}</td>
 
                                 {{--Edit Amount--}}
-                                <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
                                     @if(isset($isEditAmount[$product->id]))
                                         @if($isEditAmount[$product->id])
-                                            <input type="text"
+                                        <td class="border px-4 py-2">
+                                            <input type="number"
                                                    class="form-control"
-                                                   wire:model.lazy="amount.{{$product->id}}"
-                                                   wire:keydown.enter="updateAmountAttach('{{$product->id}}')">
+                                                   wire:model.prevent="amount.{{$product->id}}"
+                                                   wire:keydown.enter="updateAmountAttach('{{$product->id}}')"
+                                                   wire:keydown.escape="closeUpdateAmountAttach('{{$product->id}}')">
+                                            @error("amount.$product->id") <span class="danger">{{$message}}</span> @enderror
+                                        </td>
                                         @else
+                                        <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
                                             {{$product->carts()->first()->pivot->amount}}
+                                        </td>
                                         @endif
                                     @else
+                                    <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
                                         {{$product->carts()->first()->pivot->amount}}
+                                    </td>
                                     @endif
-                                </td>
+
 
                                 {{--Edit Price--}}
                                 <td class="border px-4 py-2" wire:click="editPrice('{{$product->id}}')">
 
                                     @if(isset($isEditPrice[$product->id]))
                                         @if($isEditPrice[$product->id])
-                                            <input type="text" class="form-control"
-                                                   wire:model.lazy="net_price.{{$product->id}}"
-                                                   wire:keydown.enter="updatePriceAttach('{{$product->id}}')">
+                                            <input type="number" class="form-control"
+                                                   wire:model="net_price.{{$product->id}}"
+                                                   wire:keydown.enter="updatePriceAttach('{{$product->id}}')"
+                                                   wire:keydown.escape="closeUpdatePriceAttach('{{$product->id}}')">
                                         @else
                                             {{$product->carts()->first()->pivot->net_price}}
                                         @endif
@@ -108,7 +116,7 @@
                                                 </button>
 
                                                 <button class="btn-danger btn-sm float-right"
-                                                        wire:click="@if ($isEditAmount[$product->id]) closeUpdateAmountAttach('{{$product->id}}') @else closeUpdatePriceAttach('{{$product->id}}')) @endif">
+                                                        wire:click="@if ($isEditAmount[$product->id]) closeUpdateAmountAttach('{{$product->id}}') @else closeUpdatePriceAttach('{{$product->id}}') @endif">
                                                     <i class="ni ni-2x ni-fat-remove"></i>
                                                 </button>
 
@@ -264,6 +272,10 @@
     <script>
         Livewire.on('askForDueEvent', debtorId => {
             $('#askForDueModal').modal('show');
+        })
+
+        Livewire.on('amountError', function() {
+            $('#amountError').css({ display: "block" });
         })
     </script>
 </div>

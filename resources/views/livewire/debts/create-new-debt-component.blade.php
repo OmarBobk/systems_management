@@ -5,6 +5,7 @@
             <th class="px-4 py-2 w-25">Product</th>
             <th class="px-4 py-2">Name</th>
             <th class="px-4 py-2">Description</th>
+            <th class="px-4 py-2">Amount</th>
             <th class="px-4 py-2">Cost</th>
             <th class="px-4 py-2">Price</th>
             <th class="px-4 py-2">Due</th>

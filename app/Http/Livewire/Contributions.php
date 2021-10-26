@@ -21,6 +21,8 @@ class Contributions extends Component
     public $new_contribution_description, $new_contribution_profits_percent, $new_contribution_due_date,
         $new_contribution_deposit_date, $new_contribution_amount;
 
+    public $contributor_profits;
+
     public function render()
     {
         $this->testing = [
@@ -28,9 +30,28 @@ class Contributions extends Component
             'action'        => 'viewContributions',
             'icon'          => 'bold-down',
         ];
-        $this->contributors = Contributor::all();
+
+        $this->contributors = Contributor::with(['contributions' => function ( $query) {
+            $query->withSum('profits', 'amount');
+        }])->get();
+
+        foreach ($this->contributors as $contributor) {
+            $res = 0;
+
+            foreach ($contributor->contributions as $contribution) {
+                $res += $contribution->profits_sum_amount;
+            }
+
+            $this->contributor_profits[$contributor->id] = $res;
+        }
 
         return view('livewire.contributions.index-component')->layout('layouts.user');
+    }
+
+    public function set_contributor_profits()
+    {
+
+
     }
 
     /**

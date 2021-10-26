@@ -19,25 +19,28 @@ class ContributionSeeder extends Seeder
      */
     public function run()
     {
-        $fake = Factory::create();
         $contributions = [];
-        $contributors_id = collect(Contributor::all()->modelKeys());
 
-        for ($i=0;$i<=10;$i++) {
-            $now = Carbon::now();
-            $contributions[] = [
-                'amount'            => random_int(1000, 100000),
-                'description'       => $fake->text(100),
-                'deposit_date'      => $now,
-                'due_date'          => $now->addYear(),
-                'profits_percent'   => 50,
-                'contributor_id'    => $contributors_id->random(),
-            ];
-        }
+        // Ahmad Omar Karman
+        $contributions[] = [
+            'amount'            => 10000,
+            'description'       => "This is the description",
+            'deposit_date'      => Carbon::create("2021", "10", "13"),
+            'due_date'          => Carbon::create("2022", "10", "13"),
+            'profits_percent'   => 100,
+            'contributor_id'    => 1,
+        ];
 
-        $chunks = array_chunk($contributions, 50);
-        foreach ($chunks as $chunk) {
-            Contribution::insert($chunk);
-        }
+        // Yusuf Karman
+        $contributions[] = [
+            'amount'            => 5000,
+            'description'       => "This is the description",
+            'deposit_date'      => Carbon::create("2021", "10", "13"),
+            'due_date'          => Carbon::create("2022", "10", "13"),
+            'profits_percent'   => 40,
+            'contributor_id'    => 2,
+        ];
+
+        Contribution::insert($contributions);
     }
 }

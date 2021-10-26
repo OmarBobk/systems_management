@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfitsTable extends Migration
+class CreateSellersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateProfitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('profits', function (Blueprint $table) {
+        Schema::create('sellers', function (Blueprint $table) {
             $table->id();
-            $table->integer('profits');
+            $table->string('name');
+            $table->string('phone');
+            $table->text('address');
 
-            $table->foreignId('sale_id')->constrained();
-            $table->foreignId('contribution_id')->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateProfitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profits');
+        Schema::dropIfExists('sellers');
     }
 }

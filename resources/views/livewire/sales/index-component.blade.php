@@ -43,7 +43,7 @@
                             <td class="border px-4 py-2">{{$sale->net_price}}</td>
                             <td class="border px-4 py-2">{{$sale->cost}}</td>
                             <td class="border px-4 py-2">{{$sale->total}}</td>
-                            <td class="border px-4 py-2">{{$sale->profit * $sale->amount}}</td>
+                            <td class="border px-4 py-2">{{$sale->profit}}</td>
                             <td class="border px-4 py-2">
                                 <button class="btn btn-primary my-1"
                                         wire:click="edit('{{$sale->id}}')">Edit</button>

@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 

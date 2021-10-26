@@ -125,6 +125,7 @@
                                                     <th class="px-4 py-2">Amount</th>
                                                     <th class="px-4 py-2">Description</th>
                                                     <th class="px-4 py-2">Profits Percent</th>
+                                                    <th class="px-4 py-2">Profits</th>
                                                     <th class="px-4 py-2">Deposit</th>
                                                     <th class="px-4 py-2">Due</th>
                                                     <th class="px-4 py-2">Status</th>
@@ -192,6 +193,11 @@
                                                             @else
                                                                 {{$contribution->profits_percent}}%
                                                             @endif
+                                                        </td>
+
+                                                        {{--profits_sum_amount--}}
+                                                        <td class="border text-center px-4 py-2">
+                                                            {{$contribution->profits_sum_amount}}
                                                         </td>
 
                                                         {{--Deposit--}}

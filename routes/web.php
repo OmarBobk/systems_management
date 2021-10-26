@@ -5,7 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
 Route::get('/testing', function () {
-    dd(\App\Models\SalesCounter::all());
+    dd( \App\Models\Contributor::with(['contributions' => function ( $query) {
+        $query->withSum('profits', 'amount');
+    }])->get()->first());
+//    return \App\Models\Contributor::all()->first()->contributions;
 });
 
 
@@ -45,7 +48,9 @@ Route::group([
     Route::get('/cashier',                  App\Http\Livewire\CashierComponent::class)       ->name('cashier');
     Route::get('/sales',                    App\Http\Livewire\SaleComponent::class)          ->name('sales');
     Route::get('/debts-management',         App\Http\Livewire\DebtManagementComponent::class)->name('debts');
+    Route::get('/sellers',                  App\Http\Livewire\SellerComponent::class)        ->name('sellers');
     Route::get('/contributions-management', App\Http\Livewire\Contributions::class)          ->name('contributions');
+    Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)          ->name('safe');
 
     // Users
     Route::middleware('userAuth')

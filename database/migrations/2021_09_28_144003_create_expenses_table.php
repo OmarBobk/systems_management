@@ -17,7 +17,7 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->string('type')->default('store')->comment('Shopping, Store, Loses');
             $table->text('description')->nullable();
-            $table->integer('cost');
+            $table->integer('amount');
 
             $table->foreignId('contribution_id')->constrained();
             $table->timestamps();

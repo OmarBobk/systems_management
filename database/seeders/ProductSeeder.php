@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contribution;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -21,30 +22,64 @@ ProductSeeder extends Seeder
      */
     public function run()
     {
-        $fake = Factory::create();
         $products = [];
-        $category_ids = collect(Category::all()->modelKeys());
 
-        for ($i=0;$i<=10;$i++) {
-            $name  = $fake->name();
-            $price = random_int(10, 200);
-            $cost  = intval(floor(($price * 20) / 100));
-            $products[] = [
-                'serial'        => random_int(1324567891234, 9876543214321),
-                'name'          => $name,
-                'code'          => $name,
-                'amount'        => 2,
-                'price'         => $price,
-                'cost'          => $cost,
-                'slug'          => Str::slug($name),
-                'user_id'       => 1,
-                'category_id'   => $category_ids->random(),
-            ];
-        }
+        $products[] = [
+            'name'              => 'Wireless Stereo Earphones',
+            'serial'            => 8690000020775,
+            'code'              => 'KH-HB21',
+            'amount'            => 3,
+            'price'             => 90,
+            'cost'              => 60,
+            'slug'              => Str::slug('Wireless Stereo Earphones'),
+            'user_id'           => 1,
+            'brand_id'          => 5,
+            'category_id'       => 8,
+            'contribution_id'   => 1,
+        ];
 
-        $chunks = array_chunk($products, 50);
-        foreach ($chunks as $chunk) {
-            Product::insert($chunk);
-        }
+        $products[] = [
+            'name'              => 'Bass Earphones',
+            'serial'            => 4414436520173,
+            'code'              => 'PL-3050',
+            'amount'            => 5,
+            'price'             => 15,
+            'cost'              => 5,
+            'slug'              => Str::slug('Bass Earphones'),
+            'user_id'           => 1,
+            'brand_id'          => 11,
+            'category_id'       => 9,
+            'contribution_id'   => 1,
+        ];
+
+        $products[] = [
+            'name'              => 'Stereo Earphone',
+            'serial'            => 4414136520176,
+            'code'              => 'PL-3060',
+            'amount'            => 5,
+            'price'             => 15,
+            'cost'              => 5,
+            'slug'              => Str::slug('Stereo Earphone'),
+            'user_id'           => 1,
+            'brand_id'          => 11,
+            'category_id'       => 9,
+            'contribution_id'   => 1,
+        ];
+
+        $products[] = [
+            'name'              => 'Other',
+            'serial'            => 0,
+            'code'              => '****',
+            'amount'            => 1,
+            'price'             => 0,
+            'cost'              => 0,
+            'slug'              => Str::slug('Other'),
+            'user_id'           => 1,
+            'brand_id'          => 6,
+            'category_id'       => 1,
+            'contribution_id'   => 1,
+        ];
+
+        Product::insert($products);
     }
 }

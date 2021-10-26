@@ -27,7 +27,7 @@ class ExpenseSeeder extends Seeder
             $expenses[] = [
                 'type'             => $types->random(),
                 'description'      => $fake->text('100'),
-                'cost'             => random_int(10, 1500),
+                'amount'           => random_int(10, 1500),
                 'contribution_id'  => $contributions_id->random(),
             ];
         }

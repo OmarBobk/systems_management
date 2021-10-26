@@ -50,7 +50,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('contributions')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Debts</span>
+                            <span class="nav-link-text">Contributions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('sellers')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Sellers</span>
                         </a>
                     </li>
                 </ul>

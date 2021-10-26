@@ -23,26 +23,38 @@
             <table class="table-fixed w-full">
                 <thead>
                     <tr class="bg-gray-100">
-                        <th class="px-4 py-2 w-20">No</th>
-                        <th class="px-4 py-2">Name</th>
-                        <th class="px-4 py-2">Category</th>
-                        <th class="px-4 py-2">Serial</th>
-                        <th class="px-4 py-2">Price</th>
-                        <th class="px-4 py-2">Cost</th>
-                        <th class="px-4 py-2">Actions</th>
+                        <th class="text-center  w-20" style="padding:15px 15px">No</th>
+                        <th class="text-center" style="padding:15px 15px">Name</th>
+                        <th class="text-center" style="padding:15px 15px">Code</th>
+                        <th class="text-center" style="padding:15px 15px">Amount</th>
+                        <th class="text-center" style="padding:15px 15px">Serial</th>
+                        <th class="text-center" style="padding:15px 15px">Price</th>
+                        <th class="text-center" style="padding:15px 15px">Cost</th>
+                        <th class="text-center" style="padding:15px 15px">Category</th>
+                        <th class="text-center" style="padding:15px 15px">Seller</th>
+                        <th class="text-center" style="padding:15px 15px">Brand</th>
+                        <th class="text-center" style="padding:15px 15px">Contributor</th>
+                        <th class="text-center" style="padding:15px 15px">Contribution</th>
+                        <th class="text-center" style="padding:15px 15px">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @forelse($products as $product)
                         <tr>
-                            <td class="border px-4 py-2">{{$product->id}}</td>
-                            <td class="border px-4 py-2">{{$product->name}}</td>
-                            <td class="border px-4 py-2">{{$product->category->name}}</td>
-                            <td class="border px-4 py-2">{{$product->serial}}</td>
-                            <td class="border px-4 py-2">{{$product->price}}</td>
-                            <td class="border px-4 py-2">{{$product->cost}}</td>
-                            <td class="border px-4 py-2">
+                            <td class="border text-center" style="padding:15px 15px">{{$product->id}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->name}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->code}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->amount}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->serial}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->price}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->cost}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->category->name}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->brand()->first()->seller->name}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->brand->name}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->contribution()->first()->contributor->name}}</td>
+                            <td class="border text-center" style="padding:15px 15px">{{$product->contribution->amount}}</td>
+                            <td class="border text-center" style="padding:15px 15px">
                                 <button class="btn btn-primary my-1"
                                         wire:click="edit('{{$product->id}}')">Edit</button>
                                 <button class="btn btn-danger my-1"

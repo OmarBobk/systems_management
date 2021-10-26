@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Contributor;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class ContributorSeeder extends Seeder
@@ -15,20 +14,22 @@ class ContributorSeeder extends Seeder
      */
     public function run()
     {
-        $fake = Factory::create();
         $contributors = [];
 
-        for ($i=0;$i<=5;$i++) {
-            $contributors[] = [
-                'name'           => $fake->name(),
-                'phone'          => '05353402539',
-                'notes'          => $fake->text(100),
-            ];
-        }
+        $contributors[] = [
+            'id'             => 1,
+            'name'           => 'Ahmad Omar Karman',
+            'phone'          => '5353402539',
+            'notes'          => 'Owner',
+        ];
 
-        $chunks = array_chunk($contributors, 50);
-        foreach ($chunks as $chunk) {
-            Contributor::insert($chunk);
-        }
+        $contributors[] = [
+            'id'             => 2,
+            'name'           => 'Yusuf Karman',
+            'phone'          => '5353402539',
+            'notes'          => 'Owner Brother',
+        ];
+
+        Contributor::insert($contributors);
     }
 }

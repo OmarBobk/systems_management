@@ -18,6 +18,18 @@
                                 </div>
                             </div>
 
+                            {{--Code--}}
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Code"
+                                           type="text" wire:model="code">
+                                    @error('code') <span class="text-red-500">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
                             {{--Serial--}}
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
@@ -54,9 +66,86 @@
                                 </div>
                             </div>
 
+                            {{--Amount--}}
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Amount"
+                                           type="number" wire:model="amount">
+                                    @error('amount') <span class="text-red-500">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            {{--Seller--}}
                             <div class="form-group">
-                                <label for="exampleFormControlSelect2">Categories</label>
-                                <select class="form-control" id="exampleFormControlSelect2" wire:model="category_id">
+                                <label for="exampleFormControlSelect2">Seller</label>
+                                <select class="form-control" id="exampleFormControlSelect2"
+                                        wire:model="seller_id">
+                                        <option >...</option>
+                                    @forelse($sellers as $seller)
+                                        <option value="{{$seller->id}}">{{$seller->name}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                @error('seller_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                            </div>
+
+                            {{--Brands--}}
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect3">Brand</label>
+                                <select class="form-control" id="exampleFormControlSelect3" wire:model="brand_id">
+                                    <option >...</option>
+                                    @if(isset($seller_id) and $seller_id != "...")
+                                        @forelse($brands as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @empty
+                                        @endforelse
+                                    @else
+                                    @endif
+                                </select>
+
+                                @error('brand_id') <span class="text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                            {{--Contributior--}}
+                            <div class="form-group">
+                                <label for="Contributor">Contributor</label>
+                                <select class="form-control" id="Contributor"
+                                        wire:model="contributor_id">
+                                        <option >...</option>
+                                    @forelse($contributors as $contributor)
+                                        <option value="{{$contributor->id}}">{{$contributor->name}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                @error('contributor_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                            </div>
+
+                            {{--Contributions--}}
+                            <div class="form-group">
+                                <label for="Contributions">Contribution</label>
+                                <select class="form-control" id="Contributions" wire:model="contribution_id">
+                                    <option >...</option>
+                                    @if(isset($contributor_id) and $contributor_id != "...")
+                                        @forelse($contributions as $contribution)
+                                            <option value="{{$contribution->id}}">{{$contribution->amount}}</option>
+                                        @empty
+                                        @endforelse
+                                    @else
+                                    @endif
+                                </select>
+
+                                @error('contributor_id') <span class="text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                            {{--Categories--}}
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect4">Categories</label>
+                                <select class="form-control" id="exampleFormControlSelect4" wire:model="category_id">
                                         <option >...</option>
                                     @forelse($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
@@ -66,12 +155,6 @@
                                 @error('category_id') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                <label class="custom-control-label" for=" customCheckLogin">
-                                    <span class="text-muted">Remember me</span>
-                                </label>
-                            </div>
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary my-4"
                                         wire:click="@if($updateMode) update @else store @endif">Save</button>

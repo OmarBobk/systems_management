@@ -22,7 +22,7 @@ class SaleSeeder extends Seeder
         $product_ids = collect(Product::all()->modelKeys());
         $contributions_ids = collect(Contribution::all()->modelKeys());
 
-        for ($i=0;$i<=100;$i++) {
+        for ($i=0;$i<200;$i++) {
             $price = random_int(10, 200);
             $cost  = intval(floor(($price * 20) / 100));
             $sales[] = [

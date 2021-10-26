@@ -32,24 +32,14 @@ class Product extends Model
         return $this->belongsToMany(Cart::class)->withPivot('amount', 'net_price');
     }
 
-//    public function seller(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//    }
-//
-//    public function factory(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//    }
-//
-//    public function contribution(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//    }
-//
-//    public function tags(): BelongsTo
-//    {
-//        return $this->belongsTo(User::class);
-//    }
+    public function contribution(): BelongsTo
+    {
+        return $this->belongsTo(Contribution::class)->whereStatus(0);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
 
 }

@@ -18,29 +18,18 @@ class DebtSeeder extends Seeder
      */
     public function run()
     {
-        $fake     = Factory::create();
         $debts    = [];
-        $products = collect(Product::all());
-        $debtors  = collect(Debtor::all()->modelKeys());
+        $debts[] = [
+            'item_name'     => $product->name,
+            'description'   => '',
+            'amount'        => 1,
+            'cost'          => $product->cost,
+            'price'         => $product->price,
+            'is_paid'       => 0,
+            'due'           => Carbon::tomorrow(),
+            'product_id'    => $product->id,
+            'debtor_id'     => $debtors->random(),
+        ];
 
-        for ($i=0;$i<=50;$i++) {
-            $product = $products->random();
-            $debts[] = [
-                'item_name'     => $product->name,
-                'description'   => '',
-                'amount'        => 1,
-                'cost'          => $product->cost,
-                'price'         => $product->price,
-                'is_paid'       => 0,
-                'due'           => Carbon::tomorrow(),
-                'product_id'    => $product->id,
-                'debtor_id'     => $debtors->random(),
-            ];
-        }
-
-        $chunks = array_chunk($debts, 50);
-        foreach ($chunks as $chunk) {
-            Debt::insert($chunk);
-        }
     }
 }
