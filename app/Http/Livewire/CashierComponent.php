@@ -269,6 +269,7 @@ class CashierComponent extends Component
                 'amount'          => $cost_amount,
                 'type'            => 'cost',
                 'sale_id'         => $sale_id,
+                'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
             ];
             $contribution->increment('amount', $cost_amount);
@@ -280,6 +281,7 @@ class CashierComponent extends Component
                 'amount'          => $contribution_profit,
                 'type'            => 'profit',
                 'sale_id'         => $sale_id,
+                'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
             ];
 
@@ -291,6 +293,7 @@ class CashierComponent extends Component
                     'amount'          => $profit - $contribution_profit,
                     'type'            => 'profit',
                     'sale_id'         => $sale_id,
+                    'user_id'         => Auth::user()->id,
                     'contribution_id' => 1,
                 ];
             }

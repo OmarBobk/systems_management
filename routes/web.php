@@ -51,6 +51,8 @@ Route::group([
     Route::get('/sellers',                  App\Http\Livewire\SellerComponent::class)        ->name('sellers');
     Route::get('/contributions-management', App\Http\Livewire\Contributions::class)          ->name('contributions');
     Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)          ->name('safe');
+    Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)        ->name('incomes');
+    Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)      ->name('expenses');
 
     // Users
     Route::middleware('userAuth')

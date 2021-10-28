@@ -25,12 +25,6 @@ class Contributions extends Component
 
     public function render()
     {
-        $this->testing = [
-            'alert-message' => 'primary',
-            'action'        => 'viewContributions',
-            'icon'          => 'bold-down',
-        ];
-
         $this->contributors = Contributor::with(['contributions' => function ( $query) {
             $query->withSum('profits', 'amount');
         }])->get();
@@ -80,7 +74,7 @@ class Contributions extends Component
     {
         $this->editName  = [$contributor->id => true];
         $this->editPhone = [$contributor->id => false];
-        $this->editNtoes = [$contributor->id => false];
+        $this->editNotes = [$contributor->id => false];
         $this->name[$contributor->id] = $contributor->name;
     }
 
@@ -480,13 +474,4 @@ class Contributions extends Component
         $this->is_contribution_status               = $status;
 
     }
-
-    public function test()
-    {
-        $x = [
-            2 => 3,
-
-        ];
-    }
-
 }

@@ -15,11 +15,12 @@ class CreateIncomesTable extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
             $table->string('type')->comment('Cost, Profit');
+            $table->integer('amount');
 
             $table->foreignId('sale_id')->constrained();
             $table->foreignId('contribution_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

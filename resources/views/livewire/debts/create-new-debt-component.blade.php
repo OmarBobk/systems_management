@@ -60,6 +60,7 @@
                     @error('new_debt_amount') <h1 class="alert alert-danger">{{$message}}</h1>@enderror
                 </td>
                 <td class="border text-center px-4 py-2">
+
                     <input type="number"
                            class="form-control"
                            wire:model.lazy="new_debt_cost"
