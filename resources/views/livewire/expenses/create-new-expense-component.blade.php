@@ -49,14 +49,33 @@
 
                             {{--Contribution id--}}
                             <div class="form-group mb-3">
-                                <select class="form-control" id="exampleFormControlSelect4" wire:model="contribution_id">
+                                <select class="form-control" wire:model.lazy="contribution_id">
                                     <option >...</option>
-                                    @forelse($contributors as $contributor)
-                                        <option value="{{$contributor->id}}">{{$contributor->name}}</option>
+                                    @forelse($contributions as $contribution)
+                                        <option value="{{$contribution->id}}">
+                                            {{$contribution->contributor->name}}: {{$contribution->amount}}
+                                            <br> {{$contribution->updated_at->format('Y-m-d')}}
+                                        </option>
                                     @empty
                                     @endforelse
                                 </select>
                                 @error('contribution_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                            </div>
+
+                            {{--Bill--}}
+                            <div class="form-group mb-3">
+                                <select class="form-control" id="exampleFormControlSelect4" wire:model="bill_id">
+                                    <option >...</option>
+                                    @forelse($bills as $bill)
+                                        @if($bill->id == 1)
+                                            <option value="{{$bill->id}}">Default</option>
+                                        @else
+                                            <option value="{{$bill->id}}">{{$bill->serial}}</option>
+                                        @endif
+                                    @empty
+                                    @endforelse
+                                </select>
+                                @error('bill_id') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
 
                             {{--Actions--}}

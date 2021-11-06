@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             CartSeeder::class,
             DebtorSeeder::class,
+            BillSeeder::class,
 //            DebtSeeder::class,
 //            SaleSeeder::class,
 //            IncomeSeeder::class,

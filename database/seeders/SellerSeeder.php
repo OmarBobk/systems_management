@@ -16,9 +16,17 @@ class SellerSeeder extends Seeder
     {
         $sellers = [];
 
-        // El-Khatib
+        // Default
         $sellers[] = [
             'id'       => 1,
+            'name'     => 'Default',
+            'phone'    => '00',
+            'address'  => '-',
+        ];
+
+        // El-Khatib
+        $sellers[] = [
+            'id'       => 2,
             'name'     => 'El-Khatib',
             'phone'    => '5376014222',
             'address'  => 'Semsitebrizi Mahallesi, Hatuniye Sk. No:9, 42030 Karatay/Konya',
@@ -26,7 +34,7 @@ class SellerSeeder extends Seeder
 
         // Simex
         $sellers[] = [
-            'id'       => 2,
+            'id'       => 3,
             'name'     => 'Simex',
             'phone'    => '03323526707',
             'address'  => 'Semsitebrizi Mahallesi, Akif Pasa Sk., 42030 Karatay/Konya',
@@ -34,7 +42,7 @@ class SellerSeeder extends Seeder
 
         // Soffany
         $sellers[] = [
-            'id'       => 3,
+            'id'       => 4,
             'name'     => 'Soffany',
             'phone'    => '5327272788',
             'address'  => 'Tahtakale Mahallesi, Findikcilar Sk Pirhan, No:13, 34116 Fatih/Istanbul',

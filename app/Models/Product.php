@@ -42,4 +42,9 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function bill(): BelongsTo
+    {
+        return $this->belongsTo(Bill::class);
+    }
+
 }

@@ -27,7 +27,7 @@ class ContributorSeeder extends Seeder
             'id'             => 2,
             'name'           => 'Yusuf Karman',
             'phone'          => '5353402539',
-            'notes'          => 'Owner Brother',
+            'notes'          => 'Contributor in Goods.',
         ];
 
         Contributor::insert($contributors);

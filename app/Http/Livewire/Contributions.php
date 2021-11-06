@@ -61,7 +61,7 @@ class Contributions extends Component
                     ? [$id => false]
                     : [$id => true])
                 : [$id => true])
-            : [$id => false];
+            : [$id => true];
 
     }
 
@@ -322,6 +322,7 @@ class Contributions extends Component
 
     public function storeContributor()
     {
+        $now = Carbon::now();
 
         $this->validate([
             'name'  => 'required',
@@ -330,9 +331,11 @@ class Contributions extends Component
             ]);
 
         Contributor::create([
-            'name'        => $this->name,
-            'phone'       => $this->phone,
-            'notes'       => $this->notes,
+            'name'              => $this->name,
+            'phone'             => $this->phone,
+            'notes'             => $this->notes,
+            'created_at'        => $now,
+            'updated_at'        => $now,
         ]);
 
         session()->flash('message', 'Contributor Created');

@@ -15,8 +15,8 @@ class IncomeComponent extends Component
     {
         $this->incomes = Income::with(['contribution', 'user'])->get();
 
-
-
         return view('livewire.incomes.index-component')->layout('layouts.user');
     }
+
+
 }

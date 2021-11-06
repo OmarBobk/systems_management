@@ -53,6 +53,7 @@ Route::group([
     Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)          ->name('safe');
     Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)        ->name('incomes');
     Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)      ->name('expenses');
+    Route::get('/bills',                    App\Http\Livewire\BillComponent::class)          ->name('bills');
 
     // Users
     Route::middleware('userAuth')

@@ -24,12 +24,11 @@ class CreateProductsTable extends Migration
             $table->integer('cost')->comment('The price of the product when you bought it.');
             $table->string('slug');
 
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('bill_id');
+            $table->foreignId('brand_id')->constrained();
+            $table->foreignId('category_id')->constrained();
             $table->foreignId('contribution_id')->constrained();
-//            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
-//            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
-            $table->foreignId('brand_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
         });

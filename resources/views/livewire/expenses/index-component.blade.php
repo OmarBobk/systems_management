@@ -3,7 +3,7 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
             {{-- New Expense Form --}}
             @if(isset($is_create_new_expense) and $is_create_new_expense)
-                @include('livewire.expenses.create-new-expense-component', $contributors)
+                @include('livewire.expenses.create-new-expense-component')
             @endif
 
             {{-- Expenses --}}
@@ -16,8 +16,10 @@
                         <th class="px-4 py-2">Type</th>
                         <th class="px-4 py-2">Description</th>
                         <th class="px-4 py-2">Amount</th>
-                        <th class="px-4 py-2">Contributor</th>
+                        <th class="px-4 py-2">Bill</th>
+                        <th class="px-4 py-2">Contribution</th>
                         <th class="px-4 py-2">By</th>
+                        <th class="px-4 py-2">Created At</th>
                         <th class="px-4 py-2">Actions</th>
                     </tr>
                     </thead>
@@ -94,29 +96,42 @@
                                     @error("amount.$expense->id") <span class="text-red-500">{{ $message }}</span> @enderror
                                 </td>
 
+
+                                {{-- Bill --}}
+                                <td class="border text-center" style="padding:15px 15px">
+                                    @if($expense->bill_id  == 1 )
+                                        Default
+                                    @else
+                                        <a href="#">{{$expense->bill->serial}}</a>
+                                    @endif
+                                </td>
+
                                 {{--Contribution Id--}}
                                     @if(isset($editContributionId[$expense->id]))
                                         @if($editContributionId[$expense->id])
-                                        <td class="border px-4 py-2">
-
+                                            <td class="border px-4 py-2">
                                                 <select class="form-control"
                                                         wire:model="contribution_id.{{$expense->id}}">
                                                     <option >...</option>
-                                                    @forelse($expense->contribution->contributor->get() as $contributor)
-                                                        <option value="{{$contributor->id}}">{{$contributor->name}}</option>
+                                                    @forelse($contributions as $contribution)
+                                                        <option value="{{$contribution->id}}">
+                                                            {{$contribution->contributor->name}}: {{$contribution->amount}}
+                                                            <br> {{$contribution->updated_at->format('Y-m-d')}}
+                                                        </option>
                                                     @empty
                                                     @endforelse
                                                 </select>
-
-                                        </td>
+                                            </td>
                                         @else
                                         <td class="border px-4 py-2" wire:click="editContributionId('{{$expense->id}}')">
-                                            {{$expense->contribution->contributor->name}}
+                                            {{$expense->contribution->contributor->name}}: {{$expense->contribution->amount}}
+                                            <br> {{$expense->contribution->updated_at->format('Y-m-d')}}
                                         </td>
                                         @endif
                                     @else
                                     <td class="border px-4 py-2" wire:click="editContributionId('{{$expense->id}}')">
-                                        {{$expense->contribution->contributor->name}}
+                                        {{$expense->contribution->contributor->name}}: {{$expense->contribution->amount}}
+                                            <br> {{$expense->contribution->updated_at->format('Y-m-d')}}
                                     </td>
                                     @endif
                                     @error("contribution_id.$expense->id") <span class="text-red-500">{{ $message }}</span> @enderror
@@ -124,6 +139,11 @@
                                 {{--User--}}
                                 <td class="border px-4 py-2">
                                     {{$expense->user->name}}
+                                </td>
+
+                                {{-- Date --}}
+                                <td class="border text-center" style="padding:15px 15px">
+                                    {{$expense->created_at->format('Y-m-d')}}
                                 </td>
 
                                 {{--Actions--}}
@@ -142,7 +162,20 @@
                                                     wire:click="@if ($editType[$expense->id]) closeUpdateTypeEnter('{{$expense->id}}') @elseif($editAmount[$expense->id]) closeUpdateAmountEnter('{{$expense->id}}')  @elseif($editContributionId[$expense->id]) closeUpdateContributionIdEnter('{{$expense->id}}') @else closeUpdateDescriptionEnter('{{$expense->id}}') @endif">
                                                 <i class="ni ni-2x ni-fat-remove"></i>
                                             </button>
+
+                                        @else
+                                            {{--Delete Button--}}
+                                            <button class="btn-danger btn-sm"
+                                                    wire:click="delete('{{$expense->id}}')">
+                                                <i class="ni ni-2x ni-fat-remove"></i>
+                                            </button>
                                         @endif
+                                    @else
+                                        {{--Delete Button--}}
+                                        <button class="btn-danger btn-sm"
+                                                wire:click="delete('{{$expense->id}}')">
+                                            <i class="ni ni-2x ni-fat-remove"></i>
+                                        </button>
                                     @endif
 
                                 </td>

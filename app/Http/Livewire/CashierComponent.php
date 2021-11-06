@@ -81,7 +81,7 @@ class CashierComponent extends Component
      */
     public function updatedSearchKeyword()
     {
-        $this->result = Product::where('amount', '>', 1)
+        $this->result = Product::where('amount', '>=', 1)
             ->where("serial", "like", "%$this->searchKeyword%")->orderBy('id')->get();
     }
 
@@ -227,10 +227,13 @@ class CashierComponent extends Component
 
         // Generating An id for the sales.
         $latest_sale = Sale::latest('id');
+
         $sale_id_start_at = ($latest_sale->count() >= 1) ? $latest_sale->first()->id : 1;
 
+        $x = 1;
+
         foreach($products as $product) {
-            $sale_id         = $sale_id_start_at + 1;
+            $sale_id         = $sale_id_start_at + $x;
             $amount          = $product->carts()->first()->pivot->amount;
             $net_price       = $product->carts()->first()->pivot->net_price;
             $cost            = $product->cost;
@@ -239,6 +242,7 @@ class CashierComponent extends Component
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
+
 
             $sales[] = [
                 'id'                => $sale_id,
@@ -299,9 +303,9 @@ class CashierComponent extends Component
             }
 
 
+            $x += 1;
 
         }
-
         $chunks = array_chunk($sales, 50);
 
         foreach ($chunks as $chunk) Sale::insert($chunk);

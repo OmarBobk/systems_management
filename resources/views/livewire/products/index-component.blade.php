@@ -27,14 +27,9 @@
                         <th class="text-center" style="padding:15px 15px">Name</th>
                         <th class="text-center" style="padding:15px 15px">Code</th>
                         <th class="text-center" style="padding:15px 15px">Amount</th>
-                        <th class="text-center" style="padding:15px 15px">Serial</th>
-                        <th class="text-center" style="padding:15px 15px">Price</th>
                         <th class="text-center" style="padding:15px 15px">Cost</th>
-                        <th class="text-center" style="padding:15px 15px">Category</th>
-                        <th class="text-center" style="padding:15px 15px">Seller</th>
-                        <th class="text-center" style="padding:15px 15px">Brand</th>
-                        <th class="text-center" style="padding:15px 15px">Contributor</th>
-                        <th class="text-center" style="padding:15px 15px">Contribution</th>
+                        <th class="text-center" style="padding:15px 15px">Price</th>
+                        <th class="text-center" style="padding:15px 15px">Serial</th>
                         <th class="text-center" style="padding:15px 15px">Actions</th>
                     </tr>
                 </thead>
@@ -43,24 +38,161 @@
                     @forelse($products as $product)
                         <tr>
                             <td class="border text-center" style="padding:15px 15px">{{$product->id}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->name}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->code}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->amount}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->serial}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->price}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->cost}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->category->name}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->brand()->first()->seller->name}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->brand->name}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->contribution()->first()->contributor->name}}</td>
-                            <td class="border text-center" style="padding:15px 15px">{{$product->contribution->amount}}</td>
+
+                            {{-- Name --}}
                             <td class="border text-center" style="padding:15px 15px">
-                                <button class="btn btn-primary my-1"
-                                        wire:click="edit('{{$product->id}}')">Edit</button>
-                                <button class="btn btn-danger my-1"
-                                        wire:click="delete('{{$product->id}}')">Delete</button>
+
+                                @if(isset($is_edit['name'][$product->id]))
+                                    @if($is_edit['name'][$product->id])
+                                        <input type="text"
+                                               class="form-control"
+                                               wire:model.lazy="name.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'name')"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'name')">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'name')">{{$product->name}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'name')">{{$product->name}}</div>
+                                @endif
+
+                                @error("name.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Code --}}
+                            <td class="border text-center" style="padding:15px 15px">
+
+                                @if(isset($is_edit['code'][$product->id]))
+                                    @if($is_edit['code'][$product->id])
+                                        <input type="text"
+                                               class="form-control"
+                                               wire:model.lazy="code.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'code')"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'code')">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'code')">{{$product->code}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'code')">{{$product->code}}</div>
+                                @endif
+                                @error("code.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Amount --}}
+                            <td class="border text-center" style="padding:15px 15px">
+                                @if(isset($is_edit['amount'][$product->id]))
+                                    @if($is_edit['amount'][$product->id])
+                                        <input type="number"
+                                               class="form-control"
+                                               wire:model.lazy="amount.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'amount')"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'amount')">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'amount')">{{$product->amount}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'amount')">{{$product->amount}}</div>
+                                @endif
+                                @error("amount.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Cost --}}
+                            <td class="border text-center" style="padding:15px 15px">
+                                @if(isset($is_edit['cost'][$product->id]))
+                                    @if($is_edit['cost'][$product->id])
+                                        <input type="number"
+                                               class="form-control"
+                                               wire:model.lazy="cost.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'cost)"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'cost)">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'cost')">{{$product->cost}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'cost')">{{$product->cost}}</div>
+                                @endif
+                                @error("cost.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Price --}}
+                            <td class="border text-center" style="padding:15px 15px">
+                                @if(isset($is_edit['price'][$product->id]))
+                                    @if($is_edit['price'][$product->id])
+                                        <input type="number"
+                                               class="form-control"
+                                               wire:model.lazy="price.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'price')"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'price')">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'price')">{{$product->price}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'price')">{{$product->price}}</div>
+                                @endif
+                                @error("price.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Serial --}}
+                            <td class="border text-center" style="padding:15px 15px">
+                                @if(isset($is_edit['serial'][$product->id]))
+                                    @if($is_edit['serial'][$product->id])
+                                        <input type="number"
+                                               class="form-control"
+                                               wire:model.lazy="serial.{{$product->id}}"
+                                               wire:keydown.enter="updateNew('{{$product->id}}', 'serial)"
+                                               wire:keydown.escape="closeEdit('{{$product->id}}', 'serial)">
+                                    @else
+                                        <div wire:click="editNew({{$product->id}}, 'serial')">{{$product->serial}}</div>
+                                    @endif
+                                @else
+                                    <div wire:click="editNew({{$product->id}}, 'serial')">{{$product->serial}}</div>
+                                @endif
+                                @error("serial.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                            </td>
+
+                            {{-- Actions --}}
+                            <td class="border text-center" style="padding:15px 15px">
+
+                                @if(isset($is_view_product_actions[$product->id]))
+                                    @if($is_view_product_actions[$product->id])
+                                        {{-- Update --}}
+                                        <button class="btn-success btn-sm"
+                                                wire:click="updateNew('{{$product->id}}', '{{$edit_method_name}}')">
+                                            <i class="ni ni-2x ni-active-40"></i>
+                                        </button>
+
+                                        {{-- Close --}}
+                                        <button class="btn-danger btn-sm"
+                                                wire:click="closeEdit('{{$product->id}}', '{{$edit_method_name}}')">
+                                            <i class="ni ni-2x ni-fat-remove"></i>
+                                        </button>
+                                    @else
+                                        {{-- View Product Details --}}
+                                        <button class="btn-primary btn-sm"
+                                                wire:click="viewProductDetails('{{$product->id}}')">
+                                            <i class="ni ni-2x ni-bold-down"></i>
+                                        </button>
+                                    @endif
+                                @else
+                                    {{-- View Product Details --}}
+                                    <button class="btn-primary btn-sm"
+                                            wire:click="viewProductDetails('{{$product->id}}')">
+                                        <i class="ni ni-2x ni-bold-down"></i>
+                                    </button>
+                                @endif
+
                             </td>
                         </tr>
+
+                        @if(isset($is_view_product_details[$product->id]))
+                            @if($is_view_product_details[$product->id])
+                                <tr>
+                                    <td colspan="7" class="border" >
+                                        @include('livewire.products.details-component')
+                                    </td>
+                                </tr>
+                            @endif
+                        @endif
                     @empty
                     @endforelse
 

@@ -130,6 +130,7 @@
                                                     <th class="px-4 py-2">Due</th>
                                                     <th class="px-4 py-2">Status</th>
                                                     <th class="px-4 py-2">Returned</th>
+                                                    <th class="px-4 py-2">Updated at</th>
                                                     <th class="px-4 py-2">Actions</th>
                                                 </tr>
                                                 </thead>
@@ -290,6 +291,11 @@
                                                                     -
                                                                 @endif
                                                             @endif
+                                                        </td>
+
+                                                        {{-- Date --}}
+                                                        <td class="border text-center" style="padding:15px 15px">
+                                                            {{$contribution->updated_at}}
                                                         </td>
 
                                                         {{--Actions--}}

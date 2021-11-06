@@ -18,7 +18,7 @@ class CreateIncomesTable extends Migration
             $table->string('type')->comment('Cost, Profit');
             $table->integer('amount');
 
-            $table->foreignId('sale_id')->constrained();
+            $table->foreignId('sale_id')->constrained()->onDelete('cascade');
             $table->foreignId('contribution_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

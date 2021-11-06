@@ -22,49 +22,8 @@ ProductSeeder extends Seeder
      */
     public function run()
     {
+        $now = \Carbon\Carbon::now();
         $products = [];
-
-        $products[] = [
-            'name'              => 'Wireless Stereo Earphones',
-            'serial'            => 8690000020775,
-            'code'              => 'KH-HB21',
-            'amount'            => 3,
-            'price'             => 90,
-            'cost'              => 60,
-            'slug'              => Str::slug('Wireless Stereo Earphones'),
-            'user_id'           => 1,
-            'brand_id'          => 5,
-            'category_id'       => 8,
-            'contribution_id'   => 1,
-        ];
-
-        $products[] = [
-            'name'              => 'Bass Earphones',
-            'serial'            => 4414436520173,
-            'code'              => 'PL-3050',
-            'amount'            => 5,
-            'price'             => 15,
-            'cost'              => 5,
-            'slug'              => Str::slug('Bass Earphones'),
-            'user_id'           => 1,
-            'brand_id'          => 11,
-            'category_id'       => 9,
-            'contribution_id'   => 1,
-        ];
-
-        $products[] = [
-            'name'              => 'Stereo Earphone',
-            'serial'            => 4414136520176,
-            'code'              => 'PL-3060',
-            'amount'            => 5,
-            'price'             => 15,
-            'cost'              => 5,
-            'slug'              => Str::slug('Stereo Earphone'),
-            'user_id'           => 1,
-            'brand_id'          => 11,
-            'category_id'       => 9,
-            'contribution_id'   => 1,
-        ];
 
         $products[] = [
             'name'              => 'Other',
@@ -78,6 +37,9 @@ ProductSeeder extends Seeder
             'brand_id'          => 6,
             'category_id'       => 1,
             'contribution_id'   => 1,
+            'bill_id'           => 1,
+            'created_at'        => $now,
+            'updated_at'        => $now,
         ];
 
         Product::insert($products);

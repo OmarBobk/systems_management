@@ -42,18 +42,6 @@
                                 </div>
                             </div>
 
-                            {{--Prcie--}}
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group-merge input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Price"
-                                           type="number" wire:model="price">
-                                    @error('price') <span class="text-red-500">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-
                             {{--Cost--}}
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
@@ -63,6 +51,18 @@
                                     <input class="form-control" placeholder="Cost"
                                            type="number" wire:model="cost">
                                     @error('cost') <span class="text-red-500">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+                            {{--Prcie--}}
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Price"
+                                           type="number" wire:model="price">
+                                    @error('price') <span class="text-red-500">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
@@ -78,16 +78,34 @@
                                 </div>
                             </div>
 
+                            {{--Bill--}}
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect2">Bill</label>
+                                <select class="form-control" id="exampleFormControlSelect2"
+                                        wire:model="bill_id">
+                                        <option value="0">...</option>
+                                    @forelse($bills as $bill)
+                                        <option value="{{$bill->id}}">
+                                            {{$bill->serial}}: {{$bill->seller->name}}
+                                            <br> {{$bill->amount}} | {{$bill->created_at->format('Y-m-d')}}
+                                        </option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                                @error('bill_id') <span class="text-red-500">{{ $message }}</span> @enderror
+                            </div>
+
                             {{--Seller--}}
                             <div class="form-group">
                                 <label for="exampleFormControlSelect2">Seller</label>
                                 <select class="form-control" id="exampleFormControlSelect2"
                                         wire:model="seller_id">
-                                        <option >...</option>
-                                    @forelse($sellers as $seller)
-                                        <option value="{{$seller->id}}">{{$seller->name}}</option>
-                                    @empty
-                                    @endforelse
+                                        <option value="0">...</option>
+                                    @if(isset($bill_id))
+                                        @if($bill_id != null and $bill_id > 0)
+                                            <option value="{{$bills->find($bill_id)->seller->id}}">{{$bills->find($bill_id)->seller->name}}</option>
+                                        @endif
+                                    @endif
                                 </select>
                                 @error('seller_id') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
@@ -97,7 +115,7 @@
                                 <label for="exampleFormControlSelect3">Brand</label>
                                 <select class="form-control" id="exampleFormControlSelect3" wire:model="brand_id">
                                     <option >...</option>
-                                    @if(isset($seller_id) and $seller_id != "...")
+                                    @if(isset($seller_id) and $seller_id != "0")
                                         @forelse($brands as $brand)
                                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                                         @empty
@@ -155,9 +173,17 @@
                                 @error('category_id') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
 
+                            {{--Description--}}
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect4">Description</label>
+                                <textarea class="form-control"
+                                          wire:model.lazy="description"></textarea>
+                                @error('description') <span class="text-red-500">{{ $message }}</span> @enderror
+                            </div>
+
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary my-4"
-                                        wire:click="@if($updateMode) update @else store @endif">Save</button>
+                                        wire:click="store">Save</button>
                                 <button wire:click="closeCreateComponent"
                                         type="button"
                                         class="btn btn-danger my-4">Back</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bill;
 use App\Models\Category;
 use App\Models\Contributor;
 use App\Models\Product;
@@ -15,33 +16,159 @@ class ProductsComponent extends Component
 {
     use WithPagination;
 
-    public bool $isCreateComponentOpen = false;
-    public bool $updateMode            = false;
-    public $name, $price, $cost, $serial, $product_id, $category_id, $categories,
-        $seller_id, $sellers, $amount, $code, $contribution_id, $contributions,
-        $contributors, $contributor_id;
+    // Edit & Create Product.
+    public $name, $price, $cost, $serial, $category_id, $bill_id, $amount,
+        $code, $contribution_id, $description, $brand_id, $edit_method_name,
+        $is_view_product_details, $is_view_product_actions, $is_view_product_details_actions, $is_edit, $is_edit_details;
 
-    public $brands; // used for storing the requested brands.
-    public $brand_id; // used for create.
+    // Just for Create New Product
+    public $categories, $sellers, $contributions, $contributors, $bills,
+        $contributor_id, $seller_id, $brands,
+        $isCreateComponentOpen, $updateMode;
 
-    protected array $rules = [
-        'name'          => 'required',
-        'serial'        => 'required',
-        'price'         => 'required',
-        'cost'          => 'required',
-        'category_id'   => 'integer',
-        'seller_id'     => 'integer',
+    // Edit Mode
+    protected array $properties_rules = [
+        'name'              => ['name.*'            => 'required'],
+        'code'              => ['code.*'            => 'required'],
+        'amount'            => ['amount.*'          => 'required|integer|min:1'],
+        'cost'              => ['cost.*'            => 'required|integer|min:1'],
+        'price'             => ['price.*'           => 'required|integer'],
+        'serial'            => ['serial.*'          => 'required|integer|unique:products,serial'],
+        'category_id'       => ['category_id.*'     => 'required|integer'],
+        'contribution_id'   => ['contribution_id.*' => 'required|integer'],
+        'contributor_id'    => ['contributor_id.*'  => 'required|integer'],
+        'bill_id'           => ['bill_id.*'         => 'required|integer'],
+        'brand_id'          => ['brand_id.*'        => 'required|integer'],
+        'seller_id'         => ['seller_id.*'       => 'required|integer'],
+        'description'       => ['description.*'     => 'required'],
     ];
 
-    protected array $messages = [
-        'category_id.integer' => 'You must select a Category'
+    // Edit Mode
+    protected array $properties_message = [
+        'name'    => ['name.*.required'   => 'This Field is required!'],
+        'code'    => ['code.*.required'   => 'This Field is required!'],
+        'amount'  => [
+            'amount.*.required'     => 'This Field is required!',
+            'amount.*.min'          => 'Amount Can not be Less then 1!',
+            'amount.*.integer'      => 'Amount Should be integer!',
+        ],
+        'cost'    => [
+            'cost.*.required'     => 'This Field is required!',
+            'cost.*.min'          => 'Cost Can not be 0!',
+            'cost.*.integer'      => 'Cost Should be integer!',
+        ],
+        'price'   => [
+            'price.*.required'     => 'This Field is required!',
+            'price.*.integer'      => 'Price Should be integer!',
+        ],
+        'serial'            => [
+            'serial.*.required'            => 'This Field is required!',
+            'serial.*.integer'             => 'Serial Should be integer!',
+            'serial.*.unique'              => 'This Serial has been used!',
+        ],
+        'category_id'       => [
+            'category_id.*.required'     => 'This Field is required!',
+            'category_id.*.integer'      => 'Please Choose an other value.'
+        ],
+        'contribution_id'   => [
+            'contribution_id.*.required' => 'This Field is required!',
+            'contribution_id.*.integer'  => 'Please Choose an other value.'
+        ],
+        'contributor_id'   => [
+            'contributor_id.*.required' => 'This Field is required!',
+            'contributor_id.*.integer'  => 'Please Choose an other value.'
+        ],
+        'bill_id'           => [
+            'bill_id.*.required'         => 'This Field is required!',
+            'bill_id.*.integer'          => 'Please Choose an other value.'
+        ],
+        'brand_id'           => [
+            'brand_id.*.required'         => 'This Field is required!',
+            'brand_id.*.integer'          => 'Please Choose an other value.'
+        ],
+        'seller_id'           => [
+            'seller_id.*.required'         => 'This Field is required!',
+            'seller_id.*.integer'          => 'Please Choose an other value.'
+        ],
+        'description'       => ['description.*.required'     => 'This Field is required!'],
     ];
+
+    // Create Mode
+    protected array $create_properties_rules = [
+        'name'            => 'required',
+        'code'            => 'required',
+        'amount'          => 'required|integer|min:1',
+        'cost'            => 'required|integer|min:1',
+        'price'           => 'required|integer',
+        'serial'          => 'required',
+        'category_id'     => 'required|integer',
+        'contribution_id' => 'required|integer',
+        'contributor_id'  => 'required|integer',
+        'bill_id'         => 'required|integer',
+        'brand_id'        => 'required|integer',
+        'seller_id'       => 'required|integer',
+        'description'     => 'required',
+    ];
+
+    // Create Mode
+    protected array $create_properties_message = [
+        'name.required'             => 'This Field is required!',
+        'code.required'             => 'This Field is required!',
+        'amount.required'           => 'This Field is required!',
+        'amount.min'                => 'Amount Can not be Less then 1!',
+        'amount.integer'            => 'Amount Should be integer!',
+        'cost.required'             => 'This Field is required!',
+        'cost.min'                  => 'Cost Can not be 0!',
+        'cost.integer'              => 'Cost Should be integer!',
+        'price.required'            => 'This Field is required!',
+        'price.integer'             => 'Price Should be integer!',
+        'serial.required'           => 'This Field is required!',
+        'category_id.required'      => 'This Field is required!',
+        'category_id.integer'       => 'Please Choose an other value.',
+        'contribution_id.required'  => 'This Field is required!',
+        'contribution_id.integer'   => 'Please Choose an other value.',
+        'contributor_id.required'   => 'This Field is required!',
+        'contributor_id.integer'    => 'Please Choose an other value.',
+        'bill_id.required'          => 'This Field is required!',
+        'bill_id.integer'           => 'Please Choose an other value.',
+        'brand_id.required'         => 'This Field is required!',
+        'brand_id.integer'          => 'Please Choose an other value.',
+        'seller_id.required'        => 'This Field is required!',
+        'seller_id.integer'         => 'Please Choose an other value.',
+        'description.required'      => 'This Field is required!',
+    ];
+
+    public function mount()
+    {
+        $this->is_edit_product_name     = [0 => false];
+        $this->is_view_product_actions  = [0 => false];
+        $this->isCreateComponentOpen    = false;
+        $this->updateMode               = false;
+
+        $this->is_edit = [
+            'name'     => [],
+            'code'     => [],
+            'amount'   => [],
+            'cost'     => [],
+            'price'    => [],
+            'serial'   => [],
+        ];
+
+        $this->is_edit_details = [
+            'description'     => [],
+            'brand_id'        => [],
+            'bill_id'         => [],
+            'category_id'     => [],
+            'contribution_id' => [],
+            'updated_at'      => [],
+        ];
+
+    }
 
     public function render()
     {
-        $this->counter = 0;
         return view('livewire.products.index-component', [
-            'products' => Product::paginate(5),
+            'products' => Product::paginate(10),
         ])->layout('layouts.user');
     }
 
@@ -55,20 +182,23 @@ class ProductsComponent extends Component
     public function store()
     {
 
-        $this->validate();
+        $this->validate($this->create_properties_rules, $this->create_properties_message);
+
 
         Product::create([
             'name'            => $this->name,
-            'serial'          => $this->serial,
+            'description'     => $this->description,
             'code'            => $this->code,
-            'price'           => $this->price,
-            'cost'            => $this->cost,
             'amount'          => $this->amount,
-            'slug'            => Str::slug($this->name),
-            'user_id'         => Auth::user()->id,
+            'cost'            => $this->cost,
+            'price'           => $this->price,
+            'serial'          => $this->serial,
             'category_id'     => $this->category_id,
             'contribution_id' => $this->contribution_id,
             'brand_id'        => $this->brand_id,
+            'bill_id'         => $this->bill_id,
+            'user_id'         => Auth::user()->id,
+            'slug'            => Str::slug($this->name),
         ]);
 
         session()->flash('message', 'Product Created');
@@ -79,77 +209,26 @@ class ProductsComponent extends Component
 
     }
 
-    public function edit(Product $product)
-    {
-        $this->product_id       = $product->id;
-        $this->name             = $product->name;
-        $this->serial           = $product->serial;
-        $this->code             = $product->code;
-        $this->price            = $product->price;
-        $this->cost             = $product->cost;
-        $this->category_id      = $product->category_id;
-        $this->updateMode       = true;
-        $this->openCreateComponent();
-    }
-
-    public function update()
-    {
-
-        $this->validate([
-            'name'   => 'required',
-            'amount' => 'required|min:1',
-            'serial' => 'required',
-            'code'   => 'required',
-            'price'  => 'required',
-            'cost'   => 'required',
-            'category_id'   => 'integer',
-            'seller_id'   => 'integer',
-        ]);
-
-        Product::find($this->product_id)->update([
-            'name'            => $this->name,
-            'serial'          => $this->serial,
-            'code'            => $this->code,
-            'price'           => $this->price,
-            'cost'            => $this->cost,
-            'amount'          => $this->amount,
-            'slug'            => Str::slug($this->name),
-            'user_id'         => Auth::user()->id,
-            'category_id'     => $this->category_id,
-            'contribution_id' => $this->contribution_id,
-            'brand_id'        => $this->brand_id,
-        ]);
-
-        session()->flash('message', 'Product Updated');
-        session()->flash('alert' , 'success');
-
-        $this->closeCreateComponent();
-        $this->resetCreateComponent();
-    }
-
-    public function delete(int $id)
-    {
-        Product::find($id)->delete();
-        session()->flash('message', 'Product deleted.');
-        session()->flash('alert', 'success');
-    }
 
     public function openCreateComponent()
     {
         $this->isCreateComponentOpen = true;
+        $this->updateMode            = true;
         $this->categories            = Category::all();
         $this->sellers               = Seller::all();
         $this->contributors          = Contributor::all();
+        $this->bills                 = Bill::all();
     }
 
     public function closeCreateComponent()
     {
         $this->isCreateComponentOpen = false;
+        $this->updateMode            = false;
     }
 
     public function resetCreateComponent()
     {
-        $this->reset('name', 'price', 'cost', 'serial', 'updateMode',
+        $this->reset('name', 'price', 'cost', 'serial', 'updateMode', 'bill_id', 'description',
             'category_id', 'seller_id', 'amount', 'code', 'contribution_id', 'contributor_id', 'brand_id',);
     }
 
@@ -162,7 +241,7 @@ class ProductsComponent extends Component
     public function updatedSellerId()
     {
         $seller = Seller::find($this->seller_id);
-        $this->brands = ($seller) ? $seller->brands : [];
+        $this->brands = ($seller) ? $seller->brands ?? [] : [];
     }
 
     public function updatedContributorId()
@@ -171,6 +250,100 @@ class ProductsComponent extends Component
             $query->whereStatus(0);
         }])->whereId($this->contributor_id)->first();
         $this->contributions = ($contributor) ? $contributor->contributions : [];
+    }
+
+
+
+
+    public function viewProductDetails($id)
+    {
+        $this->is_view_product_details = (isset($this->is_view_product_details))
+            ? (isset($this->is_view_product_details[$id])
+                ? (($this->is_view_product_details[$id])
+                    ? [$id => false]
+                    : [$id => true])
+                : [$id => true])
+            : [$id => true];
+
+
+    }
+
+    public function editNew(Product $product, $propertyName)
+    {
+        $this->closeCreateComponent();
+        $this->is_edit = [
+            'name'     => [],
+            'code'     => [],
+            'amount'   => [],
+            'cost'     => [],
+            'price'    => [],
+            'serial'   => [],
+        ];
+        $this->{$propertyName}[$product->id]          = $product->{$propertyName};
+        $this->is_edit[$propertyName][$product->id]   = true;
+        $this->is_view_product_actions                = [];
+        $this->is_view_product_actions[$product->id]  = true;
+        $this->is_edit_details[$propertyName][$product->id]   = false;
+        $this->is_view_product_details_actions[$product->id]  = false;
+        $this->edit_method_name                       = $propertyName;
+    }
+
+    public function editDetails(Product $product, $propertyName)
+    {
+        $this->closeCreateComponent();
+        $this->is_edit_details = [
+            'description'     => [],
+            'brand_id'        => [],
+            'bill_id'         => [],
+            'category_id'     => [],
+            'contribution_id' => [],
+            'updated_at'      => [],
+        ];
+        $this->{$propertyName}[$product->id]          = $product->{$propertyName};
+        $this->is_edit[$propertyName][$product->id]   = false;
+        $this->is_edit_details[$propertyName][$product->id]   = true;
+        $this->is_view_product_actions                        = [];
+        $this->is_view_product_actions[$product->id]  = false;
+        $this->is_view_product_details_actions        = [];
+        $this->is_view_product_details_actions[$product->id]  = true;
+        $this->edit_method_name                       = $propertyName;
+    }
+
+    public function updateNew(Product $product, $propertyName)
+    {
+
+        $this->validate(
+            [$propertyName.'.'.$product->id => $this->properties_rules[$propertyName][$propertyName.'.*']],
+            $this->properties_message[$propertyName]
+        );
+        $product->update([$propertyName => $this->{$propertyName}[$product->id]]);
+        $this->closeEdit($product->id, $propertyName);
+    }
+
+    public function closeEdit($id, $propertyName)
+    {
+        $this->is_edit[$propertyName][$id]  = false;
+        $this->is_edit_details[$propertyName][$id]  = false;
+        $this->is_view_product_actions[$id] = false;
+        $this->is_view_product_details_actions[$id]  = false;
+    }
+
+    public function updated($propertyName)
+    {
+        if ($this->updateMode) {
+            $this->validateOnly($propertyName, $this->create_properties_rules, $this->create_properties_message);
+        } else {
+            $name = explode('.', $propertyName)[0];
+
+            $this->validateOnly($propertyName, $this->properties_rules[$name], $this->properties_message[$name]);
+        }
+    }
+
+    public function delete(int $id)
+    {
+        Product::find($id)->delete();
+        session()->flash('message', 'Product deleted.');
+        session()->flash('alert', 'success');
     }
 
 
