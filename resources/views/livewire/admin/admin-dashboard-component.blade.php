@@ -1,3 +1,5 @@
 <div>
-    This is the Admin Dashboard
+
+        <livewire:debtor-powergrid/>
+
 </div>

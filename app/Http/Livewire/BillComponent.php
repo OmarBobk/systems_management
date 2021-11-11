@@ -156,7 +156,8 @@ class BillComponent extends Component
         Expense::create([
             'created_at'       => $now,
             'type'             => 'shopping',
-            'description'      => 'This Expense has been created Automatically After the new Bill.',
+            'description'      => 'This Expense has been created Automatically After the new Bill.
+            ',
             'amount'           => $this->amount,
             'user_id'          => Auth::user()->id,
             'bill_id'          => $bill->id,

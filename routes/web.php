@@ -54,6 +54,9 @@ Route::group([
     Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)        ->name('incomes');
     Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)      ->name('expenses');
     Route::get('/bills',                    App\Http\Livewire\BillComponent::class)          ->name('bills');
+//    Route::get('/debtors',                    function () {
+//        return view('livewire.debtorpowergrid')->layout('layouts.user');
+//    })      ->name('debtors');
 
     // Users
     Route::middleware('userAuth')
