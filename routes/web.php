@@ -43,17 +43,19 @@ Route::group([
 
 
 
-    Route::get('/products',                 App\Http\Livewire\ProductsComponent::class)      ->name('products');
-    Route::get('/categories',               App\Http\Livewire\CategoryComponent::class)      ->name('categories');
-    Route::get('/cashier',                  App\Http\Livewire\CashierComponent::class)       ->name('cashier');
-    Route::get('/sales',                    App\Http\Livewire\SaleComponent::class)          ->name('sales');
-    Route::get('/debts-management',         App\Http\Livewire\DebtManagementComponent::class)->name('debts');
-    Route::get('/sellers',                  App\Http\Livewire\SellerComponent::class)        ->name('sellers');
-    Route::get('/contributions-management', App\Http\Livewire\Contributions::class)          ->name('contributions');
-    Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)          ->name('safe');
-    Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)        ->name('incomes');
-    Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)      ->name('expenses');
-    Route::get('/bills',                    App\Http\Livewire\BillComponent::class)          ->name('bills');
+    Route::get('/products',                 App\Http\Livewire\ProductsComponent::class)                 ->name('products');
+    Route::get('/categories',               App\Http\Livewire\CategoryComponent::class)                 ->name('categories');
+    Route::get('/cashier',                  App\Http\Livewire\CashierComponent::class)                  ->name('cashier');
+    Route::get('/sales',                    App\Http\Livewire\SaleComponent::class)                     ->name('sales');
+    Route::get('/debts-management',         App\Http\Livewire\DebtManagementComponent::class)           ->name('debts');
+    Route::get('/sellers',                  App\Http\Livewire\SellerComponent::class)                   ->name('sellers');
+    Route::get('/contributions-management', App\Http\Livewire\Contributions::class)                     ->name('contributions');
+    Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)                     ->name('safe');
+    Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)                   ->name('incomes');
+    Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)                 ->name('expenses');
+    Route::get('/bills',                    App\Http\Livewire\BillComponent::class)                     ->name('bills');
+    Route::get('/products-container/{productsContainer}',       App\Http\Livewire\ProductsContainerComponent::class)        ->name('container');
+    Route::get('/container-manager',        App\Http\Livewire\ContainersManagerComponent::class)        ->name('containers-manager');
 //    Route::get('/debtors',                    function () {
 //        return view('livewire.debtorpowergrid')->layout('layouts.user');
 //    })      ->name('debtors');

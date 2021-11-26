@@ -77,6 +77,13 @@
                             <span class="nav-link-text">Bills</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('containers-manager')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Containers Manager</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- Divider -->
                 <hr class="my-3">
