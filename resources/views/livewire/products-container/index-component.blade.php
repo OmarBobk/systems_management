@@ -3,6 +3,17 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-7">
 
+                @if(session()->has('message'))
+                    <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                         role="alert">
+                        <div class="flex">
+                            <div>
+                                <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{--Add New Product to the container--}}
 
                 @include('livewire.products-container.create-component')
@@ -13,11 +24,21 @@
                     <tr class="bg-gray-200">
                         <th colspan="8" class="text-center  w-20" style="padding:15px 15px">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-3">
+                                    <div class="py-1">
+                                        <input type="search" class="form-control" placeholder="search" wire:model="search">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
                                     <h4><span class="badge rounded-pill" style="color:#6b6a6a;background:#11cdef;">Count: {{$products_container_counter}}</span></h4>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <h4><span class="badge rounded-pill bg-success">Amount: {{$products_container_total_amount}}</span></h4>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h4><span class="badge rounded-pill bg-success">Cost: {{$total_cost}} TL</span></h4>
                                 </div>
                             </div>
                         </th>
@@ -204,6 +225,16 @@
 
                         <tr>
                             <td colspan="8" class="border text-center" style="padding:10px">
+                                @if(session()->has('message'))
+                                    <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                                         role="alert">
+                                        <div class="flex justify-content-center">
+                                            <div class="text-center">
+                                                <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 <button type="button" wire:click="createProductsFromContainer"
                                         class="btn btn-info">
                                     Create
@@ -217,6 +248,7 @@
 
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

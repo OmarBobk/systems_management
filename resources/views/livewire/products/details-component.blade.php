@@ -161,7 +161,7 @@
             {{-- Date --}}
             <td class="border text-center" style="padding:15px 15px">
 {{--                {{$product->created_at}}--}}
-                {{$product->created_at->format('Y-m-d')}}
+                {{\Carbon\Carbon::parse($product->created_at)->format('Y-m-d')}}
             </td>
 
             {{-- By User --}}

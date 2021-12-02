@@ -23,7 +23,14 @@
                 <div class="form-group mb-3">
                     <div class="input-group input-group-merge input-group-alternative">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="ni ni-search"></i></span>
+                            <span class="input-group-text" style="padding:0;">
+                                <select class="" style="border: none;" id="exampleFormControlSelect3"
+                                        wire:model="search_field">
+                                    <option value="name">Name</option>
+                                    <option value="serial">Serial</option>
+                                    <option value="code">Product Code</option>
+                                </select>
+                            </span>
                         </div>
                         <input class="form-control" placeholder="Search"
                                type="text" wire:model="searchKeyword">
@@ -45,11 +52,12 @@
                         <th class="px-4 py-2">Img</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Serial</th>
+                        <th class="px-4 py-2">Code</th>
                         <th class="px-4 py-2">Amount</th>
                         <th class="px-4 py-2">Price</th>
                         <th class="px-4 py-2">Cost</th>
                         <th class="px-4 py-2">Total Price</th>
-                        <th class="px-4 py-2">Total Cost</th>
+                        <th class="px-4 py-2">Total Profits</th>
                         <th class="px-4 py-2">Actions</th>
                     </tr>
                     </thead>
@@ -61,28 +69,30 @@
                                 <td class="border px-4 py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>
                                 <td class="border px-4 py-2">{{$product->name}}</td>
                                 <td class="border px-4 py-2">{{$product->serial}}</td>
+                                <td class="border px-4 py-2">{{$product->code}}</td>
 
                                 {{--Edit Amount--}}
-                                    @if(isset($isEditAmount[$product->id]))
-                                        @if($isEditAmount[$product->id])
+                                @if(isset($isEditAmount[$product->id]))
+                                    @if($isEditAmount[$product->id])
                                         <td class="border px-4 py-2">
                                             <input type="number"
                                                    class="form-control"
                                                    wire:model.prevent="amount.{{$product->id}}"
                                                    wire:keydown.enter="updateAmountAttach('{{$product->id}}')"
                                                    wire:keydown.escape="closeUpdateAmountAttach('{{$product->id}}')">
-                                            @error("amount.$product->id") <span class="danger">{{$message}}</span> @enderror
+                                            @error("amount.$product->id") <span
+                                                class="danger">{{$message}}</span> @enderror
                                         </td>
-                                        @else
+                                    @else
                                         <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
                                             {{$product->carts()->first()->pivot->amount}}
                                         </td>
-                                        @endif
-                                    @else
+                                    @endif
+                                @else
                                     <td class="border px-4 py-2" wire:click="editAmount('{{$product->id}}')">
                                         {{$product->carts()->first()->pivot->amount}}
                                     </td>
-                                    @endif
+                                @endif
 
 
                                 {{--Edit Price--}}
@@ -103,7 +113,7 @@
                                 </td>
                                 <td class="border px-4 py-2">{{$product->cost}}</td>
                                 <td class="border px-4 py-2">{{$product->carts()->first()->pivot->net_price * $product->carts()->first()->pivot->amount}}</td>
-                                <td class="border px-4 py-2">{{$product->carts()->first()->pivot->amount * $product->cost}}</td>
+                                <td class="border px-4 py-2">{{$product->carts()->first()->pivot->net_price - $product->cost}}</td>
 
                                 {{--Actions--}}
                                 <td class="border px-4 py-2">
@@ -128,7 +138,7 @@
                                             @endif
                                         @else
                                             <button class="btn-danger btn-sm float-right"
-                                                    wire:click="removeItemFromCart('{{$product->id}}')">
+                                                    wire:click="removeItemFromCart('{{$product->id}}', '{{$product->pivot->id}}')">
                                                 <i class="ni ni-2x ni-fat-remove"></i>
                                             </button>
                                         @endif
@@ -245,12 +255,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <h1>Set A Due: </h1>
-                                        <input type="date" min="{{\Carbon\Carbon::now()->toDateString()}}" wire:model.defer="due_date">
+                                        <input type="date" min="{{\Carbon\Carbon::now()->toDateString()}}"
+                                               wire:model.defer="due_date">
                                         <p>Default: After One Month From Now</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" wire:click="createDebtsFromCart('{{$whoToAskForDebtsDueDebtorId}}')">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary"
+                                                wire:click="createDebtsFromCart('{{$whoToAskForDebtsDueDebtorId}}')">
+                                            Save changes
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -274,8 +289,8 @@
             $('#askForDueModal').modal('show');
         })
 
-        Livewire.on('amountError', function() {
-            $('#amountError').css({ display: "block" });
+        Livewire.on('amountError', function () {
+            $('#amountError').css({display: "block"});
         })
     </script>
 </div>

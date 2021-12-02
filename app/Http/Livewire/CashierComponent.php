@@ -31,6 +31,10 @@ class CashierComponent extends Component
 
     public $amount_error_msg, $is_amount_error, $old_amount;
 
+    public $search_field = 'serial';
+
+    public $testing;
+
     protected array $rules = [
         'newDebtorName'  => 'required',
         'newDebtorPhone' => 'required',
@@ -67,10 +71,18 @@ class CashierComponent extends Component
     public function mount()
     {
 
+//        $products = Product::all();
+//        foreach ($products as $p) {
+//            $this->testing += $p->cost * $p->amount;
+//        }
+//
+//        dd($this->testing);
+
     }
 
     public function render()
     {
+
         $this->cart = Cart::find(1);
         $this->is_amount_error = false;
         return view('livewire.cashier-component')->layout('layouts.user');
@@ -82,7 +94,7 @@ class CashierComponent extends Component
     public function updatedSearchKeyword()
     {
         $this->result = Product::where('amount', '>=', 1)
-            ->where("serial", "like", "%$this->searchKeyword%")->orderBy('id')->get();
+            ->where($this->search_field, "like", "%$this->searchKeyword%")->orderBy('id')->get();
     }
 
     /**
@@ -93,11 +105,9 @@ class CashierComponent extends Component
     {
         $product->decrement('amount', 1);
 
-        if ($this->isItemExists($product)) {
-            $this->updateTheCart($product);
-        } else {
+
             $this->cart->products()->attach($product->id, ['amount' => 1, 'net_price' => $product->price]);
-        }
+
         if($product->amount < 1 ) $this->result = [];
     }
 
@@ -128,12 +138,15 @@ class CashierComponent extends Component
         $products->updateExistingPivot($product->id, ['amount' => $product->pivot->amount + 1]);
     }
 
-    public function removeItemFromCart($id)
+    public function removeItemFromCart($product_id, $pivot_id)
     {
         $products = $this->cart->products();
-        $product  = $products->find($id);
-        $product ->increment('amount', $product->pivot->amount);
-        $products->detach($id);
+        $product  = $products->whereProductId($product_id)->wherePivot('id', $pivot_id);
+
+        $product->first()->increment('amount', 1);
+        $product->detach($product_id);
+
+
     }
 
     public function emptyTheCart()

@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ContainersManagerComponent extends Component
 {
-    public $products_counter, $total_cost;
+    public $products_quantity, $total_cost;
     public $containers, $products_container;
     public $is_open_create_form;
 
@@ -23,7 +23,6 @@ class ContainersManagerComponent extends Component
 
     public function render()
     {
-        $this->products_counter = 0;
         $this->containers = ProductsContainer::all();
 
         return view('livewire.containers-manager.index-component')->layout('layouts.user');
@@ -35,13 +34,15 @@ class ContainersManagerComponent extends Component
         $container = $this->containers->find($id);
         $products  = json_decode($container->container, true);
         $this->total_cost = 0;
+        $this->products_quantity = 0;
 
         foreach ($products as $id => $product) {
 
-            $this->total_cost += $product['cost'];
+            $this->total_cost += $product['cost'] * $product['amount'];
+            $this->products_quantity += $product['amount'];
         }
 
-        return ['count' => count($products), 'cost' => $this->total_cost];
+        return ['count' => $this->products_quantity, 'cost' => $this->total_cost];
 
     }
 

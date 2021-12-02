@@ -45,8 +45,10 @@ class ProductsContainerComponent extends Component
     public $brands_create;
     public $categories_create;
     public $products_decoded;
+    public $total_cost;
 
     public $products_container_counter, $products_container_total_amount;
+    public $search = '';
 
     // Edit Mode
     protected array $properties_rules = [
@@ -169,16 +171,27 @@ class ProductsContainerComponent extends Component
         $this->products_decoded = json_decode($this->container->container, true);
         $this->products_container_counter = count($products);
         $this->products_container_total_amount = 0;
+        $this->total_cost = 0;
 
         $data = [];
 
         if (count($products) > 0) {
             foreach ($products as $product) {
                 $this->products_container_total_amount += $product['amount'];
+                $this->total_cost += $product['cost'] * $product['amount'];
                 $data[] = (object)$product;
             }
         }
 
+        if (!($this->search == '')) {
+            $products = array_filter(
+                array_map(
+                    function ($x) {return str_contains($x['serial'], $this->search) ? $x : null; },
+                    $products
+                ),
+                function ($x) {return $x;}
+            );
+        }
 
         $this->container_products = collect($data);
 
@@ -231,7 +244,7 @@ class ProductsContainerComponent extends Component
             'description_create.required'   => 'This Field is required!',
         ]);
 
-        $id = (!empty($data)) ? array_key_last($data) + 1 : Product::latest()->first()->id + 1;
+        $id = (!empty($data)) ? array_key_last($data) + 1 : Product::latest('id')->first()->id + 1;
 
         $data[$id] = [
             'id'                => $id,
@@ -432,6 +445,7 @@ class ProductsContainerComponent extends Component
 
     public function updated($propertyName)
     {
+        if ($propertyName == 'search') return;
         $name = explode('.', $propertyName)[0];
         $data = json_decode($this->container->container, true);
         $id   = ($this->updateMode) ? explode('.', $propertyName)[1] : 0;
@@ -608,51 +622,59 @@ class ProductsContainerComponent extends Component
         session()->flash('alert', 'success');
     }
 
-
-    public function testing()
+    public function createProductsFromContainer()
     {
+//        dd($this->container->bill->contribution->id);
 
+        $products = [];
+        $container = $this->container;
+
+        if ($this->products_container_total_amount == $this->container->bill->quantity) {
+            if ($this->total_cost == $this->container->bill->amount) {
+                foreach ($this->products_decoded as $id => $product) {
+                    if ($product['price'] <= $product['cost']) {
+                        session()->flash('message', 'Put The Right Price For Product No: '.$id);
+                        session()->flash('alert' , 'danger');
+                        return;
+                    }
+                    $products[] = [
+                        'id'              => $id,
+                        'name'            => $product['name'],
+                        'description'     => $product['description'],
+                        'code'            => $product['code'],
+                        'amount'          => $product['amount'],
+                        'cost'            => $product['cost'],
+                        'price'           => $product['price'],
+                        'serial'          => $product['serial'],
+                        'category_id'     => $product['category_id'],
+                        'contribution_id' => $container->bill->contribution->id,
+                        'brand_id'        => $product['brand_id'],
+                        'bill_id'         => $container->bill_id,
+                        'user_id'         => Auth::user()->id,
+                        'slug'            => Str::slug($product['name']),
+                        'created_at'      => Carbon::now(),
+                        'updated_at'      => Carbon::now()
+                    ];
+                }
+
+                $chunks = array_chunk($products, 50);
+
+                foreach ($chunks as $chunk)
+                    Product::insert($chunk);
+
+                session()->flash('message', 'Product Created');
+                session()->flash('alert' , 'success');
+
+                $this->emptyContainer();
+            } else {
+                session()->flash('message', 'The Total Cost of The products in the container does not Match The total cost in the bill');
+                session()->flash('alert' , 'danger');
+            }
+        } else {
+            session()->flash('message', 'The Quantity of The products in the container does not Match The Quantity in the bill');
+            session()->flash('alert' , 'danger');
+        }
 
     }
 
 }
-/**
- *
-
-
-3- Micro 3.0 QC-50: 5 =( 4 * 2.0 )
-4- Type-C 3.0 QC-50: 2 =( 2 * 2.0 )
-5- MP3 KT-302: 2 =( 2 * 2.8 )
-6- KM-296: 1 =( 1 * 6.5 )
-7- KM-295: 1 =( 1 * 6.0 )
-8- KM-293: 1 =( 1 * 6.0)
-10- KM-306: 1 =( 1 * 8.0)
-11- Micro DK-150: 5 =( 5 * 0.5 )
-12- Micro 2 M SM-20: 2 =( 2 * 0.85 )
-13- Lightning DK-151: 2 =( 2 * 0.45)
-14- Type-C 2 M TP-20: 2 =( 2 * 0.85)
-15- Ligtning 2 M iP-20: 2 =( 2 * 0.85)
-16- Micro 3.1 SM-30: 3 =( 3 * 0.85)
-17- USB-C to USB-C PC-35: 2 =( 2 * 1.2)
-18- TRIO CB-300: 2 =( 2 * 1.1)
-19- Micro KC-50: 2 =( 2 * 1.1)
-20- Type-C KC-55: 2 =( 2 * 1.1)
-21- Type-C to AUX TP-612: 2 =( 2 * 1.1)
-22- Lightning to AUX A-25: 2 =( 2 * 1.7)
-23- KO-115: 1 =( 1 * 6.0)
-24- KO-120: 1 =( 1 * 11.0)
-25- KO-135: 1 =( 1 * 9.0)
-26- KH-10: 2 =( 2 * 3.5)
-27- KH-08: 2 =( 2 * 2.7)
-28- KB-890: 2 =( 2 * 4.5)
-29- KB-950: 1 =( 1 * 12.0)
-31- KB-200: 1 =( 1 * 10.0)
-32- KB-965: 1 =( 1 * 9.5)
-33- KB-955: 2 =( 2 * 11.5)
-34- KB-928: 1 =( 1 * 12.0)
-36- KA-170: 2 =( 2 * 1.5)
-37- K-171: 2 =( 2 * 1.0)
-38- K-211: 1 (10'lu paket) =( 1 * 6.0)
-39- USB Flash Bellek 8 GB: 1 =( 1 * 2.5)
-40- Micro SD Card 64 GB: 2 =( 2 * 4,9)
- */

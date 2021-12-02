@@ -60,6 +60,9 @@ Route::group([
 //        return view('livewire.debtorpowergrid')->layout('layouts.user');
 //    })      ->name('debtors');
 
+
+    Route::view('/powergrid', 'powergrid-demo');
+
     // Users
     Route::middleware('userAuth')
         ->name('user.')

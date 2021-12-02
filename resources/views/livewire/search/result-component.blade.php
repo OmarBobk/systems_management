@@ -17,7 +17,9 @@
                                     {{--Product Cost--}}
                                     <span class="d-block mb-0">Cost: {{$product->cost}} TL</span>
                                     {{--Product Price--}}
-                                    <span class="mb-0">Sale: {{$product->price}} TL</span>
+                                    <span class="d-block mb-0">Sale: {{$product->price}} TL</span>
+                                    <span class="d-block mb-0">Code: {{$product->code}}</span>
+                                    <span class="d-block mb-0">Category: {{$product->category->name}}</span>
                                 </div>
                             </div>
 
