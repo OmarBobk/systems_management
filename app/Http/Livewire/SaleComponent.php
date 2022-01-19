@@ -16,6 +16,8 @@ class SaleComponent extends Component
     public bool $updateMode            = false;
     public $price, $cost, $profit, $total, $amount, $sale_id;
 
+    public $all_profits, $all_amounts, $all_costs;
+
     protected array $rules = [
         'price'  => 'required',
         'cost'   => 'required',
@@ -24,10 +26,25 @@ class SaleComponent extends Component
         'amount' => 'required',
     ];
 
+    public function mount()
+    {
+        $this->all_profits = 0;
+        $this->all_amounts = 0;
+        $this->all_costs = 0;
+    }
+
     public function render()
     {
+        $sales = Sale::with('product')->get();
+
+        foreach($sales as $sale) {
+            $this->all_profits += $sale->profit;
+            $this->all_amounts += $sale->amount;
+            $this->all_costs   += $sale->cost;
+        }
+
         return view('livewire.sales.index-component', [
-            'sales' => Sale::paginate(5),
+            'sales' => $sales,
         ])->layout('layouts.user');
     }
 

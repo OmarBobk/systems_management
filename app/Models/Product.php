@@ -29,7 +29,7 @@ class Product extends Model
      */
     public function carts(): BelongsToMany
     {
-        return $this->belongsToMany(Cart::class)->withPivot('id', 'amount', 'net_price');
+        return $this->belongsToMany(Cart::class)->withPivot('id', 'amount', 'net_price', 'net_cost', 'description');
     }
 
     public function contribution(): BelongsTo

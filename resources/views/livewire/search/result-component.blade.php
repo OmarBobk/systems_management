@@ -19,6 +19,7 @@
                                     {{--Product Price--}}
                                     <span class="d-block mb-0">Sale: {{$product->price}} TL</span>
                                     <span class="d-block mb-0">Code: {{$product->code}}</span>
+                                    <span class="d-block mb-0">Amount: {{$product->amount}}</span>
                                     <span class="d-block mb-0">Category: {{$product->category->name}}</span>
                                 </div>
                             </div>

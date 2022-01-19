@@ -50,6 +50,10 @@ class ProductsContainerComponent extends Component
     public $products_container_counter, $products_container_total_amount;
     public $search = '';
 
+    // Is products in the container has been
+    // created and moved to the stock?
+    public $is_products_created;
+
     // Edit Mode
     protected array $properties_rules = [
         'name_create'        => ['name_create.*' => 'required'],
@@ -140,6 +144,7 @@ class ProductsContainerComponent extends Component
         $this->isCreateComponentOpen = false;
         $this->updateMode = false;
         $this->createMode = false;
+        $this->is_products_created = false;
 
         $this->is_edit = [
             'name' => [],
@@ -163,8 +168,6 @@ class ProductsContainerComponent extends Component
 
     public function render()
     {
-//        dd($this->container);
-
         $this->brands_create = $this->container->bill->seller->brands;
         $this->categories_create = Category::all();
         $products = json_decode($this->container->container, true);
@@ -624,12 +627,11 @@ class ProductsContainerComponent extends Component
 
     public function createProductsFromContainer()
     {
-//        dd($this->container->bill->contribution->id);
 
         $products = [];
         $container = $this->container;
 
-        if ($this->products_container_total_amount == $this->container->bill->quantity) {
+        if ($this->products_container_total_amount == $this->container->bill->quantity and $this->is_products_created === true) {
             if ($this->total_cost == $this->container->bill->amount) {
                 foreach ($this->products_decoded as $id => $product) {
                     if ($product['price'] <= $product['cost']) {
@@ -659,13 +661,16 @@ class ProductsContainerComponent extends Component
 
                 $chunks = array_chunk($products, 50);
 
-                foreach ($chunks as $chunk)
+                foreach ($chunks as $chunk) {
                     Product::insert($chunk);
+                }
+
+                $container->update(['is_created' => 1]);
+                $this->is_products_created = true;
 
                 session()->flash('message', 'Product Created');
                 session()->flash('alert' , 'success');
 
-                $this->emptyContainer();
             } else {
                 session()->flash('message', 'The Total Cost of The products in the container does not Match The total cost in the bill');
                 session()->flash('alert' , 'danger');

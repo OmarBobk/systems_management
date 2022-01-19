@@ -168,7 +168,7 @@ class ProductsComponent extends Component
     public function render()
     {
         return view('livewire.products.index-component', [
-            'products' => Product::paginate(10),
+            'products' => Product::paginate(5000),
         ])->layout('layouts.user');
     }
 

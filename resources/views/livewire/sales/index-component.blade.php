@@ -11,19 +11,30 @@
                     </div>
                 </div>
             @endif
-{{--            <button class="btn btn-primary my-4"--}}
-{{--                    wire:click="create">--}}
-{{--                New Sale--}}
-{{--            </button>--}}
 
-            @if($isCreateComponentOpen)
-                @include('livewire.sales.create-component')
-            @endif
+                <div class="row py-4">
+                    <div class="col-4">
+                        <div class="list-group-item" style="background:#f1f1f1">
+                            Amount: {{$all_amounts}}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="list-group-item" style="background:#f1f1f1">
+                            Profits: {{$all_profits}} TL
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="list-group-item" style="background:#f1f1f1">
+                            Cost: {{$all_costs}} TL
+                        </div>
+                    </div>
+                </div>
 
             <table class="table-fixed w-full">
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No</th>
+                        <th class="px-4 py-2">Description</th>
                         <th class="px-4 py-2">Product Name</th>
                         <th class="px-4 py-2">Amount</th>
                         <th class="px-4 py-2">Price</th>
@@ -38,6 +49,7 @@
                     @forelse($sales as $sale)
                         <tr>
                             <td class="border px-4 py-2">{{$sale->id}}</td>
+                            <td class="border px-4 py-2">{{$sale->description}}</td>
                             <td class="border px-4 py-2">{{$sale->product->name}}</td>
                             <td class="border px-4 py-2">{{$sale->amount}}</td>
                             <td class="border px-4 py-2">{{$sale->net_price}}</td>
@@ -57,7 +69,7 @@
                 </tbody>
             </table>
                 <div>
-                    {{$sales->links()}}
+{{--                    {{$sales->links()}}--}}
                 </div>
 
         </div>

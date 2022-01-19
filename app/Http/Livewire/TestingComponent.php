@@ -8,6 +8,6 @@ class TestingComponent extends Component
 {
     public function render()
     {
-        return view('livewire.testing-component')->layout('layouts.testing');
+        return view('livewire.testing-component')->layout('layouts.user');
     }
 }

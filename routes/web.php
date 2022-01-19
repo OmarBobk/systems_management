@@ -4,12 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
-Route::get('/testing', function () {
-    dd( \App\Models\Contributor::with(['contributions' => function ( $query) {
-        $query->withSum('profits', 'amount');
-    }])->get()->first());
-//    return \App\Models\Contributor::all()->first()->contributions;
-});
+Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
 
 
@@ -60,6 +55,7 @@ Route::group([
 //        return view('livewire.debtorpowergrid')->layout('layouts.user');
 //    })      ->name('debtors');
 
+    Route::get('/contributor/{contributor}', \App\Http\Livewire\ContributorComponent::class)->name('contributor');
 
     Route::view('/powergrid', 'powergrid-demo');
 

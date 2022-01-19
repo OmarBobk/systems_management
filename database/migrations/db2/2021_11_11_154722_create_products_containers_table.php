@@ -17,7 +17,7 @@ class CreateProductsContainersTable extends Migration
             $table->id();
             $table->text('container');
             $table->integer('is_created')->comment('1 Products in Container Has been created in stock.');
-            $table->foreignId('bill_id')->constrained();
+            $table->foreignId('bill_id')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

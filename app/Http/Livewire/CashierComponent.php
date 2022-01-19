@@ -22,7 +22,7 @@ use Livewire\Component;
 class CashierComponent extends Component
 {
 
-    public $searchKeyword, $result, $cart, $amount, $net_price, $isEditAmount, $isEditPrice;
+    public $searchKeyword, $result, $cart, $amount, $net_price, $description, $net_cost, $isEditAmount, $isEditPrice;
     public $is_checkout, $is_checkout_with_debt, $is_create_new_debtor_form, $is_checkout_with_debtor_exists;
 
     public $debtorSearchKeyword, $debtorsSearched, $is_ask_for_debts_due, $whoToAskForDebtsDueDebtorId, $due_date;
@@ -35,48 +35,27 @@ class CashierComponent extends Component
 
     public $testing;
 
+
+    // New Edit Proccess
+    public $edit_method_name, $is_edit, $is_view_product_actions;
+
+    // Products Amount in pivot table before updating.
+    public $products_amount_in_pivot;
+
     protected array $rules = [
         'newDebtorName'  => 'required',
         'newDebtorPhone' => 'required',
     ];
 
-    public function increment()
-
-    {
-
-        $this->count++;
-
-    }
-
-    /**
-     * @param $value
-     * @param $index // is the product id
-     * @throws ValidationException
-     */
-    public function updatedAmount($value, $index)
-    {
-        $max_amount = $this->cart->products()->find($index)->amount + $this->old_amount[$index];
-
-        $this->validateOnly("amount.$index", ['amount.*' => "integer|min:1|max:$max_amount"], [
-            'amount.*.min' => "Amount Must be at least 1.",
-            'amount.*.max' => "Amount Must not be more than $max_amount.",
-        ]);
-    }
-
-    public function updated($propertyName)
-    {
-
-    }
-
     public function mount()
     {
 
-//        $products = Product::all();
-//        foreach ($products as $p) {
-//            $this->testing += $p->cost * $p->amount;
-//        }
-//
-//        dd($this->testing);
+        $this->is_edit = [
+            'amount'   => [],
+            'net_price'   => [],
+            'net_cost'   => [],
+            'description'   => [],
+        ];
 
     }
 
@@ -105,8 +84,10 @@ class CashierComponent extends Component
     {
         $product->decrement('amount', 1);
 
-
-            $this->cart->products()->attach($product->id, ['amount' => 1, 'net_price' => $product->price]);
+        $this->cart->products()->attach($product->id, ['amount' => 1,
+            'net_price'   => $product->price,
+            'net_cost'    => $product->cost,
+            'description' => 'Description']);
 
         if($product->amount < 1 ) $this->result = [];
     }
@@ -143,7 +124,7 @@ class CashierComponent extends Component
         $products = $this->cart->products();
         $product  = $products->whereProductId($product_id)->wherePivot('id', $pivot_id);
 
-        $product->first()->increment('amount', 1);
+        $product->first()->increment('amount', $product->first()->pivot->amount);
         $product->detach($product_id);
 
 
@@ -152,72 +133,14 @@ class CashierComponent extends Component
     public function emptyTheCart()
     {
         $cart   = $this->cart;
-        $amount = $cart->products()->first()->pivot->amount;
 
-        foreach ($cart->products as $product)
-            $product->increment('amount', $amount);
+        foreach ($cart->products as $product) {
+            $product->increment('amount', $product->pivot->amount);
+        }
 
         $cart->products()->detach();
     }
 
-
-    /**
-     * Edit Fields
-     *  Amount & Price
-     */
-    public function editAmount(Product $product)
-    {
-        $this->old_amount[$product->id] = $product->carts()->first()->pivot->amount;
-        $this->isEditAmount = [$product->id => true];
-        $this->isEditPrice  = [$product->id => false];
-        $this->amount[$product->id] = $product->carts()->first()->pivot->amount;
-    }
-
-    public function updateAmountAttach($id)
-    {
-
-        $product = $this->cart->products()->find($id);
-
-        // Product Amount.
-        $max_amount = $product->amount + $this->amount[$id] + $this->old_amount[$id];
-
-        $this->validate(["amount.$id" => "integer|min:1|max:$max_amount"], [
-            'amount.*.min' => "Amount Must be at least 1.",
-            'amount.*.max' => "Amount Must not be more than $max_amount.",
-        ]);
-
-        $this->isEditAmount = [$id => false];
-        if (isset($this->amount[$id])) {
-            $this->cart->products()->updateExistingPivot($id, ['amount' => $this->amount[$id]]);
-            $product->decrement('amount', abs($this->amount[$id] - $this->old_amount[$id]));
-        }
-    }
-
-    public function closeUpdateAmountAttach($id)
-    {
-        $this->isEditAmount = [$id => false];
-    }
-
-
-    public function editPrice(Product $product)
-    {
-        $this->isEditAmount            = [$product->id => false];
-        $this->isEditPrice             = [$product->id => true];
-        $this->net_price[$product->id] = $product->carts()->first()->pivot->net_price;
-    }
-
-    public function updatePriceAttach($id)
-    {
-        $this->isEditPrice = [$id => false];
-        if (isset($this->net_price[$id])) {
-            $this->cart->products()->updateExistingPivot($id, ['net_price' => $this->net_price[$id]]);
-        }
-    }
-
-    public function closeUpdatePriceAttach($id)
-    {
-        $this->isEditPrice = [$id => false];
-    }
 
 
 
@@ -248,17 +171,20 @@ class CashierComponent extends Component
         foreach($products as $product) {
             $sale_id         = $sale_id_start_at + $x;
             $amount          = $product->carts()->first()->pivot->amount;
+            $description     = $product->carts()->first()->pivot->description;
             $net_price       = $product->carts()->first()->pivot->net_price;
-            $cost            = $product->cost;
+            $cost            = $product->carts()->first()->pivot->net_cost;
             $total_price     = $net_price * $amount;
             $profit          = ($net_price - $cost) * $amount;
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
+            $now             = Carbon::now();
 
 
             $sales[] = [
                 'id'                => $sale_id,
+                'description'       => $description,
                 'net_price'         => $net_price,
                 'cost'              => $cost,
                 'amount'            => $amount,
@@ -267,6 +193,8 @@ class CashierComponent extends Component
                 'user_id'           => $user_id,
                 'product_id'        => $product_id,
                 'contribution_id'   => $contribution_id,
+                'created_at'        => $now,
+                'updated_at'        => $now,
             ];
 
             // Decrement Products amount.
@@ -274,6 +202,7 @@ class CashierComponent extends Component
 
             // Create Sales Counter Records
             $product_counter = SalesCounter::where('product_id', $product->id);
+
             ($product_counter->count() > 0)
                 ? $product_counter->increment('counter', $amount)
                 : SalesCounter::create(['product_id' => $product->id, 'counter' => $amount]);
@@ -282,14 +211,18 @@ class CashierComponent extends Component
 
             // Return Product Cost to its contribution.
             $cost_amount = $cost * $amount;
+//            $contribution->increment('amount', $cost_amount);
+
             $incomes[] = [
                 'amount'          => $cost_amount,
                 'type'            => 'cost',
                 'sale_id'         => $sale_id,
                 'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
+                'created_at'      => $now,
+                'updated_at'      => $now,
             ];
-            $contribution->increment('amount', $cost_amount);
+
 
             // Add the sale profits to its contribution.
             $contribution_profit_percent = $contribution->profits_percent;
@@ -300,6 +233,8 @@ class CashierComponent extends Component
                 'sale_id'         => $sale_id,
                 'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
+                'created_at'      => $now,
+                'updated_at'      => $now,
             ];
 
             // If the profit percent != 100 then the contributor
@@ -312,6 +247,8 @@ class CashierComponent extends Component
                     'sale_id'         => $sale_id,
                     'user_id'         => Auth::user()->id,
                     'contribution_id' => 1,
+                    'created_at'      => $now,
+                    'updated_at'      => $now,
                 ];
             }
 
@@ -379,6 +316,7 @@ class CashierComponent extends Component
      */
     public function store()
     {
+        $now = Carbon::now();
 
         $this->validate();
 
@@ -386,6 +324,8 @@ class CashierComponent extends Component
             'name'        => $this->newDebtorName,
             'phone'       => $this->newDebtorPhone,
             'user_id'     => Auth::user()->id,
+            'created_at'  => $now,
+            'updated_at'  => $now,
         ]);
 
         session()->flash('message', 'Debtor Created');
@@ -430,19 +370,23 @@ class CashierComponent extends Component
     {
         $debts = [];
 
+        $now = Carbon::now();
+
         $products = $this->cart->products;
 
         foreach($products as $product) {
             $debts[] = [
                 'item_name'     => $product->name,
-                'description'   => '',
-                'cost'          => $product->cost,
+                'description'   => $product->pivot->description,
+                'cost'          => $product->pivot->net_cost,
                 'price'         => $product->pivot->net_price,
                 'amount'        => $product->pivot->amount,
                 'is_paid'       => 0,
                 'due'           => $this->due_date ?? Carbon::now()->addMonth()->toDateString(),
                 'product_id'    => $product->id,
                 'debtor_id'     => $debtor->id,
+                'created_at'    => $now,
+                'updated_at'    => $now,
             ];
         }
 
@@ -469,6 +413,87 @@ class CashierComponent extends Component
     {
         $this->resetErrorBag();
         $this->resetValidation();
+    }
+
+
+    public function editNew($product_id, $pivot_id, $propertyName)
+    {
+        $this->products_amount_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first()->pivot->amount;
+
+        // Product with pivot table.
+        $product = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
+
+        $this->is_edit = [
+            'amount'   => [],
+            'net_price'   => [],
+            'net_cost'   => [],
+            'description'   => [],
+        ];
+
+        $this->{$propertyName}[$product_id."-".$pivot_id]          = $product->pivot->{$propertyName};
+        $this->is_edit[$propertyName][$product_id."-".$pivot_id]   = true;
+        $this->is_view_product_actions                = [];
+        $this->is_view_product_actions[$product_id."-".$pivot_id]  = true;
+        $this->edit_method_name                       = $propertyName;
+    }
+    public function updateNew($product_id, $pivot_id, $propertyName)
+    {
+
+        // Product with pivot table.
+        $products = $this->cart->products();
+        $product = $products->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
+
+        // Updating the amount in the cart_product table (pivot)
+        // Not the amount in the products table.
+        $products->updateExistingPivot($product_id, [$propertyName => $this->{$propertyName}[$product_id.'-'.$pivot_id]]);
+
+        $this->closeEdit($product_id, $pivot_id, $propertyName);
+    }
+    public function closeEdit($product_id, $pivot_id, $propertyName)
+    {
+        $this->is_edit[$propertyName][$product_id.'-'.$pivot_id]  = false;
+        $this->is_view_product_actions[$product_id.'-'.$pivot_id] = false;
+
+        if ( $propertyName === 'amount') $this->updateProductsAmountInTheStock($product_id, $pivot_id);
+    }
+
+    public function updateProductsAmountInTheStock($product_id, $pivot_id)
+    {
+        // Product need to be updated.
+        $product_in_stock = Product::find($product_id);
+
+        // Product in pivot table.
+        $product_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
+
+        // Old Amount In the Pivot.
+        $old_pivot_amount = $this->products_amount_in_pivot;
+
+        // New Amount In the Pivot.
+        $new_pivot_amount = $product_in_pivot->pivot->amount;
+
+        if ($old_pivot_amount != null) {
+            if($new_pivot_amount > $old_pivot_amount) {
+                $edited_amount = $new_pivot_amount - $old_pivot_amount;
+
+                // decrement amount in products table.
+                $product_in_stock->decrement('amount', $edited_amount);
+
+            } elseif($new_pivot_amount < $old_pivot_amount) {
+                $edited_amount = $old_pivot_amount - $new_pivot_amount;
+                // increment amount in products table
+                $product_in_stock->increment('amount', $edited_amount);
+
+            }
+        }
+
+    }
+
+    public function updatingAmount($value, $index)
+    {
+        $product_id = explode('-', $index)[0];
+        $pivot_id   = explode('-', $index)[1];
+
+        $this->products_amount_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first()->pivot->amount;
     }
 
 }

@@ -19,34 +19,31 @@
         <link rel="stylesheet" href="{{asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" type="text/css">
 
         <!-- Page plugins -->
-        <!-- Argon CSS -->
-        <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.2.0')}}" type="text/css">
+
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
         @livewireStyles
-        @powerGridStyles
+{{--        @powerGridStyles--}}
 
-        <!-- Scripts -->
-        @livewireScripts
-        @powerGridScripts
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- Argon CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/argon.css?v=1.2.0')}}" type="text/css">
     </head>
     <body class="font-sans antialiased">
-        @livewire('user.component.user-side-bar-component')
+
 
         <!-- Main content -->
+        @livewire('user.component.user-side-bar-component')
         <div class="main-content" id="panel">
 
             <!-- Top nav -->
-            @include('top-navbar')
+                @include('top-navbar')
 
             <!-- Page content -->
-            {{$slot}}
+                {{$slot}}
         </div>
-
 
         <!-- Argon Scripts -->
         <!-- Core -->
@@ -60,5 +57,13 @@
         <script src="{{asset('assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
         <!-- Argon JS -->
         <script src="{{asset('assets/js/argon.js?v=1.2.0')}}"></script>
+        <!-- Scripts -->
+        <!-- ENd Laravel mid scripts -->
+        @livewireChartsScripts
+        @livewireScripts
+        @stack('scripts')
+        <script src="{{asset('assets/js/plugins.js')}}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+        {{--        @powerGridScripts--}}
     </body>
 </html>

@@ -28,8 +28,7 @@
         @powerGridStyles
 
 
-        <!-- Scripts -->
-{{--        <script src="{{ mix('js/app.js') }}" defer></script>--}}
+
     </head>
     <body class="font-sans antialiased">
         @livewire('admin.component.admin-side-bar-component')
@@ -62,5 +61,8 @@
         <!-- Scripts -->
         @livewireScripts
         @powerGridScripts
+
+        <!-- Scripts -->
+        <script src="{{ mix('js/app.js') }}" defer></script>
     </body>
 </html>

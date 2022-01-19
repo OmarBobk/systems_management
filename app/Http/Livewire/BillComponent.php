@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bill;
 use App\Models\Contribution;
 use App\Models\Expense;
+use App\Models\ProductsContainer;
 use App\Models\Seller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -168,6 +169,12 @@ class BillComponent extends Component
         Contribution::find($this->contribution_id)
             ->decrement('amount', $this->amount);
 
+        ProductsContainer::create([
+            'container'  => '{}',
+            'bill_id'    => $bill->id,
+            'is_created' => 0,
+        ]);
+
         session()->flash('message', 'Bill Created');
         session()->flash('alert' , 'success');
 
@@ -258,7 +265,14 @@ class BillComponent extends Component
 
     public function delete(int $id)
     {
-        Bill::find($id)->delete();
+        $bill = Bill::find($id);
+
+        // Update Contribution that used to buy this bill.
+        Contribution::find($bill->contribution->id)
+            ->increment('amount', $bill->amount);
+
+        $bill->delete();
+
         session()->flash('message', 'Bill deleted.');
         session()->flash('alert', 'success');
     }

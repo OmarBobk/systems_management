@@ -4,8 +4,9 @@
             <div class="col-lg-12 col-md-7">
 
                 @if(session()->has('message'))
-                    <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-                         role="alert">
+                    <div
+                        class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                        role="alert">
                         <div class="flex">
                             <div>
                                 <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
@@ -14,9 +15,12 @@
                     </div>
                 @endif
 
-                {{--Add New Product to the container--}}
-
-                @include('livewire.products-container.create-component')
+                @if(!$is_products_created)
+                    <h1 class="text-center alert ">You Can't Add More Products</h1>
+                @else
+                    {{--Add New Product to the container--}}
+                    @include('livewire.products-container.create-component')
+                @endif
 
                 {{--Container Contents--}}
                 <table class="table-fixed w-full">
@@ -26,19 +30,28 @@
                             <div class="row">
                                 <div class="col-3">
                                     <div class="py-1">
-                                        <input type="search" class="form-control" placeholder="search" wire:model="search">
+                                        <input type="search" class="form-control" placeholder="search"
+                                               wire:model="search">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <h4><span class="badge rounded-pill" style="color:#6b6a6a;background:#11cdef;">Count: {{$products_container_counter}}</span></h4>
+                                    <h1>
+                                        <span class="badge badge-info" style="color:#6b6a6a;background:#11cdef;">
+                                            <span>Count: {{$products_container_counter}}</span>
+                                        </span>
+                                    </h1>
                                 </div>
                                 <div class="col-lg-4">
-                                    <h4><span class="badge rounded-pill bg-success">Amount: {{$products_container_total_amount}}</span></h4>
+                                    <h1><span
+                                            class="badge badge-success" style="color:#6b6a6a;">
+                                            <span>Amount: {{$products_container_total_amount}}</span>
+                                        </span>
+                                    </h1>
                                 </div>
                                 <div class="col-lg-4">
-                                    <h4><span class="badge rounded-pill bg-success">Cost: {{$total_cost}} TL</span></h4>
+                                    <h1><span class="badge badge-success" style="color:#6b6a6a;">Cost: {{$total_cost}} TL</span></h1>
                                 </div>
                             </div>
                         </th>
@@ -117,7 +130,7 @@
                                 @error("code.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
 
-                                {{-- Amount --}}
+                            {{-- Amount --}}
                             <td class="border text-center" style="padding:15px 15px">
                                 @if(isset($is_edit['amount'][$id]))
                                     @if($is_edit['amount'][$id])
@@ -135,7 +148,7 @@
                                 @error("amount.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
 
-                                {{-- Cost --}}
+                            {{-- Cost --}}
                             <td class="border text-center" style="padding:15px 15px">
                                 @if(isset($is_edit['cost'][$id]))
                                     @if($is_edit['cost'][$id])
@@ -153,7 +166,7 @@
                                 @error("cost.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
 
-                                {{-- Price --}}
+                            {{-- Price --}}
                             <td class="border text-center" style="padding:15px 15px">
                                 @if(isset($is_edit['price'][$id]))
                                     @if($is_edit['price'][$id])
@@ -171,7 +184,7 @@
                                 @error("price.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
 
-                                {{-- Actions --}}
+                            {{-- Actions --}}
                             <td class="border text-center" style="padding:15px 15px">
 
                                 @if(isset($is_view_product_actions[$id]))
@@ -223,28 +236,28 @@
                         </tr>
                     @endforelse
 
-                        <tr>
-                            <td colspan="8" class="border text-center" style="padding:10px">
-                                @if(session()->has('message'))
-                                    <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-                                         role="alert">
-                                        <div class="flex justify-content-center">
-                                            <div class="text-center">
-                                                <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
-                                            </div>
+                    <tr>
+                        <td colspan="8" class="border text-center" style="padding:10px">
+                            @if(session()->has('message'))
+                                <div
+                                    class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                                    role="alert">
+                                    <div class="flex justify-content-center">
+                                        <div class="text-center">
+                                            <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                            @endif
+
+                            @if($this->is_products_created)
                                 <button type="button" wire:click="createProductsFromContainer"
                                         class="btn btn-info">
                                     Create
                                 </button>
-                                <button type="button" wire:click="emptyContainer"
-                                        class="btn btn-danger">
-                                    Empty
-                                </button>
-                            </td>
-                        </tr>
+                            @endif
+                        </td>
+                    </tr>
 
                     </tbody>
                 </table>

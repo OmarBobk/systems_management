@@ -21,7 +21,7 @@ class ExpensesComponent extends Component
 
     public function render()
     {
-        $this->expenses = Expense::with(['contribution', 'user'])->get();
+        $this->expenses = Expense::with(['contribution', 'user', 'bill'])->get();
 
         return view('livewire.expenses.index-component')->layout('layouts.user');
     }
@@ -150,6 +150,7 @@ class ExpensesComponent extends Component
         $this->editAmount                      = [$expense->id => false];
         $this->editBillId                      = [$expense->id => false];
         $this->contribution_id[$expense->id]   = $expense->contribution_id;
+        $this->contributions                   = Contribution::whereStatus(0)->get();
     }
 
     /**
@@ -221,8 +222,8 @@ class ExpensesComponent extends Component
     {
         $this->resetCreateNewExpenseForm();
         $this->is_create_new_expense = true;
-        $this->contributions = Contribution::whereStatus(0)->get();
         $this->bills         = Bill::all();
+        $this->contributions = Contribution::whereStatus(0)->get();
     }
 
     public function storeExpense()

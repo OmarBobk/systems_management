@@ -28,6 +28,14 @@ class ContainersManagerComponent extends Component
         return view('livewire.containers-manager.index-component')->layout('layouts.user');
     }
 
+
+    /**
+     * Get The cost and the count of the products in
+     * the container.
+     *
+     * @param $id
+     * @return array
+     */
     #[ArrayShape(['count' => "int", 'cost' => "int"])]
     public function productsInContainer($id): array
     {
@@ -50,9 +58,8 @@ class ContainersManagerComponent extends Component
     {
         ProductsContainer::create([
             'container'  => '{}',
-            'bill_id'    => $this->bill_id,
-            'is_created' => 0,
-        ]);
+            'bill_id'    => 1004,
+            'is_created' => 0,]);
 
         $this->closeCreateForm();
     }

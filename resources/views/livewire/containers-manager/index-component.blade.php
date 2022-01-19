@@ -9,10 +9,12 @@
                     @include('livewire.containers-manager.create-component')
                 @endif
 
-                <button type="button" wire:click="openCreateForm()"
-                        class="btn btn-info">
-                    Create
-                </button>
+                <div>
+                    <button type="button" wire:click="openCreateForm()"
+                            class="btn btn-info">
+                        Create
+                    </button>
+                </div>
                 <br>
 
                 {{--Container Contents--}}
@@ -60,9 +62,9 @@
                             {{-- Is Created --}}
                             <td class="border text-center" style="padding:15px 15px">
                                 @if($container->is_created)
-                                    <div class="bg-success">
+                                    <h2 class="bg-success badge " style="font-size: 100%;line-height: 1.5;">
                                         Created
-                                    </div>
+                                    </h2>
                                 @else
                                     <div class="bg-danger">
                                         Not Yet
@@ -88,13 +90,6 @@
                                         <button class="btn-primary btn-sm"
                                                 wire:click="viewContainer('{{$container->id}}')">
                                             <i class="far fa-2x fa-eye"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <button class="btn-danger btn-sm"
-                                                wire:click="deleteContainer('{{$container->id}}')">
-                                            <i class="ni ni-2x ni-fat-remove"></i>
                                         </button>
                                     </div>
                                 </div>
