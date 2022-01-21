@@ -15,7 +15,7 @@
                     </div>
                 @endif
 
-                @if(!$is_products_created)
+                @if($is_products_created)
                     <h1 class="text-center alert ">You Can't Add More Products</h1>
                 @else
                     {{--Add New Product to the container--}}
@@ -250,7 +250,7 @@
                                 </div>
                             @endif
 
-                            @if($this->is_products_created)
+                            @if(!$this->is_products_created)
                                 <button type="button" wire:click="createProductsFromContainer"
                                         class="btn btn-info">
                                     Create

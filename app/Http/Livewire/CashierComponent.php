@@ -73,7 +73,8 @@ class CashierComponent extends Component
     public function updatedSearchKeyword()
     {
         $this->result = Product::where('amount', '>=', 1)
-            ->where($this->search_field, "like", "%$this->searchKeyword%")->orderBy('id')->get();
+            ->where($this->search_field, "like", "%$this->searchKeyword%")
+            ->orderBy('id')->get();
     }
 
     /**

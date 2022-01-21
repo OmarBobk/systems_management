@@ -14,7 +14,7 @@ class ContainersManagerComponent extends Component
     public $is_open_create_form;
 
     // create
-    public $bill_id, $bills;
+    public $bill_id, $bills, $bills_that_does_not_have_container;
 
     public function mount()
     {
@@ -58,7 +58,7 @@ class ContainersManagerComponent extends Component
     {
         ProductsContainer::create([
             'container'  => '{}',
-            'bill_id'    => 1004,
+            'bill_id'    => $this->bill_id,
             'is_created' => 0,]);
 
         $this->closeCreateForm();
@@ -66,8 +66,14 @@ class ContainersManagerComponent extends Component
 
     public function openCreateForm()
     {
+        $bills_that_does_not_have_container_except_default_bill = array_map(
+            function ($x) {return $x == 1 ? 0 : $x;},
+            $this->containers->pluck('bill_id')->toArray()
+        );
         $this->is_open_create_form = true;
-        $this->bills = Bill::all();
+        $this->bills = Bill::whereNotIn('id', $bills_that_does_not_have_container_except_default_bill)
+            ->get();
+
     }
 
     public function closeCreateForm()

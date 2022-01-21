@@ -100,7 +100,7 @@ class ProductsComponent extends Component
         'amount'          => 'required|integer|min:1',
         'cost'            => 'required|integer|min:1',
         'price'           => 'required|integer',
-        'serial'          => 'required',
+        'serial'          => 'required|integer|unique:products,serial',
         'category_id'     => 'required|integer',
         'contribution_id' => 'required|integer',
         'contributor_id'  => 'required|integer',
@@ -123,6 +123,8 @@ class ProductsComponent extends Component
         'price.required'            => 'This Field is required!',
         'price.integer'             => 'Price Should be integer!',
         'serial.required'           => 'This Field is required!',
+        'serial.integer'            => 'This Field Should be integer!!',
+        'serial.unique'             => 'This Serial is in used!',
         'category_id.required'      => 'This Field is required!',
         'category_id.integer'       => 'Please Choose an other value.',
         'contribution_id.required'  => 'This Field is required!',
@@ -136,6 +138,14 @@ class ProductsComponent extends Component
         'seller_id.required'        => 'This Field is required!',
         'seller_id.integer'         => 'Please Choose an other value.',
         'description.required'      => 'This Field is required!',
+    ];
+
+    // Search
+    public $search_field = 'code';
+    public $searchKeyword = '';
+
+    protected $queryString = [
+        'searchKeyword' => ['except' => '']
     ];
 
     public function mount()
@@ -162,13 +172,15 @@ class ProductsComponent extends Component
             'contribution_id' => [],
             'updated_at'      => [],
         ];
+        $this->reset('searchKeyword', 'search_field', 'page');
 
     }
 
     public function render()
     {
         return view('livewire.products.index-component', [
-            'products' => Product::paginate(5000),
+            'products' => Product::where($this->search_field, "like", "%$this->searchKeyword%")
+                ->orderBy('id')->paginate(5),
         ])->layout('layouts.user');
     }
 
@@ -330,13 +342,18 @@ class ProductsComponent extends Component
 
     public function updated($propertyName)
     {
-        if ($this->updateMode) {
-            $this->validateOnly($propertyName, $this->create_properties_rules, $this->create_properties_message);
-        } else {
-            $name = explode('.', $propertyName)[0];
+        if ($propertyName != 'searchKeyword' and $propertyName != 'search_field') {
+            if ($this->updateMode) {
+                $this->validateOnly($propertyName, $this->create_properties_rules, $this->create_properties_message);
+            } else {
+                $name = explode('.', $propertyName)[0];
 
-            $this->validateOnly($propertyName, $this->properties_rules[$name], $this->properties_message[$name]);
+                $this->validateOnly($propertyName, $this->properties_rules[$name], $this->properties_message[$name]);
+            }
+        } else {
+            $this->reset( 'page');
         }
+
     }
 
     public function delete(int $id)

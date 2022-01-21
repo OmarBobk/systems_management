@@ -144,7 +144,7 @@ class ProductsContainerComponent extends Component
         $this->isCreateComponentOpen = false;
         $this->updateMode = false;
         $this->createMode = false;
-        $this->is_products_created = false;
+        $this->is_products_created = $this->container->is_created;
 
         $this->is_edit = [
             'name' => [],
@@ -631,7 +631,9 @@ class ProductsContainerComponent extends Component
         $products = [];
         $container = $this->container;
 
-        if ($this->products_container_total_amount == $this->container->bill->quantity and $this->is_products_created === true) {
+        if ($this->products_container_total_amount == $this->container->bill->quantity
+            and
+            $this->is_products_created != 1) {
             if ($this->total_cost == $this->container->bill->amount) {
                 foreach ($this->products_decoded as $id => $product) {
                     if ($product['price'] <= $product['cost']) {
@@ -666,7 +668,7 @@ class ProductsContainerComponent extends Component
                 }
 
                 $container->update(['is_created' => 1]);
-                $this->is_products_created = true;
+                $this->is_products_created = 1;
 
                 session()->flash('message', 'Product Created');
                 session()->flash('alert' , 'success');

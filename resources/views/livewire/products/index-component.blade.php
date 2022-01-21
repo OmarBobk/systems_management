@@ -12,16 +12,37 @@
                 </div>
             @endif
 
-
-
-            <button class="btn btn-primary my-4"
-                    wire:click="create">
-                New Product
-            </button>
-
             @if($isCreateComponentOpen)
                 @include('livewire.products.create-component')
+            @else
+                <button class="btn btn-primary my-4"
+                        wire:click="create">
+                    New Product
+                </button>
             @endif
+
+            {{-- Search Form --}}
+            <div class="bg-gray-200 rounded-b text-teal-900 px-2 py-2 my-3">
+                <form>
+                    <div class="form-group mb-0">
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="padding:0;">
+                                    <select class="" style="border: none;"
+                                            id="exampleFormControlSelect3"
+                                            wire:model="search_field">
+                                        <option value="code">Product Code</option>
+                                        <option value="name">Name</option>
+                                        <option value="serial">Serial</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <input class="form-control" placeholder="Search"
+                                   type="text" wire:model="searchKeyword">
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             <table class="table-fixed w-full">
                 <thead>

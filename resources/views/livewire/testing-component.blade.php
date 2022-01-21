@@ -96,7 +96,7 @@
                 <button @click="console.log($refs)">Test 3</button>
                 <button @click="testingRefInConsole">Test 4</button>
 
-                <p ::x-ref="foo">
+                <p ::x-ref=" foo">
                     lorem ipsum
                 </p>
             </div>

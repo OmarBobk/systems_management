@@ -11,12 +11,12 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{route('dashboard')}}">
-                            <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Dashboard</span>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link active" href="{{route('dashboard')}}">--}}
+{{--                            <i class="ni ni-tv-2 text-primary"></i>--}}
+{{--                            <span class="nav-link-text">Dashboard</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('products')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
