@@ -5,4 +5,4 @@
 - pretty Routes
 
 ###Github Token
-- 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
+- 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

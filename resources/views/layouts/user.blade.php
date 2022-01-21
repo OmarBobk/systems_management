@@ -39,7 +39,7 @@
         <div class="main-content" id="panel">
 
             <!-- Top nav -->
-                @include('top-navbar')
+{{--                @include('top-navbar')--}}
 
             <!-- Page content -->
                 {{$slot}}

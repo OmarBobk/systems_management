@@ -2,8 +2,8 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
-            <a class="navbar-brand" href="javascript:void(0)">
-                <img src="{{asset('assets/img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
+            <a class="navbar-brand" href="{{route('home')}}" style="font-size: 3rem;font-weight: 900;color: #5e72e4;padding-bottom: 0;">
+                Karman
             </a>
         </div>
         <div class="navbar-inner">
@@ -36,39 +36,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('sales')}}">
-                            <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Sales</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{route('debts')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Debts</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('contributions')}}">
-                            <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Contributions</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{route('sellers')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Sellers</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('incomes')}}">
-                            <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Incomes</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('expenses')}}">
-                            <i class="ni ni-tv-2 text-primary"></i>
-                            <span class="nav-link-text">Expenses</span>
                         </a>
                     </li>
                     <li class="nav-item">

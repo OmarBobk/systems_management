@@ -18,9 +18,9 @@ Route::group([
         $is_admin = Auth::user()->is_admin;
 
         if ($is_admin) {
-            return redirect(route('admin.dashboard'));
+            return redirect(route('cashier'));
         } else {
-            return redirect(route('user.dashboard'));
+            return redirect(route('cashier'));
         }
 
     })->name('home');
@@ -29,9 +29,9 @@ Route::group([
         $is_admin = Auth::user()->is_admin;
 
         if ($is_admin) {
-            return redirect(route('admin.dashboard'));
+            return redirect(route('cashier'));
         } else {
-            return redirect(route('user.dashboard'));
+            return redirect(route('cashier'));
         }
 
     })->name('dashboard');

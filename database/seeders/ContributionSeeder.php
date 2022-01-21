@@ -23,7 +23,7 @@ class ContributionSeeder extends Seeder
 
         // Ahmad Omar Karman
         $contributions[] = [
-            'amount'            => 10000,
+            'amount'            => 1000000,
             'description'       => "This is the description",
             'deposit_date'      => Carbon::create("2021", "10", "13"),
             'due_date'          => Carbon::create("2022", "10", "13"),
@@ -36,7 +36,7 @@ class ContributionSeeder extends Seeder
 
         // Yusuf Karman
         $contributions[] = [
-            'amount'            => 5000,
+            'amount'            => 5000000,
             'description'       => "This is the description",
             'deposit_date'      => Carbon::create("2021", "10", "13"),
             'due_date'          => Carbon::create("2022", "10", "13"),
