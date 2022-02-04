@@ -18,16 +18,9 @@ class ContributorSeeder extends Seeder
 
         $contributors[] = [
             'id'             => 1,
-            'name'           => 'Ahmad Omar Karman',
-            'phone'          => '5353402539',
+            'name'           => 'Default',
+            'phone'          => '000000000',
             'notes'          => 'Owner',
-        ];
-
-        $contributors[] = [
-            'id'             => 2,
-            'name'           => 'Yusuf Karman',
-            'phone'          => '5353402539',
-            'notes'          => 'Contributor in Goods.',
         ];
 
         Contributor::insert($contributors);

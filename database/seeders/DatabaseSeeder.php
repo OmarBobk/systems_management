@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             CartSeeder::class,
-            DebtorSeeder::class,
+//            DebtorSeeder::class,
             BillSeeder::class,
 //            DebtSeeder::class,
 //            SaleSeeder::class,
