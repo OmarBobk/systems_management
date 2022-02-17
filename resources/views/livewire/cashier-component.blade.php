@@ -52,13 +52,13 @@
                         <th class="text-center py-2">Img</th>
                         <th class="text-center py-2">Description</th>
                         <th class="text-center py-2">Name</th>
-                        <th class="text-center py-2">Serial</th>
                         <th class="text-center py-2">Code</th>
                         <th class="text-center py-2">Amount</th>
                         <th class="text-center py-2">Price</th>
                         <th class="text-center py-2">Cost</th>
                         <th class="text-center py-2">Total Price</th>
                         <th class="text-center py-2">Total Profits</th>
+                        <th class="text-center py-2">Created At</th>
                         <th class="text-center py-2">Actions</th>
                     </tr>
                     </thead>
@@ -91,7 +91,7 @@
                                     @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                                 </td>
                                 <td class="border text-center py-2">{{$product->name}}</td>
-                                <td class="border text-center py-2">{{$product->serial}}</td>
+
                                 <td class="border text-center py-2">{{$product->code}}</td>
 
                                 {{-- Amount --}}
@@ -166,6 +166,8 @@
                                 </td>
                                 <td class="border text-center py-2">{{$product->pivot->net_price * $product->pivot->amount}}</td>
                                 <td class="border text-center py-2">{{$product->pivot->net_price - $product->pivot->net_cost}}</td>
+
+                                <td class="border text-center py-2">{{$product->created_at}}</td>
 
                                 {{--Actions--}}
                                 <td class="border text-center px-3 py-2">
