@@ -34,8 +34,8 @@
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No</th>
+                        <th class="px-4 py-2">Product Code</th>
                         <th class="px-4 py-2">Description</th>
-                        <th class="px-4 py-2">Product Name</th>
                         <th class="px-4 py-2">Amount</th>
                         <th class="px-4 py-2">Price</th>
                         <th class="px-4 py-2">Cost</th>
@@ -49,8 +49,8 @@
                     @forelse($sales as $sale)
                         <tr>
                             <td class="border px-4 py-2">{{$sale->id}}</td>
+                            <td class="border px-4 py-2">{{$sale->product->code}}</td>
                             <td class="border px-4 py-2">{{$sale->description}}</td>
-                            <td class="border px-4 py-2">{{$sale->product->name}}</td>
                             <td class="border px-4 py-2">{{$sale->amount}}</td>
                             <td class="border px-4 py-2">{{$sale->net_price}}</td>
                             <td class="border px-4 py-2">{{$sale->cost}}</td>
