@@ -18,6 +18,14 @@ class SaleComponent extends Component
 
     public $all_profits, $all_amounts, $all_costs;
 
+    public $start_from = '';
+    public $end_at = '';
+
+    protected $queryString = [
+        'start_from' => ['except' => ''],
+        'end_at'     => ['except' => '']
+    ];
+
     protected array $rules = [
         'price'  => 'required',
         'cost'   => 'required',
@@ -28,14 +36,22 @@ class SaleComponent extends Component
 
     public function mount()
     {
-        $this->all_profits = 0;
-        $this->all_amounts = 0;
-        $this->all_costs = 0;
+
+
     }
 
     public function render()
     {
-        $sales = Sale::with('product')->orderBy('id', 'desc')->get();
+        $this->all_profits = 0;
+        $this->all_amounts = 0;
+        $this->all_costs = 0;
+        $sales = Sale::with('product')
+            ->whereBetween('created_at', [
+                $this->start_from ==''?'1900-01-01':$this->start_from,
+                $this->end_at == '' ? '2322-02-11':$this->end_at
+            ])
+            ->orderBy('id', 'desc')
+            ->get();
 
         foreach($sales as $sale) {
             $this->all_profits += $sale->profit;

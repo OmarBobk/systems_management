@@ -29,6 +29,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="dropdown-divider"></div>
+                <div class="row py-4">
+                    <div class="col-4">
+                        <div class="input-group-prepend">
+                            <label for="start_from">
+                                <span class="input-group-text">From: </span>
+                            </label>
+                            <input class="form-control" type="date"
+                                   wire:model="start_from">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group-prepend">
+                            <label for="end_at">
+                                <span class="input-group-text">To: </span>
+                            </label>
+                            <input class="form-control" id="end_at" type="date"
+                                   wire:model="end_at">
+                        </div>
+                    </div>
+                </div>
 
             <table class="table-fixed w-full">
                 <thead>
@@ -59,8 +80,6 @@
                             <td class="border px-4 py-2">{{$sale->profit}}</td>
                             <td class="border px-4 py-2">{{$sale->created_at}}</td>
                             <td class="border px-4 py-2">
-                                <button class="btn btn-primary my-1"
-                                        wire:click="edit('{{$sale->id}}')">Edit</button>
                                 <button class="btn btn-danger my-1"
                                         wire:click="delete('{{$sale->id}}')">Delete</button>
                             </td>
