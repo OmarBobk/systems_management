@@ -41,6 +41,7 @@
                         <th class="px-4 py-2">Cost</th>
                         <th class="px-4 py-2">Total</th>
                         <th class="px-4 py-2">Profit</th>
+                        <th class="px-4 py-2">Created At</th>
                         <th class="px-4 py-2">Actions</th>
                     </tr>
                 </thead>
@@ -56,6 +57,7 @@
                             <td class="border px-4 py-2">{{$sale->cost}}</td>
                             <td class="border px-4 py-2">{{$sale->total}}</td>
                             <td class="border px-4 py-2">{{$sale->profit}}</td>
+                            <td class="border px-4 py-2">{{$sale->created_at}}</td>
                             <td class="border px-4 py-2">
                                 <button class="btn btn-primary my-1"
                                         wire:click="edit('{{$sale->id}}')">Edit</button>

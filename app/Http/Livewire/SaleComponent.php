@@ -35,7 +35,7 @@ class SaleComponent extends Component
 
     public function render()
     {
-        $sales = Sale::with('product')->get();
+        $sales = Sale::with('product')->orderBy('id', 'desc')->get();
 
         foreach($sales as $sale) {
             $this->all_profits += $sale->profit;
