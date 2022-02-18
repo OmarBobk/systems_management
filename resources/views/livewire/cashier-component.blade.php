@@ -49,9 +49,9 @@
                     <thead>
                     <tr class="bg-gray-100">
                         <th class="text-center py-2 w-20">No</th>
-                        <th class="text-center py-2">Img</th>
-                        <th class="text-center py-2">Description</th>
+{{--                        <th class="text-center py-2">Img</th>--}}
                         <th class="text-center py-2">Name</th>
+                        <th class="text-center py-2">Description</th>
                         <th class="text-center py-2">Code</th>
                         <th class="text-center py-2">Amount</th>
                         <th class="text-center py-2">Price</th>
@@ -67,17 +67,22 @@
                         @forelse($cart->products as $product)
                             <tr>
                                 <td class="border text-center py-2">{{$product->id}}</td>
-                                <td class="border text-center py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>
+{{--                                <td class="border text-center py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>--}}
+
+                                <td class="border text-center py-2">{{$product->name}}</td>
+
                                 {{-- Description --}}
-                                <td class="border text-center py-2" style="padding:15px 15px">
+                                <td class="border text-center py-2 text-sm">
 
                                     @if(isset($is_edit['description'][$product->id."-".$product->pivot->id]))
                                         @if($is_edit['description'][$product->id."-".$product->pivot->id])
                                             {{--                                            {{dd($amount)}}--}}
                                             <textarea
-                                                   class="form-control"
-                                                   wire:model.lazy="description.{{$product->id}}-{{$product->pivot->id}}"
-                                                   wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'description')"></textarea>
+                                                cols="5"
+                                                rows="5"
+                                                class="form-control"
+                                                wire:model.lazy="description.{{$product->id}}-{{$product->pivot->id}}"
+                                                wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'description')"></textarea>
                                         @else
                                             <div
                                                 wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">{{$product->pivot->description}}</div>
@@ -90,7 +95,6 @@
 
                                     @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                                 </td>
-                                <td class="border text-center py-2">{{$product->name}}</td>
 
                                 <td class="border text-center py-2">{{$product->code}}</td>
 

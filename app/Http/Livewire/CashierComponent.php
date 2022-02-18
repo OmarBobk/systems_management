@@ -62,7 +62,9 @@ class CashierComponent extends Component
     public function render()
     {
 
-        $this->cart = Cart::find(1);
+        $this->cart = Cart::with(['products' => function ($q) {
+            $q->orderBy('id', 'desc');
+        }])->whereId(1)->first();
         $this->is_amount_error = false;
         return view('livewire.cashier-component')->layout('layouts.user');
     }
