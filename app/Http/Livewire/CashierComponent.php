@@ -158,7 +158,6 @@ class CashierComponent extends Component
 
     public function createSales()
     {
-        $products      = $this->cart->products;
         $sales         = [];
         $incomes       = [];
 
@@ -169,19 +168,19 @@ class CashierComponent extends Component
 
         $x = 1;
 
-        foreach($products as $product) {
+        foreach($this->cart->products as $product) {
+
             $sale_id         = $sale_id_start_at + $x;
-            $amount          = $product->carts()->first()->pivot->amount;
-            $description     = $product->carts()->first()->pivot->description;
-            $net_price       = $product->carts()->first()->pivot->net_price;
-            $cost            = $product->carts()->first()->pivot->net_cost;
+            $amount          = $product->pivot->amount;
+            $description     = $product->pivot->description;
+            $net_price       = $product->pivot->net_price;
+            $cost            = $product->pivot->net_cost;
             $total_price     = $net_price * $amount;
             $profit          = ($net_price - $cost) * $amount;
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
             $now             = Carbon::now();
-
 
             $sales[] = [
                 'id'                => $sale_id,
@@ -257,6 +256,7 @@ class CashierComponent extends Component
             $x += 1;
 
         }
+
         $chunks = array_chunk($sales, 50);
 
         foreach ($chunks as $chunk) Sale::insert($chunk);
