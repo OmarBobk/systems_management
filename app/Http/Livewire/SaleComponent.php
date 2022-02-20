@@ -47,8 +47,8 @@ class SaleComponent extends Component
         $this->all_costs = 0;
         $sales = Sale::with('product')
             ->whereBetween('created_at', [
-                $this->start_from ==''?'1900-01-01':$this->start_from,
-                $this->end_at == '' ? '2322-02-11':$this->end_at
+                $this->start_from ==''?'1900-01-01':date('Y-m-d H:i:s', strtotime($this->start_from)),
+                $this->end_at == '' ? '2322-02-11':date('Y-m-d H:i:s', strtotime($this->end_at))
             ])
             ->orderBy('id', 'desc')
             ->get();
