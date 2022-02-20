@@ -144,6 +144,7 @@
                                     @error("net_price.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                                 </td>
 
+                                {{-- Net Cost--}}
                                 <td class="border text-center py-2">
                                     {{-- Product That you can edit the cost --}}
                                     @if($product->id === 1)
@@ -156,11 +157,15 @@
                                                        wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'net_cost')">
                                             @else
                                                 <div
-                                                    wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">{{$product->pivot->net_cost}}</div>
+                                                    wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">
+                                                    {{$product->pivot->net_cost}}
+                                                </div>
                                             @endif
                                         @else
                                             <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">{{$product->pivot->net_cost}}</div>
+                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">
+                                                {{$product->pivot->net_cost}}
+                                            </div>
                                         @endif
 
                                         @error("net_cost.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
@@ -168,8 +173,16 @@
                                         {{$product->pivot->net_cost}}
                                     @endif
                                 </td>
-                                <td class="border text-center py-2">{{$product->pivot->net_price * $product->pivot->amount}}</td>
-                                <td class="border text-center py-2">{{$product->pivot->net_price - $product->pivot->net_cost}}</td>
+
+                                {{-- Total Price--}}
+                                <td class="border text-center py-2">
+                                    {{$product->pivot->net_price * $product->pivot->amount}}
+                                </td>
+
+                                {{-- Total Profits--}}
+                                <td class="border text-center py-2">
+                                    {{($product->pivot->net_price - $product->pivot->net_cost) * $product->pivot->amount}}
+                                </td>
 
                                 <td class="border text-center py-2">{{$product->created_at}}</td>
 
