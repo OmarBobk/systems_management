@@ -184,7 +184,7 @@
                                     {{($product->pivot->net_price - $product->pivot->net_cost) * $product->pivot->amount}}
                                 </td>
 
-                                <td class="border text-center py-2">{{$product->created_at}}</td>
+                                <td class="border text-center py-2">{{$product->pivot->updated_at}}</td>
 
                                 {{--Actions--}}
                                 <td class="border text-center px-3 py-2">
