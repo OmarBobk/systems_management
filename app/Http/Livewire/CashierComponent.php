@@ -90,7 +90,10 @@ class CashierComponent extends Component
         $this->cart->products()->attach($product->id, ['amount' => 1,
             'net_price'   => $product->price,
             'net_cost'    => $product->cost,
-            'description' => 'Description']);
+            'description' => 'Description',
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now(),
+            ]);
 
         if($product->amount < 1 ) $this->result = [];
     }
