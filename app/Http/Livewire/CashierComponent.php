@@ -185,7 +185,6 @@ class CashierComponent extends Component
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
-            $now             = Carbon::now();
 
             $sales[] = [
                 'id'                => $sale_id,
@@ -198,8 +197,8 @@ class CashierComponent extends Component
                 'user_id'           => $user_id,
                 'product_id'        => $product_id,
                 'contribution_id'   => $contribution_id,
-                'created_at'        => $now,
-                'updated_at'        => $now,
+                'created_at'        => $product->pivot->created_at,
+                'updated_at'        => $product->pivot->updated_at,
             ];
 
             // Decrement Products amount.
@@ -224,8 +223,8 @@ class CashierComponent extends Component
                 'sale_id'         => $sale_id,
                 'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
-                'created_at'      => $now,
-                'updated_at'      => $now,
+                'created_at'      => $product->pivot->created_at,
+                'updated_at'      => $product->pivot->updated_at,
             ];
 
 
@@ -238,8 +237,8 @@ class CashierComponent extends Component
                 'sale_id'         => $sale_id,
                 'user_id'         => Auth::user()->id,
                 'contribution_id' => $contribution_id,
-                'created_at'      => $now,
-                'updated_at'      => $now,
+                'created_at'      => $product->pivot->created_at,
+                'updated_at'      => $product->pivot->updated_at,
             ];
 
             // If the profit percent != 100 then the contributor
@@ -252,8 +251,8 @@ class CashierComponent extends Component
                     'sale_id'         => $sale_id,
                     'user_id'         => Auth::user()->id,
                     'contribution_id' => 1,
-                    'created_at'      => $now,
-                    'updated_at'      => $now,
+                    'created_at'      => $product->pivot->created_at,
+                    'updated_at'      => $product->pivot->updated_at,
                 ];
             }
 
