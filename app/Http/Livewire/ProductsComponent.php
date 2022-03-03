@@ -26,6 +26,9 @@ class ProductsComponent extends Component
         $contributor_id, $seller_id, $brands,
         $isCreateComponentOpen, $updateMode;
 
+    // Statiscis
+    public $products_amount, $products_type_amount, $products_cost;
+
     // Edit Mode
     protected array $properties_rules = [
         'name'              => ['name.*'            => 'required'],
@@ -154,7 +157,6 @@ class ProductsComponent extends Component
         $this->is_view_product_actions  = [0 => false];
         $this->isCreateComponentOpen    = false;
         $this->updateMode               = false;
-
         $this->is_edit = [
             'name'     => [],
             'code'     => [],
@@ -163,7 +165,6 @@ class ProductsComponent extends Component
             'price'    => [],
             'serial'   => [],
         ];
-
         $this->is_edit_details = [
             'description'     => [],
             'brand_id'        => [],
@@ -172,15 +173,28 @@ class ProductsComponent extends Component
             'contribution_id' => [],
             'updated_at'      => [],
         ];
-        $this->reset('searchKeyword', 'search_field', 'page');
 
+        $this->reset('searchKeyword', 'search_field', 'page');
     }
 
     public function render()
     {
+        $this->products_amount = 0;
+        $this->products_cost = 0;
+        $products = Product::where($this->search_field, "like", "%$this->searchKeyword%")
+            ->orderBy('id');
+
+        $this->products_type_amount = $products->count();
+
+        foreach ($products->get() as $product) {
+            if ($product->id != 1) {
+                $this->products_cost += $product->cost * $product->amount;
+                $this->products_amount += $product->amount;
+            }
+        }
+
         return view('livewire.products.index-component', [
-            'products' => Product::where($this->search_field, "like", "%$this->searchKeyword%")
-                ->orderBy('id')->paginate(5),
+            'products' => $products->paginate(5),
         ])->layout('layouts.user');
     }
 

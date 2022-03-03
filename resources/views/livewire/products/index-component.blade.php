@@ -21,6 +21,25 @@
                 </button>
             @endif
 
+            <div class="row py-4">
+                <div class="col-4">
+                    <div class="list-group-item" style="background:#f1f1f1">
+                        Products Amount: {{$products_amount}}
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="list-group-item" style="background:#f1f1f1">
+                        Products Type: {{$products_type_amount}}
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="list-group-item" style="background:#f1f1f1">
+                        Products Cost: {{$products_cost}} TL
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+
             {{-- Search Form --}}
             <div class="bg-gray-200 rounded-b text-teal-900 px-2 py-2 my-3">
                 <form>
