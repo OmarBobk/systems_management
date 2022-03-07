@@ -1,23 +1,38 @@
 <div>
-    <div class="py-12">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+    <div class="container-fluid mt--6">
+        <div class="bg-white card overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
 
-            <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+            @if(session()->has('message'))
+                <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                     role="alert">
+                    <div class="flex">
+                        <div>
+                            <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if(session()->has('sales_message'))
+                <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
                  role="alert">
                 <div class="flex">
                     <div>
-                        @if(session()->has('message'))
-                            <p class="text-sm alert alert-{{session('alert')}}">{{session('message')}}</p>
-                        @endif
-                        @if(session()->has('sales_message'))
-                            <p class="text-sm alert alert-{{session('sales_alert')}}">{{session('sales_message')}}</p>
-                        @endif
-                        @if(session()->has('debts_message'))
-                            <p class="text-sm alert alert-{{session('debts_alert')}}">{{session('debts_message')}}</p>
-                        @endif
+                        <p class="text-sm alert alert-{{session('sales_alert')}}">{{session('sales_message')}}</p>
                     </div>
                 </div>
             </div>
+            @endif
+            @if(session()->has('debts_message'))
+                <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                 role="alert">
+                <div class="flex">
+                    <div>
+                        <p class="text-sm alert alert-{{session('debts_alert')}}">{{session('debts_message')}}</p>
+                    </div>
+                </div>
+            </div>
+            @endif
 
             <form>
                 <div class="form-group mb-3">

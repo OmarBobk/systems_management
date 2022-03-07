@@ -1,6 +1,6 @@
 <div>
-    <div class="py-12">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+    <div class="container-fluid mt--6">
+        <div class="bg-white card overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
             @if(session()->has('message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
                      role="alert">
@@ -230,7 +230,7 @@
                         @if(isset($is_view_product_details[$product->id]))
                             @if($is_view_product_details[$product->id])
                                 <tr>
-                                    <td colspan="7" class="border" >
+                                    <td colspan="8" class="border" >
                                         @include('livewire.products.details-component')
                                     </td>
                                 </tr>
@@ -241,9 +241,9 @@
 
                 </tbody>
             </table>
-                <div>
-                    {{$products->links()}}
-                </div>
+            <div>
+                {{$products->links()}}
+            </div>
 
         </div>
     </div>

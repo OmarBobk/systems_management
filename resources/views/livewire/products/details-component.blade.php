@@ -2,22 +2,22 @@
     <table class="table-fixed w-full">
         <thead>
         <tr class="bg-gray-100">
-            <th class="text-center" style="padding:15px 15px">Description</th>
-            <th class="text-center" style="padding:15px 15px">Seller</th>
-            <th class="text-center" style="padding:15px 15px">Brand</th>
-            <th class="text-center" style="padding:15px 15px">Bill</th>
-            <th class="text-center" style="padding:15px 15px">Category</th>
-            <th class="text-center" style="padding:15px 15px">Contribution</th>
-            <th class="text-center" style="padding:15px 15px">Date</th>
-            <th class="text-center" style="padding:15px 15px">By</th>
-            <th class="text-center" style="padding:15px 15px">Actions</th>
+            <th class="text-center" style="padding:10px 5px">Description</th>
+            <th class="text-center" style="padding:10px 5px">Seller</th>
+            <th class="text-center" style="padding:10px 5px">Brand</th>
+            <th class="text-center" style="padding:10px 5px">Bill</th>
+            <th class="text-center" style="padding:10px 5px">Category</th>
+            <th class="text-center" style="padding:10px 5px">Contribution</th>
+            <th class="text-center" style="padding:10px 5px">Date</th>
+            <th class="text-center" style="padding:10px 5px">By</th>
+            <th class="text-center" style="padding:10px 5px">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr>
 
             {{-- Description --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
 
                 @if(isset($is_edit_details['description'][$product->id]))
                     @if($is_edit_details['description'][$product->id])
@@ -35,13 +35,13 @@
             </td>
 
             {{-- Seller --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 {{$product->brand()->first()->seller->name}}
 
             </td>
 
             {{-- Brand --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
 
                 @if(isset($is_edit_details['brand_id'][$product->id]))
                     @if($is_edit_details['brand_id'][$product->id])
@@ -72,7 +72,7 @@
             </td>
 
             {{-- Bill --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 @if(isset($is_edit_details['bill_id'][$product->id]))
                     @if($is_edit_details['bill_id'][$product->id])
                         <select class="form-control" wire:model.lazy="bill_id.{{$product->id}}"
@@ -103,7 +103,7 @@
             </td>
 
             {{-- Category --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 @if(isset($is_edit_details['category_id'][$product->id]))
                     @if($is_edit_details['category_id'][$product->id])
                         <select class="form-control" wire:model.lazy="category_id.{{$product->id}}"
@@ -126,7 +126,7 @@
             </td>
 
             {{-- Contributor --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 @if(isset($is_edit_details['contribution_id'][$product->id]))
                     @if($is_edit_details['contribution_id'][$product->id])
                         <select class="form-control" wire:model.lazy="contribution_id.{{$product->id}}"
@@ -159,18 +159,18 @@
             </td>
 
             {{-- Date --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
 {{--                {{$product->created_at}}--}}
                 {{\Carbon\Carbon::parse($product->created_at)->format('Y-m-d')}}
             </td>
 
             {{-- By User --}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 {{$product->user->name}}
             </td>
 
             {{--Actions--}}
-            <td class="border text-center" style="padding:15px 15px">
+            <td class="border text-center" style="padding:10px 5px">
                 @if(isset($is_view_product_details_actions[$product->id]))
                     @if($is_view_product_details_actions[$product->id])
                         {{-- Update --}}

@@ -151,6 +151,9 @@ class ProductsComponent extends Component
         'searchKeyword' => ['except' => '']
     ];
 
+    // Breadcrumbs
+    public $breadcrumbs;
+
     public function mount()
     {
         $this->is_edit_product_name     = [0 => false];
@@ -179,6 +182,12 @@ class ProductsComponent extends Component
 
     public function render()
     {
+        $this->breadcrumbs = [
+            [
+                'route' => 'products',
+                'index' => 'Products'
+            ],
+        ];
         $this->products_amount = 0;
         $this->products_cost = 0;
         $products = Product::where($this->search_field, "like", "%$this->searchKeyword%")
@@ -192,10 +201,10 @@ class ProductsComponent extends Component
                 $this->products_amount += $product->amount;
             }
         }
-
         return view('livewire.products.index-component', [
-            'products' => $products->paginate(5),
-        ])->layout('layouts.user');
+            'products' => $products->paginate(5)
+        ])
+            ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
     public function create()
