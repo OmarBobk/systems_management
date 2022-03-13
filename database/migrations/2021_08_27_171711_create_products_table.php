@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->integer('cost')->comment('The price of the product when you bought it.');
             $table->string('slug');
 
-            $table->foreignId('bill_id');
+            $table->foreignId('bill_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('contribution_id')->constrained();
