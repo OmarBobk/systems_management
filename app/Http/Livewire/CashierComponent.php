@@ -62,9 +62,20 @@ class CashierComponent extends Component
     public function render()
     {
 
+        $breadcrumbs = [
+            [
+                'route' => 'cashier',
+                'index' => 'Cashier'
+            ],
+        ];
+
         $this->cart = Cart::with('products')->whereId(1)->first();
         $this->is_amount_error = false;
-        return view('livewire.cashier-component')->layout('layouts.user');
+
+        return view('livewire.cashier-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => $breadcrumbs,
+            ]);
     }
 
     /**
