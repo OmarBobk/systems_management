@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('name');
             $table->string('description');
 
-            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
+//            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -29,11 +29,15 @@ class SellerComponent extends Component
         'newSellerAddress' => 'required',
     ];
 
+    public function mount()
+    {
+        $this->is_view_brands = false;
+        $this->is_view_brands_from_search_form = false;
+    }
+
     public function render()
     {
-
         $this->sellers = Seller::all();
-
         return view('livewire.sellers.seller-component')->layout('layouts.user');
     }
 

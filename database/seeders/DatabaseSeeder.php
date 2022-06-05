@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,19 +16,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            SellerSeeder::class,
-            BrandSeeder::class,
+            BrandSellerSeeder::class,
+
+//            SellerSeeder::class,
+//            BrandSeeder::class,
             ContributorSeeder::class,
             ContributionSeeder::class,
             CategorySeeder::class,
-            ProductSeeder::class,
-            CartSeeder::class,
-//            DebtorSeeder::class,
             BillSeeder::class,
+            ProductSeeder::class,
+//            DebtorSeeder::class,
 //            DebtSeeder::class,
 //            SaleSeeder::class,
 //            IncomeSeeder::class,
 //            ExpenseSeeder::class,
+            CartSeeder::class,
         ]);
     }
 }

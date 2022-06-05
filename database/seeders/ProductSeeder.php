@@ -34,7 +34,7 @@ ProductSeeder extends Seeder
             'cost'              => 0,
             'slug'              => Str::slug('Other'),
             'user_id'           => 1,
-            'brand_id'          => 6,
+            'brand_id'          => 1,
             'category_id'       => 1,
             'contribution_id'   => 1,
             'bill_id'           => 1,

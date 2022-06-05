@@ -26,9 +26,9 @@
             {{--Sellers--}}
             <div>
                 <button class="btn btn-primary" wire:click="addNewSeller">New Seller</button>
-                <table class="table-fixed w-full">
+                <table class="w-full mt-4">
                     <thead>
-                    <tr class="bg-gray-100">
+                    <tr class="bg-gray-100 text-center">
                         <th class="px-4 py-2 w-20">No</th>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Phone</th>
@@ -40,8 +40,11 @@
                     @if(isset($sellers))
                         @forelse($sellers as $seller)
                             <tr>
-                                <td class="border px-4 py-2">{{$seller->id}}</td>
-                                <td class="border px-4 py-2" wire:click="editName('{{$seller->id}}')">
+                                {{--Seller ID--}}
+                                <td class="border px-4 py-2 text-center">{{$seller->id}}</td>
+
+                                {{--Seller Name--}}
+                                <td class="border px-4 py-2 text-center" wire:click="editName('{{$seller->id}}')">
                                     @if(isset($editName[$seller->id]))
                                         @if($editName[$seller->id])
                                             <input type="text"
@@ -57,8 +60,8 @@
                                     @endif
                                 </td>
 
-                                {{--Phone--}}
-                                <td class="border px-4 py-2" wire:click="editPhone('{{$seller->id}}')">
+                                {{--Seller Phone--}}
+                                <td class="border px-4 py-2 text-center" wire:click="editPhone('{{$seller->id}}')">
                                     @if(isset($editPhone[$seller->id]))
                                         @if($editPhone[$seller->id])
                                             <input type="text"
@@ -74,8 +77,8 @@
                                     @endif
                                 </td>
 
-                                {{--Address--}}
-                                <td class="border px-4 py-2" wire:click="editAddress('{{$seller->id}}')">
+                                {{--Seller Address--}}
+                                <td class="border px-4 py-2 text-justify" wire:click="editAddress('{{$seller->id}}')">
                                     @if(isset($editAddress[$seller->id]))
                                         @if($editAddress[$seller->id])
                                             <input type="text"
@@ -92,25 +95,29 @@
                                 </td>
 
                                 {{--Actions--}}
-                                <td class="border px-4 py-2">
+                                <td class="border px-4 py-2 justify-center">
                                     @if(isset($editName[$seller->id]) or isset($editPhone[$seller->id]) or isset($editAddress[$seller->id]))
                                         @if($editName[$seller->id] or $editPhone[$seller->id] or $editAddress[$seller->id])
+                                            {{--Update Button--}}
                                             <button class="btn-success btn-sm"
                                                     wire:click="@if ($editName[$seller->id]) updateNameEnter('{{$seller->id}}') @elseif ($editAddress[$seller->id]) updateAddressEnter('{{$seller->id}}') @else updatePhoneEnter('{{$seller->id}}') @endif">
                                                 <i class="ni ni-2x ni-active-40"></i>
                                             </button>
 
+                                            {{--Close Updating Button--}}
                                             <button class="btn-danger btn-sm"
                                                     wire:click="@if ($editName[$seller->id]) closeUpdateNameEnter('{{$seller->id}}') @elseif ($editAddress[$seller->id]) closeUpdateAddressEnter('{{$seller->id}}') @else closeUpdatePhoneEnter('{{$seller->id}}') @endif">
                                                 <i class="ni ni-2x ni-fat-remove"></i>
                                             </button>
                                         @else
+                                            {{--View Brands Button--}}
                                             <button class="btn-primary btn-sm"
                                                     wire:click="viewBrands('{{$seller->id}}')">
                                                 <i class="ni ni-2x ni-bold-down"></i>
                                             </button>
                                         @endif
                                     @else
+                                        {{--View Brands Button--}}
                                         <button class="btn-primary btn-sm"
                                                 wire:click="viewBrands('{{$seller->id}}')">
                                             <i class="ni ni-2x ni-bold-down"></i>
@@ -125,7 +132,7 @@
                                 @if($is_view_brands[$seller->id])
                                     <tr>
                                         <td colspan="10" class="border text-center px-4 py-2">
-                                            <table class="table-fixed w-full">
+                                            <table class="w-full">
                                                 <thead>
                                                     <tr class="bg-gray-100">
                                                         <th class="px-4 py-2 w-20">No</th>
@@ -157,7 +164,7 @@
                                                             </td>
 
                                                             {{--Description--}}
-                                                            <td class="border text-center px-4 py-2" wire:click="editBrandDescription('{{$seller->id}}', '{{$brand->id}}')">
+                                                            <td class="border text-justify px-4 py-2" wire:click="editBrandDescription('{{$seller->id}}', '{{$brand->id}}')">
                                                                 @if(isset($is_brand_description[$seller->id][$brand->id]))
                                                                     @if($is_brand_description[$seller->id][$brand->id])
                                                                         <input type="text"
