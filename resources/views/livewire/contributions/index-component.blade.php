@@ -9,7 +9,7 @@
             {{-- Contributors --}}
             <div>
                 <button class="btn btn-primary" wire:click="addNewContributor">New Contributor</button>
-                <table class="table-fixed w-full">
+                <table class="mt-4 w-full">
                     <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No</th>
@@ -117,30 +117,30 @@
                             @if(isset($is_view_contributions[$contributor->id]))
                                 @if($is_view_contributions[$contributor->id])
                                     <tr>
-                                        <td colspan="10" class="border text-center px-4 py-2">
-                                            <table class="table-fixed w-full">
+                                        <td colspan="6" class="border text-center py-3 px-3">
+                                            <table class="w-full table-fixed">
                                                 <thead>
                                                 <tr class="bg-gray-100">
-                                                    <th class="px-4 py-2 w-20">No</th>
-                                                    <th class="px-4 py-2">Amount</th>
-                                                    <th class="px-4 py-2">Description</th>
-                                                    <th class="px-4 py-2">Profits Percent</th>
-                                                    <th class="px-4 py-2">Profits</th>
-                                                    <th class="px-4 py-2">Deposit</th>
-                                                    <th class="px-4 py-2">Due</th>
-                                                    <th class="px-4 py-2">Status</th>
-                                                    <th class="px-4 py-2">Returned</th>
-                                                    <th class="px-4 py-2">Updated at</th>
-                                                    <th class="px-4 py-2">Actions</th>
+                                                    <th class="px-2 py-2 w-20">No</th>
+                                                    <th class="px-2 py-2">Amount</th>
+                                                    <th class="px-2 py-2">Description</th>
+                                                    <th class="px-2 py-2">Profits Percent</th>
+                                                    <th class="px-2 py-2">Profits</th>
+                                                    <th class="px-2 py-2">Deposit</th>
+                                                    <th class="px-2 py-2">Due</th>
+                                                    <th class="px-2 py-2">Status</th>
+                                                    <th class="px-2 py-2">Returned</th>
+                                                    <th class="px-2 py-2">Updated at</th>
+                                                    <th class="px-2 py-2">Actions</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @forelse($contributor->contributions as $contribution)
                                                     <tr>
-                                                        <td class="border text-center px-4 py-2">{{$loop->index + 1}}</td>
+                                                        <td class="border text-center px-2 py-2">{{$loop->index + 1}}</td>
 
                                                         {{--Amount--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editAmount('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editAmount('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_amount[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_amount[$contributor->id][$contribution->id])
                                                                     <label>
@@ -160,11 +160,13 @@
                                                         </td>
 
                                                         {{--Description--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editDescription('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editDescription('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_description[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_description[$contributor->id][$contribution->id])
                                                                     <label>
                                                                         <textarea
+                                                                            rows="10"
+                                                                            cols="10"
                                                                            class="form-control"
                                                                            wire:model.lazy="contribution_description.{{$contributor->id}}.{{$contribution->id}}"
                                                                            wire:keydown.escape="closeDescription('{{$contributor->id}}', '{{$contribution->id}}')"></textarea>
@@ -178,7 +180,7 @@
                                                         </td>
 
                                                         {{--ProfitsPercent--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editProfitsPercent('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editProfitsPercent('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_profits_percent[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_profits_percent[$contributor->id][$contribution->id])
                                                                     <label>
@@ -197,12 +199,12 @@
                                                         </td>
 
                                                         {{--profits_sum_amount--}}
-                                                        <td class="border text-center px-4 py-2">
+                                                        <td class="border text-center px-2 py-2">
                                                             {{$contribution->profits_sum_amount}}
                                                         </td>
 
                                                         {{--Deposit--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editDepositDate('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editDepositDate('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_deposit_date[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_deposit_date[$contributor->id][$contribution->id])
                                                                     <label>
@@ -221,7 +223,7 @@
                                                         </td>
 
                                                         {{--Due--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editDueDate('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editDueDate('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_due_date[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_due_date[$contributor->id][$contribution->id])
                                                                     <label>
@@ -240,7 +242,7 @@
                                                         </td>
 
                                                         {{--Status--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editStatus('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editStatus('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_status[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_status[$contributor->id][$contribution->id])
                                                                     <label>
@@ -267,7 +269,7 @@
                                                         </td>
 
                                                         {{--Returned--}}
-                                                        <td class="border text-center px-4 py-2" wire:click="editReturnedDate('{{$contributor->id}}', '{{$contribution->id}}')">
+                                                        <td class="border text-center px-2 py-2" wire:click="editReturnedDate('{{$contributor->id}}', '{{$contribution->id}}')">
                                                             @if(isset($is_contribution_returned_date[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_returned_date[$contributor->id][$contribution->id])
                                                                     <label>
@@ -299,7 +301,7 @@
                                                         </td>
 
                                                         {{--Actions--}}
-                                                        <td class="border text-center px-4 py-2">
+                                                        <td class="border text-center px-2 py-2">
                                                             @if(isset($is_contribution_description[$contributor->id][$contribution->id]) or isset($is_contribution_profits_percent[$contributor->id][$contribution->id]) or isset($is_contribution_amount[$contributor->id][$contribution->id]) or isset($is_contribution_deposit_date[$contributor->id][$contribution->id]) or isset($is_contribution_due_date[$contributor->id][$contribution->id]) or isset($is_contribution_returned_date[$contributor->id][$contribution->id]) or isset($is_contribution_status[$contributor->id][$contribution->id]))
                                                                 @if($is_contribution_description[$contributor->id][$contribution->id] or $is_contribution_profits_percent[$contributor->id][$contribution->id] or $is_contribution_amount[$contributor->id][$contribution->id] or $is_contribution_deposit_date[$contributor->id][$contribution->id] or $is_contribution_due_date[$contributor->id][$contribution->id] or $is_contribution_returned_date[$contributor->id][$contribution->id] or $is_contribution_status[$contributor->id][$contribution->id])
                                                                     <button class="btn-success btn-sm"
@@ -317,18 +319,18 @@
                                                     </tr>
                                                 @empty
                                                     <tr class="bg-gray-100">
-                                                        <td colspan="10" class="border text-center px-4 py-2">You don't have any Contributions yet!!.</td>
+                                                        <td colspan="11" class="border text-center px-4 py-2">You don't have any Contributions yet!!.</td>
                                                     </tr>
                                                 @endforelse
 
-                                                {{--New Contribution Form--}}
-                                                <tr>
-                                                    <td colspan="10">
-                                                        @if(isset($is_create_new_contribution) and $is_create_new_contribution)
-                                                            @include('livewire.contributions.create-new-contribution-component')
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                @if(isset($is_create_new_contribution) and $is_create_new_contribution)
+                                                    {{--New Contribution Form--}}
+                                                    <tr>
+                                                        <td colspan="10">
+                                                        @include('livewire.contributions.create-new-contribution-component')
+                                                        </td>
+                                                    </tr>
+                                                @endif
 
                                                 {{--Create New contribution--}}
                                                 <tr>

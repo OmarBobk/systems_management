@@ -23,6 +23,11 @@ class Contributions extends Component
 
     public $contributor_profits;
 
+    public function mount()
+    {
+        $this->is_view_contributions = false;
+    }
+
     public function render()
     {
         $this->contributors = Contributor::with(['contributions' => function ( $query) {
