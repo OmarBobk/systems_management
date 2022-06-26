@@ -23,6 +23,16 @@ class Contribution extends Model
         return $this->hasMany(Income::class)->whereType('profit');
     }
 
+    public function costs(): HasMany
+    {
+        return $this->hasMany(Income::class)->whereType('cost');
+    }
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
+
     public function contributor(): BelongsTo
     {
         return $this->belongsTo(Contributor::class);

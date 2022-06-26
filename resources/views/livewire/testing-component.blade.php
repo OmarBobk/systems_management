@@ -168,4 +168,12 @@
 
     </div>
 
+    <div>
+        Testing table
+
+        <x-table :rows="[]"
+                 :striped="false"
+                 tableTextLinkLabel="Link" :columns="['omar']"></x-table>
+    </div>
+
 </div>

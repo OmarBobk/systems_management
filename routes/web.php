@@ -47,6 +47,9 @@ Route::group([
     Route::get('/contributions-management', App\Http\Livewire\Contributions::class)                     ->name('contributions');
     Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)                     ->name('safe');
     Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)                   ->name('incomes');
+    Route::get('/incomes/{income}', function ($income) {
+        dd($income);
+    })                   ->name('incomes.view');
     Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)                 ->name('expenses');
     Route::get('/bills',                    App\Http\Livewire\BillComponent::class)                     ->name('bills');
     Route::get('/products-container/{productsContainer}',       App\Http\Livewire\ProductsContainerComponent::class)        ->name('container');
