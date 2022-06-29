@@ -1,13 +1,33 @@
 <div
+    wire:key="{{ md5(collect($rows)) }}"
+    x-cloak
     x-data="{
 		columns: {{ collect($columns) }},
 		rows: {{ collect($rows) }},
-		isStriped: Boolean({{ $striped }})
+		isStriped: Boolean({{ $striped }}),
+		tabs: {{ collect($tabs) }},
+		selected: @entangle('selected'),
 	}"
-    x-cloak
-    wire:key="{{ md5(collect($rows)) }}"
 >
-<div class="mb-5 overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+<div class="mb-5 overflow-x-auto bg-gray-50 shadow overflow-y-auto relative">
+    <div class="border-primary border-b">
+        <template x-for="(tab, index) in tabs">
+            <div class="inline-flex rounded-lg bg-gray-100 bg-opacity-30 mx-auto ">
+                <button @click="selected = tab"
+                        wire:click=""
+                        :class="[
+                                (index === tabs.length -1) && '',
+                                (index === 0) && '',
+                                 tab === selected && ' bg-primary text-white font-black rounded-t-md',
+                                 (tab !== selected) && 'bg-transparent cursor-base hover:border-gray-400 dark:hover:border-gray-300'
+                            ]"
+                        class="flex items-center h-12 px-4 py-2 text-sm text-center text-gray-700 border-gray-300 sm:text-base dark:border-gray-500 dark:text-white whitespace-nowrap focus:outline-none"
+                        x-text="tab"
+                >
+                </button>
+            </div>
+        </template>
+    </div>
     <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
         <thead>
         <tr class="text-center">
@@ -81,5 +101,6 @@
 
         </tbody>
     </table>
+
 </div>
 </div>

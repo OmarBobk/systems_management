@@ -18,32 +18,32 @@
 
             <div class="mt-4">
 
-                <div>
-                    Income Records:
-                    <div class="flex min-h-screen w-full items-center justify-center">
-                        <div x-data="{ filters: ['Costs', 'Profits', 'Expenses'], selected: 'Costs' }"
-                             class="inline-flex rounded-lg my-3 bg-gray-100 bg-opacity-30 mx-auto">
-                            <template x-for="(filter, index) in filters">
-                                <div>
-                                    <button @click="selected = filter"
-                                            :class="[
-                                        (index === filters.length -1) && '!rounded-r-lg',
-                                        (index === 0) && '!rounded-l-lg',
-                                         filter === selected && 'border-green-500 bg-green-500 text-white',
-                                         (filter !== selected) && 'bg-red-500 bg-white'
-                                         ]"
-                                            class="py-2 sm:py-2 my-1 px-4 sm:px-6 inline-flex items-center justify-center font-medium border border-gray-50 text-center focus:bg-primary text-black text-sm sm:text-base capitalize focus:outline-none"
-                                            x-text="filter">
-                                    </button>
-                                    <div x-if="(selected === 'Costs' && filter === 'Costs')">All</div>
-                                    <div x-show="(selected === 'Profits' && filter === 'Profits')">Free</div>
-                                    <div x-show="(selected === 'Expenses' && filter === 'Expenses')">Premium</div>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
+{{--                <div>--}}
+{{--                    Income Records:--}}
+{{--                    <div class="flex min-h-screen w-full items-center justify-center">--}}
+{{--                        <div x-data="{ filters: ['Costs', 'Profits', 'Expenses'], selected: 'Costs' }"--}}
+{{--                             class="inline-flex rounded-lg my-3 bg-gray-100 bg-opacity-30 mx-auto">--}}
+{{--                            <template x-for="(filter, index) in filters">--}}
+{{--                                <div>--}}
+{{--                                    <button @click="selected = filter"--}}
+{{--                                            :class="[--}}
+{{--                                        (index === filters.length -1) && '!rounded-r-lg',--}}
+{{--                                        (index === 0) && '!rounded-l-lg',--}}
+{{--                                         filter === selected && 'border-green-500 bg-green-500 text-white',--}}
+{{--                                         (filter !== selected) && 'bg-red-500 bg-white'--}}
+{{--                                         ]"--}}
+{{--                                            class="py-2 sm:py-2 my-1 px-4 sm:px-6 inline-flex items-center justify-center font-medium border border-gray-50 text-center focus:bg-primary text-black text-sm sm:text-base capitalize focus:outline-none"--}}
+{{--                                            x-text="filter">--}}
+{{--                                    </button>--}}
+{{--                                    <div x-show="(selected === 'Costs' && filter === 'Costs')">Costs</div>--}}
+{{--                                    <div x-show="(selected === 'Profits' && filter === 'Profits')">Profits</div>--}}
+{{--                                    <div x-show="(selected === 'Expenses' && filter === 'Expenses')">Expenses</div>--}}
+{{--                                </div>--}}
+{{--                            </template>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                </div>
+{{--                </div>--}}
 
                 <x-table
                     :striped="true"
@@ -67,13 +67,30 @@
 				"rowClasses" => ""
 			]
 		]'
-                :rows='$this->incomes ?? []'
+{{--                :rows='$this->selected == "Costs" ? $this->get_costs() : $this->get_profits() ?? []'--}}
+                :rows='$rows_data[$this->selected]'
                 table-text-link-label="ID"
+                :tabs='$this->tableTabs'
             >
                 <x-slot name="tableTextLink">
                     <div class="flex space-x-3 items-center">
                         <div>
-                            <a :href="`{{route('incomes')}}/${row.id}`" x-text="row.id" class="text-blue-500 underline"></a>
+                            @if($this->selected == 'Costs' or $this->selected == 'Profits')
+                                <a :href="`{{route('incomes')}}/${row.id}`"
+                                   x-text="row.id"
+                                   target="_blank"
+                                   class="text-blue-500 underline"></a>
+                            @elseif($this->selected == 'All')
+                                <a :href="'https://bobk.test/' + (row.type === 'cost' || row.type === 'profit' ? 'incomes' : 'expenses') + '/' + row.id"
+                                   x-text="row.id"
+                                   target="_blank"
+                                   class="text-blue-500 underline"></a>
+                            @else
+                                <a :href="`{{route('expenses')}}/${row.id}`"
+                                   x-text="row.id"
+                                   target="_blank"
+                                   class="text-blue-500 underline"></a>
+                            @endif
                         </div>
                     </div>
                 </x-slot>
@@ -89,32 +106,33 @@
             </div>
 
 
-            <div class="flex justify-center">
-                <div id="chart" class="w-2/4 h-2/4"></div>
-            </div>
 
-            <script>
-                document.addEventListener('alpine:init', () => {
+{{--            <div class="flex justify-center">--}}
+{{--                <div id="chart" class="w-2/4 h-2/4"></div>--}}
+{{--            </div>--}}
 
-                    var options = {
-                        chart: {
-                            type: 'line'
-                        },
-                        series: [{
-                            name: 'sales',
-                            data: [10, 9, 8.5, 11]
-                        }],
-                        xaxis: {
-                            categories: ['01-11', '03-11', '05-11', '10-11']
-                        }
-                    }
+{{--            <script>--}}
+{{--                document.addEventListener('alpine:init', () => {--}}
 
-                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+{{--                    var options = {--}}
+{{--                        chart: {--}}
+{{--                            type: 'line'--}}
+{{--                        },--}}
+{{--                        series: [{--}}
+{{--                            name: 'sales',--}}
+{{--                            data: [10, 9, 8.5, 11]--}}
+{{--                        }],--}}
+{{--                        xaxis: {--}}
+{{--                            categories: ['01-11', '03-11', '05-11', '10-11']--}}
+{{--                        }--}}
+{{--                    }--}}
 
-                    chart.render();
+{{--                    var chart = new ApexCharts(document.querySelector("#chart"), options);--}}
 
-                })
-            </script>
+{{--                    chart.render();--}}
+
+{{--                })--}}
+{{--            </script>--}}
 
         </div>
     </div>

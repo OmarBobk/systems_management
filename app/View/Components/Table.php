@@ -12,11 +12,13 @@ class Table extends Component
      * @return void
      */
     public function __construct(
-        public $rows = [],
-        public $columns = [],
-        public $striped = false,
-        public $tableTextLinkLabel = 'Link',
-        public $actionText = 'Action')
+        public array  $rows = [],
+        public array  $columns = [],
+        public array  $tabs = [],
+        public string $selected = '',
+        public bool   $striped = false,
+        public string $tableTextLinkLabel = 'Link',
+        public string $actionText = 'Action')
     {}
 
     /**
@@ -28,4 +30,5 @@ class Table extends Component
     {
         return view('components.table');
     }
+
 }
