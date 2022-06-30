@@ -12,7 +12,7 @@
 
                 {{--Total Amount--}}
                 <div class=" items-center justify-end  d-flex w-4/12">
-                    <span class="badge badge-primary float-right text-lg">10.000 TL</span>
+                    <span class="badge badge-primary float-right text-lg">{{$this->original_amount}}</span>
                 </div>
             </div>
 
@@ -48,12 +48,12 @@
                 <x-table
                     :striped="true"
                 :columns='[
-			[
-				"name" => "Type",
-				"field" => "type",
-				"columnClasses" => "",
-				"rowClasses" => ""
-			],
+{{--			[--}}
+{{--				"name" => "Type",--}}
+{{--				"field" => "type",--}}
+{{--				"columnClasses" => "",--}}
+{{--				"rowClasses" => ""--}}
+{{--			],--}}
 			[
 				"name" => "Amount",
 				"field" => "amount",
@@ -61,36 +61,60 @@
 				"rowClasses" => ""
 			],
 			[
-				"name" => "Created At",
-				"field" => "created_at",
+				"name" => "Status",
+				"field" => "status",
 				"columnClasses" => "",
 				"rowClasses" => ""
-			]
+			],
 		]'
-{{--                :rows='$this->selected == "Costs" ? $this->get_costs() : $this->get_profits() ?? []'--}}
                 :rows='$rows_data[$this->selected]'
-                table-text-link-label="ID"
+                table-text-link-label="Type"
+                custom-field-name="Contribution"
                 :tabs='$this->tableTabs'
             >
-                <x-slot name="tableTextLink">
+                <x-slot name="customField">
+                    <div class="inline-block truncate align-bottom">
+                        <a href="#"
+                           class="text-blue-500 underline"
+                           x-text="row.contribution_id"></a>
+                    </div>
+                </x-slot>
+
+{{--                <x-slot name="tableTextLink" >--}}
+{{--                    <div class="flex space-x-3 items-center">--}}
+{{--                        <div>--}}
+{{--                            @if($this->selected == 'Costs' or $this->selected == 'Profits')--}}
+{{--                                <a :href="`{{route('incomes')}}/${row.id}`"--}}
+{{--                                   x-text="row.id"--}}
+{{--                                   target="_blank"--}}
+{{--                                   class="text-blue-500 underline"></a>--}}
+{{--                            @elseif($this->selected == 'All')--}}
+{{--                                <a :href="'https://bobk.test/' + (row.type === 'cost' || row.type === 'profit' ? 'incomes' : 'expenses') + '/' + row.id"--}}
+{{--                                   x-text="row.id"--}}
+{{--                                   target="_blank"--}}
+{{--                                   class="text-blue-500 underline"></a>--}}
+{{--                            @else--}}
+{{--                                <a :href="`{{route('expenses')}}/${row.id}`"--}}
+{{--                                   x-text="row.id"--}}
+{{--                                   target="_blank"--}}
+{{--                                   class="text-blue-500 underline"></a>--}}
+{{--                            @endif--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </x-slot>--}}
+
+                <x-slot name="tableTextLink" >
                     <div class="flex space-x-3 items-center">
                         <div>
-                            @if($this->selected == 'Costs' or $this->selected == 'Profits')
-                                <a :href="`{{route('incomes')}}/${row.id}`"
-                                   x-text="row.id"
-                                   target="_blank"
-                                   class="text-blue-500 underline"></a>
-                            @elseif($this->selected == 'All')
-                                <a :href="'https://bobk.test/' + (row.type === 'cost' || row.type === 'profit' ? 'incomes' : 'expenses') + '/' + row.id"
-                                   x-text="row.id"
-                                   target="_blank"
-                                   class="text-blue-500 underline"></a>
-                            @else
-                                <a :href="`{{route('expenses')}}/${row.id}`"
-                                   x-text="row.id"
-                                   target="_blank"
-                                   class="text-blue-500 underline"></a>
+                            <button
+                                x-on:click="$wire.toggleShowProfitsDetails($wire.show_profits_details, row.contribution_id)"
+                               x-text="row.type"
+                               class="text-blue-500 underline"></button>
+
+                            @if($this->show_profits_details)
+                                hi
                             @endif
+
                         </div>
                     </div>
                 </x-slot>
@@ -136,6 +160,5 @@
 
         </div>
     </div>
-
 
 </div>

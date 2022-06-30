@@ -143,7 +143,7 @@
 
                                 {{-- Date --}}
                                 <td class="border text-center" style="padding:15px 15px">
-                                    {{$expense->created_at->format('Y-m-d')}}
+                                    {{$expense->created_at}}
                                 </td>
 
                                 {{--Actions--}}

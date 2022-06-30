@@ -18,6 +18,7 @@ class Table extends Component
         public string $selected = '',
         public bool   $striped = false,
         public string $tableTextLinkLabel = 'Link',
+        public string $customFieldName    = '',
         public string $actionText = 'Action')
     {}
 

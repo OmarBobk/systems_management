@@ -47,6 +47,11 @@
                         x-text="column.name"></th>
                 </template>
 
+                {{-- Displays when Custom name slots for custom field --}}
+                @isset($customField)
+                    <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">{{ $customFieldName }}</th>
+                @endisset
+
                 {{-- Displays when Custom name slots for action links is shown --}}
                 @isset($tableActions)
                     <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">{{ $actionText }}</th>
@@ -87,6 +92,14 @@
                             <div x-text="`${row[column.field]}`" class=" inline-block truncate"></div>
                         </td>
                     </template>
+
+                    {{-- Custom name slots for custom field --}}
+                    @isset($customField)
+                        <td
+                            class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                            {{ $customField }}
+                        </td>
+                    @endisset
 
                     {{-- Custom name slots for action links --}}
                     @isset($tableActions)

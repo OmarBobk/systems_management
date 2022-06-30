@@ -17,10 +17,14 @@ class ContributorComponent extends Component
     public $dataTable;
     public $rows_data;
     public $record_url;
+    public int $original_amount;
+
+    public $show_profits_details;
 
     public function mount(Contributor $contributor)
     {
-//        $this->users = ;
+        $this->show_profits_details = false;
+        $this->original_amount = 0;
         $this->tableTabs = [
             0 => "All",
             1 => "Costs",
@@ -39,18 +43,40 @@ class ContributorComponent extends Component
         ];
 
         $this->contributor = $contributor;
-        $this->profits     = $this->get_profits();
-        $this->costs       = $this->get_costs();
-        $this->expenses    = $this->get_expenses();
+
+        $this->get_records();
+
         $all_data          = array_merge($this->costs, $this->profits, $this->expenses);
 
-
-        $this->rows_data         = [
-            'All'      => $all_data,
-            'Costs'    => $this->costs,
-            'Profits'  => $this->profits,
-            'Expenses' => $this->expenses,
+        $alll_data_v2 = [
+            0 => [
+                'id' => 1,
+                'type' => 'profits',
+                'amount' => 26,
+                'contribution_id' => 1,
+                'created_at' => now(),
+            ],
         ];
+
+        $this->rows_data         = $this->get_records_v2();
+
+
+
+        /*
+            [
+                Contribution 1   => [
+                                        Income::whereType('profit')->get(),
+                                        Income::whereType('cost')->get(),
+                                        Expense::all(),
+                                    ],
+                Contribution 2   => [
+                                        Income::whereType('profit')->get(),
+                                        Income::whereType('cost')->get(),
+                                        Expense::all(),
+                                    ],
+            ]
+         */
+
     }
 
     public function render()
@@ -73,35 +99,80 @@ class ContributorComponent extends Component
             ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs,]);
     }
 
-    public function get_costs()
+    public function get_records()
     {
-        $costs = [];
+        $profits    = [];
+        $costs      = [];
+        $expenses   = [];
+        $org_amount = 0;
+
         foreach ($this->contributions as $contribution) {
-            $costs[] = collect($contribution->costs)->toArray();
+            $costs[]     = collect($contribution->costs)->toArray();
+            $profits[]   = collect($contribution->profits)->toArray();
+            $expenses[]  = collect($contribution->expenses)->toArray();
+            $org_amount += $contribution->amount + $contribution->expenses()->whereType('shopping')->first()->amount;
         }
-        return array_merge(...$costs);
+
+        $this->profits         = array_merge(...$profits);
+        $this->costs           = array_merge(...$costs);
+        $this->expenses        = array_merge(...$expenses);
+        $this->original_amount = $org_amount;
+
     }
 
-    public function get_profits()
+    public function get_records_v2()
     {
-        $profits = [];
-        foreach ($this->contributions as $contribution) {
-            $profits[] = collect($contribution->profits)->toArray();
-        }
-        return array_merge(...$profits);
-    }
-
-    public function get_expenses()
-    {
+        $profits  = [];
+        $costs    = [];
         $expenses = [];
+
         foreach ($this->contributions as $contribution) {
-            $expenses[] = collect($contribution->expenses)->toArray();
+            $profit   = $contribution->profits;
+            $cost     = $contribution->costs;
+            $expense  = $contribution->expenses;
+
+            $profits[] = [
+                'type' => 'Profits',
+                'amount' => $profit->sum('amount'),
+                'status' => 'Income',
+                'contribution_id' => $contribution->id,
+            ];
+
+            $costs[] = [
+                'type' => 'Costs',
+                'amount' => $cost->sum('amount'),
+                'status' => 'Income',
+                'contribution_id' => $contribution->id,
+            ];
+
+            $expenses[] = [
+                'type'   => 'Expenses',
+                'amount' => $expense->sum('amount'),
+                'status' => 'Outcome',
+                'contribution_id' => $contribution->id,
+            ];
         }
-        return array_merge(...$expenses);
+
+        $data = [
+            'All' => array_merge(
+                collect($profits)->toArray(),
+                collect($costs)->toArray(),
+                collect($expenses)->toArray()
+            ),
+            'Costs'    => collect($costs)->toArray(),
+            'Profits'  => collect($profits)->toArray(),
+            'Expenses' => collect($expenses)->toArray(),
+        ];
+
+        return $data;
+
     }
 
-    public function record_url($e)
+    public function toggleShowProfitsDetails($p, $cont)
     {
-        return $e;
+        $this->show_profits_details = !$p;
+
+        dd($cont);
     }
+
 }
