@@ -19,21 +19,25 @@ class ContributorComponent extends Component
     public $record_url;
     public int $original_amount;
 
-    public $show_profits_details;
+    public $show_details, $show_details_type, $show_details_contribution_id;
 
     public function mount(Contributor $contributor)
     {
-        $this->show_profits_details = false;
-        $this->original_amount = 0;
+        $this->show_details_type = '';
+        $this->show_details      = [];
+        $this->original_amount   = 0;
+        $this->selected          = 'All';
+        $this->contributions     = $contributor->contributions;
+        $contributor_id          = $contributor->id;
+        $this->contributor       = $contributor;
+        $this->rows_data         = $this->get_records_v2();
+
         $this->tableTabs = [
             0 => "All",
             1 => "Costs",
             2 => "Profits",
             3 => "Expenses"
         ];
-        $this->selected      = 'All';
-        $this->contributions = $contributor->contributions;
-        $contributor_id      = $contributor->id;
 
         $this->breadcrumbs = [
             [
@@ -41,41 +45,6 @@ class ContributorComponent extends Component
                 'index' => 'Contributor / ' . $contributor_id,
             ],
         ];
-
-        $this->contributor = $contributor;
-
-        $this->get_records();
-
-        $all_data          = array_merge($this->costs, $this->profits, $this->expenses);
-
-        $alll_data_v2 = [
-            0 => [
-                'id' => 1,
-                'type' => 'profits',
-                'amount' => 26,
-                'contribution_id' => 1,
-                'created_at' => now(),
-            ],
-        ];
-
-        $this->rows_data         = $this->get_records_v2();
-
-
-
-        /*
-            [
-                Contribution 1   => [
-                                        Income::whereType('profit')->get(),
-                                        Income::whereType('cost')->get(),
-                                        Expense::all(),
-                                    ],
-                Contribution 2   => [
-                                        Income::whereType('profit')->get(),
-                                        Income::whereType('cost')->get(),
-                                        Expense::all(),
-                                    ],
-            ]
-         */
 
     }
 
@@ -99,7 +68,11 @@ class ContributorComponent extends Component
             ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs,]);
     }
 
-    public function get_records()
+    /**
+     *
+     * @return array
+     */
+    public function get_records_v2(): array
     {
         $profits    = [];
         $costs      = [];
@@ -107,29 +80,10 @@ class ContributorComponent extends Component
         $org_amount = 0;
 
         foreach ($this->contributions as $contribution) {
-            $costs[]     = collect($contribution->costs)->toArray();
-            $profits[]   = collect($contribution->profits)->toArray();
-            $expenses[]  = collect($contribution->expenses)->toArray();
+            $profit      = $contribution->profits;
+            $cost        = $contribution->costs;
+            $expense     = $contribution->expenses;
             $org_amount += $contribution->amount + $contribution->expenses()->whereType('shopping')->first()->amount;
-        }
-
-        $this->profits         = array_merge(...$profits);
-        $this->costs           = array_merge(...$costs);
-        $this->expenses        = array_merge(...$expenses);
-        $this->original_amount = $org_amount;
-
-    }
-
-    public function get_records_v2()
-    {
-        $profits  = [];
-        $costs    = [];
-        $expenses = [];
-
-        foreach ($this->contributions as $contribution) {
-            $profit   = $contribution->profits;
-            $cost     = $contribution->costs;
-            $expense  = $contribution->expenses;
 
             $profits[] = [
                 'type' => 'Profits',
@@ -153,7 +107,9 @@ class ContributorComponent extends Component
             ];
         }
 
-        $data = [
+        $this->original_amount = $org_amount;
+
+        return [
             'All' => array_merge(
                 collect($profits)->toArray(),
                 collect($costs)->toArray(),
@@ -164,15 +120,46 @@ class ContributorComponent extends Component
             'Expenses' => collect($expenses)->toArray(),
         ];
 
-        return $data;
-
     }
 
-    public function toggleShowProfitsDetails($p, $cont)
+    public function toggleShowProfitsDetails($type, $contribution_id)
     {
-        $this->show_profits_details = !$p;
+        $type_cont_id = strtolower($type).'.'.$contribution_id;
+        $this->show_details_type = $type;
+        $this->show_details_contribution_id = $contribution_id;
 
-        dd($cont);
+        if(!empty($this->show_details)) {
+            if(array_key_first($this->show_details) === $type_cont_id) {
+                $this->show_details = [];
+            } else {
+                $this->show_details = [
+                    $type_cont_id => true
+                ];
+            }
+        } else {
+            $this->show_details = [
+                $type_cont_id => true
+            ];
+        }
+    }
+
+    public function get_records_details($contribution_id, $type) {
+        $type = strtolower($type);
+
+        if ($type == 'profits') {
+            return $this->contributor->contributions()->find($contribution_id)->profits;
+        } elseif($type == 'expenses') {
+            return $this->contributor->contributions()->find($contribution_id)->expenses;
+        } else {
+            return $this->contributor->contributions()->find($contribution_id)->costs;
+        }
+    }
+
+
+
+    public function updatedSelected()
+    {
+        $this->show_details = [];
     }
 
 }

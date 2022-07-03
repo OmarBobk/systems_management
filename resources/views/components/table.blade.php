@@ -80,7 +80,8 @@
                 @else
                     @isset($tableTextLink)
                         <td
-                            class="text-gray-600 px-2 py-3 inline-block border-t border-gray-100 whitespace-nowrap">
+                            class="text-gray-600 px-2 py-3 inline-block border-t
+                            border-gray-100 whitespace-nowrap">
                             {{ $tableTextLink }}
                         </td>
                     @endisset
@@ -111,6 +112,15 @@
                 @endisset
             </tr>
         </template>
+        @if(isset($showDetails))
+            <tr>
+                <td colspan="5">
+                    <div class="flex justify-center bg-gray-100">
+                        {{$showDetails}}
+                    </div>
+                </td>
+            </tr>
+        @endif
 
         </tbody>
     </table>

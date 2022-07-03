@@ -17,56 +17,22 @@
             </div>
 
             <div class="mt-4">
-
-{{--                <div>--}}
-{{--                    Income Records:--}}
-{{--                    <div class="flex min-h-screen w-full items-center justify-center">--}}
-{{--                        <div x-data="{ filters: ['Costs', 'Profits', 'Expenses'], selected: 'Costs' }"--}}
-{{--                             class="inline-flex rounded-lg my-3 bg-gray-100 bg-opacity-30 mx-auto">--}}
-{{--                            <template x-for="(filter, index) in filters">--}}
-{{--                                <div>--}}
-{{--                                    <button @click="selected = filter"--}}
-{{--                                            :class="[--}}
-{{--                                        (index === filters.length -1) && '!rounded-r-lg',--}}
-{{--                                        (index === 0) && '!rounded-l-lg',--}}
-{{--                                         filter === selected && 'border-green-500 bg-green-500 text-white',--}}
-{{--                                         (filter !== selected) && 'bg-red-500 bg-white'--}}
-{{--                                         ]"--}}
-{{--                                            class="py-2 sm:py-2 my-1 px-4 sm:px-6 inline-flex items-center justify-center font-medium border border-gray-50 text-center focus:bg-primary text-black text-sm sm:text-base capitalize focus:outline-none"--}}
-{{--                                            x-text="filter">--}}
-{{--                                    </button>--}}
-{{--                                    <div x-show="(selected === 'Costs' && filter === 'Costs')">Costs</div>--}}
-{{--                                    <div x-show="(selected === 'Profits' && filter === 'Profits')">Profits</div>--}}
-{{--                                    <div x-show="(selected === 'Expenses' && filter === 'Expenses')">Expenses</div>--}}
-{{--                                </div>--}}
-{{--                            </template>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                </div>--}}
-
                 <x-table
                     :striped="true"
                 :columns='[
-{{--			[--}}
-{{--				"name" => "Type",--}}
-{{--				"field" => "type",--}}
-{{--				"columnClasses" => "",--}}
-{{--				"rowClasses" => ""--}}
-{{--			],--}}
-			[
-				"name" => "Amount",
-				"field" => "amount",
-				"columnClasses" => "",
-				"rowClasses" => ""
-			],
-			[
-				"name" => "Status",
-				"field" => "status",
-				"columnClasses" => "",
-				"rowClasses" => ""
-			],
-		]'
+                            [
+                                "name" => "Amount",
+                                "field" => "amount",
+                                "columnClasses" => "",
+                                "rowClasses" => ""
+                            ],
+                            [
+                                "name" => "Status",
+                                "field" => "status",
+                                "columnClasses" => "",
+                                "rowClasses" => ""
+                            ],
+                        ]'
                 :rows='$rows_data[$this->selected]'
                 table-text-link-label="Type"
                 custom-field-name="Contribution"
@@ -107,13 +73,11 @@
                     <div class="flex space-x-3 items-center">
                         <div>
                             <button
-                                x-on:click="$wire.toggleShowProfitsDetails($wire.show_profits_details, row.contribution_id)"
+                                x-on:click="$wire.toggleShowProfitsDetails(row.type, row.contribution_id)"
+                                wire:click=""
                                x-text="row.type"
-                               class="text-blue-500 underline"></button>
-
-                            @if($this->show_profits_details)
-                                hi
-                            @endif
+                               class="text-blue-500 underline"
+                            ></button>
 
                         </div>
                     </div>
@@ -124,6 +88,60 @@
                         <a :href="`avengers/${row.name}/show`" class="text-blue-500 underline">Edit</a>
                         <a :href="`avengers/${row.name}/delete`" class="text-red-500 underline">Delete</a>
                     </div>
+                </x-slot>
+
+                <x-slot name="showDetails">
+                    @if(!empty($this->show_details))
+                        @if($this->show_details[array_key_first($this->show_details)])
+                            <div class="col-10">
+                                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                                            ID
+                                        </th>
+                                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                                            Type
+                                        </th>
+                                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                                            Amount
+                                        </th>
+                                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                                            {{$this->show_details_type == "Expenses" ? "Bill" : "Sale"}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    @foreach($this->get_records_details($this->show_details_contribution_id, $this->show_details_type) as $record)
+                                    <tr>
+                                        <td
+                                            class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                            <div class=" inline-block truncate">{{$record->id}}</div>
+                                        </td>
+                                        <td
+                                            class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                            <div class=" inline-block truncate">{{ucfirst($record->type)}}</div>
+                                        </td>
+                                        <td
+                                            class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                            <div class=" inline-block truncate">{{$record->amount}}</div>
+                                        </td>
+                                        <td
+                                            class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                            <div class=" inline-block truncate">
+                                                <a href="#"
+                                                   class="text-blue-500 underline">
+                                                    {{$this->show_details_type == 'Expenses' ? $record->bill->serial : $record->sale_id}}
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
+                    @endif
                 </x-slot>
 
             </x-table>
