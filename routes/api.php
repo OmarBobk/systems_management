@@ -19,4 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('products', ProductsController::class);
+Route::apiResource('products', ProductsController::class)
+    ->only(['index', 'update', 'show']);
+//Route::get('/bills', BillsController::class);
+
+
+Route::fallback(function() {
+   return response()->json([
+       'message' => 'Page Not Found. If error Persists, Contact ahmadomarbobk@gmail.com',
+   ]);
+});
