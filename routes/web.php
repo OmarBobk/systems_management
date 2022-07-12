@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
 
-
 // Users and Admins
 Route::group([
     'middleware' => ['auth:sanctum', 'verified'],
