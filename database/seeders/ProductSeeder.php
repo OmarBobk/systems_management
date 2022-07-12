@@ -27,9 +27,9 @@ ProductSeeder extends Seeder
 
         $products[] = [
             'name'              => 'Other',
-            'serial'            => 0,
+            'serial'            => 123456789,
             'code'              => '****',
-            'amount'            => 1,
+            'amount'            => 10000,
             'price'             => 0,
             'cost'              => 0,
             'slug'              => Str::slug('Other'),

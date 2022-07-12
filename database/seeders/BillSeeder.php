@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Bill;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class BillSeeder extends Seeder
@@ -33,14 +34,14 @@ class BillSeeder extends Seeder
         $bills[] = [
             'id'                  => 2,
             'type'                => 'goods',
-            'amount'              => 2721,
-            'description'         => '293.5 $ * 9.27 TL',
+            'amount'              => 100000,
+            'description'         => 'Stocktaking',
             'quantity'            => 125,
             'serial'              => 1002,
             'seller_id'           => 1,
             'contribution_id'     => 1,
-            'created_at'          => '2021-10-18 00:00:00',
-            'updated_at'          => '2021-10-18 00:00:00',
+            'created_at'          => Carbon::now(),
+            'updated_at'          => Carbon::now(),
         ];
 
         Bill::insert($bills);
