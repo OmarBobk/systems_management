@@ -301,9 +301,7 @@ class SellerComponent extends Component
         Brand::create([
             'name'          => $this->new_brand_name,
             'description'   => $this->new_brand_description,
-            'seller_id'     => $seller_id,
-        ]);
-
+        ])->sellers()->attach($seller_id);
         session()->flash('message', 'Brand Created');
         session()->flash('alert' , 'success');
 
