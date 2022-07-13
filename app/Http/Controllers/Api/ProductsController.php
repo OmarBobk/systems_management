@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\ProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
-use App\Models\Bill;
-use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Throwable;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 
 class ProductsController extends Controller
 {
@@ -53,23 +56,45 @@ class ProductsController extends Controller
             ]
         ]);
     }
+
     /**
      * Update the specified resource in storage.
      *
      * you can't update cost, amount, Bill, Contribution, created_at, User_id
-     * Only Name, Code, Price, Serial, Description, Seller, Brand, Category.
+     * Only Name, Code, Price, Serial, Description, Brand, Category.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @param Product $product
+     * @return JsonResponse|object
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
+
+        $request->validated();
         $except_fields = ['cost', 'amount', 'bill_id', 'contribution_id', 'created_at', 'user_id'];
 
-        if ($request->has($except_fields)) {
-//            return response()->json()
+        foreach ($except_fields as $field) {
+            if ($request->has($field)) {
+                throw new HttpResponseException(response()->json([
+                    'success'   => false,
+                    'message'   => 'Validation errors',
+                    'data'      => [
+                        "$field" => "$field is non editable."
+                    ],
+                ]));
+            }
         }
+
+        try {
+            // Update the product.
+            $product->update($request->validated());
+            return new ProductResource($product);
+        } catch (ModelNotFoundException $e) {
+            return $this->respondNotFound();
+        } catch (ValidationException $e) {
+            return $this->respondValidatorFailed($e->validator);
+        }
+
     }
 
     public function show($id)

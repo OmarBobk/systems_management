@@ -2,6 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Bill;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Contribution;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -24,11 +29,11 @@ class ProductResource extends JsonResource
             'price'             => (int) $this->price,
             'cost'              => (int) $this->cost,
             'slug'              => $this->slug,
-            'bill_id'           => $this->bill_id,
-            'brand_id'          => $this->brand_id,
-            'category_id'       => $this->category_id,
-            'contribution_id'   => $this->contribution_id,
-            'user_id'           => $this->user_id,
+            'bill'              => Bill::findOrFail($this->bill_id)->only('id', 'serial'),
+            'brand'             => Brand::findOrFail($this->brand_id)->only('id', 'name'),
+            'category'          => Category::findOrFail($this->category_id)->only('id', 'name'),
+            'contribution'      => Contribution::with('contributor:name,id')->findOrFail($this->contribution_id)->only('id', 'amount', 'created_at', 'contributor'),
+            'user'              => User::findOrFail($this->user_id)->only('id', 'name'),
         ];
     }
 }
