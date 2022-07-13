@@ -48,7 +48,10 @@ class ProductRequest extends FormRequest
         ]));
     }
 
-    public function messages()
+    /**
+     * @return string[]
+     */
+    public function messages(): array
     {
         return [
             'name.required'        => 'Name Can Not Be Empty.',

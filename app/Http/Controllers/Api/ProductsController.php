@@ -25,17 +25,18 @@ class ProductsController extends Controller
      */
     public function index(Request $request): ProductCollection
     {
-        $search_field   = $request->query('search_field') ?? 'code';
-        $search_keyword = $request->query('search_keyword') ?? '';
-        $order_field    = $request->query('order_field') ?? 'id';
-        $order_type     = $request->query('order_type') ?? 'ASC';
-        $per_page       = $request->query('per_page') ?? 5;
+        $search_field            = $request->query('search_field') ?? 'code';
+        $search_keyword          = $request->query('search_keyword') ?? '';
+        $order_field             = $request->query('order_field') ?? 'id';
+        $order_type              = $request->query('order_type') ?? 'ASC';
+        $products_per_page       = $request->query('products_per_page') ?? 5;
+        $products_in_stock_count = 0;
+        $products_total_costs    = 0;
 
         $products = Product::where($search_field, "like", "%$search_keyword%")
             ->orderBy($order_field, $order_type);
 
-        $products_in_stock_count = 0;
-        $products_total_costs    = 0;
+
         $products_types_count    = $products->count();
 
         foreach ($products->get() as $product) {
@@ -45,14 +46,14 @@ class ProductsController extends Controller
             }
         }
 
-        return (new ProductCollection($products->paginate($per_page)))->additional([
+        return (new ProductCollection($products->paginate($products_per_page)))->additional([
             'meta' => [
                 'products_in_stock_count' => $products_in_stock_count,
                 'products_total_costs'    => $products_total_costs,
                 'products_types_count'    => $products_types_count,
                 'search_field'            => $search_field,
                 'search_keyword'          => $search_keyword,
-                'per_page'                => $per_page,
+                'products_per_page'       => $products_per_page,
             ]
         ]);
     }
@@ -65,9 +66,9 @@ class ProductsController extends Controller
      *
      * @param ProductRequest $request
      * @param Product $product
-     * @return JsonResponse|object
+     * @return ProductResource
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product): ProductResource
     {
 
         $request->validated();
@@ -95,10 +96,5 @@ class ProductsController extends Controller
             return $this->respondValidatorFailed($e->validator);
         }
 
-    }
-
-    public function show($id)
-    {
-        return (new ProductResource(Product::findOrFail($id)));
     }
 }
