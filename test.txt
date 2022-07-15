@@ -1,0 +1,29 @@
+id,name,serial,code,brand,category,description
+,TP-20,kensa,cables,public/assets/img/products/image_url_serial/8681749626991.jpg,2 meter cable 2.1A
+,DK-152,kensa,cables,public/assets/img/products/image_url_serial/8681749601547.jpg,1 meter cable 2.1A fast charging
+,torima-x8,torima,car accessories,public/assets/img/products/image_url_serial/8682858961133.jpg,2 usb 12-24v
+,KC-50,kensa,cables,public/assets/img/products/image_url_serial/8681749622580.jpg,1 meter cable 2.4A
+,C-821,Concord,cables,public/assets/img/products/image_url_serial/8699415440802.jpg,1 meter cable 2.1A
+,C-411,Concord,cables,public/assets/img/products/image_url_serial/8699415452096.jpg,1 meter cable 1A
+,C-321,Concord,cables,public/assets/img/products/image_url_serial/8699415440796.jpg,1 meter cable 2.1A
+,DK-150,kensa,cables,public/assets/img/products/image_url_serial/8681749601523.jpg,1 meter cable 2.1A fast charging
+,T-AURA,Sprange,cables,public/assets/img/products/image_url_serial/8699415440741.jpg,1.2 meter cable 3.1A fast charging
+,M-AURA,Sprange,cables,public/assets/img/products/image_url_serial/8699415440734.jpg,1.2 meter cable 3.1A fast charging
+,C-409,Concord,cables,public/assets/img/products/image_url_serial/9202004013890.jpg,1 meter cable 3A fast charging
+,C-813,Concord,cables,public/assets/img/products/image_url_serial/9202004013937.jpg,1 meter cable 3A fast charging
+
+
+
+
+8681749622580.jpg
+8682858961133.jpg
+8681749601547.jpg
+8681749626991.jpg
+8699415440802.jpg
+8699415440796.jpg
+8699415452096.jpg
+8681749601523.jpg
+9202004013937.jpg
+9202004013890.jpg
+8699415440734.jpg
+8699415440741.jpg

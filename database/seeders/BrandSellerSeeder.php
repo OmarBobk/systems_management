@@ -82,6 +82,22 @@ class BrandSellerSeeder extends Seeder
             'address'  => 'Backbag Seller',
         ])->id;
 
+        // Concord
+        $concord_seller = Seller::create([
+            'id'       => 10,
+            'name'     => 'Concord',
+            'phone'    => '5321526442',
+            'address'  => 'Semsitebrizi Mah. Osmanbey Sk. No:5/C Karatay-Konya',
+        ])->id;
+
+        // Orchid
+        $orchid_seller = Seller::create([
+            'id'       => 9,
+            'name'     => 'Orchid',
+            'phone'    => '5523138657',
+            'address'  => 'Zafer',
+        ])->id;
+
         $all_sellers = [
             $default_seller,
             $el_khatib_seller,
@@ -91,6 +107,7 @@ class BrandSellerSeeder extends Seeder
             $toptanci_1_seller,
             $toptanci_2_seller,
             $ahmad_attar_seller,
+            $concord_seller,
         ];
 
         $default_brand = Brand::create([
@@ -103,7 +120,7 @@ class BrandSellerSeeder extends Seeder
             'id'             => 2,
             'name'           => 'Platoon',
             'description'    => 'Screens, General Accessories'
-        ])->sellers()->attach([$el_khatib_seller, $ahmad_attar_seller, $toptanci_1_seller, $toptanci_2_seller]);
+        ])->sellers()->attach([$concord_seller, $el_khatib_seller, $ahmad_attar_seller, $toptanci_1_seller, $toptanci_2_seller]);
 
         $jopus_brand = Brand::create([
             'id'             => 3,
@@ -169,13 +186,49 @@ class BrandSellerSeeder extends Seeder
             'id'             => 13,
             'name'           => 'i12',
             'description'    => 'Bluetooth Airpods',
-        ])->sellers()->attach([$ahmad_attar_seller, $toptanci_1_seller, $toptanci_2_seller, $el_khatib_seller]);
+        ])->sellers()->attach([$concord_seller, $ahmad_attar_seller, $toptanci_1_seller, $toptanci_2_seller, $el_khatib_seller]);
 
         $kensa_brand = Brand::create([
             'id'             => 14,
             'name'           => 'Kensa',
             'description'    => 'Bluetooth Airpods, Chargers, Cables, Screens, Memory Cards, Flash Memory, Speakers ..etc',
         ])->sellers()->attach([$ahmad_attar_seller, $el_khatib_seller, $kensa_seller]);
+
+        $torima_brand = Brand::create([
+            'id'             => 15,
+            'name'           => 'Torima',
+            'description'    => 'Bluetooth Headphones, Chargers, Cables ..etc',
+        ])->sellers()->attach([$ahmad_attar_seller, $el_khatib_seller, $concord_seller, $toptanci_2_seller, $toptanci_1_seller]);
+
+        $sprange_brand = Brand::create([
+            'id'             => 16,
+            'name'           => 'Sprange',
+            'description'    => 'Bluetooth Airpods, Cables ..etc',
+        ])->sellers()->attach([$concord_seller]);
+
+        $concord_brand = Brand::create([
+            'id'             => 20,
+            'name'           => 'Concord',
+            'description'    => 'Bluetooth Airpods, Cables, tiktok lightining, Chargers, Speakers, Flash Memories, SD Cards ..etc',
+        ])->sellers()->attach([$concord_seller]);
+
+        $orchid_brand = Brand::create([
+            'id'             => 17,
+            'name'           => 'Orchid',
+            'description'    => 'Perfume, Perfume Glasses, Perfume Accessories',
+        ])->sellers()->attach([$orchid_seller]);
+
+        $orchid_2_brand = Brand::create([
+            'id'             => 18,
+            'name'           => 'Orchid',
+            'description'    => 'Perfumes',
+        ])->sellers()->attach([$orchid_seller]);
+
+        $gifts_brand = Brand::create([
+            'id'             => 19,
+            'name'           => 'Toptanci Gifts',
+            'description'    => 'Gift boxes, Bags ...',
+        ])->sellers()->attach([$orchid_seller]);
 
     }
 }

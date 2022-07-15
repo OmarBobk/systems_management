@@ -163,7 +163,37 @@ class CategorySeeder extends Seeder
             'slug'          => Str::slug('Youtubers Stuffs'),
         ];
 
+        $categories[] = [
+            'id'            => 26,
+            'name'          => 'Car Accessories',
+            'slug'          => Str::slug('Car Accessories'),
+        ];
+
+        $categories[] = [
+            'id'            => 27,
+            'name'          => 'PD Cables',
+            'slug'          => Str::slug('PD Cables'),
+        ];
+
         Category::insert($categories);
 
+//        str_replace(' ','-', 'omar karman');
+//
+//        $arr = [
+//            "Kensa USB-C 2M Cable",
+//            "Kensa USB-C Fast Cable",
+//            "Torima Wi-Fi Car mp3 player",
+//            "Kensa USB-C Fast Cable",
+//            "Concord USB-C Cable",
+//            "Concord Lightning Cable",
+//            "Concord Micro Cable",
+//            "Kensa Micro Fast Cable",
+//            "Sprange USB-C Fast Cable",
+//            "Sprange Micro Fast Cable",
+//            "Concord PD USB-C to Lightning Cable",
+//            "Concord PD USB-C to USB-C Cable",
+//        ];
+//
+//        $arr = array_map(function ($a) { return str_replace(' ', '-', $a);}, $arr);
     }
 }
