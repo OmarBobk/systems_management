@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products', ProductsController::class)
-    ->only(['index', 'update', 'show']);
-//Route::get('/bills', BillsController::class);
+    ->only(['index', 'update']);
+Route::apiResource('categories', CategoryController::class)
+    ->only(['index', 'update', 'store', 'destroy', 'show']);
 
 
 Route::fallback(function() {
