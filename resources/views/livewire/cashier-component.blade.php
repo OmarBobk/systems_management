@@ -149,11 +149,11 @@
                                                    wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'net_price')">
                                         @else
                                             <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{$product->pivot->net_price}}</div>
+                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{number_format($product->pivot->net_price/1000,3)}}</div>
                                         @endif
                                     @else
                                         <div
-                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{$product->pivot->net_price}}</div>
+                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{number_format($product->pivot->net_price/1000,3)}}</div>
                                     @endif
 
                                     @error("net_price.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
@@ -172,13 +172,13 @@
                                                        wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'net_cost')">
                                             @else
                                                 <div
-                                                    wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">
+                                                    wire:click="editNew({{$product->id}}, '{{number_format($product->pivot->id/1000,3)}}', 'net_cost')">
                                                     {{$product->pivot->net_cost}}
                                                 </div>
                                             @endif
                                         @else
                                             <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_cost')">
+                                                wire:click="editNew({{$product->id}}, '{{number_format($product->pivot->id/1000,3)}}', 'net_cost')">
                                                 {{$product->pivot->net_cost}}
                                             </div>
                                         @endif
@@ -191,12 +191,12 @@
 
                                 {{-- Total Price--}}
                                 <td class="border text-center py-2">
-                                    {{$product->pivot->net_price * $product->pivot->amount}}
+                                    {{number_format(($product->pivot->net_price * $product->pivot->amount)/1000, 3)}}
                                 </td>
 
                                 {{-- Total Profits--}}
                                 <td class="border text-center py-2">
-                                    {{($product->pivot->net_price - $product->pivot->net_cost) * $product->pivot->amount}}
+                                    {{number_format((($product->pivot->net_price - $product->pivot->net_cost) * $product->pivot->amount)/1000, 3)}}
                                 </td>
 
                                 <td class="border text-center py-2">{{$product->pivot->updated_at->format('Y-m-d H:i a')}}</td>

@@ -49,7 +49,7 @@
                             <td class="border text-center" style="padding:15px 15px">
 
                                 {{-- Cost Of total products in the container --}}
-                                {{$this->productsInContainer($container->id)['cost']}}
+                                {{number_format($this->productsInContainer($container->id)['cost'] / 1000, 3)}}
 
                             </td>
 

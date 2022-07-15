@@ -51,7 +51,7 @@
                                     </h1>
                                 </div>
                                 <div class="col-lg-4">
-                                    <h1><span class="badge badge-success" style="color:#6b6a6a;">Cost: {{$total_cost}} TL</span></h1>
+                                    <h1><span class="badge badge-success" style="color:#6b6a6a;">Cost: {{number_format($total_cost/1000,3)}} TL</span></h1>
                                 </div>
                             </div>
                         </th>
@@ -158,10 +158,10 @@
                                                wire:keydown.enter="updateNew('{{$id}}', 'cost')"
                                                wire:keydown.escape="closeEdit('{{$id}}', 'cost')">
                                     @else
-                                        <div wire:click="editNew({{$id}}, 'cost')">{{$product['cost']}}</div>
+                                        <div wire:click="editNew({{$id}}, 'cost')">{{number_format($product['cost']/1000,3)}}</div>
                                     @endif
                                 @else
-                                    <div wire:click="editNew({{$id}}, 'cost')">{{$product['cost']}}</div>
+                                    <div wire:click="editNew({{$id}}, 'cost')">{{number_format($product['cost']/1000,3)}}</div>
                                 @endif
                                 @error("cost.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
@@ -176,10 +176,10 @@
                                                wire:keydown.enter="updateNew('{{$id}}', 'price')"
                                                wire:keydown.escape="closeEdit('{{$id}}', 'price')">
                                     @else
-                                        <div wire:click="editNew({{$id}}, 'price')">{{$product['price']}}</div>
+                                        <div wire:click="editNew({{$id}}, 'price')">{{number_format($product['price']/1000,3)}}</div>
                                     @endif
                                 @else
-                                    <div wire:click="editNew({{$id}}, 'price')">{{$product['price']}}</div>
+                                    <div wire:click="editNew({{$id}}, 'price')">{{number_format($product['price']/1000,3)}}</div>
                                 @endif
                                 @error("price.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
