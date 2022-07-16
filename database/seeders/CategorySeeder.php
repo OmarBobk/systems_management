@@ -178,20 +178,29 @@ class CategorySeeder extends Seeder
         Category::insert($categories);
 
 //        str_replace(' ','-', 'omar karman');
-//
+
 //        $arr = [
-//            "Kensa USB-C 2M Cable",
-//            "Kensa USB-C Fast Cable",
-//            "Torima Wi-Fi Car mp3 player",
-//            "Kensa USB-C Fast Cable",
-//            "Concord USB-C Cable",
-//            "Concord Lightning Cable",
-//            "Concord Micro Cable",
-//            "Kensa Micro Fast Cable",
-//            "Sprange USB-C Fast Cable",
-//            "Sprange Micro Fast Cable",
-//            "Concord PD USB-C to Lightning Cable",
-//            "Concord PD USB-C to USB-C Cable",
+//                "TGB Micro Cable",
+//                "Syrox SD 128 gb Card",
+//                "Type-C to Earphone Jack Adapter",
+//                "Car Bluetooth Music receiver",
+//                "Kensa SD 2 gb Card",
+//                "Kensa SD 4 gb Card",
+//                "Stereo Audio Aux Cable",
+//                "Stereo Audio USB-C Cable",
+//                "Stereo Audio Lightning Cable",
+//                "Lightning 2m cable",
+//                "Kensa Micro Fast Cable",
+//                "Kensa USB-C Fast Cable",
+//                "Stereo Audio Aux Cable",
+//                "Stereo Audio Aux Cable",
+//                "Concord 8 GB USB Flash",
+//                "Concord 16GB SDCard",
+//                "Concord 32GB USB Flash",
+//                "Concord 4GB SDCard",
+//                "Concord 8GB SDCard",
+//                "Concord 32GB SDCard",
+//                "Concord 16 GB USB Flash",
 //        ];
 //
 //        $arr = array_map(function ($a) { return str_replace(' ', '-', $a);}, $arr);
