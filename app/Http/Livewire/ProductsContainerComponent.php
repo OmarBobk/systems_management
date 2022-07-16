@@ -8,9 +8,11 @@ use App\Models\Category;
 use App\Models\Contributor;
 use App\Models\Product;
 use App\Models\ProductsContainer;
+use App\Models\ProductsDatabase;
 use App\Models\Seller;
 use App\Rules\SerialForContainer;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -61,7 +63,7 @@ class ProductsContainerComponent extends Component
         'amount_create'      => ['amount_create.*' => 'required|integer|min:1'],
         'cost_create'        => ['cost_create.*' => 'required|integer|min:1'],
         'price_create'       => ['price_create.*' => 'required|integer'],
-        'serial_create'      => ['serial_create.*' => 'required|integer|unique:products,serial'],
+        'serial_create'      => ['serial_create.*' => 'required|integer'],
         'category_id_create' => ['category_id_create.*' => 'required|integer'],
         'brand_id_create'    => ['brand_id_create.*' => 'required|integer'],
         'description_create' => ['description_create.*' => 'required'],
@@ -88,7 +90,6 @@ class ProductsContainerComponent extends Component
         'serial_create' => [
             'serial_create.*.required' => 'This Field is required!',
             'serial_create.*.integer' => 'Serial Should be integer!',
-            'serial_create.*.unique' => 'This Serial has been used!',
         ],
         'category_id_create' => [
             'category_id_create.*.required' => 'This Field is required!',
@@ -108,7 +109,7 @@ class ProductsContainerComponent extends Component
         'amount_create' => 'required|integer|min:1',
         'cost_create' => 'required|integer|min:1',
         'price_create' => 'required|integer',
-        'serial_create' => 'required|integer|unique:products,serial',
+        'serial_create' => 'required|integer',
         'category_id_create' => 'required|integer',
         'brand_id_create' => 'required|integer',
         'description_create' => 'required',
@@ -128,7 +129,6 @@ class ProductsContainerComponent extends Component
         'price_create.integer'          => 'Price Should be integer!',
         'serial_create.required'        => 'This Field is required!',
         'serial_create.integer'         => 'Serial Should be integer!',
-        'serial_create.unique'          => 'This Serial has been used!',
         'category_id_create.required'   => 'This Field is required!',
         'category_id_create.integer'    => 'Please Choose an other value.',
         'brand_id_create.required'      => 'This Field is required!',
@@ -387,19 +387,20 @@ class ProductsContainerComponent extends Component
             'amount' => 'required|integer|min:1',
             'cost' => 'required|integer|min:1',
             'price' => 'required|integer',
-            'serial' => ['required','integer','unique:products,serial',
-                function ($attribute, $value, $fail) use ($data, $id) {
-                    foreach ($data as $product) {
-
-                        if ($product['id'] == $id) {
-                            continue;
-                        }
-
-                        if ($product['serial'] == $value    ) {
-                            $fail('This Serial Number is used.');
-                        }
-                    }
-                },
+            'serial' => ['required','integer',
+//                'unique:products,serial',
+//                function ($attribute, $value, $fail) use ($data, $id) {
+//                    foreach ($data as $product) {
+//
+//                        if ($product['id'] == $id) {
+//                            continue;
+//                        }
+//
+//                        if ($product['serial'] == $value    ) {
+//                            $fail('This Serial Number is used.');
+//                        }
+//                    }
+//                },
                 ],
             'category_id' => 'required|integer',
             'brand_id' => 'required|integer',
@@ -540,7 +541,8 @@ class ProductsContainerComponent extends Component
                     'price_create' => 'required|integer',
                 ],
                 'serial_create' => [
-                    'serial_create' => ['required','integer','unique:products,serial', $check_serial,
+                    'serial_create' => ['required','integer',
+//                        'unique:products,serial', $check_serial,
                     ],
                 ],
                 'category_id_create' => [
@@ -577,7 +579,7 @@ class ProductsContainerComponent extends Component
                 'serial_create' => [
                     'serial_create.required'        => 'This Field is required!',
                     'serial_create.integer'         => 'Serial Should be integer!',
-                    'serial_create.unique'          => 'This Serial has been used!',
+//                    'serial_create.unique'          => 'This Serial has been used!',
                 ],
                 'category_id_create' => [
                     'category_id_create.required'   => 'This Field is required!',
@@ -682,6 +684,22 @@ class ProductsContainerComponent extends Component
             session()->flash('alert' , 'danger');
         }
 
+    }
+
+    public function updatedSerialCreate($value)
+    {
+        try {
+            $product_databse = ProductsDatabase::where('serial', (int) 8699415452096)->firstOrFail();
+
+            $this->name_create        = $product_databse->name;
+            $this->code_create        = $product_databse->code;
+            $this->description_create = $product_databse->description;
+            $this->brand_id_create    = $product_databse->brand_id;
+            $this->category_id_create = $product_databse->category_id;
+
+        } catch (ModelNotFoundException $e) {
+            dd($e->getMessage());
+        }
     }
 
 }

@@ -15,7 +15,7 @@ class CreateProductsDatabasesTable extends Migration
     {
         Schema::create('products_databases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('serial')->unique();
+            $table->unsignedBigInteger('serial');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('code')->comment('Product Code ex: KH-K17');
