@@ -17,4 +17,23 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function childrenCategories(): HasMany
+    {
+        return $this->hasMany(Category::class, 'category_id')->with('childrenCategories');
+    }
+
+// - Chargers
+//   - PD Chargers
+//     - Lightning Chargers
+//     - Type-C Chargers
+//       - Kensa.
+//       - Concord.
+//   - 1.0A Chargers
+//     - Iphone Chargers
+//     - Nokia Chargers
 }
