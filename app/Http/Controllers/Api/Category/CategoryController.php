@@ -9,23 +9,32 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class CategoryController extends Controller
+class
+CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return AnonymousResourceCollection|string
      */
-    public function index(): AnonymousResourceCollection|string
+    public function index(Request $request): AnonymousResourceCollection|string
     {
+        $search_field            = $request->query('search_field') ?? 'name';
+        $search_keyword          = $request->query('search_keyword') ?? '';
+        $order_field             = $request->query('order_field') ?? 'id';
+        $order_type              = $request->query('order_type') ?? 'ASC';
+        $categories_per_page     = $request->query('categories_per_page') ?? 5;
+
         try {
-            $categories = Category::all();
+            $categories = Category::where($search_field, "like", "%$search_keyword%")
+                ->orderBy($order_field, $order_type);
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-        return CategoryResource::collection($categories);
+        return CategoryResource::collection($categories->paginate($categories_per_page));
     }
 
     public function show(Category $category)
@@ -36,13 +45,17 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CategoryRequest  $request
+     * @param CategoryRequest $request
      * @return CategoryResource
      */
     public function store(CategoryRequest $request): CategoryResource
     {
         try {
-            $category = Category::create($request->validated());
+            $request->validated();
+            $category = Category::create([
+                'name' => ucfirst($request->name),
+                'slug' => Str::slug($request->name),
+            ]);
             return new CategoryResource($category);
         } catch (ValidationException $e) {
             return $this->respondValidatorFailed($e->validator);
@@ -60,7 +73,10 @@ class CategoryController extends Controller
     {
         try {
             // Update the product.
-            $category->update($request->validated());
+            $category->update([
+                'name' => ucfirst($request->name),
+                'slug' => Str::slug($request->name),
+            ]);
             return new CategoryResource($category);
         } catch (ModelNotFoundException $e) {
             return $this->respondNotFound();
@@ -72,11 +88,18 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return string
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+
+        try {
+            $category->delete();
+            return response()->noContent();
+        } catch (ModelNotFoundException $e) {
+            return $e->getMessage();
+        }
+
     }
 }

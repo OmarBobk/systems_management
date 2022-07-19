@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required|unique:categories,slug',
+//            'slug' => 'required|unique:categories,slug',
             'name' => 'required',
         ];
     }
@@ -46,8 +46,8 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name.required'        => 'Name Can Not Be Empty.',
-            'slug.required'        => 'Slug Can Not Be Empty.',
-            'slug.unique'          => 'This slug is taken.',
+//            'slug.required'        => 'Slug Can Not Be Empty.',
+//            'slug.unique'          => 'This slug is taken.',
         ];
     }
 
