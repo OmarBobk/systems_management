@@ -80,10 +80,11 @@ class ContributorComponent extends Component
         $org_amount = 0;
 
         foreach ($this->contributions as $contribution) {
+            $shopping_expenses = $contribution->expenses()->whereType('shopping')->first()->amount ?? 0;
             $profit      = $contribution->profits;
             $cost        = $contribution->costs;
             $expense     = $contribution->expenses;
-            $org_amount += $contribution->amount + $contribution->expenses()->whereType('shopping')->first()->amount;
+            $org_amount += $contribution->amount + $shopping_expenses;
 
             $profits[] = [
                 'type' => 'Profits',

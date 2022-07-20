@@ -121,7 +121,19 @@
                                 wire:click="closeEdit('{{$id}}', '{{$edit_method_name}}')">
                             <i class="ni ni-2x ni-fat-remove"></i>
                         </button>
+                    @else
+                        {{-- Delete --}}
+                        <button class="btn-danger btn-sm"
+                                wire:click="delete_product_from_container('{{$id}}')">
+                            <i class="ni ni-2x ni-fat-remove"></i>
+                        </button>
                     @endif
+                @else
+                    {{-- Delete --}}
+                    <button class="btn-danger btn-sm"
+                            wire:click="delete_product_from_container('{{$id}}')">
+                        <i class="ni ni-2x ni-fat-remove"></i>
+                    </button>
                 @endif
             </td>
         </tr>

@@ -218,7 +218,7 @@ class ProductsContainerComponent extends Component
                 function ($attribute, $value, $fail) use ($data) {
                     foreach ($data as $product)
                         if ($product['serial'] == $value)
-                            $fail('This Serial Number is used.');
+                            $fail('This Serial Has been already added to Container.');
                 },
                 ],
             'category_id_create' => 'required|integer',
@@ -262,11 +262,33 @@ class ProductsContainerComponent extends Component
             'updated_at'        => Carbon::now(),
         ];
 
-        $this->container->update(['container' => json_encode($data)]);
+        $flash_message = '';
 
+        try {
+            ProductsDatabase::whereSerial($this->serial)->firstOrFail();
+            $flash_message = 'Product Created';
+
+        } catch (ModelNotFoundException $e) {
+            ProductsDatabase::create([
+                'serial'        => $data[$id]['serial'],
+                'name'          => $data[$id]['name'],
+                'description'   => $data[$id]['description'],
+                'code'          => $data[$id]['code'],
+                'slug'          => $data[$id]['slug'],
+                'image_url'     => asset('/public/assets/img/products/').$data[$id]['serial'].'jpg',
+                'brand_id'      => $data[$id]['brand_id'],
+                'category_id'   => $data[$id]['category_id'],
+            ]);
+
+            $flash_message = 'Product Created Successfuly in Product Databse & Container';
+        }
+
+        $this->container->update(['container' => json_encode($data)]);
         $this->products_container_total_amount += $this->amount_create;
 
-        session()->flash('message', 'Product Created');
+        session()->flash('message', $flash_message);
+        session()->flash('message', $flash_message);
+
         session()->flash('alert', 'success');
 
         $this->resetCreateComponent();
@@ -616,11 +638,18 @@ class ProductsContainerComponent extends Component
         $this->container->update(['container' => '{}']);
     }
 
-    public function delete(int $id)
+    public function delete_product_from_container(int $id)
     {
-        Product::find($id)->delete();
-        session()->flash('message', 'Product deleted.');
-        session()->flash('alert', 'success');
+        $data = json_decode($this->container->container, true);
+
+        if ( array_key_exists($id, $data) ) {
+            $this->products_container_total_amount -= $data[$id]['amount'];
+            unset($data[$id]);
+            $this->container->update(['container' => json_encode($data)]);
+
+            session()->flash('message', 'Product deleted.');
+            session()->flash('alert', 'success');
+        }
     }
 
     public function createProductsFromContainer()
@@ -685,7 +714,7 @@ class ProductsContainerComponent extends Component
     public function updatedSerialCreate($value)
     {
         try {
-            $product_databse = ProductsDatabase::where('serial', (int) 8699415452096)->firstOrFail();
+            $product_databse = ProductsDatabase::where('serial', (int) $value)->firstOrFail();
 
             $this->name_create        = $product_databse->name;
             $this->code_create        = $product_databse->code;
@@ -694,7 +723,9 @@ class ProductsContainerComponent extends Component
             $this->category_id_create = $product_databse->category_id;
 
         } catch (ModelNotFoundException $e) {
-            dd($e->getMessage());
+            $this->name_create        = 'Product Not Found In Database!';
+            $this->code_create        = 'Product Not Found In Database!';
+            $this->description_create = 'Product Not Found In Database!';
         }
     }
 
