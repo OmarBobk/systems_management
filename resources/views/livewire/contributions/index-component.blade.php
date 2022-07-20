@@ -17,6 +17,7 @@
                         <th class="px-4 py-2">Phone</th>
                         <th class="px-4 py-2">Total</th>
                         <th class="px-4 py-2">Notes</th>
+                        <th class="px-4 py-2">Profile</th>
                         <th class="px-4 py-2">Actions</th>
                     </tr>
                     </thead>
@@ -84,6 +85,11 @@
                                     @endif
                                 </td>
 
+                                {{--Profile--}}
+                                <td class="border px-4 py-2">
+                                    <a href="{{route('contributor', $contributor->id)}}">Details</a>
+                                </td>
+
                                 {{--Actions--}}
                                 <td class="border px-4 py-2">
                                     @if(isset($editName[$contributor->id]) or isset($editPhone[$contributor->id]) or isset($editNotes[$contributor->id]))
@@ -117,7 +123,7 @@
                             @if(isset($is_view_contributions[$contributor->id]))
                                 @if($is_view_contributions[$contributor->id])
                                     <tr>
-                                        <td colspan="6" class="border text-center py-3 px-3">
+                                        <td colspan="7" class="border text-center py-3 px-3">
                                             <table class="w-full table-fixed">
                                                 <thead>
                                                 <tr class="bg-gray-100">

@@ -58,6 +58,7 @@ Route::group([
 //    })      ->name('debtors');
 
     Route::get('/contributor/{contributor}', \App\Http\Livewire\ContributorComponent::class)->name('contributor');
+    Route::get('/products-database', \App\Http\Livewire\ProductsDatabaseComponent::class)->name('productsdatabase');
 
     Route::view('/powergrid', 'powergrid-demo');
 

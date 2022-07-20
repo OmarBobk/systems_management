@@ -2,15 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Bill;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Contributor;
 use App\Models\Product;
 use App\Models\ProductsContainer;
 use App\Models\ProductsDatabase;
-use App\Models\Seller;
-use App\Rules\SerialForContainer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;

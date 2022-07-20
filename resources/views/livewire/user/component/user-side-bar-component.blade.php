@@ -87,6 +87,13 @@
                             <span class="nav-link-text">Containers Manager</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('productsdatabase')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Products Database</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

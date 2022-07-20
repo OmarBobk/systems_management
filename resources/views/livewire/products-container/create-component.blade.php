@@ -39,7 +39,7 @@
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Serial"
-                                       type="text" wire:model.debounce.2500ms="serial_create">
+                                       type="text" wire:model.lazy="serial_create">
                                 @error('serial_create') <span class="text-red-500">{{ $message }}</span> @enderror
                             </div>
                         </div>
