@@ -88,10 +88,10 @@
                                                 />
 
                                         @else
-                                            {{$expense->amount}}
+                                            {{number_format($expense->amount/1000, 3)}}
                                         @endif
                                     @else
-                                        {{$expense->amount}}
+                                        {{number_format($expense->amount/1000, 3)}}
                                     @endif
                                     @error("amount.$expense->id") <span class="text-red-500">{{ $message }}</span> @enderror
                                 </td>

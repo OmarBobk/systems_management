@@ -17,7 +17,7 @@ class ContributorComponent extends Component
     public $dataTable;
     public $rows_data;
     public $record_url;
-    public int $original_amount;
+    public $original_amount;
 
     public $show_details, $show_details_type, $show_details_contribution_id;
 
@@ -88,27 +88,27 @@ class ContributorComponent extends Component
 
             $profits[] = [
                 'type' => 'Profits',
-                'amount' => $profit->sum('amount'),
+                'amount' => number_format($profit->sum('amount')/1000, 3),
                 'status' => 'Income',
                 'contribution_id' => $contribution->id,
             ];
 
             $costs[] = [
                 'type' => 'Costs',
-                'amount' => $cost->sum('amount'),
+                'amount' => number_format($cost->sum('amount')/1000, 3),
                 'status' => 'Income',
                 'contribution_id' => $contribution->id,
             ];
 
             $expenses[] = [
                 'type'   => 'Expenses',
-                'amount' => $expense->sum('amount'),
+                'amount' => number_format($expense->sum('amount')/1000, 3),
                 'status' => 'Outcome',
                 'contribution_id' => $contribution->id,
             ];
         }
 
-        $this->original_amount = $org_amount;
+        $this->original_amount = number_format($org_amount/1000, 3);
 
         return [
             'All' => array_merge(

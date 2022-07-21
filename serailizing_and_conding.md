@@ -13,3 +13,7 @@
     - 4- Gift boxes & bags: 
       - Serial => 858 000 951 400 1.
       - Code => GBB-4001.
+- 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
+   - 1- Pubg Fingers:
+     - Serial => 858 000 952 100 1.
+     - Code => PUBG-FINGER

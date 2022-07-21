@@ -124,7 +124,7 @@
                                         </td>
                                         <td
                                             class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                            <div class=" inline-block truncate">{{$record->amount}}</div>
+                                            <div class=" inline-block truncate">{{number_format($record->amount/1000, 3)}}</div>
                                         </td>
                                         <td
                                             class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">

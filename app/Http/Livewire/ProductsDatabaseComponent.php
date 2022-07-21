@@ -146,7 +146,6 @@ class ProductsDatabaseComponent extends Component
 
     protected $queryString = [
         'searchKeyword' => ['except' => ''],
-        'per_page' => 5,
     ];
 
     // Breadcrumbs
@@ -194,7 +193,7 @@ class ProductsDatabaseComponent extends Component
             }
         }
         return view('livewire.productsdatabase.index-component', [
-            'products' => $products->paginate($this->per_page)
+            'products' => $products->paginate(5)
         ])
             ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);
     }

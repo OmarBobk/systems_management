@@ -66,7 +66,7 @@
                                 </td>
 
                                 {{--Total--}}
-                                <td class="border px-4 py-2">{{\Illuminate\Support\Facades\DB::table('contributions')->whereContributorId($contributor->id)->whereStatus(0)->sum(\Illuminate\Support\Facades\DB::raw('amount'))}}</td>
+                                <td class="border px-4 py-2">{{number_format(\Illuminate\Support\Facades\DB::table('contributions')->whereContributorId($contributor->id)->whereStatus(0)->sum(\Illuminate\Support\Facades\DB::raw('amount'))/1000,3)}}</td>
 
                                 {{--Notes--}}
                                 <td class="border px-4 py-2" wire:click="editNotes('{{$contributor->id}}')">
@@ -157,10 +157,10 @@
                                                                                wire:keydown.escape="closeAmount('{{$contributor->id}}', '{{$contribution->id}}')">
                                                                     </label>
                                                                 @else
-                                                                    {{$contribution->amount}}
+                                                                    {{number_format($contribution->amount/1000,3)}}
                                                                 @endif
                                                             @else
-                                                                {{$contribution->amount}}
+                                                                {{number_format($contribution->amount/1000,3)}}
                                                             @endif
                                                             @error("contribution_amount.$contributor->id.$contribution->id") <h1 class="alert alert-danger">{{$message}}</h1>@enderror
                                                         </td>

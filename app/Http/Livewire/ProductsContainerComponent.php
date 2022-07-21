@@ -252,7 +252,7 @@ class ProductsContainerComponent extends Component
             'code'              => $this->code_create,
             'amount'            => $this->amount_create,
             'cost'              => $this->cost_create,
-            'price'             => 0,
+            'price'             => (($this->cost_create * 80) / 100) + $this->cost_create,
             'serial'            => $this->serial_create,
             'category_id'       => $this->category_id_create,
             'brand_id'          => $this->brand_id_create,
@@ -265,7 +265,7 @@ class ProductsContainerComponent extends Component
         $flash_message = '';
 
         try {
-            ProductsDatabase::whereSerial($this->serial)->firstOrFail();
+            ProductsDatabase::whereSerial($this->serial_create)->firstOrFail();
             $flash_message = 'Product Created';
 
         } catch (ModelNotFoundException $e) {

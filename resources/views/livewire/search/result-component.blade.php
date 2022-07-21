@@ -15,9 +15,9 @@
                                     <h5 class="card-title text-muted mb-0">{{$product->name}}</h5>
 
                                     {{--Product Cost--}}
-                                    <span class="d-block mb-0">Cost: {{$product->cost}} TL</span>
+                                    <span class="d-block mb-0">Cost: {{number_format($product->cost/1000, 3)}} TL</span>
                                     {{--Product Price--}}
-                                    <span class="d-block mb-0">Sale: {{$product->price}} TL</span>
+                                    <span class="d-block mb-0">Sale: {{number_format($product->price/1000, 3)}} TL</span>
                                     <span class="d-block mb-0">Code: {{$product->code}}</span>
                                     <span class="d-block mb-0">Amount: {{$product->amount}}</span>
                                     <span class="d-block mb-0">Category: {{$product->category->name}}</span>

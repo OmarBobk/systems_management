@@ -20,7 +20,7 @@ class BillSeeder extends Seeder
 
         $bills[] = [
             'id'                  => 1,
-            'type'                => 'default',
+            'type'                => 'goods',
             'amount'              => 0,
             'description'         => 'default',
             'quantity'            => 1,

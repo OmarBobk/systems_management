@@ -18,8 +18,8 @@ class ContributorSeeder extends Seeder
 
         $contributors[] = [
             'id'             => 1,
-            'name'           => 'Default',
-            'phone'          => '000000000',
+            'name'           => 'Owner',
+            'phone'          => '5353402539',
             'notes'          => 'Owner',
         ];
 
