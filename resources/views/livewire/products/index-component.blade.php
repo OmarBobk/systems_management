@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-4">
                     <div class="list-group-item" style="background:#f1f1f1">
-                        Products Cost: {{$products_cost}} TL
+                        Products Cost: {{number_format($products_cost/1000, 3)}} TL
                     </div>
                 </div>
             </div>
@@ -149,10 +149,10 @@
                                                wire:keydown.enter="updateNew('{{$product->id}}', 'cost)"
                                                wire:keydown.escape="closeEdit('{{$product->id}}', 'cost)">
                                     @else
-                                        <div wire:click="editNew({{$product->id}}, 'cost')">{{$product->cost}}</div>
+                                        <div wire:click="editNew({{$product->id}}, 'cost')">{{number_format($product->cost/1000, 3)}}</div>
                                     @endif
                                 @else
-                                    <div wire:click="editNew({{$product->id}}, 'cost')">{{$product->cost}}</div>
+                                    <div wire:click="editNew({{$product->id}}, 'cost')">{{number_format($product->cost/1000, 3)}}</div>
                                 @endif
                                 @error("cost.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
@@ -167,10 +167,10 @@
                                                wire:keydown.enter="updateNew('{{$product->id}}', 'price')"
                                                wire:keydown.escape="closeEdit('{{$product->id}}', 'price')">
                                     @else
-                                        <div wire:click="editNew({{$product->id}}, 'price')">{{$product->price}}</div>
+                                        <div wire:click="editNew({{$product->id}}, 'price')">{{number_format($product->price/1000, 3)}}</div>
                                     @endif
                                 @else
-                                    <div wire:click="editNew({{$product->id}}, 'price')">{{$product->price}}</div>
+                                    <div wire:click="editNew({{$product->id}}, 'price')">{{number_format($product->price/1000, 3)}}</div>
                                 @endif
                                 @error("price.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
