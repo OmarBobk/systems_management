@@ -16,4 +16,22 @@
 - 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
    - 1- Pubg Fingers:
      - Serial => 858 000 952 100 1.
-     - Code => PUBG-FINGER
+     - Code   => PUBG-FINGER
+   - 2- Wireless Sport:
+     - Serial => 858 000 952 100 2.
+     - Code   => WS-1002
+   - 3- Earbuds A10s:
+     - Serial => 858 000 952 100 3.
+     - Code   => TWS-A10S
+   - 4- inPods i12 renkli:
+     - Serial => 858 000 952 100 5.
+     - Code   => INPODS12-1005
+   - 5- BT Speaker:
+     - Serial => 858 000 952 100 4.
+     - Code   => ZQS-2201.
+   - 6- Relax team earphone:
+     - Serial => 858 000 952 100 6.
+     - Code   => AE-38.
+   - 7- Touch Lamp Portable speaker:
+     - Serial => 858 000 952 100 7.
+     - Code   => CL-671.
