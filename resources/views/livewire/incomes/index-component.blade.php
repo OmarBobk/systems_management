@@ -27,7 +27,7 @@
 
                                 {{--Amount--}}
                                 <td class="border px-4 py-2">
-                                    {{$income->amount}}
+                                    {{number_format($income->amount/1000, 3)}}
                                 </td>
 
                                 {{--Contribution Id--}}

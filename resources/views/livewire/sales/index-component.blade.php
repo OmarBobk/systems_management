@@ -20,12 +20,12 @@
                     </div>
                     <div class="col-4">
                         <div class="list-group-item" style="background:#f1f1f1">
-                            Profits: {{$all_profits}} TL
+                            Profits: {{number_format($all_profits/1000, 3)}} TL
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="list-group-item" style="background:#f1f1f1">
-                            Cost: {{$all_costs}} TL
+                            Cost: {{number_format($all_costs/1000, 3)}} TL
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,10 @@
                                 <td class="border px-4 py-2">{{$sale->product->code}}</td>
                                 <td class="border px-4 py-2">{{$sale->description}}</td>
                                 <td class="border px-4 py-2">{{$sale->amount}}</td>
-                                <td class="border px-4 py-2">{{$sale->net_price}}</td>
-                                <td class="border px-4 py-2">{{$sale->cost}}</td>
-                                <td class="border px-4 py-2">{{$sale->total}}</td>
-                                <td class="border px-4 py-2">{{$sale->profit}}</td>
+                                <td class="border px-4 py-2">{{number_format($sale->net_price/1000, 3)}}</td>
+                                <td class="border px-4 py-2">{{number_format($sale->cost/1000, 3)}}</td>
+                                <td class="border px-4 py-2">{{number_format($sale->total/1000, 3)}}</td>
+                                <td class="border px-4 py-2">{{number_format($sale->profit/1000, 3)}}</td>
                                 <td class="border px-4 py-2">{{$sale->created_at}}</td>
                                 <td class="border px-4 py-2">
                                     <button class="btn btn-danger my-1"

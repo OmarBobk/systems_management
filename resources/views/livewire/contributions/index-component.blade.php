@@ -206,7 +206,7 @@
 
                                                         {{--profits_sum_amount--}}
                                                         <td class="border text-center px-2 py-2">
-                                                            {{$contribution->profits_sum_amount}}
+                                                            {{number_format($contribution->profits_sum_amount/1000, 3)}}
                                                         </td>
 
                                                         {{--Deposit--}}

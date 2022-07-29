@@ -56,7 +56,7 @@ class SaleComponent extends Component
         foreach($sales as $sale) {
             $this->all_profits += $sale->profit;
             $this->all_amounts += $sale->amount;
-            $this->all_costs   += $sale->cost;
+            $this->all_costs   += $sale->cost * $sale->amount;
         }
 
         return view('livewire.sales.index-component', [

@@ -71,10 +71,10 @@
                                                wire:keydown.enter="updateNew('{{$bill->id}}', 'amount')"
                                                wire:keydown.escape="closeEdit('{{$bill->id}}', 'amount')">
                                     @else
-                                        <div wire:click="editNew({{$bill->id}}, 'amount')">{{$bill->amount}}</div>
+                                        <div wire:click="editNew({{$bill->id}}, 'amount')">{{number_format($bill->amount/1000, 3)}}</div>
                                     @endif
                                 @else
-                                    <div wire:click="editNew({{$bill->id}}, 'amount')">{{$bill->amount}}</div>
+                                    <div wire:click="editNew({{$bill->id}}, 'amount')">{{number_format($bill->amount/1000, 3)}}</div>
                                 @endif
                                 @error("amount.$bill->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
                             </td>
