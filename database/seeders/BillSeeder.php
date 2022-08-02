@@ -44,6 +44,32 @@ class BillSeeder extends Seeder
             'updated_at'          => Carbon::now(),
         ];
 
+        $bills[] = [
+            'id'                  => 3,
+            'type'                => 'goods',
+            'amount'              => 100000,
+            'description'         => 'Stocktaking',
+            'quantity'            => 125,
+            'serial'              => 1003,
+            'seller_id'           => 1,
+            'contribution_id'     => 1,
+            'created_at'          => Carbon::now(),
+            'updated_at'          => Carbon::now(),
+        ];
+
+        $bills[] = [
+            'id'                  => 4,
+            'type'                => 'goods',
+            'amount'              => 100000,
+            'description'         => 'Stocktaking',
+            'quantity'            => 125,
+            'serial'              => 1004,
+            'seller_id'           => 1,
+            'contribution_id'     => 1,
+            'created_at'          => Carbon::now(),
+            'updated_at'          => Carbon::now(),
+        ];
+
         Bill::insert($bills);
     }
 }
