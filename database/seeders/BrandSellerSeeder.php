@@ -168,7 +168,7 @@ class BrandSellerSeeder extends Seeder
             'id'             => 10,
             'name'           => 'Soffany',
             'description'    => 'Chargers, Cables, Covers, Screens, General Accessories',
-        ])->sellers()->attach($soffany_seller ,$default_seller);
+        ])->sellers()->attach([$soffany_seller ,$default_seller]);
 
         $tgb_brand = Brand::create([
             'id'             => 11,
