@@ -36,7 +36,7 @@
 
             {{-- Seller --}}
             <td class="border text-center" style="padding:10px 5px">
-{{--                {{$product->brand()->first()->seller->name}}--}}
+                {{$product->seller->name}}
 
             </td>
 

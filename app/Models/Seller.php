@@ -18,6 +18,6 @@ class Seller extends Model
      */
     public function brands(): BelongsToMany
     {
-        return $this->belongsToMany(Brand::class);
+        return $this->belongsToMany(Brand::class, 'brand_seller', 'seller_id', 'brand_id');
     }
 }

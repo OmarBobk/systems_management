@@ -18,7 +18,7 @@ class Brand extends Model
      */
     public function sellers(): BelongsToMany
     {
-        return $this->belongsToMany(Seller::class);
+        return $this->belongsToMany(Seller::class, 'brand_seller', 'brand_id', 'seller_id');
     }
 
 }

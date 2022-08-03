@@ -42,6 +42,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(Seller::class);
+    }
+
     public function bill(): BelongsTo
     {
         return $this->belongsTo(Bill::class);
