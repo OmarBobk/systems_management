@@ -182,6 +182,15 @@ class ProductsComponent extends Component
 
     public function render()
     {
+
+        $products = Product::query()->search(
+            needle: 'KM',
+            search_field: 'code',
+            orderByColumn: 'id',
+        );
+
+        dd($products);
+
         $this->breadcrumbs = [
             [
                 'route' => 'products',
