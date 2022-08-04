@@ -184,12 +184,11 @@ class ProductsComponent extends Component
     {
 
         $products = Product::query()->search(
-            needle: 'KM',
-            search_field: 'code',
+            needle: 'product',
             orderByColumn: 'id',
         );
 
-        dd($products);
+        dd($products->get());
 
         $this->breadcrumbs = [
             [

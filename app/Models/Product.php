@@ -16,6 +16,8 @@ class Product extends Model
         'code', 'name', 'serial'
     ];
 
+    public $return_from_search = [];
+
     public $guarded = [];
 
 
