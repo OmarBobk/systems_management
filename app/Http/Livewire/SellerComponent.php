@@ -46,7 +46,11 @@ class SellerComponent extends Component
      */
     public function updatedSearchKeyword()
     {
-        $this->results = Seller::where("name", "like", "%$this->searchKeyword%")->orderBy('id')->get();
+        $this->results = Seller::search(
+            needle: $this->searchKeyword,
+            orderByColumn: 'id',
+        )
+            ->get();
     }
 
     /**

@@ -7,7 +7,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="ni ni-search"></i></span>
                         </div>
-                        <input class="form-control" placeholder="Search"
+                        <input class="form-control" placeholder="Search By Address Or Name"
                                type="text" wire:model.debounce.500ms="searchKeyword">
                     </div>
                 </div>

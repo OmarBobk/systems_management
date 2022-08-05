@@ -31,8 +31,6 @@ class CashierComponent extends Component
 
     public $amount_error_msg, $is_amount_error, $old_amount;
 
-    public $search_field = 'serial';
-
     public $testing;
 
 
@@ -84,8 +82,11 @@ class CashierComponent extends Component
     public function updatedSearchKeyword()
     {
         $this->result = Product::where('amount', '>=', 1)
-            ->where($this->search_field, "like", "%$this->searchKeyword%")
-            ->orderBy('id')->get();
+            ->search(
+                needle: $this->searchKeyword,
+                orderByColumn: 'id',
+            )
+            ->get();
     }
 
     /**

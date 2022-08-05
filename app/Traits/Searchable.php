@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\DB;
 
 trait Searchable
 {
+
+    /**
+     * Variables Need to be defined on the model
+     * $searchable_columns = [col_1, col_2]
+     * $return_from_search = [col_1, col_2]
+     *
+     *
+     * @param Builder $builder
+     * @param string $needle
+     * @param string $orderByColumn
+     * @param string $orderByDirection
+     * @param string|null $sortOrder
+     * @return Builder|null
+     *
+     */
+
     public function scopeSearch(Builder $builder,
                                 string  $needle,
                                 string  $orderByColumn,

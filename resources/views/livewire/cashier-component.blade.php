@@ -37,16 +37,6 @@
             <form>
                 <div class="form-group mb-3">
                     <div class="input-group input-group-merge input-group-alternative">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="padding:0;">
-                                <select class="" style="border: none;" id="exampleFormControlSelect3"
-                                        wire:model="search_field">
-                                    <option value="name">Name</option>
-                                    <option value="serial">Serial</option>
-                                    <option value="code">Product Code</option>
-                                </select>
-                            </span>
-                        </div>
                         <input class="form-control" placeholder="Search"
                                type="text" wire:model="searchKeyword">
                     </div>
