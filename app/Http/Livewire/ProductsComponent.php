@@ -144,7 +144,6 @@ class ProductsComponent extends Component
     ];
 
     // Search
-    public $search_field = 'code';
     public $searchKeyword = '';
 
     protected $queryString = [
@@ -177,18 +176,16 @@ class ProductsComponent extends Component
             'updated_at'      => [],
         ];
 
-        $this->reset('searchKeyword', 'search_field', 'page');
+        $this->reset('searchKeyword', 'page');
     }
 
     public function render()
     {
 
         $products = Product::query()->search(
-            needle: 'product',
+            needle: $this->searchKeyword,
             orderByColumn: 'id',
         );
-
-        dd($products->get());
 
         $this->breadcrumbs = [
             [
@@ -198,8 +195,6 @@ class ProductsComponent extends Component
         ];
         $this->products_amount = 0;
         $this->products_cost = 0;
-        $products = Product::where($this->search_field, "like", "%$this->searchKeyword%")
-            ->orderBy('id');
 
         $this->products_type_amount = $products->count();
 
@@ -373,7 +368,7 @@ class ProductsComponent extends Component
 
     public function updated($propertyName)
     {
-        if ($propertyName != 'searchKeyword' and $propertyName != 'search_field') {
+        if ($propertyName != 'searchKeyword') {
             if ($this->updateMode) {
                 $this->validateOnly($propertyName, $this->create_properties_rules, $this->create_properties_message);
             } else {
