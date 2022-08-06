@@ -8,7 +8,11 @@
                             <div class="row align-items-center">
                                 {{--Product Img--}}
                                 <div class="col-auto">
-                                    <img src="https://via.placeholder.com/75/09f/fff.png">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                        <img class="w-full h-full rounded-full"
+                                             src="{{asset('/assets/img/products/'.$product->serial.'.jpg')}}"
+                                             alt="" />
+                                    </div>
                                 </div>
                                 <div class="col-7">
                                     {{--Product Name--}}

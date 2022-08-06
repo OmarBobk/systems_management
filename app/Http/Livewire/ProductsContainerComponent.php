@@ -214,12 +214,13 @@ class ProductsContainerComponent extends Component
             'code_create' => 'required',
             'amount_create' => 'required|integer|min:1',
             'cost_create' => 'required|integer|min:1',
-            'serial_create' => ['required','integer','unique:products,serial',
-                function ($attribute, $value, $fail) use ($data) {
-                    foreach ($data as $product)
-                        if ($product['serial'] == $value)
-                            $fail('This Serial Has been already added to Container.');
-                },
+            'serial_create' => ['required','integer',
+//                'unique:products,serial',
+//                function ($attribute, $value, $fail) use ($data) {
+//                    foreach ($data as $product)
+//                        if ($product['serial'] == $value)
+//                            $fail('This Serial Has been already added to Container.');
+//                },
                 ],
             'category_id_create' => 'required|integer',
             'brand_id_create' => 'required|integer',
@@ -235,7 +236,7 @@ class ProductsContainerComponent extends Component
             'cost_create.integer'           => 'Cost Should be integer!',
             'serial_create.required'        => 'This Field is required!',
             'serial_create.integer'         => 'Serial Should be integer!',
-            'serial_create.unique'          => 'This Serial has been used!',
+//            'serial_create.unique'          => 'This Serial has been used!',
             'category_id_create.required'   => 'This Field is required!',
             'category_id_create.integer'    => 'Please Choose an other value.',
             'brand_id_create.required'      => 'This Field is required!',
