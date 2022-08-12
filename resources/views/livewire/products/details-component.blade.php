@@ -50,7 +50,7 @@
                             <option >...</option>
                             @forelse($product->brand->all() as $brand)
                                 <option value="{{$brand->id}}">
-                                    {{$brand->name}} From: {{$brand->seller->name}}
+                                    {{$brand->name}}
                                 </option>
                             @empty
                             @endforelse

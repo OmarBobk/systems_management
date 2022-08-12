@@ -10,7 +10,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "garygreen/pretty-routes": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^php9.0",
         "laravel/jetstream": "^2.3",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
