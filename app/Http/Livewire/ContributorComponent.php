@@ -18,6 +18,7 @@ class ContributorComponent extends Component
     public $rows_data;
     public $record_url;
     public $original_amount;
+    public $remaining_amount;
 
     public $show_details, $show_details_type, $show_details_contribution_id;
 
@@ -78,37 +79,40 @@ class ContributorComponent extends Component
         $costs      = [];
         $expenses   = [];
         $org_amount = 0;
+        $rem_amount = 0;
 
         foreach ($this->contributions as $contribution) {
             $shopping_expenses = $contribution->expenses()->whereType('shopping')->first()->amount ?? 0;
-            $profit      = $contribution->profits;
-            $cost        = $contribution->costs;
-            $expense     = $contribution->expenses;
+            $profit      = $contribution->profits->sum('amount');
+            $cost        = $contribution->costs->sum('amount');
+            $expense     = $contribution->expenses->sum('amount');
             $org_amount += $contribution->amount + $shopping_expenses;
+            $rem_amount += $contribution->amount + $cost + $profit;
 
             $profits[] = [
                 'type' => 'Profits',
-                'amount' => number_format($profit->sum('amount')/1000, 3),
+                'amount' => number_format($profit/1000, 3),
                 'status' => 'Income',
                 'contribution_id' => $contribution->id,
             ];
 
             $costs[] = [
                 'type' => 'Costs',
-                'amount' => number_format($cost->sum('amount')/1000, 3),
+                'amount' => number_format($cost/1000, 3),
                 'status' => 'Income',
                 'contribution_id' => $contribution->id,
             ];
 
             $expenses[] = [
                 'type'   => 'Expenses',
-                'amount' => number_format($expense->sum('amount')/1000, 3),
+                'amount' => number_format($expense/1000, 3),
                 'status' => 'Outcome',
                 'contribution_id' => $contribution->id,
             ];
         }
 
         $this->original_amount = number_format($org_amount/1000, 3);
+        $this->remaining_amount = number_format($rem_amount/1000, 3);
 
         return [
             'All' => array_merge(

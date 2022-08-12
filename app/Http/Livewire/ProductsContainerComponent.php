@@ -680,6 +680,7 @@ class ProductsContainerComponent extends Component
                         'serial'          => $product['serial'],
                         'category_id'     => $product['category_id'],
                         'contribution_id' => $container->bill->contribution->id,
+                        'seller_id'       => $container->bill->seller_id,
                         'brand_id'        => $product['brand_id'],
                         'bill_id'         => $container->bill_id,
                         'user_id'         => Auth::user()->id,

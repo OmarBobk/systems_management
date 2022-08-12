@@ -12,7 +12,11 @@
 
                 {{--Total Amount--}}
                 <div class=" items-center justify-end  d-flex w-4/12">
-                    <span class="badge badge-primary float-right text-lg">{{$this->original_amount}}</span>
+                    <span class="badge badge-primary float-right text-lg text-left">
+                        <span>Original: </span>{{$this->original_amount}}
+                        <br>
+                        <span>Remaining: </span>{{$this->remaining_amount}}
+                    </span>
                 </div>
             </div>
 
@@ -46,29 +50,6 @@
                     </div>
                 </x-slot>
 
-{{--                <x-slot name="tableTextLink" >--}}
-{{--                    <div class="flex space-x-3 items-center">--}}
-{{--                        <div>--}}
-{{--                            @if($this->selected == 'Costs' or $this->selected == 'Profits')--}}
-{{--                                <a :href="`{{route('incomes')}}/${row.id}`"--}}
-{{--                                   x-text="row.id"--}}
-{{--                                   target="_blank"--}}
-{{--                                   class="text-blue-500 underline"></a>--}}
-{{--                            @elseif($this->selected == 'All')--}}
-{{--                                <a :href="'https://bobk.test/' + (row.type === 'cost' || row.type === 'profit' ? 'incomes' : 'expenses') + '/' + row.id"--}}
-{{--                                   x-text="row.id"--}}
-{{--                                   target="_blank"--}}
-{{--                                   class="text-blue-500 underline"></a>--}}
-{{--                            @else--}}
-{{--                                <a :href="`{{route('expenses')}}/${row.id}`"--}}
-{{--                                   x-text="row.id"--}}
-{{--                                   target="_blank"--}}
-{{--                                   class="text-blue-500 underline"></a>--}}
-{{--                            @endif--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </x-slot>--}}
-
                 <x-slot name="tableTextLink" >
                     <div class="flex space-x-3 items-center">
                         <div>
@@ -83,12 +64,12 @@
                     </div>
                 </x-slot>
 
-                <x-slot name="tableActions">
-                    <div class="flex flex-wrap space-x-4">
-                        <a :href="`avengers/${row.name}/show`" class="text-blue-500 underline">Edit</a>
-                        <a :href="`avengers/${row.name}/delete`" class="text-red-500 underline">Delete</a>
-                    </div>
-                </x-slot>
+{{--                <x-slot name="tableActions">--}}
+{{--                    <div class="flex flex-wrap space-x-4">--}}
+{{--                        <a :href="`avengers/${row.name}/show`" class="text-blue-500 underline">Edit</a>--}}
+{{--                        <a :href="`avengers/${row.name}/delete`" class="text-red-500 underline">Delete</a>--}}
+{{--                    </div>--}}
+{{--                </x-slot>--}}
 
                 <x-slot name="showDetails">
                     @if(!empty($this->show_details))
