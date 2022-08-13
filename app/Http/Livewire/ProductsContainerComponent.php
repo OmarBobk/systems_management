@@ -244,7 +244,7 @@ class ProductsContainerComponent extends Component
             'description_create.required'   => 'This Field is required!',
         ]);
 
-        $id = (!empty($data)) ? array_key_last($data) + 1 : Product::latest('id')->first()->id + 1;
+        $id = (!empty($data)) ? array_key_last($data) + 1 : (Product::latest('id')->first()?->id | 1) + 1;
 
         $data[$id] = [
             'id'                => $id,

@@ -82,7 +82,7 @@ class ContributorComponent extends Component
         $rem_amount = 0;
 
         foreach ($this->contributions as $contribution) {
-            $shopping_expenses = $contribution->expenses()->whereType('shopping')->first()->amount ?? 0;
+            $shopping_expenses = $contribution->expenses()->whereType('shopping')->sum('amount') ?? 0;
             $profit      = $contribution->profits->sum('amount');
             $cost        = $contribution->costs->sum('amount');
             $expense     = $contribution->expenses->sum('amount');
