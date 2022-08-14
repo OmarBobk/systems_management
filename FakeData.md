@@ -18,13 +18,18 @@
     - Goods
         - id:3,type:goods,amount:50k,quantity:1000,serial:2432,seller_id:simex,cont:owner
         - id:4,type:goods,amount:20k,quantity:1000,serial:6534,seller_id:kensa,cont:conx
-        - id:5,type:goods,amount:50k,quantity:1000,serial:3213,seller_id:syrox,cont:conx
+        - id:5,type:goods,amount:35k,quantity:1000,serial:3213,seller_id:syrox,cont:conx
 - Expenses
-    - id:1,type:shopping,amount:0,bill:1,cont:owner
-    - id:2,type:shopping,amount:100k,bill:2,cont:owner
-    - id:3,type:shopping,amount:50k,bill:3,cont:owner
-    - id:4,type:shopping,amount:20k,bill:4,cont:conx
-    - id:5,type:shopping,amount:20k,bill:5,cont:conx
+  - Shopping
+      - id:1,type:shopping,amount:0,bill:1,cont:owner
+      - id:2,type:shopping,amount:100k,bill:2,cont:owner
+      - id:3,type:shopping,amount:50k,bill:3,cont:owner
+      - id:4,type:shopping,amount:20k,bill:4,cont:conx
+      - id:5,type:shopping,amount:20k,bill:5,cont:conx
+  - Loses
+    - id:6,type:loses,amount:50,sale:8,cont:conx,description:The Product is not working.
+  - Store
+    - store
 - Products
     - id:1,serial:8581001,Product 1,code:pro-1,amount:10k,cost:0,price:0,bill:1,seller|brand:default,cont:owner
     - id:2,serial:8581002,Product 2,code:pro-2,amount:1k,cost:100,price:150,bill:2,seller|brand:default,cont:owner
@@ -35,16 +40,19 @@
     - Units
         - id:1,type:units,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner,description:product
           details.
-    - Bill
-        - id:2,type:bill,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner,description:the pdf url.
+    - Invoice
+        - id:2,type:invoice,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner,description:the pdf url.
     - Other
         - id:3,type:other,is_debt:false,product:pro-1,cost:0,net_price:30,profit:30,cont:owner,description:Phone
           reparing, Salling SIM Card
-    - Goods
-        - id:4,type:goods,is_debt:false,product:pro-2,cost:100,net_price:180,profit:80,cont:owner
-        - id:5,type:goods,is_debt:false,product:pro-3,cost:50,net_price:90,profit:40,cont:owner
-        - id:6,type:goods,is_debt:false,product:pro-4,cost:20,net_price:50,profit:30,cont:conx
-        - id:7,type:goods,is_debt:false,product:pro-5,cost:50,net_price:90,profit:40,cont:conx
+    - Retail
+        - id:4,type:retail,is_debt:false,product:pro-2,cost:100,net_price:180,profit:80,cont:owner
+        - id:5,type:retail,is_debt:false,product:pro-3,cost:50,net_price:90,profit:40,cont:owner
+        - id:6,type:retail,is_debt:false,product:pro-4,cost:20,net_price:50,profit:30,cont:conx
+        - id:7,type:retail,is_debt:false,product:pro-5,cost:50,net_price:90,profit:40,cont:conx
+        - id:8,type:retail,is_debt:false,product:pro-5,cost:50,net_price:0,profit:-50,cont:conx,description:The Product is not working.
+    - Wholesale
+      - wholesale
 - Incomes
     - Sale 1
         - id:1,type:cost,amount:0,cont:owner,sale:1

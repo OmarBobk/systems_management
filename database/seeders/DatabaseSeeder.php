@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             ContributorSeeder::class,
             ContributionSeeder::class,
             CategorySeeder::class,
-//            BillSeeder::class,
+            BillSeeder::class,
 //            ProductSeeder::class,
 //            DebtorSeeder::class,
 //            DebtSeeder::class,

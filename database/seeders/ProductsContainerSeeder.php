@@ -15,7 +15,7 @@ class ProductsContainerSeeder extends Seeder
     public function run()
     {
         $container = [
-            'container'       => "",
+            'container'       => "{}",
             'bill_id'         => 2,
             'contribution_id' => 1,
         ];

@@ -24,7 +24,19 @@ class ContributionSeeder extends Seeder
         // Owner
         $contributions[] = [
             'amount'            => 100000000,
-            'description'       => "This is the description",
+            'description'       => "This one is for stocktaking so first will create bill.products and get the total cost and then edit this contribution amount and then edit the bill amount and then create the products in the database",
+            'deposit_date'      => Carbon::create("2021", "10", "13"),
+            'due_date'          => Carbon::create("2022", "10", "13"),
+            'profits_percent'   => 100,
+            'contributor_id'    => 1,
+            'status'            => 0,
+            'created_at'        => '2021-10-13 00:00:00',
+            'updated_at'        => '2021-10-13 00:00:00',
+        ];
+
+        $contributions[] = [
+            'amount'            => 50000000,
+            'description'       => "Normal Contribution",
             'deposit_date'      => Carbon::create("2021", "10", "13"),
             'due_date'          => Carbon::create("2022", "10", "13"),
             'profits_percent'   => 100,
@@ -40,7 +52,19 @@ class ContributionSeeder extends Seeder
             'description'       => "This is the description",
             'deposit_date'      => Carbon::create("2021", "10", "13"),
             'due_date'          => Carbon::create("2022", "10", "13"),
-            'profits_percent'   => 100,
+            'profits_percent'   => 50,
+            'contributor_id'    => 2,
+            'status'            => 0,
+            'created_at'        => '2021-10-13 00:00:00',
+            'updated_at'        => '2021-10-13 00:00:00',
+        ];
+
+        $contributions[] = [
+            'amount'            => 35000000,
+            'description'       => "This is the description",
+            'deposit_date'      => Carbon::create("2021", "10", "13"),
+            'due_date'          => Carbon::create("2022", "10", "13"),
+            'profits_percent'   => 75,
             'contributor_id'    => 2,
             'status'            => 0,
             'created_at'        => '2021-10-13 00:00:00',
