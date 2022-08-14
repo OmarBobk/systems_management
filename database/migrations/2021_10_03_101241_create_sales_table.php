@@ -20,10 +20,11 @@ class CreateSalesTable extends Migration
             $table->integer('amount');
             $table->integer('total');
             $table->integer('profit');
+            $table->string('type')->comment('Wholesale|Retail|Units|Invoice|Other');
 
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('contribution_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('contribution_id')->constrained();
 
             $table->timestamps();
         });
