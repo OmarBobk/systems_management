@@ -21,12 +21,13 @@ class DatabaseSeeder extends Seeder
             ContributionSeeder::class,
             CategorySeeder::class,
             BillSeeder::class,
-//            ProductSeeder::class,
+            ProductSeeder::class,
+            ProductsContainerSeeder::class,
 //            DebtorSeeder::class,
 //            DebtSeeder::class,
 //            SaleSeeder::class,
 //            IncomeSeeder::class,
-//            ExpenseSeeder::class,
+            ExpenseSeeder::class,
             CartSeeder::class,
         ]);
     }

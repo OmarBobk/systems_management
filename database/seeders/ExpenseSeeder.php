@@ -18,23 +18,80 @@ class ExpenseSeeder extends Seeder
      */
     public function run()
     {
-        $fake             = Factory::create();
-        $expenses         = [];
-        $contributions_id = collect(Contribution::all()->modelKeys());
-        $types            = collect(['shopping', 'store', 'loses']);
+        $fake = Factory::create();
+        $expenses = [];
 
-        for ($i=0;$i<=10;$i++) {
-            $expenses[] = [
-                'type'             => $types->random(),
-                'description'      => $fake->text('100'),
-                'amount'           => random_int(10, 1500),
-                'contribution_id'  => $contributions_id->random(),
-            ];
-        }
+        // Shopping
+        $expenses[] = [
+            'type'            => 'shopping',
+            'description'     => null,
+            'amount'          => 0,
+            'bill_id'         => 1,
+            'sale_id'         => null,
+            'contribution_id' => 1, // Owner
+            'user_id'         => 1,
+        ];
 
-        $chunks = array_chunk($expenses, 50);
-        foreach ($chunks as $chunk) {
-            Expense::insert($chunk);
-        }
+        $expenses[] = [
+            'type'            => 'shopping',
+            'description'     => null,
+            'amount'          => 100000000,
+            'bill_id'         => 2,
+            'sale_id'         => null,
+            'contribution_id' => 1, // Owner
+            'user_id'         => 1,
+        ];
+
+        $expenses[] = [
+            'type'            => 'shopping',
+            'description'     => null,
+            'amount'          => 50000000,
+            'bill_id'         => 3,
+            'sale_id'         => null,
+            'contribution_id' => 2, // Owner
+            'user_id'         => 1,
+        ];
+
+        $expenses[] = [
+            'type'            => 'shopping',
+            'description'     => null,
+            'amount'          => 20000000,
+            'bill_id'         => 4,
+            'sale_id'         => null,
+            'contribution_id' => 3, // ConX
+            'user_id'         => 1,
+        ];
+
+        $expenses[] = [
+            'type'            => 'shopping',
+            'description'     => null,
+            'amount'          => 35000000,
+            'bill_id'         => 5,
+            'sale_id'         => null,
+            'contribution_id' => 4, // ConX
+            'user_id'         => 1,
+        ];
+
+//        // Loses
+//        $expenses[] = [
+//            'type'            => 'loses',
+//            'description'     => 'The Product is not working.',
+//            'amount'          => 50000,
+//            'sale_id'         => 8,
+//            'bill_id'         => null,
+//            'contribution_id' => 2, // Owner
+//            'user_id'         => 1,
+//        ];
+
+        // Store
+//        $expenses[] = [
+//            'type'            => 'loses',
+//            'description'     => 'The Product is not working.',
+//            'amount'          => 50000,
+//            'sale_id'         => 8,
+//            'contribution_id' => 4, // ConX
+//        ];
+
+        Expense::insert($expenses);
     }
 }
