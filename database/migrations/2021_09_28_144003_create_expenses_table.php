@@ -19,7 +19,8 @@ class CreateExpensesTable extends Migration
             $table->text('description')->nullable();
             $table->integer('amount');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('bill_id')->constrained();
+            $table->foreignId('bill_id')->nullable()->comment('used when type is store')->constrained();
+            $table->foreignId('sale_id')->nullable()->comment('used when type is loses')->constrained();
             $table->foreignId('contribution_id')->constrained();
             $table->timestamps();
         });
