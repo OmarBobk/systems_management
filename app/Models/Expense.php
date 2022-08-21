@@ -23,16 +23,15 @@ class Expense extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function bill(): BelongsTo|string
+    public function bill(): BelongsTo
     {
-        return ($this->type === 'shopping') ? $this->belongsTo(Bill::class) : 'Type is not Shopping';
+        return $this->belongsTo(Bill::class);
     }
 
-    public function sale(): BelongsTo|string
+    public function sale(): BelongsTo
     {
-        return ($this->type === 'loses') ? $this->belongsTo(Sale::class) : 'Type is not Loses';
+        $this->belongsTo(Sale::class);
     }
-
     /**
      * Get the user's first name.
      *

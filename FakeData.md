@@ -38,20 +38,20 @@
     - id:5,serial:8581005,Product 5,code:pro-5,amount:1k,cost:35,price:70,bill:5,seller|brand:syrox,cont:conx.4
 - Sales
     - Units
-        - id:1,type:units,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner,description:product
+        - id:1,type:units,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner.1,description:product
           details.
     - Invoice
-        - id:2,type:invoice,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner,description:the pdf
+        - id:2,type:invoice,is_debt:false,product:pro-1,cost:0,net_price:10,profit:10,cont:owner.1,description:the pdf
           url.
     - Other
-        - id:3,type:other,is_debt:false,product:pro-1,cost:0,net_price:30,profit:30,cont:owner,description:Phone
+        - id:3,type:other,is_debt:false,product:pro-1,cost:0,net_price:30,profit:30,cont:owner.1,description:Phone
           reparing, Salling SIM Card
     - Retail
-        - id:4,type:retail,is_debt:false,product:pro-2,cost:100,net_price:180,profit:80,cont:owner
-        - id:5,type:retail,is_debt:false,product:pro-3,cost:50,net_price:90,profit:40,cont:owner
-        - id:6,type:retail,is_debt:false,product:pro-4,cost:20,net_price:50,profit:30,cont:conx
-        - id:7,type:retail,is_debt:false,product:pro-5,cost:50,net_price:90,profit:40,cont:conx
-        - id:8,type:retail,is_debt:false,product:pro-5,cost:50,net_price:0,profit:-50,cont:conx,description:The Product
+        - id:4,type:retail,is_debt:false,product:pro-2,cost:100,net_price:180,profit:80,cont:owner.1
+        - id:5,type:retail,is_debt:false,product:pro-3,cost:50,net_price:90,profit:40,cont:owner.2
+        - id:6,type:retail,is_debt:false,product:pro-4,cost:20,net_price:50,profit:30,cont:conx.3
+        - id:7,type:retail,is_debt:false,product:pro-5,cost:50,net_price:90,profit:40,cont:conx.4
+        - id:8,type:retail,is_debt:false,product:pro-5,cost:50,net_price:0,profit:-50,cont:conx.4,description:The Product
           is not working.
     - Wholesale
         - wholesale

@@ -23,6 +23,7 @@ class ExpensesComponent extends Component
     {
         $this->expenses = Expense::with(['contribution', 'user', 'bill'])->get();
 
+
         return view('livewire.expenses.index-component')->layout('layouts.user');
     }
 
