@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             ProductsContainerSeeder::class,
 //            DebtorSeeder::class,
 //            DebtSeeder::class,
-//            SaleSeeder::class,
-//            IncomeSeeder::class,
+            SaleSeeder::class,
+            IncomeSeeder::class,
             ExpenseSeeder::class,
             CartSeeder::class,
         ]);

@@ -28,4 +28,9 @@ class Sale extends Model
         return $this->hasMany(Income::class)->whereType('cost');
     }
 
+    public function contribution()
+    {
+        return $this->hasOne(Contribution::class);
+    }
+
 }

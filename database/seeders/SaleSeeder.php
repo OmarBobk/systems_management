@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Contribution;
 use App\Models\Product;
 use App\Models\Sale;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Seeder;
 
@@ -19,53 +20,60 @@ class SaleSeeder extends Seeder
     public function run()
     {
         $sales = [];
+        $now   = Carbon::now();
 
         // Units
         $sales[] = [
             'id'                 => 1,
-            'net_price'          => 10,
+            'net_price'          => 10000,
             'cost'               => 0,
             'amount'             => 1,
-            'total'              => 10,
-            'profit'             => 10,
+            'total'              => 10000,
+            'profit'             => 10000,
             'type'               => 'units',
             'is_debt'            => false,
             'description'        => 'product details.',
             'user_id'            => 1,
             'product_id'         => 1,
             'contribution_id'    => 1, // Owner
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         // Invoice.
         $sales[] = [
             'id'                 => 2,
-            'net_price'          => 10,
+            'net_price'          => 10000,
             'cost'               => 0,
             'amount'             => 1,
-            'total'              => 10,
-            'profit'             => 10,
+            'total'              => 10000,
+            'profit'             => 10000,
             'type'               => 'invoice',
             'is_debt'            => false,
             'description'        => 'The pdf Url',
             'user_id'            => 1,
             'product_id'         => 1,
             'contribution_id'    => 1, // Owner
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         // Other.
         $sales[] = [
             'id'                 => 3,
-            'net_price'          => 30,
+            'net_price'          => 30000,
             'cost'               => 0,
             'amount'             => 1,
-            'total'              => 30,
-            'profit'             => 30,
+            'total'              => 30000,
+            'profit'             => 30000,
             'type'               => 'other',
             'is_debt'            => false,
             'description'        => 'Phone reparing, Salling SIM Card.',
             'user_id'            => 1,
             'product_id'         => 1,
             'contribution_id'    => 1, // Owner
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         // Retail.
@@ -82,6 +90,8 @@ class SaleSeeder extends Seeder
             'user_id'            => 1,
             'product_id'         => 2,
             'contribution_id'    => 1, // Owner
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         $sales[] = [
@@ -97,6 +107,8 @@ class SaleSeeder extends Seeder
             'user_id'            => 1,
             'product_id'         => 3,
             'contribution_id'    => 2, // Owner
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         $sales[] = [
@@ -112,6 +124,8 @@ class SaleSeeder extends Seeder
             'user_id'            => 1,
             'product_id'         => 4,
             'contribution_id'    => 3, // ConX
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         $sales[] = [
@@ -127,6 +141,8 @@ class SaleSeeder extends Seeder
             'user_id'            => 1,
             'product_id'         => 5,
             'contribution_id'    => 4, // ConX
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         // Loses
@@ -143,6 +159,8 @@ class SaleSeeder extends Seeder
             'user_id'            => 1,
             'product_id'         => 5,
             'contribution_id'    => 4, // ConX
+            'created_at'         => $now,
+            'updated_at'         => $now,
         ];
 
         $chunks = array_chunk($sales, 50);
