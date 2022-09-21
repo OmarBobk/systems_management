@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
 
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
