@@ -1,0 +1,11 @@
+core.editor=phpstorm64 --wait
+user.email=karmanomar9696@gmail.com
+user.name=Omar Karman
+alias.co=checkout
+alias.st=status -sb
+alias.br=branch
+alias.last=log -1 HEAD --stat
+alias.loglist=log --oneline
+alias.gl=config --global -l
+alias.oneline=log --pretty=oneline
+alia.loglist=log --oneline

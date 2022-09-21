@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,6 +38,24 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (Throwable  $e, $request) {
+
+            if ($request->is('api/*')) {
+                if ( $e->getPrevious() instanceof ModelNotFoundException ) {
+                    $model_name = explode('\\', $e->getPrevious()->getModel());
+                    return response()->json([
+                        'error' => 'Entry for ' . $model_name[array_key_last($model_name)].' Not Found!',
+                    ], 404);
+                }
+
+//                if ($e instanceof ValidationException) {
+//                    return response()->json(['errors'=>$e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+//                }
+
+            }
+            return $this;
         });
     }
 }
