@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
 Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
-
 // Users and Admins
 Route::group([
     'middleware' => ['auth:sanctum', 'verified'],
@@ -14,6 +13,7 @@ Route::group([
 
     // Admins & Users
     Route::get('/', function () {
+
         $is_admin = Auth::user()->is_admin;
 
         if ($is_admin) {

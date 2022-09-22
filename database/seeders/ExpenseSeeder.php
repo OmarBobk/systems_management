@@ -41,36 +41,36 @@ class ExpenseSeeder extends Seeder
             'contribution_id' => 1, // Owner
             'user_id'         => 1,
         ];
-
-        $expenses[] = [
-            'type'            => 'shopping',
-            'description'     => null,
-            'amount'          => 50000000,
-            'bill_id'         => 3,
-            'sale_id'         => null,
-            'contribution_id' => 2, // Owner
-            'user_id'         => 1,
-        ];
-
-        $expenses[] = [
-            'type'            => 'shopping',
-            'description'     => null,
-            'amount'          => 20000000,
-            'bill_id'         => 4,
-            'sale_id'         => null,
-            'contribution_id' => 3, // ConX
-            'user_id'         => 1,
-        ];
-
-        $expenses[] = [
-            'type'            => 'shopping',
-            'description'     => null,
-            'amount'          => 35000000,
-            'bill_id'         => 5,
-            'sale_id'         => null,
-            'contribution_id' => 4, // ConX
-            'user_id'         => 1,
-        ];
+//
+//        $expenses[] = [
+//            'type'            => 'shopping',
+//            'description'     => null,
+//            'amount'          => 50000000,
+//            'bill_id'         => 3,
+//            'sale_id'         => null,
+//            'contribution_id' => 2, // Owner
+//            'user_id'         => 1,
+//        ];
+//
+//        $expenses[] = [
+//            'type'            => 'shopping',
+//            'description'     => null,
+//            'amount'          => 20000000,
+//            'bill_id'         => 4,
+//            'sale_id'         => null,
+//            'contribution_id' => 3, // ConX
+//            'user_id'         => 1,
+//        ];
+//
+//        $expenses[] = [
+//            'type'            => 'shopping',
+//            'description'     => null,
+//            'amount'          => 35000000,
+//            'bill_id'         => 5,
+//            'sale_id'         => null,
+//            'contribution_id' => 4, // ConX
+//            'user_id'         => 1,
+//        ];
 
 //        // Loses
 //        $expenses[] = [

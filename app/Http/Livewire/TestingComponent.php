@@ -10,15 +10,15 @@ class TestingComponent extends Component
 {
     public function render()
     {
+
         $res = 0;
-        $contributor = Contributor::find(4);
-        $contribution = $contributor->contributions()->first();
+        $contributor = Contributor::all();
 
-        dd(
-            Contributor::all(),
-            $contribution->profits->sum('amount')
-        );
+//        dd('fuck');
+        $contribution = $contributor;
 
-        return view('livewire.testing-component')->layout('layouts.user');
+        return redirect()->route('cashier');
+
+//        return view('livewire.testing-component')->layout('layouts.user');
     }
 }

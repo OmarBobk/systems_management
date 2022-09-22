@@ -23,13 +23,6 @@ class ContributorSeeder extends Seeder
             'notes'          => 'Owner',
         ];
 
-        $contributors[] = [
-            'id'             => 2,
-            'name'           => 'ConX',
-            'phone'          => '5353402539',
-            'notes'          => 'MR X is a normal contributor.',
-        ];
-
         Contributor::insert($contributors);
     }
 }

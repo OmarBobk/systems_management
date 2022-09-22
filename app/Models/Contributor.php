@@ -11,8 +11,9 @@ class Contributor extends Model
 
     protected $guarded = [];
 
-    public function contributions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function contributions()
     {
+        dd('tetst');
         return $this->hasMany(Contribution::class);
     }
 
