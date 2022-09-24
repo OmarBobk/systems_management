@@ -6,36 +6,31 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
 Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
+// Admins & Users
+Route::get('/', function () {
+
+    if (Auth::check()) {
+        return redirect(route('cashier'));
+    } else {
+        return redirect(route('login'));
+    }
+
+})->name('home');
+
+Route::get('dashboard', function () {
+
+    if (Auth::check()) {
+        return redirect(route('cashier'));
+    } else {
+        return redirect(route('login'));
+    }
+
+})->name('dashboard');
+
 // Users and Admins
 Route::group([
-    'middleware' => ['auth:sanctum', 'verified'],
+    'middleware' => ['adminAuth'],
 ], function() {
-
-    // Admins & Users
-    Route::get('/', function () {
-
-        $is_admin = Auth::user()->is_admin;
-
-        if ($is_admin) {
-            return redirect(route('cashier'));
-        } else {
-            return redirect(route('cashier'));
-        }
-
-    })->name('home');
-
-    Route::get('dashboard', function () {
-        $is_admin = Auth::user()->is_admin;
-
-        if ($is_admin) {
-            return redirect(route('cashier'));
-        } else {
-            return redirect(route('cashier'));
-        }
-
-    })->name('dashboard');
-
-
 
     Route::get('/products',                 App\Http\Livewire\ProductsComponent::class)                 ->name('products');
     Route::get('/categories',               App\Http\Livewire\CategoryComponent::class)                 ->name('categories');

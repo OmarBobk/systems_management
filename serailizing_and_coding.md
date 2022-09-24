@@ -35,3 +35,12 @@
    - 7- Touch Lamp Portable speaker:
      - Serial => 858 000 952 100 7.
      - Code   => CL-671.
+   - 8- Wireless Airpods yellow box:
+     - Serial => 65 454 212 123 6.
+     - Code   => AIRYEL-01.
+   - 9- Wireless Airpods yellow box:
+     - Serial => 65 454 212 123 7.
+     - Code   => AIRYEL-02.
+   - 7- Touch Lamp Portable speaker:
+      - Serial => 858 000 952 100 8.
+      - Code   => TWS-PRO4.

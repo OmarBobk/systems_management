@@ -13,7 +13,6 @@ class Contributor extends Model
 
     public function contributions()
     {
-        dd('tetst');
         return $this->hasMany(Contribution::class);
     }
 
