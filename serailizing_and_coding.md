@@ -1,46 +1,143 @@
-##Serializng & Coding 
+##Serializng & Coding
 ###Start At: 858 000 95<span style="text-decoration: underline">0</span> 000 0
 - 1- Perfumes [858 000 951 <span style="text-decoration: underline">0</span>00 0]
-    - 1- Essence: 
-      - Serial => 858 000 951 100 1.
-      - Code => PR-1001.
-    - 2- Glass(empty): 
-      - Serial => 858 000 951 200 1.
-      - Code => GL-2001.
-    - 3- Ready Perfumes: 
-      - Serial => 858 000 951 300 1.
-      - Code => RPR-3001.
-    - 4- Gift boxes & bags: 
-      - Serial => 858 000 951 400 1.
-      - Code => GBB-4001.
+    - 1- Essence:
+        - Serial => 858 000 951 100 1.
+        - Code => PR-1001.
+    - 2- Glass(empty):
+        - Serial => 858 000 951 200 1.
+        - Code => GL-2001.
+    - 3- Ready Perfumes:
+        - Serial => 858 000 951 300 1.
+        - Code => RPR-3001.
+    - 4- Gift boxes & bags:
+        - Serial => 858 000 951 400 1.
+        - Code => GBB-4001.
 - 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
-   - 1- Pubg Fingers:
-     - Serial => 858 000 952 100 1.
-     - Code   => PUBG-FINGER
-   - 2- Wireless Sport:
-     - Serial => 858 000 952 100 2.
-     - Code   => WS-1002
-   - 3- Earbuds A10s:
-     - Serial => 858 000 952 100 3.
-     - Code   => TWS-A10S
-   - 4- inPods i12 renkli:
-     - Serial => 858 000 952 100 5.
-     - Code   => INPODS12-1005
-   - 5- BT Speaker:
-     - Serial => 858 000 952 100 4.
-     - Code   => ZQS-2201.
-   - 6- Relax team earphone:
-     - Serial => 858 000 952 100 6.
-     - Code   => AE-38.
-   - 7- Touch Lamp Portable speaker:
-     - Serial => 858 000 952 100 7.
-     - Code   => CL-671.
-   - 8- Wireless Airpods yellow box:
-     - Serial => 65 454 212 123 6.
-     - Code   => AIRYEL-01.
-   - 9- Wireless Airpods yellow box:
-     - Serial => 65 454 212 123 7.
-     - Code   => AIRYEL-02.
-   - 7- Touch Lamp Portable speaker:
-      - Serial => 858 000 952 100 8.
-      - Code   => TWS-PRO4.
+    - 1- Pubg Fingers:
+        - Serial => 858 000 952 100 1.
+        - Code   => PUBG-FINGER
+    - 2- Wireless Sport:
+        - Serial => 858 000 952 100 2.
+        - Code   => WS-1002
+    - 3- Earbuds A10s:
+        - Serial => 858 000 952 100 3.
+        - Code   => TWS-A10S
+    - 4- inPods i12 renkli:
+        - Serial => 858 000 952 100 5.
+        - Code   => INPODS12-1005
+    - 5- BT Speaker:
+        - Serial => 858 000 952 100 4.
+        - Code   => ZQS-2201.
+    - 6- Relax team earphone:
+        - Serial => 858 000 952 100 6.
+        - Code   => AE-38.
+    - 7- Touch Lamp Portable speaker:
+        - Serial => 858 000 952 100 7.
+        - Code   => CL-671.
+    - 8- Wireless Speaker:
+        - Serial => 858 000 952 100 8.
+        - Code   => RS-3155.
+    - 9- Wireless Speaker:
+        - Serial => 858 000 952 100 9.
+        - Code   => PRO4.
+    - 10- keyboard stickers:
+        - Serial => 858 000 952 101 0.
+        - Code   => KS77.
+    - 11- keyboard stickers:
+        - Serial => 858 000 952 101 1.
+        - Code   => NDR-P44.
+    - 12- Kimiso Speaker:
+        - Serial => 858 000 952 101 2.
+        - Code   => KMS-5012.
+    - 12- i12 tws:
+        - Serial => 12824.
+        - Code   => TWS-i12
+##Serializng & Coding
+###Start At: 858 000 95<span style="text-decoration: underline">0</span> 000 0
+- 1- Perfumes [858 000 951 <span style="text-decoration: underline">0</span>00 0]
+    - 1- Essence:
+        - Serial => 858 000 951 100 1.
+        - Code => PR-1001.
+    - 2- Glass(empty):
+        - Serial => 858 000 951 200 1.
+        - Code => GL-2001.
+    - 3- Ready Perfumes:
+        - Serial => 858 000 951 300 1.
+        - Code => RPR-3001.
+    - 4- Gift boxes & bags:
+        - Serial => 858 000 951 400 1.
+        - Code => GBB-4001.
+- 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
+    - 1- Pubg Fingers:
+        - Serial => 858 000 952 100 1.
+        - Code   => PUBG-FINGER
+    - 2- Wireless Sport:
+        - Serial => 858 000 952 100 2.
+        - Code   => WS-1002
+    - 3- Earbuds A10s:
+        - Serial => 858 000 952 100 3.
+        - Code   => TWS-A10S
+    - 4- inPods i12 renkli:
+        - Serial => 858 000 952 100 5.
+        - Code   => INPODS12-1005
+    - 5- BT Speaker:
+        - Serial => 858 000 952 100 4.
+        - Code   => ZQS-2201.
+    - 6- Relax team earphone:
+        - Serial => 858 000 952 100 6.
+        - Code   => AE-38.
+    - 7- Touch Lamp Portable speaker:
+        - Serial => 858 000 952 100 7.
+        - Code   => CL-671.
+    - 8- Wireless Speaker:
+        - Serial => 858 000 952 100 8.
+        - Code   => RS-315.
+    - 9- Wireless Speaker:
+        - Serial => 858 000 952 100 9.
+        - Code   => PRO4.
+    - 10- keyboard stickers:
+        - Serial => 858 000 952 101 0.
+        - Code   => KS77.
+    - 11- keyboard stickers:
+        - Serial => 858 000 952 101 1.
+        - Code   => NDR-P44.
+    - 12- Kimiso Speaker:
+        - Serial => 858 000 952 101 2.
+        - Code   => KMS-5012.
+    - 13- i12 tws:
+        - Serial => 12824.
+        - Code   => TWS-i12
+    - 14- Wireless Airpods yellow box:
+        - Serial => 65 454 212 123 6.
+        - Code   => AIRYEL-01.
+    - 15- Wireless Airpods yellow box:
+        - Serial => 65 454 212 123 7.
+        - Code   => AIRYEL-02.
+    - 16- TWS Pro4 Airpods:
+        - Serial => 858 000 952 101 3.
+        - Code   => TWS-PRO4.
+    - 17- TWS Pro 5s Airpods:
+        - Serial => 858 000 952 101 4.
+        - Code   => TWS-PRO5S.
+    - 18- Gaming Airpods:
+        - Serial => 858 000 952 101 5.
+        - Code   => K-80
+    - 19- Powerbank Airpods:
+        - Serial => 858 000 952 101 6.
+        - Code   => M19
+    - 20- 6A Type-c Cable:
+        - Serial => 858 000 952 101 7.
+        - Code   => TC-6A
+    - 21- Portable Wireless Speaker:
+        - Serial => 858 000 952 101 8.
+        - Code   => SX31PLUS
+    - 22- Wireless Stereo headphones:
+        - Serial => 858 000 952 101 9.
+        - Code   => PG-01
+    - 23- Type-c Earphone:
+        - Serial => 858 000 952 102 0.
+        - Code   => TC-EAR
+    - 24- Electric Socket Convertor:
+        - Serial => 858 000 952 102 1.
+        - Code   => TC-EAR

@@ -48,14 +48,9 @@ Route::group([
     Route::get('/bills',                    App\Http\Livewire\BillComponent::class)                     ->name('bills');
     Route::get('/products-container/{productsContainer}',       App\Http\Livewire\ProductsContainerComponent::class)        ->name('container');
     Route::get('/container-manager',        App\Http\Livewire\ContainersManagerComponent::class)        ->name('containers-manager');
-//    Route::get('/debtors',                    function () {
-//        return view('livewire.debtorpowergrid')->layout('layouts.user');
-//    })      ->name('debtors');
 
     Route::get('/contributor/{contributor}', \App\Http\Livewire\ContributorComponent::class)->name('contributor');
     Route::get('/products-database', \App\Http\Livewire\ProductsDatabaseComponent::class)->name('productsdatabase');
-
-    Route::view('/powergrid', 'powergrid-demo');
 
     // Users
     Route::middleware('userAuth')
