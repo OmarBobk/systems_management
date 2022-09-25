@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Debtor;
-use Illuminate\Support\Carbon;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
-use PowerComponents\LivewirePowerGrid\Button;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Carbon;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
-use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
-use PowerComponents\LivewirePowerGrid\Themes\ThemeBase;
+use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
-use LivewireUI\Modal\ModalComponent;
+use function __;
 
 class DebtorPowergrid extends PowerGridComponent
 {

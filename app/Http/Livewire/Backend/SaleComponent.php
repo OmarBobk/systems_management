@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function session;
+use function view;
 
 class SaleComponent extends Component
 {
@@ -59,9 +61,16 @@ class SaleComponent extends Component
             $this->all_costs   += $sale->cost * $sale->amount;
         }
 
-        return view('livewire.sales.index-component', [
+        return view('livewire.backend.sales.index-component', [
             'sales' => $sales,
-        ])->layout('layouts.user');
+        ])->layout('layouts.user', [
+            'breadcrumbs' => [
+                [
+                    'route' => 'backend.sales',
+                    'index' => 'Sales'
+                ],
+            ]
+        ]);
     }
 
     public function edit(Sale $sale)

@@ -87,7 +87,7 @@
 
                                 {{--Profile--}}
                                 <td class="border px-4 py-2">
-                                    <a href="{{route('contributor', $contributor->id)}}">Details</a>
+                                    <a href="{{route('backend.contributor', $contributor->id)}}">Details</a>
                                 </td>
 
                                 {{--Actions--}}

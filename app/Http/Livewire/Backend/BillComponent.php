@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Bill;
 use App\Models\Contribution;
@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function session;
+use function view;
 
 class BillComponent extends Component
 {
@@ -120,7 +122,15 @@ class BillComponent extends Component
     public function render()
     {
         $this->bills = Bill::all();
-        return view('livewire.bills.index-component')->layout('layouts.user');
+        return view('livewire.backend.bills.index-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => [
+                    [
+                        'route' => 'backend.bills',
+                        'index' => 'Bills Manager'
+                    ],
+                ]
+            ]);
     }
 
     public function create()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Cart;
 use App\Models\Contribution;
@@ -15,9 +15,10 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use function redirect;
+use function session;
+use function view;
 
 class CashierComponent extends Component
 {
@@ -62,7 +63,7 @@ class CashierComponent extends Component
 
         $breadcrumbs = [
             [
-                'route' => 'cashier',
+                'route' => 'backend.cashier',
                 'index' => 'Cashier'
             ],
         ];
@@ -70,7 +71,7 @@ class CashierComponent extends Component
         $this->cart = Cart::with('products')->whereId(1)->first();
         $this->is_amount_error = false;
 
-        return view('livewire.cashier-component')
+        return view('livewire.backend.cashier-component')
             ->layout('layouts.user', [
                 'breadcrumbs' => $breadcrumbs,
             ]);

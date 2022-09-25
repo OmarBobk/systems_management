@@ -3,14 +3,110 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+//Route::get('stock', function () {
+//        dd('Test');
+//})->domain('test.'.env('APP_URL'))->name('omar');
+
+
+Route::name('backend.')
+    ->prefix('backend')
+    ->middleware(['adminAuth'])
+    ->group(function () {
+        // Backend Dashboard.
+        Route::get('test', function() {
+            dd('test');
+        })->name('test');
+
+
+
+        Route::get(
+            uri: '/cashier',
+            action: App\Http\Livewire\Backend\CashierComponent::class)
+            ->name('cashier');
+
+        Route::get(
+            uri: '/products',
+            action: App\Http\Livewire\Backend\ProductsComponent::class)
+            ->name('products');
+
+        Route::get(
+            uri: '/categories',
+            action: App\Http\Livewire\Backend\CategoryComponent::class)
+            ->name('categories');
+
+        Route::get(
+            uri: '/debts-management',
+            action: App\Http\Livewire\Backend\DebtManagementComponent::class)
+            ->name('debts');
+
+        Route::get(
+            uri: '/sellers',
+            action: App\Http\Livewire\Backend\SellerComponent::class)
+            ->name('sellers');
+
+        Route::get(
+            uri:'/sales',
+            action: App\Http\Livewire\Backend\SaleComponent::class)
+            ->name('sales');
+        Route::get(
+            uri:'/contributions-management',
+            action: App\Http\Livewire\Backend\Contributions::class)
+            ->name('contributions');
+        Route::get(
+            uri:'/safe',
+            action: App\Http\Livewire\Backend\SafeComponent::class)
+            ->name('safe');
+        Route::get(
+            uri:'/incomes',
+            action: App\Http\Livewire\Backend\IncomeComponent::class)
+            ->name('incomes');
+        Route::get('/incomes/{income}', function ($income) {
+            dd($income);
+        })
+            ->name('incomes.view');
+        Route::get(
+            uri: '/expenses',
+            action: App\Http\Livewire\Backend\ExpensesComponent::class)
+            ->name('expenses');
+        Route::get(
+            uri: '/bills',
+            action: App\Http\Livewire\Backend\BillComponent::class)
+            ->name('bills');
+        Route::get(
+            uri: '/products-container/{productsContainer}',
+            action: App\Http\Livewire\Backend\ProductsContainerComponent::class)
+            ->name('container');
+        Route::get(
+            uri: '/container-manager',
+            action: App\Http\Livewire\Backend\ContainersManagerComponent::class)
+            ->name('containers-manager');
+
+        Route::get(
+            uri: '/contributor/{contributor}',
+            action: App\Http\Livewire\Backend\ContributorComponent::class)
+            ->name('contributor');
+        Route::get(
+            uri: '/products-database',
+            action: App\Http\Livewire\Backend\ProductsDatabaseComponent::class)
+            ->name('productsdatabase');
+
+
+    });
+
+Route::name('frontend.')
+    ->group(function () {
+        Route::get('/', function () { dd('HOME'); })
+            ->name('home');
+    });
+
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
-Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
+//Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
 // Admins & Users
 Route::get('/', function () {
 
     if (Auth::check()) {
-        return redirect(route('cashier'));
+        return redirect(route('backend.cashier'));
     } else {
         return redirect(route('login'));
     }
@@ -20,7 +116,7 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
 
     if (Auth::check()) {
-        return redirect(route('cashier'));
+        return redirect(route('backend.cashier'));
     } else {
         return redirect(route('login'));
     }
@@ -31,27 +127,6 @@ Route::get('dashboard', function () {
 Route::group([
     'middleware' => ['adminAuth'],
 ], function() {
-
-    Route::get('/products',                 App\Http\Livewire\ProductsComponent::class)                 ->name('products');
-    Route::get('/categories',               App\Http\Livewire\CategoryComponent::class)                 ->name('categories');
-    Route::get('/cashier',                  App\Http\Livewire\CashierComponent::class)                  ->name('cashier');
-    Route::get('/sales',                    App\Http\Livewire\SaleComponent::class)                     ->name('sales');
-    Route::get('/debts-management',         App\Http\Livewire\DebtManagementComponent::class)           ->name('debts');
-    Route::get('/sellers',                  App\Http\Livewire\SellerComponent::class)                   ->name('sellers');
-    Route::get('/contributions-management', App\Http\Livewire\Contributions::class)                     ->name('contributions');
-    Route::get('/safe',                     App\Http\Livewire\SafeComponent::class)                     ->name('safe');
-    Route::get('/incomes',                  App\Http\Livewire\IncomeComponent::class)                   ->name('incomes');
-    Route::get('/incomes/{income}', function ($income) {
-        dd($income);
-    })                   ->name('incomes.view');
-    Route::get('/expenses',                 App\Http\Livewire\ExpensesComponent::class)                 ->name('expenses');
-    Route::get('/bills',                    App\Http\Livewire\BillComponent::class)                     ->name('bills');
-    Route::get('/products-container/{productsContainer}',       App\Http\Livewire\ProductsContainerComponent::class)        ->name('container');
-    Route::get('/container-manager',        App\Http\Livewire\ContainersManagerComponent::class)        ->name('containers-manager');
-
-    Route::get('/contributor/{contributor}', \App\Http\Livewire\ContributorComponent::class)->name('contributor');
-    Route::get('/products-database', \App\Http\Livewire\ProductsDatabaseComponent::class)->name('productsdatabase');
-
     // Users
     Route::middleware('userAuth')
         ->name('user.')
@@ -68,3 +143,9 @@ Route::group([
         Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
     });
 });
+
+//Route::fallback(function() {
+//
+//    return response(['error' => true, 'error-msg' => 'Not found'], 404);
+//
+//});

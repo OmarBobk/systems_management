@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Brand;
 use App\Models\Category;
@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function asset;
+use function collect;
+use function session;
+use function view;
 
 class ProductsContainerComponent extends Component
 {
@@ -194,9 +198,16 @@ class ProductsContainerComponent extends Component
 
         $this->container_products = collect($data);
 
-        return view('livewire.products-container.index-component', [
+        return view('livewire.backend.products-container.index-component', [
             'products' => $products,
-        ])->layout('layouts.user');
+        ])->layout('layouts.user', [
+            'breadcrumbs' => [
+                [
+                    'route' => ['backend.container', $this->container->id],
+                    'index' => 'Products Container.'
+                ],
+            ]
+        ]);
     }
 
     public function create()

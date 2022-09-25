@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Bill;
 use App\Models\ProductsContainer;
 use JetBrains\PhpStorm\ArrayShape;
 use Livewire\Component;
+use function route;
+use function view;
 
 class ContainersManagerComponent extends Component
 {
@@ -25,7 +27,15 @@ class ContainersManagerComponent extends Component
     {
         $this->containers = ProductsContainer::all();
 
-        return view('livewire.containers-manager.index-component')->layout('layouts.user');
+        return view('livewire.backend.containers-manager.index-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => [
+                    [
+                        'route' => 'backend.containers-manager',
+                        'index' => 'Products Container\'s Manager'
+                    ],
+                ]
+            ]);
     }
 
 
@@ -84,7 +94,7 @@ class ContainersManagerComponent extends Component
 
     public function viewContainer($id)
     {
-        $this->redirect(route('container', $id));
+        $this->redirect(route('backend.container', $id));
     }
 
     public function deleteContainer($id)

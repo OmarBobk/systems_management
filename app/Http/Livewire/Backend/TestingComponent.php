@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Contributor;
-use App\Models\User;
 use Livewire\Component;
+use function redirect;
 
 class TestingComponent extends Component
 {
@@ -19,6 +19,6 @@ class TestingComponent extends Component
 
         return redirect()->route('cashier');
 
-//        return view('livewire.testing-component')->layout('layouts.user');
+//        return view('livewire.backend.testing-component')->layout('layouts.user');
     }
 }

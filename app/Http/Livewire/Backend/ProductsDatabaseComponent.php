@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Brand;
 use App\Models\Category;
@@ -8,6 +8,8 @@ use App\Models\ProductsDatabase;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function session;
+use function view;
 
 class ProductsDatabaseComponent extends Component
 {
@@ -176,7 +178,7 @@ class ProductsDatabaseComponent extends Component
     {
         $this->breadcrumbs = [
             [
-                'route' => 'productsdatabase',
+                'route' => 'backend.productsdatabase',
                 'index' => 'Products Database'
             ],
         ];
@@ -193,7 +195,7 @@ class ProductsDatabaseComponent extends Component
                 $this->products_amount += $product->amount;
             }
         }
-        return view('livewire.productsdatabase.index-component', [
+        return view('livewire.backend.productsdatabase.index-component', [
             'products' => $products->paginate(5)
         ])
             ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);

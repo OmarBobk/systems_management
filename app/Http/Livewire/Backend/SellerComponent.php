@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Brand;
 use App\Models\Seller;
-use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use function session;
+use function view;
 
 class SellerComponent extends Component
 {
@@ -22,6 +22,7 @@ class SellerComponent extends Component
     public $is_brand_name, $is_brand_description, $is_view_brands;
     public $is_show_brands_from_search, $is_create_new_seller, $is_create_new_brand;
     public $is_view_brands_from_search_form;
+    public $breadcrumb;
 
     protected array $rules = [
         'newSellerName'    => 'required',
@@ -37,8 +38,17 @@ class SellerComponent extends Component
 
     public function render()
     {
+        $this->breadcrumbs = [
+            [
+                'route' => 'backend.sellers',
+                'index' => 'Sellers Management'
+            ],
+        ];
         $this->sellers = Seller::all();
-        return view('livewire.sellers.seller-component')->layout('layouts.user');
+        return view('livewire.backend.sellers.seller-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => $this->breadcrumbs,
+            ]);
     }
 
     /**

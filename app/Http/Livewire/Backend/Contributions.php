@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
-use App\Models\Contributor;
 use App\Models\Contribution;
+use App\Models\Contributor;
 use Carbon\Carbon;
 use Livewire\Component;
+use function session;
+use function view;
 
 class Contributions extends Component
 {
@@ -44,7 +46,15 @@ class Contributions extends Component
             $this->contributor_profits[$contributor->id] = $res;
         }
 
-        return view('livewire.contributions.index-component')->layout('layouts.user');
+        return view('livewire.backend.contributions.index-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => [
+                    [
+                        'route' => 'backend.contributions',
+                        'index' => 'Contributions'
+                    ],
+                ]
+            ]);
     }
 
     public function set_contributor_profits()

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Contributor;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
+use function collect;
+use function view;
 
 class ContributorComponent extends Component
 {
@@ -42,7 +44,7 @@ class ContributorComponent extends Component
 
         $this->breadcrumbs = [
             [
-                'route' => ['contributor', $contributor_id],
+                'route' => ['backend.contributor', $contributor_id],
                 'index' => 'Contributor / ' . $contributor_id,
             ],
         ];
@@ -65,7 +67,7 @@ class ContributorComponent extends Component
 ////                'created_at' => $contributor->created_at->toFormattedDateString(),
 //            ]));
 
-        return view('livewire.contributor.index')
+        return view('livewire.backend.contributor.index')
             ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs,]);
     }
 

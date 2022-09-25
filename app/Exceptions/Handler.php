@@ -42,20 +42,20 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Throwable  $e, $request) {
 
-            if ($request->is('api/*')) {
-                if ( $e->getPrevious() instanceof ModelNotFoundException ) {
-                    $model_name = explode('\\', $e->getPrevious()->getModel());
-                    return response()->json([
-                        'error' => 'Entry for ' . $model_name[array_key_last($model_name)].' Not Found!',
-                    ], 404);
-                }
-
-//                if ($e instanceof ValidationException) {
-//                    return response()->json(['errors'=>$e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+//            if ($request->is('api/*')) {
+//                if ( $e->getPrevious() instanceof ModelNotFoundException ) {
+//                    $model_name = explode('\\', $e->getPrevious()->getModel());
+//                    return response()->json([
+//                        'error' => 'Entry for ' . $model_name[array_key_last($model_name)].' Not Found!',
+//                    ], 404);
 //                }
-
-            }
-            return $this;
+//
+////                if ($e instanceof ValidationException) {
+////                    return response()->json(['errors'=>$e->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+////                }
+//
+//            }
+//            return $this;
         });
     }
 }

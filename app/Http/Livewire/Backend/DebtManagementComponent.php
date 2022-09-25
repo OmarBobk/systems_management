@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Debt;
 use App\Models\Debtor;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use function session;
+use function view;
 
 class DebtManagementComponent extends Component
 {
@@ -18,7 +20,7 @@ class DebtManagementComponent extends Component
     public $newDebtorName, $newDebtorPhone;
     public $new_debt_name, $new_debt_description, $new_debt_cost, $new_debt_price, $new_debt_paid, $new_debt_due, $new_debt_product_id, $new_debt_amount;
     public $productSearchKeyword, $productSearchResult;
-    public $is_view_debts_from_search_form;
+    public $is_view_debts_from_search_form, $breadcrumbs;
 
     protected array $rules = [
         'newDebtorName'  => 'required',
@@ -34,7 +36,15 @@ class DebtManagementComponent extends Component
         ];
         $this->debtors = Debtor::all();
 
-        return view('livewire.debts.debt-management-component')->layout('layouts.user');
+        $this->breadcrumbs = [
+            [
+                'route' => 'backend.debts',
+                'index' => 'Debts Manager'
+            ],
+        ];
+
+        return view('livewire.backend.debts.debt-management-component')
+            ->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
     /**

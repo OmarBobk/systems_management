@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Bill;
-use App\Models\Contributor;
-use App\Models\Expense;
 use App\Models\Contribution;
+use App\Models\Expense;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use function session;
+use function view;
 
 class ExpensesComponent extends Component
 {
@@ -24,7 +25,15 @@ class ExpensesComponent extends Component
         $this->expenses = Expense::with(['contribution', 'user', 'bill'])->get();
 
 
-        return view('livewire.expenses.index-component')->layout('layouts.user');
+        return view('livewire.backend.expenses.index-component')
+            ->layout('layouts.user', [
+                'breadcrumbs' => [
+                    [
+                        'route' => 'backend.expenses',
+                        'index' => 'Expenses Manager'
+                    ],
+                ]
+            ]);
     }
 
     /**

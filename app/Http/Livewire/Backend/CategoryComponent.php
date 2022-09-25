@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Backend;
 
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function session;
+use function view;
 
 class CategoryComponent extends Component
 {
@@ -14,15 +15,21 @@ class CategoryComponent extends Component
 
     public bool $isModalOpen = false;
     public bool $updateMode  = false;
-    public $name, $category_id;
+    public $name, $category_id, $breadcrumbs;
 
     public function render()
     {
 
+        $this->breadcrumbs = [
+            [
+                'route' => 'backend.categories',
+                'index' => 'Categories'
+            ],
+        ];
 
-        return view('livewire.category.index-component', [
+        return view('livewire.backend.category.index-component', [
             'categories' => Category::paginate(5),
-        ])->layout('layouts.user');
+        ])->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
     public function edit(Category $category)
