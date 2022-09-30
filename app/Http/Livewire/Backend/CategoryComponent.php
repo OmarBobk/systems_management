@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Backend;
 
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,11 +16,12 @@ class CategoryComponent extends Component
 
     public bool $isModalOpen = false;
     public bool $updateMode  = false;
-    public $name, $category_id, $breadcrumbs;
+    public $name, $category_id, $breadcrumbs, $parent_category;
+    public $selected_parent_category = [];
+    public $listStyle = '';
 
     public function render()
     {
-
         $this->breadcrumbs = [
             [
                 'route' => 'backend.categories',
@@ -27,9 +29,19 @@ class CategoryComponent extends Component
             ],
         ];
 
+//        $categories = query();
+        $cats= Category::all()->whereNull('category_id');
+        $all = Category::orderBy('category_id')->paginate(10);
+
         return view('livewire.backend.category.index-component', [
-            'categories' => Category::paginate(5),
+            'parent_categories'     => $cats,
+            'all_categories'        => $all,
         ])->layout('layouts.user', ['breadcrumbs' => $this->breadcrumbs]);
+    }
+
+    public function updatingSelectedParentCategory()
+    {
+        $this->reset('selected_parent_category');
     }
 
     public function edit(Category $category)
@@ -37,13 +49,14 @@ class CategoryComponent extends Component
         $this->category_id = $category->id;
         $this->name        = $category->name;
         $this->slug        = $category->slug;
+        $this->selected_parent_category = [$category->category_id => 'on'];
         $this->updateMode  = true;
 
         $this->openModal();
 
     }
 
-    public function update()
+    public function updateRec()
     {
         $this->validate([
             'name' => 'required',
@@ -51,6 +64,7 @@ class CategoryComponent extends Component
 
         Category::find($this->category_id)->update([
             'name' => $this->name,
+            'category_id' => (array_key_first($this->selected_parent_category) == 'null') ? null : array_key_first($this->selected_parent_category),
             'slug' => Str::slug($this->name),
         ]);
 
@@ -63,12 +77,12 @@ class CategoryComponent extends Component
 
     public function create()
     {
-        $this->resetForm();
         $this->openModal();
     }
 
     public function store()
     {
+        $now = Carbon::now();
 
         $this->validate([
             'name' => 'required',
@@ -76,7 +90,10 @@ class CategoryComponent extends Component
 
         Category::create([
             'name' => $this->name,
+            'category_id' => (array_key_first($this->selected_parent_category) == 'null') ? null : array_key_first($this->selected_parent_category),
             'slug' => Str::slug($this->name),
+            'created_at'=> $now,
+            'updated_at'=> $now,
         ]);
 
         session()->flash('message', 'Category Created Successfully');
@@ -111,6 +128,8 @@ class CategoryComponent extends Component
 
     public function openModal()
     {
+        $this->resetForm();
+
         $this->isModalOpen = true;
     }
 
@@ -121,7 +140,7 @@ class CategoryComponent extends Component
 
     public function resetForm()
     {
-        $this->reset('name', 'updateMode');
+        $this->reset('name', 'updateMode', 'selected_parent_category');
     }
 
     public function hydrate()

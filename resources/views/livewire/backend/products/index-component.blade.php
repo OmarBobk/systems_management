@@ -13,7 +13,7 @@
             @endif
 
             @if($isCreateComponentOpen)
-                @include('livewire.products.create-component')
+                @include('livewire.backend.products.create-component')
             @else
                 <button class="btn btn-primary my-4"
                         wire:click="create">
@@ -220,7 +220,7 @@
                             @if($is_view_product_details[$product->id])
                                 <tr>
                                     <td colspan="8" class="border" >
-                                        @include('livewire.products.details-component')
+                                        @include('livewire.backend.products.details-component')
                                     </td>
                                 </tr>
                             @endif

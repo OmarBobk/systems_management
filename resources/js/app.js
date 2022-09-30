@@ -1,8 +1,14 @@
-require('./bootstrap');
+import './bootstrap';
 
 import Alpine from 'alpinejs';
-import ApexCharts from 'apexcharts'
+// import ApexCharts from 'apexcharts'
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+
+import.meta.glob([
+    '../images/**',
+    '../fonts/**',
+]);

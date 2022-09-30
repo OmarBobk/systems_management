@@ -28,7 +28,6 @@ trait Searchable
                                 string  $needle,
                                 string  $orderByColumn,
                                 string  $orderByDirection = 'asc',
-                                string  $sortOrder = null,
     )
     {
         if ($this->searchable_columns == null) {
@@ -53,10 +52,6 @@ trait Searchable
 
         $builder->whereRaw("( $queryString )")
             ->orderBy($orderByColumn, $orderByDirection);
-
-        if ($sortOrder) {
-            $builder->sortedBy($sortOrder);
-        }
 
         if ($this->return_from_search) {
             // $this->return_from_search = ['id', 'name']

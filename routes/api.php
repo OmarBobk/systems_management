@@ -21,10 +21,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('products', ProductsController::class)
-    ->only(['index', 'update']);
-Route::apiResource('categories', CategoryController::class)
-    ->only(['index', 'update', 'store', 'destroy', 'show']);
+Route::prefix('v2')
+    ->name('api.v2.')
+    ->group(function () {
+
+
+        Route::apiResource('products', ProductsController::class)
+            ->only(['index', '']);
+        Route::apiResource('categories', CategoryController::class)
+            ->only(['index', 'update', 'store', 'destroy', 'show']);
+
+        // Lists of lists like: List of all products or categories.
+        Route::prefix('lists')
+            ->name('list.')
+            ->group(function () {
+
+                // name api.v2.list.categories
+                // rui /api/v2/list/categories
+                Route::get('categories', function () {})->name('categories');
+
+            });
+
+});
 
 
 Route::fallback(function() {

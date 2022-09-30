@@ -45,7 +45,7 @@
 
             {{--Search Result--}}
             @if($searchKeyword != '' or $searchKeyword != null)
-                @include('livewire.search.result-component', $result)
+                @include('livewire.backend.search.result-component', $result)
             @endif
 
             {{--Card--}}

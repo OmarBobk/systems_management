@@ -64,7 +64,8 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img class="w-full h-full rounded-full"
-                                             src="{{asset('/assets/img/products/'.$product->serial.'.jpg')}}"
+{{--                                             src="{{asset('/assets/img/products/'.$product->serial.'.jpg')}}"--}}
+                                             src="{{  \Illuminate\Support\Facades\Vite::asset('resources/images/products/'.$product->serial.'.jpg') }}"
                                              alt="" />
                                     </div>
                                     <div class="ml-3">

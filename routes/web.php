@@ -95,23 +95,40 @@ Route::name('backend.')
 
 Route::name('frontend.')
     ->group(function () {
-        Route::get('/', function () { dd('HOME'); })
-            ->name('home');
+        Route::get(
+            uri: '/',
+            action: \App\Http\Livewire\Frontend\HomeComponenet::class
+        )->name('home');
+
+        Route::get(
+            uri: 'shop',
+            action: \App\Http\Livewire\Frontend\ShopComponenet::class
+        )->name('shop');
+
+        Route::get(
+            uri: 'contactus',
+            action: function () {dd('This is contact us');}
+        )->name('contactus');
+
+        Route::get(
+            uri: 'faq',
+            action: function () {dd('This is faq');}
+        )->name('faq');
     });
 
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
 
 // Admins & Users
-Route::get('/', function () {
-
-    if (Auth::check()) {
-        return redirect(route('backend.cashier'));
-    } else {
-        return redirect(route('login'));
-    }
-
-})->name('home');
+//Route::get('/', function () {
+//
+//    if (Auth::check()) {
+//        return redirect(route('backend.cashier'));
+//    } else {
+//        return redirect(route('login'));
+//    }
+//
+//})->name('home');
 
 Route::get('dashboard', function () {
 

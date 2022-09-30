@@ -33,7 +33,7 @@ class ProductsController extends Controller
         $products_in_stock_count = 0;
         $products_total_costs    = 0;
 
-        $products = Product::where($search_field, "like", "%$search_keyword%")
+        $products = Product::with(['category'])->where($search_field, "like", "%$search_keyword%")
             ->orderBy($order_field, $order_type);
 
 
