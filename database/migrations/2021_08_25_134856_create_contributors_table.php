@@ -17,7 +17,7 @@ class CreateContributorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->text('notes')->default('');
+            $table->text('notes')->nullable();
 
             $table->timestamps();
         });
