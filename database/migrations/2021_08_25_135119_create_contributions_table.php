@@ -17,7 +17,7 @@ class CreateContributionsTable extends Migration
         Schema::create('contributions', function (Blueprint $table) {
             $table->id();
             $table->integer('amount');
-            $table->text('description')->default('');
+            $table->text('description')->nullable();
             $table->date('deposit_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->date('due_date');
             $table->integer('profits_percent');
