@@ -14,7 +14,7 @@ class AddDescriptionToCartProduct extends Migration
     public function up()
     {
         Schema::table('cart_product', function (Blueprint $table) {
-            $table->text('description')->nullable()->default(' ');
+            $table->text('description')->nullable();
         });
     }
 
