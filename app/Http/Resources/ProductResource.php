@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'category'          => (new CategoryResource($this->whenLoaded('category')))->attributes(['name', 'slug'])->data,
             'id'                => $this->id,
             'serial'            => (int) $this->serial,
-            'name'              => $this->name,
+            'name'              => __('products.'.str_replace(' ', '_', strtolower($this->name))),
             'description'       => $this->description,
             'code'              => $this->code,
             'amount'            => (int) $this->amount,

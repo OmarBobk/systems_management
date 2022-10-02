@@ -1,0 +1,86 @@
+#git token
+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
+
+- V1.0.0
+    - Visitor Will explore the products in a single product page.
+    - The product price will be shown for visitors.
+- Images.
+    - Slider
+        - 1265 * 660
+- Main Ideas
+    - live chat.
+    - GSD (General Services Delivery).
+- Main Pages
+    - Home
+    - Shop
+    - Contact Us
+    - Single Product
+    - FAQ
+- Tools
+    - Jetstream
+    - Livewire
+    - Blade Template Inheritance
+- Models
+    - Product
+        - Attributes
+            - id
+            - serial
+            - name
+            - description
+            - code
+            - amount
+            - price
+            - cost
+            - slug
+            - category_id
+            - brand_id
+        - Relations
+            - category
+            - images (Polymorphic)
+    - Brand.
+        - Attributes.
+            - id.
+            - name.
+            - description.
+        - Relations
+            - seller
+    - Category
+        - Attributes
+            - id
+            - name
+            - slug
+            - status
+            - category_id
+        - Relations
+            - products
+            - categories
+            - childrenCategories
+            - image (Polymorphic)
+            - products
+    - Image
+        - Attributes
+            - id
+            - path
+            - name
+            - code (nullable)
+            - imageable_id
+            - imageable_type
+        - Relations
+            - imageable
+    - Homeslider
+      - Attributes
+        - id
+        - path
+        - url
+        - status
+    - User
+      - Attributes
+        - id
+        - name
+        - email
+        - phone
+        - profile_photo_path
+    - Order
+      - id
+      - status (Done, Doing, To Do)
+- 
