@@ -30,7 +30,7 @@ Route::prefix('v1')
     ->name('api.v1.')
     ->group(function () {
 
-        Route::post('/', [ApiController::class, 'success'])->name('success');
+        Route::post('/url_list', [ApiController::class, 'success'])->name('url_list');
         Route::post('homepage', HomeController::class)->name('homepage');
 
         Route::prefix('auth')
