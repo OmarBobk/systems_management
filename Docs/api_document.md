@@ -1,6 +1,25 @@
 # Api Structure
 
-- /
+- success
   - All Api URL's
 - HomepageApi
-  - Categories
+  - NavbarCategories (with childrens)
+    - Attributes
+      - id
+      - name
+      - slug
+    - Relationships
+      - childrenCategories
+  - Categories With Images
+    - Attributes
+      - id
+      - name
+      - slug
+    - Relationships
+      - image
+  - HomeSilders
+    - Attributes
+      - id
+      - path
+      - url
+  - products(Newest Products)

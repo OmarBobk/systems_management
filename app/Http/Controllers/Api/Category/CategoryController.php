@@ -29,7 +29,8 @@ CategoryController extends Controller
         $categories_per_page     = $request->query('categories_per_page') ?? 5;
 
         try {
-            $categories = Category::with(['products'])->where($search_field, "like", "%$search_keyword%")
+            $categories = Category::with(['products'])
+                ->where($search_field, "like", "%$search_keyword%")
                 ->orderBy($order_field, $order_type);
         } catch (\Exception $e) {
             return $e->getMessage();
