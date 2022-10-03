@@ -1,12 +1,12 @@
 <?php
 
+use Illuminate\Auth\Events\Registered;
 use  Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('stock', function () {
 //        dd('Test');
 //})->domain('test.'.env('APP_URL'))->name('omar');
-
 
 Route::name('backend.')
     ->prefix('backend')

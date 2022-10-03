@@ -1,5 +1,7 @@
 # Api Structure
 
+- verify-email
+  - api/v1/auth/verify-email
 - success
   - All Api URL's
 - HomepageApi
@@ -18,8 +20,11 @@
     - Relationships
       - image
   - HomeSilders
+    - Section
+    - 
     - Attributes
       - id
       - path
       - url
-  - products(Newest Products)
+      - sections/{section_id}
+    - products(Newest Products)

@@ -38,6 +38,7 @@ Route::prefix('v1')
             ->group(function () {
                 Route::post('register', [AuthController::class, 'register'])->name('register');
                 Route::post('login', [AuthController::class, 'login'])->name('login');
+                Route::post('verify-email', [AuthController::class, 'verify_email'])->name('verify-email')->middleware('auth:sanctum');
                 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
             });
 

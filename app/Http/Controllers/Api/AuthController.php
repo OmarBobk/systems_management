@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\JsonRespondController;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -109,6 +110,22 @@ class AuthController extends Controller
         return $this->respond([
             'message' => 'Logged out',
         ]);
+    }
+
+    public function verify_email()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->email_verified_at == null) {
+                event(new Registered(Auth::user()));
+                return $this->respond([
+                    'message' => 'Email verification has been sent',
+                ]);
+            } else {
+                return $this->respondUnauthorized([
+                    'error_message' => 'Email Has been verified before.',
+                ]);
+            }
+        }
     }
 
 }

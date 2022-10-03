@@ -73,6 +73,20 @@ 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
         - path
         - url
         - status
+    - slidersections
+      - Attributes
+        - id
+        - title
+        - bg
+    - slidersectionscontent
+      - Attributes
+        - id
+        - title
+        - sub_title
+        - url
+        - img
+        - sm_img
+        -  cc c
     - User
       - Attributes
         - id
