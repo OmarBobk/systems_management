@@ -143,6 +143,17 @@
     <div class="contentbar px-0">
         <!-- Start row -->
         <div class="row">
+            <div class="col-12">
+                <form method="POST" action="{{ route('verification.send') }}">
+                    @csrf
+
+                    <div>
+                        <x-jet-button type="submit">
+                            {{ __('Resend Verification Email') }}
+                        </x-jet-button>
+                    </div>
+                </form>
+            </div>
             <!-- Start On sale -->
             <div class="col-lg-8 col-xl-12">
                 <div class="card m-b-30">

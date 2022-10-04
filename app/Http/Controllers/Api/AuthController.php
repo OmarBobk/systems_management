@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\JsonRespondController;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class AuthController extends Controller
 {
@@ -20,7 +23,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function register(Request $request): JsonResponse
+    public function register(Request $request)
     {
         try {
             //Validated
@@ -44,10 +47,12 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            event(new Registered($user));
+
             return $this->respond([
                 'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'message' => 'User Created Successfully and the verification Email has been sent',
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
             ]);
 
         } catch (\Throwable $th) {
@@ -111,21 +116,4 @@ class AuthController extends Controller
             'message' => 'Logged out',
         ]);
     }
-
-    public function verify_email()
-    {
-        if (Auth::check()) {
-            if (Auth::user()->email_verified_at == null) {
-                event(new Registered(Auth::user()));
-                return $this->respond([
-                    'message' => 'Email verification has been sent',
-                ]);
-            } else {
-                return $this->respondUnauthorized([
-                    'error_message' => 'Email Has been verified before.',
-                ]);
-            }
-        }
-    }
-
 }

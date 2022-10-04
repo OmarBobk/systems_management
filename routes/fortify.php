@@ -93,6 +93,7 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
             ->name('verification.send');
     }
 
+
     // Profile Information...
     if (Features::enabled(Features::updateProfileInformation())) {
         Route::put('/user/profile-information', [ProfileInformationController::class, 'update'])
