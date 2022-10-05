@@ -18,9 +18,6 @@ class SlidercontentResource extends JsonResource
             'title' => $this->title,
             'sub_title' => $this->sub_title,
             'url' => $this->url,
-            'image' => $this->image,
-            'sm_image' => $this->sm_image,
-            'order' => $this->order,
 
             'relationships' => [
                 'small_image' => (new ImageResource($this->whenLoaded('small_image')))->only(['id', 'path']),

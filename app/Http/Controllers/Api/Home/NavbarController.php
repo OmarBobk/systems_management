@@ -20,8 +20,9 @@ class NavbarController extends Controller
                     'childrenCategories',
                     'childrenCategories.image',
                     'childrenCategories.categories',
-                    'childrenCategories.categories.image',
-                    'image'])
+                ])
+                ->whereStatus(1)
+                ->orderBy('name')
                 ->where('category_id', null)->get();
 
         } catch (\Throwable $throwable) {
@@ -31,8 +32,6 @@ class NavbarController extends Controller
             ]);
         }
 
-        return $this->respond([
-            'categories' => (new CategoryCollection($categories)),
-        ]);
+        return $this->respond(new CategoryCollection($categories));
     }
 }

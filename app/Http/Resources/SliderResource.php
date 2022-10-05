@@ -16,11 +16,9 @@ class SliderResource extends JsonResource
     {
         return [
             'title'  => $this->title,
-            'status' => $this->status,
-            'order'  => $this->order,
 
             'relationships' => [
-                'image' => (new ImageResource($this->whenLoaded('background')))->only(['id', 'path']),
+                'image' => (new ImageResource($this->whenLoaded('background'))),
                 'slidercontents' => SlidercontentResource::collection($this->whenLoaded('slidercontents')),
             ],
         ];

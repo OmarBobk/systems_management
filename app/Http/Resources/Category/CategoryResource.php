@@ -21,9 +21,8 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'status' => $this->status,
             'relationship' => [
-                'image' => (new ImageResource($this->whenLoaded('image')))->only(['id', 'path']),
+                'image' => (new ImageResource($this->whenLoaded('image'))),
                 'childrenCategories' => CategoryResource::collection($this->whenLoaded('childrenCategories')),
                 'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             ],

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\NewPasswordController;
 use App\Http\Controllers\Api\PasswordResetLinkController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\HomecategoryimageController;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,7 @@ Route::prefix('v1')
             ->group(function () {
                 Route::post('navbar', NavbarController::class);
                 Route::post('sliders', SliderController::class);
-//                Route::post('sliders/{slider}/slidercontent', HomeController::class);
+                Route::post('categories', HomecategoryimageController::class);
             });
 
         Route::prefix('auth')

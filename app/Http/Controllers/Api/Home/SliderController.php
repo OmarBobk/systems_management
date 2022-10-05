@@ -26,6 +26,7 @@ class SliderController extends Controller
                 'slidercontents.small_image',
                 'slidercontents.big_image'
                 ])
+                ->whereStatus(1)
                 ->orderBy('order')->get();
 
         } catch (\Throwable $throwable) {
@@ -35,8 +36,6 @@ class SliderController extends Controller
             ]);
         }
 
-        return $this->respond([
-            'sliders' => SliderResource::collection($data),
-        ]);
+        return $this->respond(SliderResource::collection($data));
     }
 }
