@@ -19,12 +19,9 @@
       - slug
     - Relationships
       - image
-  - HomeSilders
-    - Section
-    - 
-    - Attributes
-      - id
-      - path
-      - url
-      - sections/{section_id}
-    - products(Newest Products)
+  - Slider
+    - id
+    - path
+    - url
+    - sections/{section_id}
+  - products(The Newest Products)

@@ -2,6 +2,7 @@
 - Static Page
 - Shop Page
 - Home Page
+  - Slider
 - Details Page
 - Contact us page
 - About us page
@@ -122,3 +123,14 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
     - Gömlek
     - Mont
 
+
+
+- Slider
+  - Markalar.
+    - Kensa.
+    - Syrox.
+    - Concord.
+    - Simex.
+  - Bugüne Özel.
+    - Kampanya 1
+    - Kmapanya 2

@@ -62,23 +62,19 @@ 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
             - id
             - path
             - name
-            - code (nullable)
+            - type
+            - order
             - imageable_id
             - imageable_type
         - Relations
             - imageable
-    - Homeslider
-      - Attributes
-        - id
-        - path
-        - url
-        - status
-    - slidersections
+    - slider
       - Attributes
         - id
         - title
         - bg
-    - slidersectionscontent
+        - status
+    - slidercontent
       - Attributes
         - id
         - title
@@ -86,7 +82,6 @@ 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
         - url
         - img
         - sm_img
-        -  cc c
     - User
       - Attributes
         - id

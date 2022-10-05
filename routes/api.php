@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\EmailVerificationController;
+use App\Http\Controllers\Api\Home\NavbarController;
+use App\Http\Controllers\Api\Home\SliderController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\NewPasswordController;
 use App\Http\Controllers\Api\PasswordResetLinkController;
@@ -34,7 +36,13 @@ Route::prefix('v1')
     ->group(function () {
 
         Route::post('/url_list', [ApiController::class, 'success'])->name('url_list');
-        Route::post('homepage', HomeController::class)->name('homepage');
+
+        Route::prefix('homepage')
+            ->group(function () {
+                Route::post('navbar', NavbarController::class);
+                Route::post('sliders', SliderController::class);
+//                Route::post('sliders/{slider}/slidercontent', HomeController::class);
+            });
 
         Route::prefix('auth')
             ->name('auth.')
