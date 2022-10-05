@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             BrandSellerSeeder::class,
             ContributorSeeder::class,
             ContributionSeeder::class,
-//            CategorySeeder::class,
+            CategorySeeder::class,
             BillSeeder::class,
 //            ProductSeeder::class,
 //            ProductsContainerSeeder::class,

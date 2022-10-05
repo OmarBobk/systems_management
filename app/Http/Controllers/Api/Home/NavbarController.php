@@ -15,14 +15,14 @@ class NavbarController extends Controller
     public function __invoke()
     {
         try {
-            $categories = Category::query();
-            $navbar_categories = $categories
-                ->with(['childrenCategories'])
+            $categories = Category::query()
+                ->with([
+                    'childrenCategories',
+                    'childrenCategories.image',
+                    'childrenCategories.categories',
+                    'childrenCategories.categories.image',
+                    'image'])
                 ->where('category_id', null)->get();
-
-            $categories_with_images = $categories->get();
-            $home_sliders = '';
-            $newest_products = '';
 
         } catch (\Throwable $throwable) {
             return $this->respondInvalidQuery([
@@ -32,8 +32,7 @@ class NavbarController extends Controller
         }
 
         return $this->respond([
-            'navbar_categories' => (new CategoryCollection($navbar_categories)),
-            'categories_with_images' => (new CategoryCollection($categories_with_images))
+            'categories' => (new CategoryCollection($categories)),
         ]);
     }
 }

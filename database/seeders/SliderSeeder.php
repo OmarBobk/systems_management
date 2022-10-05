@@ -30,7 +30,7 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $markalar->images()->create($markalar_image);
+        $markalar->background()->create($markalar_image);
 
         $kensa = [
             'title' => 'Kensa Products',
@@ -55,8 +55,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $kensa->images()->create($kensa_image);
-        $kensa->images()->create($kensa_sm_image);
+        $kensa->big_image()->create($kensa_image);
+        $kensa->small_image()->create($kensa_sm_image);
 
         $syrox = [
             'title' => 'Syrox Products',
@@ -81,8 +81,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $syrox->images()->create($syrox_image);
-        $syrox->images()->create($syrox_sm_image);
+        $syrox->big_image()->create($syrox_image);
+        $syrox->small_image()->create($syrox_sm_image);
 
         $simex = [
             'title' => 'Simex Products',
@@ -107,8 +107,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $simex->images()->create($simex_image);
-        $simex->images()->create($simex_sm_image);
+        $simex->big_image()->create($simex_image);
+        $simex->small_image()->create($simex_sm_image);
 
         $concord = [
             'title' => 'Concord Products',
@@ -133,8 +133,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $concord->images()->create($concord_image);
-        $concord->images()->create($concord_sm_image);
+        $concord->big_image()->create($concord_image);
+        $concord->small_image()->create($concord_sm_image);
 
 
         $bugune_ozel = [
@@ -152,7 +152,7 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $bugune_ozel->images()->create($bugune_ozel_image);
+        $bugune_ozel->background()->create($bugune_ozel_image);
 
         $kampanya_1 = [
             'title' => 'Practical Kitchen Products',
@@ -177,8 +177,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $kampanya_1->images()->create($kampanya_1_image);
-        $kampanya_1->images()->create($kampanya_1_sm_image);
+        $kampanya_1->big_image()->create($kampanya_1_image);
+        $kampanya_1->small_image()->create($kampanya_1_sm_image);
 
         $kampanya_2 = [
             'title' => 'Most Popular Pet Shop products',
@@ -203,8 +203,8 @@ class SliderSeeder extends Seeder
             'order' => 0,
         ];
 
-        $kampanya_2->images()->create($kampanya_2_image);
-        $kampanya_2->images()->create($kampanya_2_sm_image);
+        $kampanya_2->big_image()->create($kampanya_2_image);
+        $kampanya_2->small_image()->create($kampanya_2_sm_image);
 
     }
 }

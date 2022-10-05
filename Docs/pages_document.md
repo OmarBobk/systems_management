@@ -61,7 +61,6 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
     - Boxer
     - Çorap
     - Pijama
-    - Atlet
 - Kadın
   - Giyim
     - Elbise
