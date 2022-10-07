@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('code')->comment('Product Code ex: KH-K17');
-            $table->text('description')->default('{}')->comment('Json key:value data structure.');
+            $table->text('description')->comment('Json key:value data structure.');
             $table->integer('amount')->comment('Amount in the stock.');
             $table->integer('price')->comment('Selling Price.');
             $table->integer('cost')->comment('The price of the product when you bought it.');

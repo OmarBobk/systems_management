@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->comment('The field name');
             $table->string('value')->comment('The field value');
             $table->string('type')->comment('The field type: price, color, size');
-            $table->text('additional')->default('{}')->comment('additional attributes will be a json key:value data.');
+            $table->text('additional')->comment('additional attributes will be a json key:value data.');
             $table->integer('order')->comment('not always will be needed');
 
             $table->unsignedBigInteger('attributeable_id');
