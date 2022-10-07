@@ -65,24 +65,24 @@ CREATE TABLE `brands` (
 --
 -- Dumping data for table `brands`
 --
-
-INSERT INTO `brands` (`id`, `name`, `description`, `seller_id`, `created_at`, `updated_at`) VALUES
-(1, 'Default', 'Default', 1, NULL, NULL),
-(2, 'Syrox', 'Headphones Bluetooth Headphones, Cables, Chargers, Screens, Airpods', 2, NULL, NULL),
-(3, 'Mabko', 'Cables, Headphones, Bluetooth Headphones, Screens, Airpods, Chargers', 2, NULL, NULL),
-(4, 'Joinlink', 'Cables, Chargers', 2, NULL, NULL),
-(5, 'Veno', 'Bluetooth Headphones, iPhone\'s Headphones', 2, NULL, NULL),
-(6, 'Other', 'Other', 1, NULL, NULL),
-(7, 'Jopus', 'Screens, General Accessories', 3, NULL, NULL),
-(8, 'Simex', 'Screens, General Accessories', 3, NULL, NULL),
-(9, 'Mytell', 'Screens, General Accessories', 3, NULL, NULL),
-(10, 'Soffany', 'Chargers, Cables, Covers, Screens, General Accessories', 4, NULL, NULL),
-(11, 'Platoon', 'Screens, General Accessories', 2, NULL, NULL),
-(12, 'Other', 'Other', 3, NULL, NULL),
-(13, 'Other', 'Other', 3, NULL, NULL),
-(21, 'Jopus', 'Screens, General Accessories', 2, NULL, NULL),
-(22, 'Kensa', 'Telefon Aksesuarlari', 5, '2021-11-26 14:12:22', '2021-11-26 14:12:22'),
-(23, 'Kensa', 'Headphones Bluetooth Headphones, Cables, Chargers, Screens, Airpods', 2, '2021-12-01 10:11:49', '2021-12-01 10:11:49');
+--
+-- INSERT INTO `brands` (`id`, `name`, `description`, `seller_id`, `created_at`, `updated_at`) VALUES
+-- (1, 'Default', 'Default', 1, NULL, NULL),
+-- (2, 'Syrox', 'Headphones Bluetooth Headphones, Cables, Chargers, Screens, Airpods', 2, NULL, NULL),
+-- (3, 'Mabko', 'Cables, Headphones, Bluetooth Headphones, Screens, Airpods, Chargers', 2, NULL, NULL),
+-- (4, 'Joinlink', 'Cables, Chargers', 2, NULL, NULL),
+-- (5, 'Veno', 'Bluetooth Headphones, iPhone\'s Headphones', 2, NULL, NULL),
+-- (6, 'Other', 'Other', 1, NULL, NULL),
+-- (7, 'Jopus', 'Screens, General Accessories', 3, NULL, NULL),
+-- (8, 'Simex', 'Screens, General Accessories', 3, NULL, NULL),
+-- (9, 'Mytell', 'Screens, General Accessories', 3, NULL, NULL),
+-- (10, 'Soffany', 'Chargers, Cables, Covers, Screens, General Accessories', 4, NULL, NULL),
+-- (11, 'Platoon', 'Screens, General Accessories', 2, NULL, NULL),
+-- (12, 'Other', 'Other', 3, NULL, NULL),
+-- (13, 'Other', 'Other', 3, NULL, NULL),
+-- (21, 'Jopus', 'Screens, General Accessories', 2, NULL, NULL),
+-- (22, 'Kensa', 'Telefon Aksesuarlari', 5, '2021-11-26 14:12:22', '2021-11-26 14:12:22'),
+-- (23, 'Kensa', 'Headphones Bluetooth Headphones, Cables, Chargers, Screens, Airpods', 2, '2021-12-01 10:11:49', '2021-12-01 10:11:49');
 
 -- --------------------------------------------------------
 

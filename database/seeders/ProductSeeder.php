@@ -20,107 +20,102 @@ ProductSeeder extends Seeder
     public function run()
     {
         $now = Carbon::now();
-        $products = [];
 
-        $products[] = [
-            'serial'          => '8581001',
-            'name'            => 'Product 1',
-            'description'     => NULL,
+        $name = 'Product 1';
+        $description = '{"1": "Possibility of returning the product within one day.", "2": "This product will be sent by Talebetti", "3": "another Description line about the product"}';
+        $id = 1;
+        $product = Product::create([
+            'id'              => $id,
+            'name'            => $name,
+            'slug'            => Str::slug($name),
             'code'            => 'pro-1',
-            'amount'          => '10000',
-            'price'           => '0',
-            'cost'            => '0',
-            'slug'            => 'other',
+            'serial'          => '8581001',
+            'description'     => $description,
+            'amount'          => '10',
+            'price'           => '100',
+            'cost'            => '50',
             'bill_id'         => '1',
             'brand_id'        => '1',
             'seller_id'       => '1',
-            'category_id'     => '1',
+            'category_id'     => '29',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
             'updated_at'      => $now
-        ];
+        ]);
 
-        $products[] = [
-            'serial'          => '8581002',
-            'name'            => 'Product 2',
-            'description'     => NULL,
+        $attributes = $product->attributes()->create([
+            'name' => 'Price',
+            'value' => '7',
+            'type' => 'price',
+            'additional' => '{"currency": "usd"}',
+            'order' => 0,
+
+        ]);
+
+        $name = 'Product 2';
+        $description = '{"1": "Possibility of returning the product within one day.", "2": "This product will be sent by Talebetti", "3": "another Description line about the product"}';
+        $id = 2;
+        $product = Product::create([
+            'id'              => $id,
+            'name'            => $name,
+            'slug'            => Str::slug($name),
             'code'            => 'pro-2',
-            'amount'          => '1000',
-            'price'           => '0',
-            'cost'            => '100000',
-            'slug'            => 'other',
-            'bill_id'         => '2',
+            'serial'          => '85810201',
+            'description'     => $description,
+            'amount'          => '10',
+            'price'           => '100',
+            'cost'            => '50',
+            'bill_id'         => '1',
             'brand_id'        => '1',
             'seller_id'       => '1',
-            'category_id'     => '1',
+            'category_id'     => '98',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
             'updated_at'      => $now
-        ];
+        ]);
 
-        $products[] = [
-            'serial'          => '8581003',
-            'name'            => 'Product 3',
-            'description'     => NULL,
+        $attributes = $product->attributes()->create([
+            'name' => 'Price',
+            'value' => '7',
+            'type' => 'price',
+            'additional' => '{"currency": "usd"}',
+            'order' => 0,
+
+        ]);
+
+        $name = 'Product 3';
+        $description = '{"1": "Possibility of returning the product within one day.", "2": "This product will be sent by Talebetti", "3": "another Description line about the product"}';
+        $id = 3;
+        $product = Product::create([
+            'id'              => $id,
+            'name'            => $name,
+            'slug'            => Str::slug($name),
             'code'            => 'pro-3',
-            'amount'          => '1000',
-            'price'           => '0',
-            'cost'            => '50000',
-            'slug'            => 'other',
-            'bill_id'         => '3',
-            'brand_id'        => '8',
-            'seller_id'       => '3',
-            'category_id'     => '1',
-            'contribution_id' => '2',
+            'serial'          => '85830201',
+            'description'     => $description,
+            'amount'          => '10',
+            'price'           => '100',
+            'cost'            => '50',
+            'bill_id'         => '1',
+            'brand_id'        => '1',
+            'seller_id'       => '1',
+            'category_id'     => '98',
+            'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
             'updated_at'      => $now
-        ];
+        ]);
 
-        $products[] = [
-            'serial'          => '8581004',
-            'name'            => 'Product 4',
-            'description'     => NULL,
-            'code'            => 'pro-4',
-            'amount'          => '1000',
-            'price'           => '0',
-            'cost'            => '20000',
-            'slug'            => 'other',
-            'bill_id'         => '4',
-            'brand_id'        => '14',
-            'seller_id'       => '5',
-            'category_id'     => '1',
-            'contribution_id' => '3',
-            'user_id'         => '1',
-            'created_at'      => $now,
-            'updated_at'      => $now
-        ];
+        $attributes = $product->attributes()->create([
+            'name' => 'Price',
+            'value' => '7',
+            'type' => 'price',
+            'additional' => '{"currency": "usd"}',
+            'order' => 0,
 
-        $products[] = [
-            'serial'          => '8581005',
-            'name'            => 'Product 5',
-            'description'     => NULL,
-            'code'            => 'pro-5',
-            'amount'          => '1000',
-            'price'           => '0',
-            'cost'            => '35000',
-            'slug'            => 'other',
-            'bill_id'         => '5',
-            'brand_id'        => '4',
-            'seller_id'       => '2',
-            'category_id'     => '1',
-            'contribution_id' => '4',
-            'user_id'         => '1',
-            'created_at'      => $now,
-            'updated_at'      => $now
-        ];
+        ]);
 
-        $chunks = array_chunk($products, 100);
-
-        foreach ($chunks as $chunk) {
-            Product::insert($chunk);
-        }
     }
 }

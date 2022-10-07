@@ -22,21 +22,19 @@ class ProductResource extends JsonResource
     {
 
         return [
-            'category'          => (new CategoryResource($this->whenLoaded('category')))->attributes(['name', 'slug'])->data,
             'id'                => $this->id,
-            'serial'            => (int) $this->serial,
             'name'              => __('products.'.str_replace(' ', '_', strtolower($this->name))),
-            'description'       => $this->description,
+            'description'       => json_decode($this->description),
             'code'              => $this->code,
-            'amount'            => (int) $this->amount,
-            'price'             => number_format($this->price / 1000, 3),
-            'cost'              => number_format($this->cost / 1000, 3),
+            'price'             => $this->price,
             'slug'              => $this->slug,
-            'bill'              => Bill::findOrFail($this->bill_id)->only('id', 'serial'),
-            'brand'             => Brand::findOrFail($this->brand_id)->only('id', 'name'),
-//            'category'          => Category::findOrFail($this->category_id)->only('id', 'name'),
-            'contribution'      => Contribution::with('contributor:name,id')->findOrFail($this->contribution_id)->only('id', 'amount', 'created_at', 'contributor'),
-            'user'              => User::findOrFail($this->user_id)->only('id', 'name'),
+
+            'relationships'     => [
+//                'category' => (new CategoryResource($this->whenLoaded('category')))->attributes(['name', 'slug'])->data,
+                'category'   => (new CategoryResource($this->whenLoaded('category'))),
+                'brand'      => (new BrandResource($this->whenLoaded('brand'))),
+//                'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
+            ],
         ];
     }
 }

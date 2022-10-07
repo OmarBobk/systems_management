@@ -280,6 +280,7 @@ VALUES (1, 123456789, 'Otdher', NULL, '****', 9829, 0, 0, 'other', 1, 1, 1, 1, 1
        (1075, 8580009514006, 'Carton Bag box', 'Empty Carton Bax Box', 'GBB-4006', 13, 10000, 5000, 'carton-bag-box', 2, 18, 25, 1, 1, '2022-07-14 06:58:28', '2022-09-02 03:35:54', 1),
        (1076, 8580009514007, 'Carton Bag', 'Empty Carton Bag', 'GBB-4007', 7, 10000, 5000, 'carton-bag', 2, 18, 25, 1, 1, '2022-07-14 06:58:28', '2022-08-10 10:19:47', 1),
        (1077, 8580009514008, 'Zig Zag Papers', 'Zig Zag Papers for gifts', 'GBB-4008', 4, 15000, 10000, 'zig-zag-papers', 2, 18, 25, 1, 1, '2022-07-14 06:58:28', '2022-07-14 06:58:28', 1),
+
        (1078, 8699415451082, 'Concord 32GB SDCard', '32GB Micro SDCard with adapter', 'C-M32', 1, 111600, 62000, 'concord-32gb-sdcard', 2, 20, 12, 1, 1, '2022-07-22 13:00:56', '2022-07-22 13:00:56', 1),
        (1079, 8699415451051, 'Concord 4GB SDCard', '4GB Micro SDCard with adapter', 'C-M4', 0, 68400, 38000, 'concord-4gb-sdcard', 2, 20, 12, 1, 1, '2022-07-22 13:00:56', '2022-08-06 03:45:01', 1),
        (1080, 8680877735469, 'Car Bluetooth Music receiver', '3.5mm jack 10M stereo', 'JO-BTAUX01', 0, 40000, 22000, 'car-bluetooth-music-receiver', 2, 3, 26, 1, 1, '2022-07-22 13:00:56', '2022-09-06 04:19:29', 1),

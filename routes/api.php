@@ -1,17 +1,17 @@
 <?php
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\EmailVerificationController;
+use App\Http\Controllers\Api\Auth\NewPasswordController;
+use App\Http\Controllers\Api\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Api\Category\CategoryController;
-use App\Http\Controllers\Api\EmailVerificationController;
+use App\Http\Controllers\Api\GetuserController;
 use App\Http\Controllers\Api\Home\NavbarController;
 use App\Http\Controllers\Api\Home\SliderController;
-use App\Http\Controllers\Api\HomeController;
-use App\Http\Controllers\Api\NewPasswordController;
-use App\Http\Controllers\Api\PasswordResetLinkController;
+use App\Http\Controllers\Api\Products\GetProductsController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\HomecategoryimageController;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -66,28 +66,22 @@ Route::prefix('v1')
 
         Route::middleware('auth:sanctum')
             ->group(function () {
-                Route::get('test', function() {
-                    return response()->json([
-                        'message' => "HEy there"
-                    ]);
+                Route::post('get-user', GetuserController::class);
+
+                Route::post('test', function (Request $request) {
+                    dd($request->bearerToken());
                 });
             });
 
-        Route::apiResource('products', ProductsController::class)
-            ->only(['index', '']);
+        // api/v1/
+        Route::prefix('products')
+            ->group(function () {
+                Route::post('/', GetProductsController::class);
+            });
+//        Route::apiResource('products', ProductsController::class)
+//            ->only(['index', '']);
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
-
-        // Lists of lists like: List of all products or categories.
-        Route::prefix('lists')
-            ->name('list.')
-            ->group(function () {
-
-                // name api.v1.list.categories
-                // rui /api/v1/list/categories
-                Route::get('categories', function () {})->name('categories');
-
-            });
 
 });
 

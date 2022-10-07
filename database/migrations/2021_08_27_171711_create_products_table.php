@@ -17,12 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('serial');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('slug');
             $table->string('code')->comment('Product Code ex: KH-K17');
+            $table->text('description')->default('{}')->comment('Json key:value data structure.');
             $table->integer('amount')->comment('Amount in the stock.');
             $table->integer('price')->comment('Selling Price.');
             $table->integer('cost')->comment('The price of the product when you bought it.');
-            $table->string('slug');
 
             $table->foreignId('bill_id')->constrained();
             $table->foreignId('brand_id')->constrained();

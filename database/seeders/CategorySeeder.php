@@ -289,7 +289,33 @@ class CategorySeeder extends Seeder
             'order' => 0,
         ]);
 
+        $name       = 'Baby';
+        $cat = Category::create(['id' => 17, 'name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 4,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
 
+
+        $name       = 'Girls';
+        $cat = Category::create(['id' => 18, 'name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 4,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Boys';
+        $cat = Category::create(['id' => 19, 'name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 4,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
 
 
         $name       = 'Ironing Machine';
@@ -830,6 +856,203 @@ class CategorySeeder extends Seeder
 
         $name       = 'Mop';
         $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 5,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Baby Sets';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 17,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Shoe';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 17,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Newborn Outfits';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 17,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Diaper';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 17,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Wet Wipes';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 17,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Dress';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Sweatshirt';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Sport Shoe';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Tracksuit';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Underwear & Pajamas';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'T-Shirt & Athlete';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Shorts';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+        $name       = 'Coats';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 18,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Sweatshirt';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Sport Shoe';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Tracksuit';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Underwear & Pajamas';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'T-Shirt & Athlete';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Shorts';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Coats';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
+        $cat->image()->create([
+            'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
+            'name' => $cat->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
+
+        $name       = 'Shirt';
+        $cat = Category::create(['name' => $name, 'slug' => Str::slug($name), 'status' => 1, 'category_id' => 19,]);
         $cat->image()->create([
             'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',
             'name' => $cat->slug,

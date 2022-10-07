@@ -7,6 +7,7 @@ use App\Http\Requests\Backend\ProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Traits\JsonRespondController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -16,14 +17,17 @@ use Illuminate\Validation\ValidationException;
 
 class ProductsController extends Controller
 {
+
+    use JsonRespondController;
+
     /**
      * Display a listing of the Products, Products Count, Products Type Count,
      * Total Products Costs.
      *
      * @param Request $request
-     * @return ProductCollection
+     * @return JsonResponse
      */
-    public function index(Request $request): ProductCollection
+    public function index(Request $request): JsonResponse
     {
         $search_field            = $request->query('search_field') ?? 'code';
         $search_keyword          = $request->query('search_keyword') ?? '';
@@ -46,16 +50,17 @@ class ProductsController extends Controller
             }
         }
 
-        return (new ProductCollection($products->paginate($products_per_page)))->additional([
-            'meta' => [
-                'products_in_stock_count' => $products_in_stock_count,
-                'products_total_costs'    => $products_total_costs,
-                'products_types_count'    => $products_types_count,
-                'search_field'            => $search_field,
-                'search_keyword'          => $search_keyword,
-                'products_per_page'       => $products_per_page,
-            ]
-        ]);
+        return $this->respond(
+            data: (new ProductCollection($products->paginate($products_per_page)))->additional([
+                'meta' => [
+                    'products_in_stock_count' => $products_in_stock_count,
+                    'products_total_costs'    => $products_total_costs,
+                    'products_types_count'    => $products_types_count,
+                    'search_field'            => $search_field,
+                    'search_keyword'          => $search_keyword,
+                    'products_per_page'       => $products_per_page,
+                ]
+            ]));
     }
 
     /**
@@ -97,4 +102,54 @@ class ProductsController extends Controller
         }
 
     }
+
+    public function test()
+    {
+        $product = [
+            'relationships' => [
+                'category' => [
+                    'name' => 'Tablet',
+                    'slug' => '',
+                    'parent' => 'Computer & Tablet',
+                    'grandparent' => 'Ele',
+                ],
+            ],
+        ];
+
+        $attributes = [
+            ['name' => 'Small', 'value' => 'S', 'type' => 'size', 'order' => 0],
+            ['name' => 'Large', 'value' => 'L', 'type' => 'size', 'order' => 1],
+            ['name' => 'Red', 'value' => '#050', 'type' => 'color', 'order' => 0],
+            ['name' => 'blue', 'value' => '#550', 'type' => 'color', 'order' => 1],
+
+            'size' => [
+                ['name' => 'Small', 'value' => 'S', 'type' => 'size'],
+                ['name' => 'Large', 'value' => 'L', 'type' => 'size'],
+            ],
+            'color' => [
+                [
+                    'name' => 'Red', 'value' => '#050', 'type' => 'color', 'order' => 0,
+                    'relationship' => [
+                        'image' => ['id' => 324, 'path' => 'path/image.jpg'],
+                    ],
+                ],
+                [
+                    'name' => 'blue', 'value' => '#550', 'type' => 'color', 'order' => 1,
+                    'relationship' => [
+                        'image' => ['id' => 324, 'path' => 'path/image.jpg'],
+                    ],
+                ],
+            ],
+
+            'price' => [
+                [
+                    'name' => 'Price', 'value' => '200', 'type' => 'price', 'order' => 0,
+                    'additional' => [
+                        "currency" => 'usd',
+                    ],
+                ],
+            ],
+        ];
+    }
+
 }

@@ -109,7 +109,6 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
     - Eşofman
     - İç Giyim & Pijama
     - Tişört & Atlet
-    - Tayt
     - Şort
     - Mont
   - Erkek Çocuk
@@ -123,7 +122,7 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
     - Mont
 
 
-
+# Slider + Slidercontents
 - Slider
   - Markalar.
     - Kensa.
@@ -133,3 +132,9 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
   - Bugüne Özel.
     - Kampanya 1
     - Kmapanya 2
+
+
+# Products
+- Prodcut
+  - name (9 words will be fine)
+  - brand

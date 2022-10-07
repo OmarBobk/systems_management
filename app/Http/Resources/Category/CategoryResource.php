@@ -25,6 +25,7 @@ class CategoryResource extends JsonResource
                 'image' => (new ImageResource($this->whenLoaded('image'))),
                 'childrenCategories' => CategoryResource::collection($this->whenLoaded('childrenCategories')),
                 'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+                'parent' => new CategoryResource($this->whenLoaded('parent')),
             ],
         ];
     }

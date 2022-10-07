@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory, Searchable;
 
     public $searchable_columns = [
-        'code', 'name', 'serial'
+        'code', 'name', 'description'
     ];
 
     public $return_from_search = [];
@@ -63,6 +63,14 @@ class Product extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function attributes(): MorphMany
+    {
+        return $this->morphMany(Attribute::class, 'attributeable');
     }
 
 }

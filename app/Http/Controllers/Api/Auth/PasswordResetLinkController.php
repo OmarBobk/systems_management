@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\PasswordBroker;
@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Password;
 use Laravel\Fortify\Contracts\FailedPasswordResetLinkRequestResponse;
 use Laravel\Fortify\Contracts\SuccessfulPasswordResetLinkRequestResponse;
 use Laravel\Fortify\Fortify;
+use function app;
+use function config;
 
 class PasswordResetLinkController extends Controller
 {
