@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ProductRequest;
-use App\Http\Resources\ProductCollection;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use App\Traits\JsonRespondController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class ProductsController extends Controller
@@ -71,7 +70,7 @@ class ProductsController extends Controller
      *
      * @param ProductRequest $request
      * @param Product $product
-     * @return ProductResource
+     * @return \App\Http\Resources\Product\ProductResource
      */
     public function update(ProductRequest $request, Product $product): ProductResource
     {
@@ -150,6 +149,29 @@ class ProductsController extends Controller
                 ],
             ],
         ];
+
+        // HomeProducts Section
+        $products = [
+            'title' => 'On Sale',
+            'product_count' => 5,
+            'order' => 0,
+            'products' => [
+                ['name' => 'Product Name',
+                'price' => 104,
+                'is_freeshipping' => false,
+                'image' => 'path/image.jpg',],
+                ['name' => 'Product Name',
+                'price' => 104,
+                'is_freeshipping' => false,
+                'image' => 'path/image.jpg',],
+                ['name' => 'Product Name',
+                'price' => 104,
+                'is_freeshipping' => false,
+                'image' => 'path/image.jpg',],
+            ],
+            'category' => 98
+        ];
+
     }
 
 }

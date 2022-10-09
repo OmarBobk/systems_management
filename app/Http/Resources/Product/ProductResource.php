@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Product;
 
+use App\Http\Resources\Brand\BrandResource;
 use App\Http\Resources\Category\CategoryResource;
-use App\Models\Bill;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Contribution;
-use App\Models\User;
+use App\Http\Resources\Image\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function __;
 
 class ProductResource extends JsonResource
 {
@@ -33,6 +31,7 @@ class ProductResource extends JsonResource
 //                'category' => (new CategoryResource($this->whenLoaded('category')))->attributes(['name', 'slug'])->data,
                 'category'   => (new CategoryResource($this->whenLoaded('category'))),
                 'brand'      => (new BrandResource($this->whenLoaded('brand'))),
+                'images'     => ImageResource::collection($this->whenLoaded('images')),
 //                'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
             ],
         ];

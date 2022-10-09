@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Slider;
 
+use App\Http\Resources\Image\ImageResource;
+use App\Http\Resources\Slidercontent\SlidercontentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SliderResource extends JsonResource

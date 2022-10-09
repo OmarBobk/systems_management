@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Category\CategoryCollection;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use App\Traits\JsonRespondController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

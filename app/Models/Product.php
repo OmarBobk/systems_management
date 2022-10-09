@@ -65,12 +65,22 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
+    public function productsection_image()
+    {
+        return $this->images()->where('order', 0);
+    }
+
     /**
      * @return MorphMany
      */
-    public function attributes(): MorphMany
+//    public function attributes(): MorphMany
+//    {
+//        return $this->morphMany(Attribute::class, 'attributeable');
+//    }
+
+    public function productsection(): BelongsToMany
     {
-        return $this->morphMany(Attribute::class, 'attributeable');
+        return $this->belongsToMany(Product::class);
     }
 
 }

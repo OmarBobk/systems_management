@@ -134,7 +134,7 @@ sudo mv phpmyadmin bobkphpmyadmintalebetti
     - Kmapanya 2
 
 
-# Products
+# HomeProducts Section
 - Prodcut
   - name (9 words will be fine)
   - brand

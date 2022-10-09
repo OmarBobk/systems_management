@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources\Category;
 
-use App\Http\Resources\ImageResource;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\Image\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource

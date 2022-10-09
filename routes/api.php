@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Home\NavbarController;
 use App\Http\Controllers\Api\Home\SliderController;
 use App\Http\Controllers\Api\Products\GetProductsController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\GetHomeProductsController;
 use App\Http\Controllers\HomecategoryimageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,9 +41,11 @@ Route::prefix('v1')
 
         Route::prefix('homepage')
             ->group(function () {
+                // domain.com/api/v1/homepage/
                 Route::post('navbar', NavbarController::class);
                 Route::post('sliders', SliderController::class);
                 Route::post('categories', HomecategoryimageController::class);
+                Route::post('products', GetHomeProductsController::class);
             });
 
         Route::prefix('auth')

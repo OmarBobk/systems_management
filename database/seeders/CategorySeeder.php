@@ -364,7 +364,7 @@ class CategorySeeder extends Seeder
             'order' => 0,
         ]);
 
-        $name       = 'Earphone';
+        $name       = 'Earphone & Headset';
         $cat = Category::create(['name' => $name,'slug' => Str::slug($name),'status' => 1,'category_id' => 6,]);
         $cat->image()->create([
             'path' => asset('assets/images/categories').'/'.$cat->slug.'.jpg',

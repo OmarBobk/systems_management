@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api\Home;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SliderResource;
+use App\Http\Resources\Slider\SliderResource;
 use App\Models\Slider;
 use App\Traits\JsonRespondController;
-use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
