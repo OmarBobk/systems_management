@@ -73,10 +73,10 @@ class Product extends Model
     /**
      * @return MorphMany
      */
-//    public function attributes(): MorphMany
-//    {
-//        return $this->morphMany(Attribute::class, 'attributeable');
-//    }
+    public function attributes(): MorphMany
+    {
+        return $this->morphMany(Attribute::class, 'attributeable');
+    }
 
     public function productsection(): BelongsToMany
     {
