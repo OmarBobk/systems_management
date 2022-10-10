@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use App\Traits\Searchable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Spatie\SchemalessAttributes\SchemalessAttributesTrait;
 
 class Product extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, SchemalessAttributesTrait;
 
     public $searchable_columns = [
         'code', 'name', 'description'
@@ -20,6 +22,21 @@ class Product extends Model
     public $return_from_search = [];
 
     public $guarded = [];
+
+    protected $schemalessAttributes = [
+        'extra_attributes',
+        'description',
+    ];
+
+    public function scopeWithExtraAttributes(): Builder
+    {
+        return $this->extra_attributes->modelScope();
+    }
+
+    public function scopeWithDescription(): Builder
+    {
+        return $this->description->modelScope();
+    }
 
 
     public function user(): BelongsTo
@@ -65,22 +82,16 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function productsection_image()
+    public function shortproduct_image(): MorphMany
     {
         return $this->images()->where('order', 0);
-    }
-
-    /**
-     * @return MorphMany
-     */
-    public function attributes(): MorphMany
-    {
-        return $this->morphMany(Attribute::class, 'attributeable');
     }
 
     public function productsection(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
     }
+
+
 
 }

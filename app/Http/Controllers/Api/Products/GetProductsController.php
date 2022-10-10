@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Product\GetShortProductResource;
 use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\ProductsectionProducts\ProductsectionProductsResource;
 use App\Models\Product;
 use App\Traits\JsonRespondController;
 use Illuminate\Http\JsonResponse;
@@ -27,7 +29,7 @@ class GetProductsController extends Controller
         $category                = $request->query('category') ?? null;
 
         try {
-            $products = Product::with(['category', 'brand', 'images'])
+            $products = Product::with(['category', 'brand', 'shortproduct_image'])
                 ->search(
                     needle: $search_keyword,
                     orderByColumn: $order_field,
@@ -44,9 +46,7 @@ class GetProductsController extends Controller
             ]);
         }
 
-        return ProductResource::collection($products)->additional([
-            'category' => $category,
-        ]);
+        return GetShortProductResource::collection($products);
     }
 
 }

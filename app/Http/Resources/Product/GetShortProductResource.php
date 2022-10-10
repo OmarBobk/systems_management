@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\ProductsectionProducts;
+namespace App\Http\Resources\Product;
 
 use App\Http\Resources\Image\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use function __;
 
-class ProductsectionProductsResource extends JsonResource
+class GetShortProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +20,7 @@ class ProductsectionProductsResource extends JsonResource
             'name'   => __('products.'.str_replace(' ', '_', strtolower($this->name))),
             'price'  => $this->price,
             'slug'   => $this->slug,
-            'image'  => new ImageResource($this->whenLoaded('productsection_image')->first()),
+            'image'  => new ImageResource($this->whenLoaded('shortproduct_image')->first()),
         ];
     }
 }

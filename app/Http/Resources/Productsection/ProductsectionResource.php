@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Productsection;
 
+use App\Http\Resources\Product\GetShortProductResource;
 use App\Http\Resources\ProductsectionProducts\ProductsectionProductsResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +20,7 @@ class ProductsectionResource extends JsonResource
             'title' => $this->title,
             'order' => $this->order,
             'category' => $this->category(),
-            'products' => ProductsectionProductsResource::collection($this->whenLoaded('products')),
+            'products' => GetShortProductResource::collection($this->whenLoaded('products')),
         ];
     }
 }

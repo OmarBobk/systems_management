@@ -22,7 +22,8 @@ class ProductResource extends JsonResource
         return [
             'id'                => $this->id,
             'name'              => __('products.'.str_replace(' ', '_', strtolower($this->name))),
-            'description'       => json_decode($this->description),
+            'description'       => $this->description,
+            'extra_attributes'  => $this->extra_attributes,
             'code'              => $this->code,
             'price'             => $this->price,
             'slug'              => $this->slug,

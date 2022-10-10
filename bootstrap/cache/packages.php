@@ -131,6 +131,13 @@
       'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
     ),
   ),
+  'spatie/laravel-schemaless-attributes' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\SchemalessAttributes\\SchemalessAttributesServiceProvider',
+    ),
+  ),
   'wire-elements/modal' => 
   array (
     'providers' => 

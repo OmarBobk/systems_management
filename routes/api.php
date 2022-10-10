@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\GetuserController;
 use App\Http\Controllers\Api\Home\NavbarController;
 use App\Http\Controllers\Api\Home\SliderController;
 use App\Http\Controllers\Api\Products\GetProductsController;
+use App\Http\Controllers\Api\Products\GetShortProductsController;
 use App\Http\Controllers\Api\ProductsController;
 use App\Http\Controllers\GetHomeProductsController;
 use App\Http\Controllers\HomecategoryimageController;
@@ -79,10 +80,9 @@ Route::prefix('v1')
         // api/v1/
         Route::prefix('products')
             ->group(function () {
-                Route::post('/', GetProductsController::class);
+                Route::post('/', GetShortProductsController::class);
             });
-//        Route::apiResource('products', ProductsController::class)
-//            ->only(['index', '']);
+
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
 
