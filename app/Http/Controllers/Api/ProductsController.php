@@ -104,37 +104,52 @@ class ProductsController extends Controller
 
     public function test()
     {
-        $product = [
-            'relationships' => [
-                'category' => [
-                    'name' => 'Tablet',
-                    'slug' => '',
-                    'parent' => 'Computer & Tablet',
-                    'grandparent' => 'Ele',
-                ],
+        // Products Will be recevied from /api/v1/products
+
+        // On sale Logo
+        // indirimli old_price and new_price
+        // product name
+        // product image order 0
+        // hizli teslimat
+        $products = [
+            [],
+            [],
+
+            'category' => [
+                'name' => 'Tablet',
+                'slug' => '',
+                'parent' => 'Computer & Tablet',
+                'grandparent' => 'Electronic',
             ],
         ];
 
         $attributes = [
-            ['name' => 'Small', 'value' => 'S', 'type' => 'size', 'order' => 0],
-            ['name' => 'Large', 'value' => 'L', 'type' => 'size', 'order' => 1],
-            ['name' => 'Red', 'value' => '#050', 'type' => 'color', 'order' => 0],
-            ['name' => 'blue', 'value' => '#550', 'type' => 'color', 'order' => 1],
+
+            'discount' => [
+                [
+                    'name' => '20%', 'value' => '20', 'type' => 'discount', 'order' => 0,
+                    'additional' => [],
+                ],
+                [
+                    'name' => '10%', 'value' => '10', 'type' => 'discount', 'order' => 0,
+                    'additional' => [],
+                ],
+            ],
 
             'size' => [
-                ['name' => 'Small', 'value' => 'S', 'type' => 'size'],
-                ['name' => 'Large', 'value' => 'L', 'type' => 'size'],
+                ['name' => 'Small', 'value' => 'S', 'type' => 'size', 'order' => 0],
+                ['name' => 'Large', 'value' => 'L', 'type' => 'size', 'order' => 1],
             ],
             'color' => [
                 [
                     'name' => 'Red', 'value' => '#050', 'type' => 'color', 'order' => 0,
-                    'relationship' => [
+                    'additional' => [
                         'image' => ['id' => 324, 'path' => 'path/image.jpg'],
                     ],
                 ],
                 [
                     'name' => 'blue', 'value' => '#550', 'type' => 'color', 'order' => 1,
-                    'relationship' => [
+                    'additional' => [
                         'image' => ['id' => 324, 'path' => 'path/image.jpg'],
                     ],
                 ],
