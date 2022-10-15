@@ -86,6 +86,15 @@ Route::prefix('v1')
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
 
+        // Brands API
+
+        // All Brands
+        Route::post('brands', \App\Http\Controllers\Api\Brands\GetAllBrandsController::class);
+
+        // All Colors and Sizes
+        Route::post('colors', \App\Http\Controllers\Api\GetColorsController::class);
+        Route::post('sizes', \App\Http\Controllers\Api\GetSizesController::class);
+
 });
 
 

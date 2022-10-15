@@ -7,6 +7,27 @@
 // product name
 // product image order 0
 // hizli teslimat
+
+$x = '{
+    "color": [
+        {
+            "name": "Red",
+            "image": "http://karman.store/assets/images/products/km-258/km-258_0.jpg",
+            "order": 0,
+            "value": "red",
+            "is_active": 1
+        },
+        {
+            "name": "Blue",
+            "image": "http://karman.store/assets/images/products/km-258/km-258_1.jpg",
+            "order": 1,
+            "value": "blue",
+            "is_active": 1
+        }
+    ]
+}';
+
+
 $products = [
     [],
     [],

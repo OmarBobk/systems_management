@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\Eloquent\Builder;
 use  Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -117,7 +120,7 @@ Route::name('frontend.')
     });
 
 //Route::get('/testing', \App\Http\Livewire\TestingComponent::class);
-//Route::get('/testing', \App\Http\Livewire\TestingComponent::class)->name('testing');
+Route::get('/testing', function (\Illuminate\Http\Request $request) {})->name('testing');
 
 // Admins & Users
 //Route::get('/', function () {

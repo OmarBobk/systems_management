@@ -28,6 +28,7 @@ class Product extends Model
         'description',
     ];
 
+
     public function scopeWithExtraAttributes(): Builder
     {
         return $this->extra_attributes->modelScope();
@@ -36,6 +37,17 @@ class Product extends Model
     public function scopeWithDescription(): Builder
     {
         return $this->description->modelScope();
+    }
+
+    public function colors()
+    {
+        return $this->extra_attributes->get('color.*.value');
+    }
+
+
+    public function sizes()
+    {
+        return $this->extra_attributes->get('sizes.*.value');
     }
 
 

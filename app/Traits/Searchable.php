@@ -82,8 +82,8 @@ trait Searchable
 
         foreach ($searchTerms as $searchTerm) {
             $searchTerm = DB::connection()->getPdo()->quote('%' . $searchTerm . '%');
-            // 1 => $searchTerma = '%search%';
-            // 2 => $searchTerma = '%keyword%';
+            // 1 => $searchTerm = '%search%';
+            // 2 => $searchTerm = '%keyword%';
 
             foreach ($array as $column) {
                 // 1.1 => $first = true;

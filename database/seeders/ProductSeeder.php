@@ -48,9 +48,9 @@ ProductSeeder extends Seeder
             'price'           => '39999',
             'cost'            => '222',
             'bill_id'         => '1',
-            'brand_id'        => '14',
+            'brand_id'        => '11',
             'seller_id'       => '1',
-            'category_id'     => '8',
+            'category_id'     => '26',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
@@ -80,6 +80,7 @@ ProductSeeder extends Seeder
             '9' => 'Ultra-powerful and impressive wireless audio experience',
         ];
         $id = 2;
+        $code = 'km-375';
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
@@ -88,16 +89,23 @@ ProductSeeder extends Seeder
             'serial'          => '8681749638307',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '49999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
             'seller_id'       => '1',
-            'category_id'     => '8',
+            'category_id'     => '26',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
-            'updated_at'      => $now
+            'updated_at'      => $now,
+            'extra_attributes' => [
+                'color' => [
+                    ['name' => 'Red', 'value' => 'red', 'order' => 0, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_0.jpg', 'is_active' => 1,],
+                    ['name' => 'Blue', 'value' => 'blue', 'order' => 1, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_1.jpg', 'is_active' => 1,],
+                    ['name' => 'White', 'value' => 'white', 'order' => 2, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_2.jpg', 'is_active' => 1,],
+                ],
+            ],
         ]);
         $order = 0;
         $image_path = asset('assets/images/products').'/'.strtolower($product->code).'/'.strtolower($product->code).'_'.$order.'.jpg';
@@ -129,12 +137,12 @@ ProductSeeder extends Seeder
             'serial'          => '8681749637430',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '29999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
             'seller_id'       => '1',
-            'category_id'     => '8',
+            'category_id'     => '26',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
@@ -163,6 +171,7 @@ ProductSeeder extends Seeder
             '10' => 'Eye-catching adjustable colorful LED lights',
         ];
         $id = 4;
+        $code = 'km-258';
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
@@ -171,16 +180,22 @@ ProductSeeder extends Seeder
             'serial'          => '8681749633753',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '59999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
             'seller_id'       => '1',
-            'category_id'     => '8',
+            'category_id'     => '26',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
-            'updated_at'      => $now
+            'updated_at'      => $now,
+            'extra_attributes' => [
+                'color' => [
+                    ['name' => 'Red', 'value' => 'red', 'order' => 0, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_0.jpg', 'is_active' => 1,],
+                    ['name' => 'Blue', 'value' => 'blue', 'order' => 1, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_1.jpg', 'is_active' => 1,],
+                ],
+            ],
         ]);
         $order = 0;
         $image_path = asset('assets/images/products').'/'.strtolower($product->code).'/'.strtolower($product->code).'_'.$order.'.jpg';
@@ -221,7 +236,7 @@ ProductSeeder extends Seeder
             'serial'          => '8681749634477',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '44999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
@@ -262,7 +277,7 @@ ProductSeeder extends Seeder
             'serial'          => '8681749635665',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '34999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
@@ -301,7 +316,7 @@ ProductSeeder extends Seeder
             'serial'          => '8681749635665',
             'description'     => $description,
             'amount'          => '1',
-            'price'           => '39999',
+            'price'           => '31999',
             'cost'            => '222',
             'bill_id'         => '1',
             'brand_id'        => '14',
@@ -421,7 +436,7 @@ ProductSeeder extends Seeder
             'price'           => '39999',
             'cost'            => '222',
             'bill_id'         => '1',
-            'brand_id'        => '14',
+            'brand_id'        => '12',
             'seller_id'       => '1',
             'category_id'     => '25',
             'contribution_id' => '1',
@@ -462,7 +477,7 @@ ProductSeeder extends Seeder
             'bill_id'         => '1',
             'brand_id'        => '14',
             'seller_id'       => '1',
-            'category_id'     => '25',
+            'category_id'     => '100',
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
