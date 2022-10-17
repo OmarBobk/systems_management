@@ -1,6 +1,13 @@
 #git token
 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
 
+- Development
+  - /public/bobkdevtalebetti/public/index.php
+- Production
+  - /public/index.php
+- Phpmyadmin
+  - /public/bobkphpmyadmintalebetti
+
 - V1.0.0
     - Visitor Will explore the products in a single product page.
     - The product price will be shown for visitors.

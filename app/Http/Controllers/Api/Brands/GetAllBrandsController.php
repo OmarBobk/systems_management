@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Brand\BrandResource;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Product;
 use App\Traits\JsonRespondController;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +27,7 @@ class GetAllBrandsController extends Controller
                     $childrens = $cat->childrenCategories;
 
                     if ($childrens->isEmpty())
-                        // The Category has no childrens
+                        // The Category has no children
                         return $q->whereIn('id', array_values(array_unique($cat->products()->pluck('brand_id')->toArray())));
                     else
                         if ($cat->parent != null) {

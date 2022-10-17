@@ -1,5 +1,18 @@
 <?php
 
+// Create Product Proccess.
+// 1. Stage:
+//      As variables create the id, name, slug,
+//      Serial, amount, bill_id, seller_id, user_id, are not important.
+//      Get the description as json.
+// 2. Stage:
+//      Get Price and Cost
+//         Init Costs and Prices in a table with the product code.
+//      Get extra_attributes
+// 3. Stage
+//      Determind the Brand and Category
+
+
 // Products Will be recevied from /api/v1/products
 
 // On sale Logo
