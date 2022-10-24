@@ -35,8 +35,8 @@ class BillSeeder extends Seeder
         $bills[] = [
             'type'                => 'stocktaking',
             'amount'              => 100000000,
-            'description'         => 'Products that can be sold without any costs like: invoice and others',
-            'quantity'            => 1000,
+            'description'         => 'All products at the stock in the time of starting the website.',
+            'quantity'            => 10000,
             'serial'              => 1002,
             'seller_id'           => 1,
             'contribution_id'     => 1,

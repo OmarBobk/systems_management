@@ -23,6 +23,13 @@ class ContributorSeeder extends Seeder
             'notes'          => 'Owner',
         ];
 
+        $contributors[] = [
+            'id'             => 2,
+            'name'           => 'Contributor X',
+            'phone'          => '5353402539',
+            'notes'          => 'Standart Contributor.',
+        ];
+
         Contributor::insert($contributors);
     }
 }

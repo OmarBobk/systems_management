@@ -2,11 +2,11 @@
 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
 
 - Development
-  - /public/bobkdevtalebetti/public/index.php
+  - /public/bobkdevtalebetti.com/public/index.php
 - Production
   - /public/index.php
 - Phpmyadmin
-  - /public/bobkphpmyadmintalebetti
+  - /public/bobkphpmyadmintalebetti.com
 
 - V1.0.0
     - Visitor Will explore the products in a single product page.
