@@ -84,8 +84,8 @@ class CashierComponent extends Component
     {
         $this->result = Product::where('amount', '>=', 1)
             ->search(
-                needle: $this->searchKeyword,
-                orderByColumn: 'id',
+                $this->searchKeyword,
+                'id',
             )
             ->get();
     }
@@ -203,6 +203,7 @@ class CashierComponent extends Component
                 'net_price'         => $net_price,
                 'cost'              => $cost,
                 'amount'            => $amount,
+                'type'              => 'retail',
                 'total'             => $total_price,
                 'profit'            => $profit,
                 'user_id'           => $user_id,
@@ -299,7 +300,7 @@ class CashierComponent extends Component
 
         $this->createSales();
 
-        return redirect(route('cashier'));
+        return redirect(route('backend.cashier'));
 
     }
 

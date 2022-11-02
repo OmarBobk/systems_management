@@ -19,7 +19,7 @@
                     <h1 class="text-center alert ">You Can't Add More Products</h1>
                 @else
                     {{--Add New Product to the container--}}
-                    @include('livewire.products-container.create-component')
+                    @include('livewire.backend.products-container.create-component')
                 @endif
 
                 {{--Container Contents--}}
@@ -222,7 +222,7 @@
                             @if($is_view_product_details[$id])
                                 <tr>
                                     <td colspan="8" class="border">
-                                        @include('livewire.products-container.details-component')
+                                        @include('livewire.backend.products-container.details-component')
                                     </td>
                                 </tr>
                             @endif

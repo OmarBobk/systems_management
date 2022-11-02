@@ -10,7 +10,7 @@
                                 <div class="col-auto">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img class="w-full h-full rounded-full"
-                                             src="{{$product->images()->first()->path}}"
+                                             src="{{$product->images()->first()?->path}}"
                                              alt="" />
                                     </div>
                                 </div>

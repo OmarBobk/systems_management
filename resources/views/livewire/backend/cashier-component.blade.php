@@ -90,12 +90,16 @@
                                                 wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'description')"></textarea>
                                         @else
                                             <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">{{$product->pivot->description}}</div>
+                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">
+                                                {{$product->pivot->description}}
+                                            </div>
                                         @endif
                                     @else
 
                                         <div
-                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">{{$product->pivot->description}}</div>
+                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">
+                                            {{$product->pivot->description}}
+                                        </div>
                                     @endif
 
                                     @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror

@@ -13,7 +13,7 @@
             @endif
 
             @if($isCreateComponentOpen)
-                @include('livewire.productsdatabase.create-component')
+                @include('livewire.backend.productsdatabase.create-component')
             @else
                 <button class="btn btn-primary my-4"
                         wire:click="create">
@@ -164,7 +164,7 @@
                             @if($is_view_product_details[$product->id])
                                 <tr>
                                     <td colspan="5" class="border text-center py-3 px-3" >
-                                        @include('livewire.productsdatabase.details-component')
+                                        @include('livewire.backend.productsdatabase.details-component')
                                     </td>
                                 </tr>
                             @endif

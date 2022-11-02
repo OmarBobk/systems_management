@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                @include('livewire.sales.datepicker')
+                @include('livewire.backend.sales.datepicker')
 
                 <div>
                     <table class="table-fixed w-full">

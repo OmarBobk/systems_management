@@ -21,7 +21,7 @@ class CreateSalesTable extends Migration
             $table->integer('total');
             $table->integer('profit');
             $table->text('description')->nullable();
-            $table->string('type')->comment('Wholesale|Retail|Units|Invoice|Other');
+            $table->string('type')->default('retail')->comment('Wholesale|Retail|Units|Invoice|Other');
             $table->boolean('is_debt')->default(false);
 
             $table->foreignId('user_id')->constrained();

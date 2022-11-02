@@ -125,11 +125,35 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="exampleFormControlSelect4">Description</label>
-                            <textarea class="form-control" rows="5"
-                                      wire:model.lazy="description_create"></textarea>
-                            @error('description_create') <span class="text-red-500">{{ $message }}</span> @enderror
+                            <ul class="list-group">
+                            @forelse($description_array as $k => $v)
+                                    <li class="list-group-item">{{$k . '- '. $v}}</li>
+                            @empty
+                            @endforelse
+                            </ul>
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control"
+                                   wire:model.lazy="description_line_create"
+                                   wire:keydown.enter="addNewDescriptionLine"
+                                   placeholder="Description"
+                                   aria-label="Description"
+                                   aria-describedby="description">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        wire:click="addNewDescriptionLine"
+                                        type="button" id="description">Save</button>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-danger"
+                                        wire:click="clearDescriptionArray"
+                                        type="button" id="description">Clear</button>
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
 

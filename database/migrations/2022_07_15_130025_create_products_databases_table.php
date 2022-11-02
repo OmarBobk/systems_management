@@ -17,7 +17,7 @@ class CreateProductsDatabasesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('serial');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->schemalessAttributes('description')->nullable();
             $table->string('code')->comment('Product Code ex: KH-K17');
             $table->string('slug');
             $table->string('image_url')->nullable();

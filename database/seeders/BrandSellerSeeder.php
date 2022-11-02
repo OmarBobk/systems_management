@@ -114,7 +114,7 @@ class BrandSellerSeeder extends Seeder
             'id'             => 1,
             'name'           => 'Other',
             'description'    => 'Other'
-        ])->sellers()->attach($default_seller);
+        ])->sellers()->attach($all_sellers);
 
         $platton_brand = Brand::create([
             'id'             => 2,
