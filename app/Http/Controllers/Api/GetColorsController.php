@@ -24,7 +24,10 @@ class GetColorsController extends Controller
         try {
             $category = $request->query('category');
 
-            $cat       = Category::findOrFail($category);
+            $cat       = Category::find($category);
+            if (!$cat) {
+                return $this->respondInvalidParameters('Request Should have category id parameter.');
+            }
             $childrens = $cat->childrenCategories;
 
             if ($childrens->isEmpty()) {
