@@ -28,6 +28,7 @@ class ProductsComponent extends Component
     public $categories, $sellers, $contributions, $contributors, $bills,
         $contributor_id, $seller_id, $brands,
         $isCreateComponentOpen, $updateMode;
+    public $description_line_create, $description_array;
 
     // Statiscis
     public $products_amount, $products_type_amount, $products_cost;
@@ -46,7 +47,6 @@ class ProductsComponent extends Component
         'bill_id'           => ['bill_id.*'         => 'required|integer'],
         'brand_id'          => ['brand_id.*'        => 'required|integer'],
         'seller_id'         => ['seller_id.*'       => 'required|integer'],
-        'description'       => ['description.*'     => 'required'],
     ];
 
     // Edit Mode
@@ -96,7 +96,6 @@ class ProductsComponent extends Component
             'seller_id.*.required'         => 'This Field is required!',
             'seller_id.*.integer'          => 'Please Choose an other value.'
         ],
-        'description'       => ['description.*.required'     => 'This Field is required!'],
     ];
 
     // Create Mode
@@ -113,7 +112,6 @@ class ProductsComponent extends Component
         'bill_id'         => 'required|integer',
         'brand_id'        => 'required|integer',
         'seller_id'       => 'required|integer',
-        'description'     => 'required',
     ];
 
     // Create Mode
@@ -143,7 +141,6 @@ class ProductsComponent extends Component
         'brand_id.integer'          => 'Please Choose an other value.',
         'seller_id.required'        => 'This Field is required!',
         'seller_id.integer'         => 'Please Choose an other value.',
-        'description.required'      => 'This Field is required!',
     ];
 
     // Search
@@ -178,6 +175,7 @@ class ProductsComponent extends Component
             'contribution_id' => [],
             'updated_at'      => [],
         ];
+        $this->description_line_create = '';
 
         $this->reset('searchKeyword', 'page');
     }
@@ -331,6 +329,9 @@ class ProductsComponent extends Component
 
     public function editDetails(Product $product, $propertyName)
     {
+        if($propertyName == 'description') {
+            $this->description_array = $product->description->all();
+        }
         $this->closeCreateComponent();
         $this->is_edit_details = [
             'description'     => [],
@@ -352,12 +353,18 @@ class ProductsComponent extends Component
 
     public function updateNew(Product $product, $propertyName)
     {
+        if ($propertyName != 'description') {
+            $this->validate(
+                [$propertyName . '.' . $product->id => $this->properties_rules[$propertyName][$propertyName . '.*']],
+                $this->properties_message[$propertyName]
+            );
+        }
 
-        $this->validate(
-            [$propertyName.'.'.$product->id => $this->properties_rules[$propertyName][$propertyName.'.*']],
-            $this->properties_message[$propertyName]
-        );
-        $product->update([$propertyName => $this->{$propertyName}[$product->id]]);
+        $this->description[$product->id] = $this->description_array;
+
+        $data = [$propertyName => $this->{$propertyName}[$product->id]];
+
+        $product->update($data);
         $this->closeEdit($product->id, $propertyName);
     }
 
@@ -371,7 +378,7 @@ class ProductsComponent extends Component
 
     public function updated($propertyName)
     {
-        if ($propertyName != 'searchKeyword') {
+        if ($propertyName != 'searchKeyword' and $propertyName != 'description_line_create') {
             if ($this->updateMode) {
                 $this->validateOnly($propertyName, $this->create_properties_rules, $this->create_properties_message);
             } else {
@@ -393,6 +400,33 @@ class ProductsComponent extends Component
     }
 
 
+    public function addNewDescriptionLine()
+    {
+        // add the line to the description array
+        if ($this->description_line_create == '') {
+            session()->flash('message', 'You Can not add empty line');
+            session()->flash('alert' , 'danger');
+            return;
+        }
+        if ( empty($this->description_array) ) {
+            $this->description_array += [
+                1 => $this->description_line_create,
+            ];
+        } else {
+            $this->description_array += [
+                array_key_last($this->description_array) + 1 => $this->description_line_create,
+            ];
+        }
+
+        // reset the input.
+
+        $this->description_line_create = '';
+    }
+
+    public function clearDescriptionArray()
+    {
+        $this->description_array = [];
+    }
 
 
 }

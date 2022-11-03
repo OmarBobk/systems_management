@@ -770,6 +770,8 @@ class ProductsContainerComponent extends Component
     public function clearDescriptionArray()
     {
         $this->description_array = [];
+        $this->description = '';
+//        $this->reset('description_array', 'description');
     }
 
 }
