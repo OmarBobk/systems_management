@@ -54,6 +54,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
 
@@ -105,6 +109,7 @@ ProductSeeder extends Seeder
                     ['name' => 'Blue', 'value' => 'blue', 'order' => 1, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_1.jpg', 'is_active' => 1,],
                     ['name' => 'White', 'value' => 'white', 'order' => 2, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_2.jpg', 'is_active' => 1,],
                 ],
+                'size' => [],
             ],
         ]);
         $order = 0;
@@ -146,6 +151,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
@@ -195,6 +204,7 @@ ProductSeeder extends Seeder
                     ['name' => 'Red', 'value' => 'red', 'order' => 0, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_0.jpg', 'is_active' => 1,],
                     ['name' => 'Blue', 'value' => 'blue', 'order' => 1, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_1.jpg', 'is_active' => 1,],
                 ],
+                'size' => [],
             ],
         ]);
         $order = 0;
@@ -245,6 +255,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
@@ -286,6 +300,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
@@ -325,6 +343,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
@@ -374,6 +396,7 @@ ProductSeeder extends Seeder
                     ['name' => 'Green', 'value' => 'green', 'order' => 4, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_4.jpg', 'is_active' => 1,],
                     ['name' => 'Pink', 'value' => 'pink', 'order' => 5, 'image' => asset('assets/images/products').'/'.strtolower($code).'/'.strtolower($code).'_5.jpg', 'is_active' => 1,],
                 ],
+                'size' => [],
             ],
         ]);
         $order = 0;
@@ -442,6 +465,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
@@ -481,6 +508,10 @@ ProductSeeder extends Seeder
             'contribution_id' => '1',
             'user_id'         => '1',
             'created_at'      => $now,
+            'extra_attributes' => [
+                'color' => [],
+                'size'  => [],
+            ],
             'updated_at'      => $now
         ]);
         $order = 0;
