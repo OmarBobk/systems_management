@@ -141,3 +141,6 @@
     - 24- Electric Socket Convertor:
         - Serial => 858 000 952 102 1.
         - Code   => TC-EAR
+    - 25- Pubg Fingers normal:
+        - Serial => 858 000 952 102 2.
+        - Code   => PUBG-FINGER2
