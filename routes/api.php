@@ -78,19 +78,25 @@ Route::prefix('v1')
                 });
             });
 
-        // api/v1/
+
+        // All Products + CURD
         Route::prefix('products')
             ->group(function () {
                 // Get Short Product.
                 Route::post('/', GetShortProductsController::class);
 
                 Route::get('/{product}', GetProductDetailsController::class);
+
+
+
             });
 
+        // Categories CURD
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
 
-        // Brands API
+        Route::apiResource('products', ProductsController::class)
+            ->only(['index', 'update', 'store', 'destroy']);
 
         // All Brands
         Route::post('brands', \App\Http\Controllers\Api\Brands\GetAllBrandsController::class);
@@ -98,6 +104,11 @@ Route::prefix('v1')
         // All Colors and Sizes
         Route::post('colors', \App\Http\Controllers\Api\GetColorsController::class);
         Route::post('sizes', \App\Http\Controllers\Api\GetSizesController::class);
+
+
+        // All Roles with Permisions
+        Route::get('roles', \App\Http\Controllers\Api\GetRolesController::class);
+        Route::get('permissions', \App\Http\Controllers\Api\GetPermissionsController::class);
 
 });
 

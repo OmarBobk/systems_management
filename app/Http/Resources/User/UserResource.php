@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Roles\GetRolesResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -19,6 +20,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'verified' => (bool)$this->email_verified_at,
             'profile_photo' => '',
+            'roles' => GetRolesResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

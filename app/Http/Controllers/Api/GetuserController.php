@@ -16,7 +16,7 @@ class GetuserController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $user = Auth::user();
+            $user = Auth::user()->load(['roles']);
 
         } catch (\Throwable $throwable) {
             return $this->respondInvalidQuery([
