@@ -40,6 +40,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'istanbul',
             'slug'            => Str::slug($name),
             'code'            => 'KM-364',
             'serial'          => '8681749637980',
@@ -70,7 +71,6 @@ ProductSeeder extends Seeder
             'order' => $order,
         ]);
 
-
         $name = 'Kensa KM-375 Bluetooth Speaker';
         $description = [
             '1' => 'This product will be sent by Talebetti',
@@ -88,6 +88,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'izmir',
             'slug'            => Str::slug($name),
             'code'            => 'KM-375',
             'serial'          => '8681749638307',
@@ -137,6 +138,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'KM-290',
             'serial'          => '8681749637430',
@@ -184,6 +186,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'KM-258',
             'serial'          => '8681749633753',
@@ -241,6 +244,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'KO-120',
             'serial'          => '8681749634477',
@@ -286,6 +290,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'KO-130',
             'serial'          => '8681749635665',
@@ -329,6 +334,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'A-27',
             'serial'          => '8681749635665',
@@ -372,6 +378,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => $code,
             'serial'          => '8681749635665',
@@ -451,6 +458,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'o-22',
             'serial'          => '8681749635665',
@@ -494,6 +502,7 @@ ProductSeeder extends Seeder
         $product = Product::create([
             'id'              => $id,
             'name'            => $name,
+            'city' => 'konya',
             'slug'            => Str::slug($name),
             'code'            => 'kts-1175',
             'serial'          => '8681749635665',

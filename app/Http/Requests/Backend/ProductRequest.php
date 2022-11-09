@@ -32,9 +32,16 @@ class ProductRequest extends FormRequest
         return [
             'name'        => 'required',
             'code'        => 'required',
-            'price'       => 'required|integer',
+            'city'        => 'required',
+
             'serial'      => 'required|integer',
-            'description' => 'nullable',
+            'amount'      => 'required|integer',
+            'cost'        => 'required|integer',
+
+            'description'      => 'required|json',
+            'extra_attributes' => 'nullable|json',
+
+            'seller_id'    => 'required|integer',
             'brand_id'    => 'required|integer',
             'category_id' => 'required|integer',
         ];
@@ -56,10 +63,21 @@ class ProductRequest extends FormRequest
         return [
             'name.required'        => 'Name Can Not Be Empty.',
             'code.required'        => 'Code Can Not Be Empty.',
-            'price.required'       => 'Price Can Not Be Empty.',
-            'price.integer'        => 'Price should be Numeric.',
+            'city.required'        => 'City Can Not Be Empty.',
+
             'serial.required'      => 'Serial Can Not Be Empty.',
             'serial.integer'       => 'Serial should be Numeric.',
+            'amount.required'      => 'Amount Can Not Be Empty.',
+            'amount.integer'       => 'Amount should be Numeric.',
+            'cost.required'        => 'Cost Can Not Be Empty.',
+            'cost.integer'         => 'Cost should be Numeric.',
+
+            'description.required' => 'Description can not be empty',
+            'description.json'     => 'Description need to be in json format.',
+            'extra_attributes.json'     => 'extra_attributes need to be in json format.',
+
+            'seller_id.required'   => 'Seller Can Not Be Empty.',
+            'seller_id.integer'    => 'Seller should be Numeric.',
             'brand_id.required'    => 'Brand Can Not Be Empty.',
             'brand_id.integer'     => 'Brand should be Numeric.',
             'category_id.required' => 'Category Can Not Be Empty.',

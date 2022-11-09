@@ -16,7 +16,7 @@ class Product extends Model
     use HasFactory, Searchable, SchemalessAttributesTrait;
 
     public $searchable_columns = [
-        'code', 'name', 'description'
+        'code', 'name', 'description', 'serial'
     ];
 
     public $return_from_search = [];

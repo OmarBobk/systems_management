@@ -79,24 +79,29 @@ Route::prefix('v1')
             });
 
 
+
         // All Products + CURD
-        Route::prefix('products')
-            ->group(function () {
-                // Get Short Product.
-                Route::post('/', GetShortProductsController::class);
+        Route::apiResource('products', ProductsController::class)
+            ->only(['index', 'update', 'store', 'destroy']);
 
-                Route::get('/{product}', GetProductDetailsController::class);
+        // Get Short Product.
+        Route::post('products/short', GetShortProductsController::class);
 
-
-
-            });
+//        Route::prefix('products')
+//            ->name('products.')
+//            ->group(function () {
+//                // Get all products with details
+//                Route::get('/', [ProductsController::class => 'index'])->name('index');
+//                Route::get('/{product}', GetProductDetailsController::class)->name('show');
+//
+//                Route::apiResource('products', ProductsController::class)
+//                    ->only(['index', 'update', 'store', 'destroy']);
+//
+//            });
 
         // Categories CURD
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
-
-        Route::apiResource('products', ProductsController::class)
-            ->only(['index', 'update', 'store', 'destroy']);
 
         // All Brands
         Route::post('brands', \App\Http\Controllers\Api\Brands\GetAllBrandsController::class);

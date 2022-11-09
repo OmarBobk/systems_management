@@ -22,16 +22,27 @@ class ProductResource extends JsonResource
         return [
             'id'                => $this->id,
             'name'              => __('products.'.str_replace(' ', '_', strtolower($this->name))),
+            'slug'              => $this->slug,
+            'city'              => $this->city,
+            'code'              => $this->code,
+
+            'serial'              => $this->serial,
+            'price'             => $this->price,
+            'cost'              => $this->cost,
+            'amount'              => $this->amount,
+
             'description'       => $this->description,
             'extra_attributes'  => $this->extra_attributes,
-            'code'              => $this->code,
-            'price'             => $this->price,
-            'slug'              => $this->slug,
+
+            'created_at'        => $this->created_at,
+            'updated_at'        => $this->updated_at,
 
             'relationships'     => [
 //                'category' => (new CategoryResource($this->whenLoaded('category')))->attributes(['name', 'slug'])->data,
                 'category'   => (new CategoryResource($this->whenLoaded('category'))),
                 'brand'      => (new BrandResource($this->whenLoaded('brand'))),
+//                'seller'      => (new SellerResource($this->whenLoaded('seller'))),
+//                'user'      => (new SellerResource($this->whenLoaded('seller'))),
                 'images'     => ImageResource::collection($this->whenLoaded('images')),
 //                'attributes' => AttributeResource::collection($this->whenLoaded('attributes')),
             ],
