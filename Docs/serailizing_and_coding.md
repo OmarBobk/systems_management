@@ -37,61 +37,6 @@
         - Code   => CL-671.
     - 8- Wireless Speaker:
         - Serial => 858 000 952 100 8.
-        - Code   => RS-3155.
-    - 9- Wireless Speaker:
-        - Serial => 858 000 952 100 9.
-        - Code   => PRO4.
-    - 10- keyboard stickers:
-        - Serial => 858 000 952 101 0.
-        - Code   => KS77.
-    - 11- keyboard stickers:
-        - Serial => 858 000 952 101 1.
-        - Code   => NDR-P44.
-    - 12- Kimiso Speaker:
-        - Serial => 858 000 952 101 2.
-        - Code   => KMS-5012.
-    - 12- i12 tws:
-        - Serial => 12824.
-        - Code   => TWS-i12
-##Serializng & Coding
-###Start At: 858 000 95<span style="text-decoration: underline">0</span> 000 0
-- 1- Perfumes [858 000 951 <span style="text-decoration: underline">0</span>00 0]
-    - 1- Essence:
-        - Serial => 858 000 951 100 1.
-        - Code => PR-1001.
-    - 2- Glass(empty):
-        - Serial => 858 000 951 200 1.
-        - Code => GL-2001.
-    - 3- Ready Perfumes:
-        - Serial => 858 000 951 300 1.
-        - Code => RPR-3001.
-    - 4- Gift boxes & bags:
-        - Serial => 858 000 951 400 1.
-        - Code => GBB-4001.
-- 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
-    - 1- Pubg Fingers:
-        - Serial => 858 000 952 100 1.
-        - Code   => PUBG-FINGER
-    - 2- Wireless Sport:
-        - Serial => 858 000 952 100 2.
-        - Code   => WS-1002
-    - 3- Earbuds A10s:
-        - Serial => 858 000 952 100 3.
-        - Code   => TWS-A10S
-    - 4- inPods i12 renkli:
-        - Serial => 858 000 952 100 5.
-        - Code   => INPODS12-1005
-    - 5- BT Speaker:
-        - Serial => 858 000 952 100 4.
-        - Code   => ZQS-2201.
-    - 6- Relax team earphone:
-        - Serial => 858 000 952 100 6.
-        - Code   => AE-38.
-    - 7- Touch Lamp Portable speaker:
-        - Serial => 858 000 952 100 7.
-        - Code   => CL-671.
-    - 8- Wireless Speaker:
-        - Serial => 858 000 952 100 8.
         - Code   => RS-315.
     - 9- Wireless Speaker:
         - Serial => 858 000 952 100 9.
@@ -144,3 +89,12 @@
     - 25- Pubg Fingers normal:
         - Serial => 858 000 952 102 2.
         - Code   => PUBG-FINGER2
+    - 26- Original Cable Type-c 2A:
+        - Serial => 858 000 952 102 3.
+        - Code   => ORG-TC2A
+    - 26- Original Cable Type-c 6A:
+        - Serial => 858 000 952 102 4.
+        - Code   => ORG-TC6A
+    - 26- Original Cable Micro 5A:
+        - Serial => 858 000 952 102 5.
+        - Code   => ORG-M5A
