@@ -28,23 +28,45 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        // Name, Code, Price, Serial, Description, Brand, Category
-        return [
-            'name'        => 'required',
-            'code'        => 'required',
-            'city'        => 'required',
+        switch ($this->method()) {
+            case "POST":
+                return [
+                    'name'        => 'required',
+                    'code'        => 'required',
+                    'city'        => 'required',
 
-            'serial'      => 'required|integer',
-            'amount'      => 'required|integer',
-            'cost'        => 'required|integer',
+                    'serial'      => 'required|integer',
+                    'amount'      => 'required|integer',
+                    'cost'        => 'required|integer',
 
-            'description'      => 'required|json',
-            'extra_attributes' => 'nullable|json',
+                    'description'      => 'required|json',
+                    'extra_attributes' => 'nullable|json',
 
-            'seller_id'    => 'required|integer',
-            'brand_id'    => 'required|integer',
-            'category_id' => 'required|integer',
-        ];
+                    'seller_id'    => 'required|integer',
+                    'brand_id'    => 'required|integer',
+                    'category_id' => 'required|integer',
+                ];
+            case "PUT":
+            case "PATCH":
+                return [
+                    'name'        => 'required|sometimes',
+                    'code'        => 'required|sometimes',
+                    'city'        => 'required|sometimes',
+
+                    'serial'      => 'required|sometimes|integer',
+                    'amount'      => 'required|sometimes|integer',
+                    'cost'        => 'required|sometimes|integer',
+
+                    'description'      => 'required|sometimes|json',
+                    'extra_attributes' => 'nullable|json',
+
+                    'seller_id'    => 'required|sometimes|integer',
+                    'brand_id'    => 'required|sometimes|integer',
+                    'category_id' => 'required|sometimes|integer',
+                ];
+            default:
+                break;
+        }
     }
 
     public function failedValidation(Validator $validator) {

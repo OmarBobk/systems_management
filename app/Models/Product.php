@@ -47,7 +47,7 @@ class Product extends Model
 
     public function sizes()
     {
-        return $this->extra_attributes->get('sizes.*.value');
+        return $this->extra_attributes->get('size.*.value');
     }
 
 

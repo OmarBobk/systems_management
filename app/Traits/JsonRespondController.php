@@ -79,14 +79,14 @@ trait JsonRespondController
     /**
      * Sends a response not found (404) to the request.
      * Error Code = 31.
-     *
+     * @param array $data [message]
      * @return JsonResponse
      */
-    public function respondNotFound()
+    public function respondNotFound(array $data = []): JsonResponse
     {
         return $this->setHTTPStatusCode(404)
             ->setErrorCode(31)
-            ->respondWithError();
+            ->respondWithError($data);
     }
 
     /**

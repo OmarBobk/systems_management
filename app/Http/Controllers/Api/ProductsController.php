@@ -10,10 +10,13 @@ use App\Models\Product;
 use App\Traits\JsonRespondController;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ProductsController extends Controller
 {
@@ -93,7 +96,7 @@ class ProductsController extends Controller
     /**
      * @throws Exception
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request): JsonResponse|ProductResource
     {
         try {
             $data = $request->validated();
@@ -139,19 +142,56 @@ class ProductsController extends Controller
             ]);
         }
 
-//        dd($request->validated()['name']);
-
         return (new ProductResource($product));
     }
 
-    public function update()
+    /**
+     * @param ProductRequest $request
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function update(ProductRequest $request, Product $product): JsonResponse
     {
+        try {
+            $data = $request->validated();
 
+            if (in_array('name', array_keys($data))) {
+                $slug = Str::slug($data['name']);
+                $data += ['slug' => $slug];
+            }
+
+            $product->update($data);
+
+        } catch (ModelNotFoundException $e) {
+            return $this->respondNotFound();
+        } catch (ValidationException $e) {
+            return $this->respondValidatorFailed($e->validator);
+        } catch (QueryException $e) {
+            return $this->respondInvalidQuery();
+        }
+
+        return $this->respond(new ProductResource($product));
     }
 
-    public function destroy()
+    /**
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
     {
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+        } catch (ModelNotFoundException $e) {
 
+            return $this->respondNotFound([$e->getMessage()]);
+        } catch (ValidationException $e) {
+            return $this->respondValidatorFailed($e->validator);
+        } catch (QueryException $e) {
+            return $this->respondInvalidQuery();
+        }
+
+        return $this->respondObjectDeleted($id);
     }
 
 
