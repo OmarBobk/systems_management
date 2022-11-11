@@ -147,13 +147,14 @@ class ProductsController extends Controller
 
     /**
      * @param ProductRequest $request
-     * @param Product $product
+     * @param int $id
      * @return JsonResponse
      */
-    public function update(ProductRequest $request, Product $product): JsonResponse
+    public function update(ProductRequest $request, int $id): JsonResponse
     {
         try {
             $data = $request->validated();
+            $product = Product::findOrFail($id);
 
             if (in_array('name', array_keys($data))) {
                 $slug = Str::slug($data['name']);
@@ -174,7 +175,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * @param Product $product
+     * @param int $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
@@ -183,7 +184,6 @@ class ProductsController extends Controller
             $product = Product::findOrFail($id);
             $product->delete();
         } catch (ModelNotFoundException $e) {
-
             return $this->respondNotFound([$e->getMessage()]);
         } catch (ValidationException $e) {
             return $this->respondValidatorFailed($e->validator);

@@ -83,28 +83,23 @@ Route::prefix('v1')
         // All Products + CURD
         Route::apiResource('products', ProductsController::class)
             ->only(['index', 'update', 'store', 'destroy']);
-
+        // Get Product With all details.
+        Route::get('products/{product}', GetProductDetailsController::class);
         // Get Short Product.
         Route::post('products/short', GetShortProductsController::class);
 
-//        Route::prefix('products')
-//            ->name('products.')
-//            ->group(function () {
-//                // Get all products with details
-//                Route::get('/', [ProductsController::class => 'index'])->name('index');
-//                Route::get('/{product}', GetProductDetailsController::class)->name('show');
-//
-//                Route::apiResource('products', ProductsController::class)
-//                    ->only(['index', 'update', 'store', 'destroy']);
-//
-//            });
 
         // Categories CURD
         Route::apiResource('categories', CategoryController::class)
             ->only(['index', 'update', 'store', 'destroy', 'show']);
 
         // All Brands
-        Route::post('brands', \App\Http\Controllers\Api\Brands\GetAllBrandsController::class);
+        Route::apiResource('brands', \App\Http\Controllers\Api\Brands\BrandsController::class)
+            ->only(['index', 'update', 'store', 'destroy', 'show']);
+
+        // All Sellers
+        Route::apiResource('sellers', \App\Http\Controllers\Api\SellerController::class)
+            ->only(['index', 'update', 'store', 'destroy', 'show']);
 
         // All Colors and Sizes
         Route::post('colors', \App\Http\Controllers\Api\GetColorsController::class);

@@ -23,10 +23,8 @@ class GetProductDetailsController extends Controller
      */
     public function __invoke(int $id): JsonResponse|ProductResource
     {
-
-
         try {
-            $product = Product::with(['images', 'brand', 'category'])->find($id);
+            $product = Product::with(['images', 'brand', 'category'])->findOrFail($id);
 
         } catch (\Throwable $throwable) {
             return $this->respondInvalidQuery([

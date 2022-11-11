@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Brand;
 
+use App\Http\Resources\Sellers\SellerResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BrandResource extends JsonResource
@@ -17,6 +18,9 @@ class BrandResource extends JsonResource
         return [
             'id'   => $this->id,
             'name' => $this->name,
+            'relationships' => [
+                'sellers' => SellerResource::collection($this->whenLoaded('sellers')),
+            ],
         ];
     }
 }

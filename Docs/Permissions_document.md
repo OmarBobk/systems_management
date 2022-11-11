@@ -13,6 +13,9 @@
   - create_permission
   - update_permission
   - delete_permission
+  - delete_category
+  - delete_brand
+  - delete_seller
 - supervisor
   - show_product
   - create_product
@@ -21,14 +24,11 @@
   - show_category
   - create_category
   - update_category
-  - delete_category
   - show_brand
   - create_brand
   - update_brand
-  - delete_brand
   - show_seller
   - create_seller
   - update_seller
-  - delete_seller
 - user
   - email_active
