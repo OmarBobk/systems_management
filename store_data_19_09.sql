@@ -1027,3 +1027,12 @@ VALUES (2001, 8681749626991, 'Kensa USB-C 2M Cable', '2 meter cable 2.1A.', 'TP-
        (2189, 8580009512001, 'Normal Glass', 'Perfume', 'GL-2001', 'normal-glass',
         'http://bobk.test/public/assets/img/products8580009512001jpg', 18, 25, '2022-08-18 08:58:39',
         '2022-08-18 08:58:39');
+
+
+SUBZERO 50 Hours Music Time EP99 Wireless Stereo Earphone
+
+Standby Time 400 Hours
+Transmission Distance 10M
+Talk Time About 50 Hours
+Batter Capacity 500 mAh
+Magnetic Earphones

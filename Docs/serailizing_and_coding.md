@@ -98,3 +98,15 @@
     - 26- Original Cable Micro 5A:
         - Serial => 858 000 952 102 5.
         - Code   => ORG-M5A
+    - 26- Original Samsung Cable:
+        - Serial => 858 000 952 102 6.
+        - Code   => ORG-SAM
+    - 27- DT NO.1 MAX:
+        - Serial => 858 000 952 102 7.
+        - Code   => DT8MAX8
+    - 28- HW 3 Pro:
+        - Serial => 858 000 952 102 8.
+        - Code   => HW3PRO
+    - 29- GS 8 Ultra:
+        - Serial => 858 000 952 102 9.
+        - Code   => GS8ULTRA
