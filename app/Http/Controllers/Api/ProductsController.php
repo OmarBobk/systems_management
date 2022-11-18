@@ -31,10 +31,6 @@ class ProductsController extends Controller
      */
     public function index(Request $request): JsonResponse|AnonymousResourceCollection
     {
-        $search_keyword         = $request->query('search_keyword') ?? '';
-        $order_field            = $request->query('order_field') ?? 'id';
-        $order_type             = $request->query('order_type') ?? 'ASC';
-        $products_per_page      = $request->query('products_per_page') ?? 1;
         $category               = $request->query('category') ?? null;
         $brand                  = $request->query('brand') ?? null;
 
@@ -60,26 +56,17 @@ class ProductsController extends Controller
                 })
                 ->when($category != null, function (Builder $q) use ($category) {
                     $cat       = Category::findOrFail($category);
-                    $childrens = $cat->childrenCategories;
 
-                    if ($childrens->isEmpty())
-                        // The Category has no childrens
-                        return $q->where('category_id', $category);
-                    else
-                        if ($cat->parent != null) {
-                            // Category has children and Parent
-                            return $q->whereIn('category_id', $childrens->modelKeys());
-                        } else {
-                            // Category is a Grand father category.
-                            throw new Exception('It\'s not available to get Products By a Grand Father Category, it either a parent category or a son category');
-                        }
+                    return $cat->products_in_category(
+                        query: $q,
+                    );
                 })
                 ->search(
-                    needle: $search_keyword,
-                    orderByColumn: $order_field,
-                    orderByDirection: $order_type,
+                    needle: $request->query('search_keyword') ?? '',
+                    orderByColumn: $request->query('order_field') ?? 'id',
+                    orderByDirection: $request->query('order_type') ?? 'ASC',
                 )
-                ->paginate($products_per_page);
+                ->paginate($request->query('products_per_page') ?? 1);
 
         } catch (\Throwable $throwable) {
             return $this->respondInvalidQuery([
@@ -154,21 +141,19 @@ class ProductsController extends Controller
     {
         try {
             $data = $request->validated();
-            $product = Product::findOrFail($id);
 
             if (in_array('name', array_keys($data))) {
-                $slug = Str::slug($data['name']);
-                $data += ['slug' => $slug];
+                $data += ['slug' => Str::slug($data['name'])];
             }
 
-            $product->update($data);
+            $product = Product::findOrFail($id)->update($data);
 
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return $this->respondNotFound();
         } catch (ValidationException $e) {
             return $this->respondValidatorFailed($e->validator);
         } catch (QueryException $e) {
-            return $this->respondInvalidQuery();
+            return $this->respondInvalidQuery($e->getMessage());
         }
 
         return $this->respond(new ProductResource($product));

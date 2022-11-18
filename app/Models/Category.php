@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -51,6 +53,26 @@ class Category extends Model
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function products_in_category(Builder $query): Builder
+    {
+        $childrens = $this->childrenCategories;
+
+        if ($childrens->isEmpty())
+            // The Category has no childrens
+            return $query->where('category_id', $this->id);
+        else
+            if ($this->parent != null) {
+                // Category has children and Parent
+                return $query->whereIn('category_id', $childrens->modelKeys());
+            } else {
+                // Category is a Grand father category.
+                throw new Exception('It\'s not available to get Products By a Grand Father Category, it either a parent category or a son category');
+            }
     }
 
 // - Chargers
