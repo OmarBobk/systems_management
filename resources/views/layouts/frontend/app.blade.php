@@ -43,6 +43,13 @@
     <div id="containerbar" class="">
         <!-- Start Rightbar -->
         <div class="rightbar">
+            <div>
+                @guest
+                    <a href="{{route('login')}}">Login</a>
+                @else
+                    <a href="{{route('backend.cashier')}}">Dashboard</a>
+                @endguest
+            </div>
 
         @include('vendor.frontend.header')
 

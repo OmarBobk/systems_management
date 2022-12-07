@@ -110,3 +110,15 @@
     - 29- GS 8 Ultra:
         - Serial => 858 000 952 102 9.
         - Code   => GS8ULTRA
+    - 30- KTS-1359 8" Speaker:
+        - Serial => 858 000 952 103 0.
+        - Code   => KTS-1359
+    - 31- Syrox ORG iPhone Earphones:
+        - Serial => 858 000 952 103 1.
+        - Code   => ORG-IP
+    - 32- Smartwatch Strap:
+        - Serial => 858 000 952 103 2.
+        - Code   => STRAP
+    - 33- KTS-1175 Bluetooth Speaker:
+        - Serial => 858 000 952 103 3.
+        - Code   => KTS-1175

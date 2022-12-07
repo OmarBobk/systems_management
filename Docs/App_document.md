@@ -1,12 +1,19 @@
 #git token
 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
 
-- Development
-  - /public/bobkdevtalebetti.com/public/index.php
-- Production
-  - /public/index.php
-- Phpmyadmin
-  - /public/bobkphpmyadmintalebetti.com
+- Stoctaking
+- Debts Managing.
+- Contributors Managing.
+- Sales & Incomes and Outcomes.
+- Products Database.
+- Move your Real Store into online one.
+  - Create a Trendyol Seller Account with one click with all your products.
+  - Manage trendyol seller account from the dashboard.
+- if you are store owner request a contribution.
+- if you are a contributor invest in the recommended stores.
+- Orders list will be created otomatically.
+- Notification System will notifiy the owner when some product is about to be out of stock.
+
 
 - V1.0.0
     - Visitor Will explore the products in a single product page.
@@ -99,4 +106,4 @@ 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
     - Order
       - id
       - status (Done, Doing, To Do)
-- 
+-
