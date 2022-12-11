@@ -1,16 +1,16 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Talebetti',
+    'name' => 'Laravel',
     'env' => 'local',
-    'debug' => true,
-    'url' => 'http://karman.store',
+    'debug' => false,
+    'url' => 'http://karman.dev',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:ZvwIM+7ti/7cnvewiQMTyA47wpaH/LxCTlKozqulZ3Y=',
+    'key' => 'base64:yxPNWK3pZVqBrp4KG0NuLKJlWI0+2VQ9tyOdxnUCarA=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -185,7 +185,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/html/karman.store/storage/framework/cache/data',
+        'path' => '/var/www/html/karman.dev/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -229,7 +229,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'talebetti_cache',
+    'prefix' => 'laravel_cache',
   ),
   'cors' => 
   array (
@@ -276,7 +276,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'karman.store',
+        'database' => 'karman.dev',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -286,7 +286,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'karman.store',
+        'database' => 'karman.dev',
         'username' => 'admin',
         'password' => 'omarkarman9696',
         'unix_socket' => '',
@@ -306,7 +306,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'karman.store',
+        'database' => 'karman.dev',
         'username' => 'admin',
         'password' => 'omarkarman9696',
         'charset' => 'utf8',
@@ -321,7 +321,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'karman.store',
+        'database' => 'karman.dev',
         'username' => 'admin',
         'password' => 'omarkarman9696',
         'charset' => 'utf8',
@@ -336,7 +336,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'talebetti_database_',
+        'prefix' => 'laravel_database_',
       ),
       'default' => 
       array (
@@ -368,7 +368,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => '/var/www/html/karman.store/storage/debugbar',
+      'path' => '/var/www/html/karman.dev/storage/debugbar',
       'connection' => NULL,
       'provider' => '',
       'hostname' => '127.0.0.1',
@@ -470,13 +470,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/html/karman.store/storage/app',
+        'root' => '/var/www/html/karman.dev/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/html/karman.store/storage/app/public',
-        'url' => 'http://karman.store/storage',
+        'root' => '/var/www/html/karman.dev/storage/app/public',
+        'url' => 'http://karman.dev/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -493,7 +493,7 @@
     ),
     'links' => 
     array (
-      '/var/www/html/karman.store/public/storage' => '/var/www/html/karman.store/storage/app/public',
+      '/var/www/html/karman.dev/public/storage' => '/var/www/html/karman.dev/storage/app/public',
     ),
   ),
   'flare' => 
@@ -577,7 +577,7 @@
     'username' => 'email',
     'email' => 'email',
     'views' => true,
-    'home' => 'http://karman.store',
+    'home' => 'http://karman.dev',
     'prefix' => '',
     'domain' => NULL,
     'limiters' => 
@@ -654,6 +654,13 @@
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',
+    'recorders' => 
+    array (
+      0 => 'Spatie\\LaravelIgnition\\Recorders\\DumpRecorder\\DumpRecorder',
+      1 => 'Spatie\\LaravelIgnition\\Recorders\\JobRecorder\\JobRecorder',
+      2 => 'Spatie\\LaravelIgnition\\Recorders\\LogRecorder\\LogRecorder',
+      3 => 'Spatie\\LaravelIgnition\\Recorders\\QueryRecorder\\QueryRecorder',
+    ),
   ),
   'jetstream' => 
   array (
@@ -671,7 +678,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => '/var/www/html/karman.store/resources/views/livewire',
+    'view_path' => '/var/www/html/karman.dev/resources/views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
     'app_url' => NULL,
@@ -774,13 +781,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/html/karman.store/storage/logs/laravel.log',
+        'path' => '/var/www/html/karman.dev/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/html/karman.store/storage/logs/laravel.log',
+        'path' => '/var/www/html/karman.dev/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -831,7 +838,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/html/karman.store/storage/logs/laravel.log',
+        'path' => '/var/www/html/karman.dev/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -843,11 +850,11 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'smtp.mailtrap.io',
-        'port' => '2525',
-        'encryption' => 'tls',
-        'username' => '659591442a3146',
-        'password' => 'fed0be73b205c1',
+        'host' => 'mailhog',
+        'port' => '1025',
+        'encryption' => NULL,
+        'username' => NULL,
+        'password' => NULL,
         'timeout' => NULL,
         'auth_mode' => NULL,
       ),
@@ -880,15 +887,15 @@
     ),
     'from' => 
     array (
-      'address' => 'Talebetti@gmail.com',
-      'name' => 'Talebetti',
+      'address' => NULL,
+      'name' => 'Laravel',
     ),
     'markdown' => 
     array (
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/html/karman.store/resources/views/vendor/mail',
+        0 => '/var/www/html/karman.dev/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -973,7 +980,7 @@
       2 => '127.0.0.1',
       3 => '127.0.0.1:8000',
       4 => '::1',
-      5 => 'karman.store',
+      5 => 'karman.dev',
     ),
     'guard' => 
     array (
@@ -1011,7 +1018,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/html/karman.store/storage/framework/sessions',
+    'files' => '/var/www/html/karman.dev/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1020,9 +1027,9 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'talebetti_session',
+    'cookie' => 'laravel_session',
     'path' => '/',
-    'domain' => 'karman.store',
+    'domain' => NULL,
     'secure' => NULL,
     'http_only' => true,
     'same_site' => 'lax',
@@ -1044,9 +1051,9 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/html/karman.store/resources/views',
+      0 => '/var/www/html/karman.dev/resources/views',
     ),
-    'compiled' => '/var/www/html/karman.store/storage/framework/views',
+    'compiled' => '/var/www/html/karman.dev/storage/framework/views',
   ),
   'permission' => 
   array (
