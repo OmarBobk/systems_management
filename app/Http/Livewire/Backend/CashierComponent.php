@@ -10,6 +10,7 @@ use App\Models\Income;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SalesCounter;
+use App\Models\Saletype;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -41,6 +42,9 @@ class CashierComponent extends Component
     // Products Amount in pivot table before updating.
     public $products_amount_in_pivot;
 
+    public $saletypes;
+    public $saletype;
+
     protected array $rules = [
         'newDebtorName'  => 'required',
         'newDebtorPhone' => 'required',
@@ -54,13 +58,14 @@ class CashierComponent extends Component
             'net_price'   => [],
             'net_cost'   => [],
             'description'   => [],
+            'saletype'   => [],
         ];
 
     }
 
     public function render()
     {
-
+        $this->saletypes = Saletype::all()->pluck('name', 'id');
         $breadcrumbs = [
             [
                 'route' => 'backend.cashier',
@@ -102,6 +107,7 @@ class CashierComponent extends Component
             'net_price'   => $product->price,
             'net_cost'    => $product->cost,
             'description' => 'Description',
+            'saletype'    => 1,
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now(),
             ]);
@@ -445,6 +451,7 @@ class CashierComponent extends Component
             'net_price'   => [],
             'net_cost'   => [],
             'description'   => [],
+            'saletype'   => [],
         ];
 
         $this->{$propertyName}[$product_id."-".$pivot_id]          = $product->pivot->{$propertyName};

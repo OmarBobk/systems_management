@@ -35,6 +35,7 @@ class SaleSeeder extends Seeder
             'description'        => 'product details.',
             'user_id'            => 1,
             'product_id'         => 1,
+            'saletype_id'         => 1,
             'contribution_id'    => 1, // Owner
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -53,6 +54,7 @@ class SaleSeeder extends Seeder
             'description'        => 'The pdf Url',
             'user_id'            => 1,
             'product_id'         => 1,
+            'saletype_id'         => 1,
             'contribution_id'    => 1, // Owner
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -71,6 +73,7 @@ class SaleSeeder extends Seeder
             'description'        => 'Phone reparing, Salling SIM Card.',
             'user_id'            => 1,
             'product_id'         => 1,
+            'saletype_id'         => 1,
             'contribution_id'    => 1, // Owner
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -89,6 +92,7 @@ class SaleSeeder extends Seeder
             'description'        => null,
             'user_id'            => 1,
             'product_id'         => 2,
+            'saletype_id'         => 1,
             'contribution_id'    => 1, // Owner
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -106,6 +110,7 @@ class SaleSeeder extends Seeder
             'description'        => null,
             'user_id'            => 1,
             'product_id'         => 3,
+            'saletype_id'         => 1,
             'contribution_id'    => 2, // Owner
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -123,6 +128,7 @@ class SaleSeeder extends Seeder
             'description'        => null,
             'user_id'            => 1,
             'product_id'         => 4,
+            'saletype_id'         => 1,
             'contribution_id'    => 3, // ConX
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -140,6 +146,7 @@ class SaleSeeder extends Seeder
             'description'        => null,
             'user_id'            => 1,
             'product_id'         => 5,
+            'saletype_id'         => 1,
             'contribution_id'    => 4, // ConX
             'created_at'         => $now,
             'updated_at'         => $now,
@@ -158,6 +165,7 @@ class SaleSeeder extends Seeder
             'description'        => 'The Product is not working.',
             'user_id'            => 1,
             'product_id'         => 5,
+            'saletype_id'         => 1,
             'contribution_id'    => 4, // ConX
             'created_at'         => $now,
             'updated_at'         => $now,

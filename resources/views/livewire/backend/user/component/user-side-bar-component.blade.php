@@ -1,4 +1,26 @@
-<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+{{--<aside class="h-auto w-72 flex flex-col space-y-2 p-2 bg-white">--}}
+
+{{--    <div class="text-5xl font-bold text-indigo-500 w-auto py-4 mx-auto ">--}}
+{{--        karman--}}
+{{--    </div>--}}
+
+{{--    <hr class=" w-5/6 mx-auto bg-indigo-200 " >--}}
+
+{{--    <a href="#" class="space-x-1 flex items-center rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">--}}
+{{--        <span class="text-2xl">i</span>--}}
+{{--        <span>Link</span>--}}
+{{--    </a>--}}
+{{--    <a href="#" class="space-x-1 flex items-center rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">--}}
+{{--        <span class="text-2xl">i</span>--}}
+{{--        <span>Link</span>--}}
+{{--    </a>--}}
+{{--    <a href="#" class="space-x-1 flex items-center rounded-md px-2 py-3 hover:bg-gray-100 hover:text-blue-600">--}}
+{{--        <span class="text-2xl">i</span>--}}
+{{--        <span>Link</span>--}}
+{{--    </a>--}}
+{{--</aside>--}}
+
+<nav class="sidenav navbar navbar-vertical fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
@@ -11,12 +33,12 @@
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
                 <!-- Nav items -->
                 <ul class="navbar-nav">
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link active" href="{{route('dashboard')}}">--}}
-{{--                            <i class="ni ni-tv-2 text-primary"></i>--}}
-{{--                            <span class="nav-link-text">Dashboard</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('dashboard')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('backend.products')}}">
                             <i class="ni ni-tv-2 text-primary"></i>

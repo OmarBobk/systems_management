@@ -26,6 +26,7 @@ class CreateSalesTable extends Migration
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->foreignId('saletype_id')->constrained();
             $table->foreignId('contribution_id')->constrained();
 
             $table->timestamps();

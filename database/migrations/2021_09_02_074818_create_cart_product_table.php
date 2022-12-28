@@ -17,6 +17,7 @@ class CreateCartProductTable extends Migration
             $table->id();
             $table->integer('amount');
             $table->integer('net_price');
+            $table->integer('saletype');
             $table->integer('net_cost');
 
             $table->foreignId('cart_id')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');

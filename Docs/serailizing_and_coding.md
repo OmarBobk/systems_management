@@ -122,3 +122,6 @@
     - 33- KTS-1175 Bluetooth Speaker:
         - Serial => 858 000 952 103 3.
         - Code   => KTS-1175
+    - 34- Xiaomi 33w Charger:
+        - Serial => 8580009521034.
+        - Code   => ORG-33W

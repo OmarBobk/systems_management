@@ -17,7 +17,8 @@
         "livewire/livewire": "^2.5",
         "power-components/livewire-powergrid": "^1.4",
         "spatie/laravel-schemaless-attributes": "^2.3",
-        "wire-elements/modal": "^1.0"
+        "wire-elements/modal": "^1.0",
+        "ext-http": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
