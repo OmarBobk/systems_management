@@ -43,7 +43,7 @@
         - Code   => PRO4.
     - 10- keyboard stickers:
         - Serial => 858 000 952 101 0.
-        - Code   => KS77.
+        - Code   => KH-KS77.
     - 11- keyboard stickers:
         - Serial => 858 000 952 101 1.
         - Code   => NDR-P44.
@@ -125,3 +125,9 @@
     - 34- Xiaomi 33w Charger:
         - Serial => 8580009521034.
         - Code   => ORG-33W
+    - 35- Adaptor Fis mini F17
+        - Serial => 8580009521035.
+        - Code => F-17
+    - 36- ZQS Speaker
+        - Serial => 8580009521036.
+        - Code => ZQS4235

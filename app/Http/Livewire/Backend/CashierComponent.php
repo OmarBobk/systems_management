@@ -202,6 +202,7 @@ class CashierComponent extends Component
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
+            $saletype        = $product->pivot->saletype;
 
             $sales[] = [
                 'id'                => $sale_id,
@@ -214,6 +215,7 @@ class CashierComponent extends Component
                 'profit'            => $profit,
                 'user_id'           => $user_id,
                 'product_id'        => $product_id,
+                'saletype_id'       => $saletype,
                 'contribution_id'   => $contribution_id,
                 'created_at'        => $product->pivot->created_at,
                 'updated_at'        => $product->pivot->updated_at,

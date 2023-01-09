@@ -35,7 +35,7 @@ class Sale extends Model
 
     public function contribution()
     {
-        return $this->hasOne(Contribution::class);
+        return $this->belongsTo(Contribution::class);
     }
 
 }

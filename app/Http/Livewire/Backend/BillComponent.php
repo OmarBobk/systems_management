@@ -176,8 +176,8 @@ class BillComponent extends Component
         ]);
 
         // Update Contribution that used to buy this bill.
-        Contribution::find($this->contribution_id)
-            ->decrement('amount', $this->amount);
+//        Contribution::find($this->contribution_id)
+//            ->decrement('amount', $this->amount);
 
         ProductsContainer::create([
             'container'  => '{}',

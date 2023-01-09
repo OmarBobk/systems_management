@@ -19,4 +19,5 @@ Online Accounting System.
 
 
 ## Sections
-- Contributors
+- Contributions
+  - Amount should never have changed, It will save its original amount, and it will be accounted on the fly (amount - expenses + profits etc.)
