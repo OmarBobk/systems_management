@@ -26,10 +26,28 @@ class UserSeeder extends Seeder
                 "updated_at"            => $now,
             ],
             [
+                "name"                  => "Supervisor",
+                "email"                 => "Supervisor@gmail.com",
+                "is_admin"              => 0,
+                "email_verified_at"     => $now,
+                "password"              => bcrypt('123'),
+                "created_at"            => $now,
+                "updated_at"            => $now,
+            ],
+            [
                 "name"                  => "User01",
                 "email"                 => "user01@gmail.com",
                 "is_admin"              => 0,
                 "email_verified_at"     => $now,
+                "password"              => bcrypt('123'),
+                "created_at"            => $now,
+                "updated_at"            => $now,
+            ],
+            [
+                "name"                  => "User02",
+                "email"                 => "user02@gmail.com",
+                "is_admin"              => 0,
+                "email_verified_at"     => null,
                 "password"              => bcrypt('123'),
                 "created_at"            => $now,
                 "updated_at"            => $now,
@@ -40,5 +58,9 @@ class UserSeeder extends Seeder
         foreach ($chunks as $chunk) {
             User::insert($chunk);
         }
+
+        User::find(1)->assignRole(['superadmin']);
+        User::find(2)->assignRole(['supervisor']);
+        User::find(3)->assignRole(['user']);
     }
 }

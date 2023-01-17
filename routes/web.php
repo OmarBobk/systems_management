@@ -15,7 +15,10 @@ Route::name('backend.')
     ->prefix('backend')
     ->middleware(['adminAuth'])
     ->group(function () {
+
         // Backend Dashboard.
+        Route::get('dashboard', \App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
+
         Route::get('test', function() {
             dd('test');
         })->name('test');
@@ -133,15 +136,6 @@ Route::get('/testing', function (\Illuminate\Http\Request $request) {})->name('t
 //
 //})->name('home');
 
-Route::get('dashboard', function () {
-
-    if (Auth::check()) {
-        return redirect(route('backend.cashier'));
-    } else {
-        return redirect(route('login'));
-    }
-
-})->name('dashboard');
 
 // Users and Admins
 Route::group([
@@ -156,12 +150,12 @@ Route::group([
     });
 
     // Admins
-    Route::middleware('adminAuth')
-        ->name('admin.')
-        ->prefix('admin')
-        ->group(function () {
-        Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
-    });
+//    Route::middleware('adminAuth')
+//        ->name('admin.')
+//        ->prefix('admin')
+//        ->group(function () {
+//        Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
+//    });
 });
 
 //Route::fallback(function() {

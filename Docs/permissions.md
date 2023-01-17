@@ -1,0 +1,35 @@
+GNU nano 6.2                                                                                  Permissions_document.md *
+#Roles and Permissions Document
+- superadmin
+    - supervisor permissions.
+    - show_user
+    - create_user
+    - update_user
+    - delete_user
+    - show_role
+    - create_role
+    - update_role
+    - delete_role
+    - show_permission
+    - create_permission
+    - update_permission
+    - delete_permission
+- supervisor
+    - show_product
+    - create_product
+    - update_product
+    - delete_product
+    - show_category
+    - create_category
+    - update_category
+    - delete_category
+    - show_brand
+    - create_brand
+    - update_brand
+    - delete_brand
+    - show_seller
+    - create_seller
+    - update_seller
+    - delete_seller
+- user
+    - email_active
