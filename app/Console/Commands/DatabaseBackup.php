@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
 class DatabaseBackup extends Command
@@ -39,9 +40,27 @@ class DatabaseBackup extends Command
     {
 
         $file_name = Carbon::now()->format('Y-m-d_H-i-s').'.sql';
-
-        $command   = 'mysqldump --user="root" --password="" --host="'.env('APP_URL').'" "'.env('DB_DATABASE').'" > ' . storage_path()."/database_backups/$file_name";
+        $username  = env('DB_USERNAME');
+        $password  = env('DB_PASSWORD');
+        $host      = env('DB_HOST');
+        $db_name   = env('DB_DATABASE');
+        $file_path = storage_path()."/database_backups/$file_name";
+        $command   = 'mysqldump --user="'.$username.'" --password --host="'.$host.'" "'.$db_name.'" > ' . $file_path;
 
         exec($command);
+
+        $client    = new Client();
+
+        $url       = 'https://discord.com/api/webhooks/1057327329581482005/xdNpgrtaAOR4XmWWUT7V91gTK6PsPIaMpYjCmKGF8h6aIWBpxauWzh7FAcTDUE7y1fqU';
+
+        $response = $client->post($url, [
+            'multipart' => [
+                [
+                    'name' => 'file',
+                    'contents' => file_get_contents($file_path),
+                    'filename' => $file_name,
+                ]
+            ],
+        ]);
     }
 }
