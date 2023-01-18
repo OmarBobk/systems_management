@@ -39,7 +39,8 @@ class DatabaseBackup extends Command
     {
 
         $file_name = Carbon::now()->format('Y-m-d_H-i-s').'.sql';
-        $command   = 'mysqldump --user="root" --password="" --host="bobk.test" "bobk.test" > ' . storage_path()."/database_backups/$file_name";
+
+        $command   = 'mysqldump --user="root" --password="" --host="'.env('APP_URL').'" "'.env('DB_DATABASE').'" > ' . storage_path()."/database_backups/$file_name";
 
         exec($command);
     }
