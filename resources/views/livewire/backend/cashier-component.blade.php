@@ -38,7 +38,7 @@
                 <div class="form-group mb-3">
                     <div class="input-group input-group-merge input-group-alternative">
                         <input class="form-control" placeholder="Search"
-                               type="text" wire:model="searchKeyword">
+                               type="text" wire:model.debounce.500ms="searchKeyword">
                     </div>
                 </div>
             </form>

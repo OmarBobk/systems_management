@@ -12,3 +12,7 @@
 - install roles package.
 - contributions-management: Create & Set the appropriate roles & permissions
 - Contribution amount should never change, changes will be applied on fly
+
+- /backend/contributor/{id}
+  - Add a select from options so the user can choose which contribution he to see the details of.
+  - 
