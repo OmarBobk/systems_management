@@ -1,0 +1,242 @@
+<div>
+
+
+    <div class="w-full mx-auto max-w-[90%] !px-6 sm:!px-20 absolute
+        bg-white top-[55%] sm:top-[75%] left-[5%] sm:left-[6%] ">
+
+        @if(session()->has('message'))
+            <div wire:ignore class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3 !-mt-8"
+                 x-data="{ showSessionMessage: true }" x-show="showSessionMessage"
+                 x-transition:enter="transition ease-out duration-2000"
+                 x-transition:enter-start="transform opacity-0 scale-95"
+                 x-transition:enter-end="transform opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="transform opacity-100 scale-100"
+                 x-transition:leave-end="transform opacity-0 scale-95"
+                 role="alert">
+                <div class="flex">
+                    <div>
+                        <p class="text-sm alert alert-success {{session('alert')}}">{{session('message')}}</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <div class="text-left sm:text-center gap-4 sm:gap-20 !mt-12 flex">
+            <div class="flex-1 px-3 py-2 w-1/3 bg-gray-100">Records: {{$this->all_records}}</div>
+            <div class="flex-1 px-3 py-2 w-1/3 bg-gray-100">Profits: {{number_format($this->all_profits / 1000, 3)}}</div>
+            <div class="flex-1 px-3 py-2 w-1/3 bg-gray-100">Costs: {{number_format($this->all_costs / 1000, 3)}}</div>
+        </div>
+
+        <div class="mt-12 max-w-lg sm:mx-auto md:max-w-none !mb-8">
+            <div class="w-full mb-12 flex flex-wrap md:flex-nowrap gap-[.7rem] md:gap-8 justify-start md:justify-center items-center">
+
+                <div class="flex flex-auto ">
+                    <div class="relative text-gray-600 w-full ">
+                        <input class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-12 rounded-lg text-sm
+                               focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0"
+                               wire:model.debounce.500ms="searchKeyword"
+                               type="search" name="search" placeholder="Search">
+                        <button type="submit" class="absolute right-[3%] top-[34%]">
+                            <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                                 viewBox="0 0 56.966 56.966"
+                                 xml:space="preserve"
+                                 width="512px" height="512px">
+                            <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"/>
+                        </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex-auto">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            wire:model="orderByColumn">
+                        <option value="id">ID</option>
+                        <option value="name">Name</option>
+                        <option value="old">Oldest to Newest</option>
+                        <option value="new">Newest to Oldest</option>
+                    </select>
+                </div>
+
+                <div class="flex sm:flex-none flex-auto justify-end">
+
+                    @if($this->is_create_new_customer)
+                        <button class="block uppercase  shadow bg-danger  focus:shadow-outline focus:outline-none text-white text-xs !py-3 px-10 rounded"
+                                wire:click="not_create_new_customer()">
+                            Close
+                        </button>
+                    @else
+                        <button class="block uppercase  shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs !py-3 px-10 rounded"
+                                wire:click="create_new_customer()">
+                            New
+                        </button>
+                    @endif
+                </div>
+
+            </div>
+
+            {{--Create New Customer--}}
+            @if($this->is_create_new_customer)
+                <div class="md:col-span-2 mb-[2rem] mt-[-1rem]">
+                    <div class="overflow-hidden shadow sm:rounded-md">
+                        <div class="bg-white px-4 py-5 sm:p-6">
+                            <div class="grid grid-cols-6 gap-6">
+                                <div class="col-span-6 sm:col-span-3">
+                                    <input type="text" name="create_customer_name" placeholder="Name" id="name"
+                                           wire:model.lazy="create_customer_name"
+                                           wire:keydown.enter="store_new_customer"
+                                           wire:keydown.escape="not_create_new_customer"
+                                           autocomplete="given-name"
+                                           class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-12 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
+                                    @error('create_customer_name') <span class="text-red-500">{{ $message }}</span> @enderror
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-3">
+                                    <input type="text" name="create_customer_phone" placeholder="Phone"
+                                           wire:model.lazy="create_customer_phone"
+                                           wire:keydown.enter="store_new_customer"
+                                           wire:keydown.escape="not_create_new_customer"
+                                           id="phone" autocomplete="family-name"
+                                           class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-12 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
+                                    @error('create_customer_phone') <span class="text-red-500">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                            <button type="submit" wire:click="store_new_customer"
+                                    class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="overflow-x-auto">
+                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
+                    <thead>
+                    <tr class="text-center">
+                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                            ID
+                        </th>
+                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                            Name
+                        </th>
+                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                            Phone
+                        </th>
+                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    @foreach($customers as $customer)
+                        <tr>
+                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                <div class=" inline-block truncate">{{$customer->id}}</div>
+                            </td>
+                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                <div class=" inline-block truncate">
+                                    @if(isset($is_edit['name'][$customer->id]))
+                                        @if($is_edit['name'][$customer->id])
+                                            <input type="text"
+                                                   class=" w-full border-2 border-gray-300 bg-white h-10 w-40 !pl-4 rounded-lg text-sm
+                                                   focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0"
+                                                   wire:model.lazy="name.{{$customer->id}}"
+                                                   wire:keydown.enter="updateNew('{{$customer->id}}', 'name')"
+                                                   wire:keydown.escape="closeEdit('{{$customer->id}}', 'name')">
+                                        @else
+                                            <div wire:click="editNew({{$customer->id}}, 'name')">{{$customer->name}}</div>
+                                        @endif
+                                    @else
+                                        <div wire:click="editNew({{$customer->id}}, 'name')">{{$customer->name}}</div>
+                                    @endif
+
+                                    @error("name.$customer->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                                </div>
+                            </td>
+                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                                <div class=" inline-block truncate">
+                                    @if(isset($is_edit['phone'][$customer->id]))
+                                        @if($is_edit['phone'][$customer->id])
+                                            <input type="text"
+                                                   class=""
+                                                   wire:model.lazy="phone.{{$customer->id}}"
+                                                   wire:keydown.enter="updateNew('{{$customer->id}}', 'phone')"
+                                                   wire:keydown.escape="closeEdit('{{$customer->id}}', 'phone')">
+                                        @else
+                                            <div wire:click="editNew({{$customer->id}}, 'phone')">{{$customer->phone}}</div>
+                                        @endif
+                                    @else
+                                        <div wire:click="editNew({{$customer->id}}, 'phone')">{{$customer->phone}}</div>
+                                    @endif
+
+                                    @error("phone.$customer->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
+                                </div>
+                            </td>
+
+                            {{--Actions--}}
+                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap w-1/4">
+                                <div class="inline-flex items-center rounded-md shadow-sm">
+
+                                        @if(isset($is_view_customer_actions[$customer->id]))
+                                            @if($is_view_customer_actions[$customer->id])
+                                                {{-- Update --}}
+                                                <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
+                                                        rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
+                                                        wire:click="updateNew('{{$customer->id}}', '{{$edit_method_name}}')">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
+                                                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                        </svg>
+
+                                                    </span>
+                                                    <span class="hidden md:inline">Update</span>
+                                                </button>
+
+                                                {{--Close--}}
+                                                <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200
+                                                        rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
+                                                        wire:click="closeEdit('{{$customer->id}}', '{{$edit_method_name}}')">
+                                                    <span>
+                                                        <svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="hidden md:inline">Close</span>
+                                                </button>
+                                            @else
+                                                {{--Details Buttons--}}
+                                                @include('livewire.backend.invoices.view_customer_details_buttons')
+                                            @endif
+                                        @else
+                                            {{--Details Buttons--}}
+                                            @include('livewire.backend.invoices.view_customer_details_buttons')
+                                        @endif
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        {{--Invoices Table--}}
+                        @if(isset($is_view_customer_details[$customer->id]))
+                            @if($is_view_customer_details[$customer->id])
+                                <tr>
+                                    <td colspan="4" class=" text-gray-600 !px-2 sm:!px-10 py-3 border-t border-gray-100 whitespace-nowrap">
+                                        @include('livewire.backend.invoices.invoices')
+                                    </td>
+                                </tr>
+                            @endif
+                        @endif
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="!mt-8">
+                    {{$customers->links()}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

@@ -15,4 +15,15 @@
 
 - /backend/contributor/{id}
   - Add a select from options so the user can choose which contribution he to see the details of.
-  - 
+
+
+- Invoices.
+  - /backend/invoice
+    - Table of all Sales where Sale Type == Invoice
+  - /backend/invoice/{id}
+    - Table of Sale's details
+    - button to export details into pdf.
+  - invoice
+    - invoicerecord
+    - invoicerecord
+    - invoicerecord

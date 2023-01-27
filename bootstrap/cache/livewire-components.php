@@ -11,6 +11,7 @@
   'backend.debtor-powergrid' => 'App\\Http\\Livewire\\Backend\\DebtorPowergrid',
   'backend.expenses-component' => 'App\\Http\\Livewire\\Backend\\ExpensesComponent',
   'backend.income-component' => 'App\\Http\\Livewire\\Backend\\IncomeComponent',
+  'backend.invoice-component' => 'App\\Http\\Livewire\\Backend\\InvoiceComponent',
   'backend.power-grid-demo-table' => 'App\\Http\\Livewire\\Backend\\PowerGridDemoTable',
   'backend.products-component' => 'App\\Http\\Livewire\\Backend\\ProductsComponent',
   'backend.products-container-component' => 'App\\Http\\Livewire\\Backend\\ProductsContainerComponent',

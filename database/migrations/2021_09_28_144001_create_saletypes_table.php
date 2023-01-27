@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default('Default')->comment('Wholesale, Retail = Default, Invoice, Units');
             $table->text('description');
+
             $table->timestamps();
         });
     }

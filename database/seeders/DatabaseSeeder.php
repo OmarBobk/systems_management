@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             ExpenseSeeder::class,
             CartSeeder::class,
             SliderSeeder::class,
+            InvoiceSeeder::class,
         ]);
     }
 }

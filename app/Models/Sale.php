@@ -33,7 +33,7 @@ class Sale extends Model
         return $this->hasMany(Income::class)->whereType('cost');
     }
 
-    public function contribution()
+    public function contribution(): BelongsTo
     {
         return $this->belongsTo(Contribution::class);
     }

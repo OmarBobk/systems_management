@@ -16,4 +16,23 @@ class Saletype extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
+    /**
+     *
+     * @return HasMany
+     */
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    /**
+     *
+     * @return HasMany
+     */
+    public function default(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

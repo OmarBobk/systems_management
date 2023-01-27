@@ -96,6 +96,11 @@ Route::name('backend.')
             action: App\Http\Livewire\Backend\ProductsDatabaseComponent::class)
             ->name('productsdatabase');
 
+        Route::get(
+            uri: '/invoices',
+            action: App\Http\Livewire\Backend\InvoiceComponent::class)
+            ->name('invoices');
+
 
     });
 
