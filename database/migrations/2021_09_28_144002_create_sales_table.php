@@ -16,7 +16,6 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
 
-            $table->string('type')->default('retail')->comment('Wholesale|Retail|Units|Invoice|Other');
             $table->string('saleable_type');
             $table->text('description')->nullable();
 

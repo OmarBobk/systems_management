@@ -56,7 +56,7 @@
                         <th class="text-center py-2 w-20">No</th>
 {{--                        <th class="text-center py-2">Img</th>--}}
                         <th class="text-center py-2 ">Name</th>
-                        <th class="text-center py-2">Type</th>
+{{--                        <th class="text-center py-2">Type</th>--}}
                         <th class="text-center py-2">Description</th>
                         <th class="text-center py-2">Code</th>
                         <th class="text-center py-2">Amount</th>
@@ -78,35 +78,35 @@
                                 <td class="border text-center py-2">{{$product->name}}</td>
 
                                 {{--Sale Type--}}
-                                <td class="border text-center py-2">
-                                    @if(isset($is_edit['saletype'][$product->id."-".$product->pivot->id]))
-                                        @if($is_edit['saletype'][$product->id."-".$product->pivot->id])
-                                            <select class="form-control" wire:model.lazy="saletype.{{$product->id}}-{{$product->pivot->id}}"
-                                                    wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'saletype')">
-                                                <option >...</option>
-                                                @forelse($saletypes as $id => $saletype)
-                                                    <option value="{{$id}}" @if($id == $product->pivot->saletype) selected @endif>
-                                                        {{$saletype}}
-                                                    </option>
-                                                @empty
-                                                @endforelse
-                                            </select>
+{{--                                <td class="border text-center py-2">--}}
+{{--                                    @if(isset($is_edit['saletype'][$product->id."-".$product->pivot->id]))--}}
+{{--                                        @if($is_edit['saletype'][$product->id."-".$product->pivot->id])--}}
+{{--                                            <select class="form-control" wire:model.lazy="saletype.{{$product->id}}-{{$product->pivot->id}}"--}}
+{{--                                                    wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'saletype')">--}}
+{{--                                                <option >...</option>--}}
+{{--                                                @forelse($saletypes as $id => $saletype)--}}
+{{--                                                    <option value="{{$id}}" @if($id == $product->pivot->saletype) selected @endif>--}}
+{{--                                                        {{$saletype}}--}}
+{{--                                                    </option>--}}
+{{--                                                @empty--}}
+{{--                                                @endforelse--}}
+{{--                                            </select>--}}
 
-                                        @else
-                                            <div
-                                                    wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'saletype')">
-                                                {{$saletypes[$product->pivot->saletype]}}
-                                            </div>
-                                        @endif
-                                    @else
-                                        <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'saletype')">
-                                            {{$saletypes[$product->pivot->saletype]}}
-                                        </div>
-                                    @endif
+{{--                                        @else--}}
+{{--                                            <div--}}
+{{--                                                    wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'saletype')">--}}
+{{--                                                {{$saletypes[$product->pivot->saletype]}}--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    @else--}}
+{{--                                        <div--}}
+{{--                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'saletype')">--}}
+{{--                                            {{$saletypes[$product->pivot->saletype]}}--}}
+{{--                                        </div>--}}
+{{--                                    @endif--}}
 
-                                    @error("saletype.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </td>
+{{--                                    @error("saletype.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror--}}
+{{--                                </td>--}}
 
                                 {{-- Description --}}
                                 <td class="border text-center py-2 text-sm">

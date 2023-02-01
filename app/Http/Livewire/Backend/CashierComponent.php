@@ -10,7 +10,6 @@ use App\Models\Income;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SalesCounter;
-use App\Models\Saletype;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -42,8 +41,6 @@ class CashierComponent extends Component
     // Products Amount in pivot table before updating.
     public $products_amount_in_pivot;
 
-    public $saletypes;
-    public $saletype;
 
     protected array $rules = [
         'newDebtorName'  => 'required',
@@ -58,14 +55,12 @@ class CashierComponent extends Component
             'net_price'   => [],
             'net_cost'   => [],
             'description'   => [],
-            'saletype'   => [],
         ];
 
     }
 
     public function render()
     {
-        $this->saletypes = Saletype::all()->pluck('name', 'id');
         $breadcrumbs = [
             [
                 'route' => 'backend.cashier',
@@ -107,7 +102,6 @@ class CashierComponent extends Component
             'net_price'   => $product->price,
             'net_cost'    => $product->cost,
             'description' => 'Description',
-            'saletype'    => 1,
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now(),
             ]);
@@ -202,7 +196,6 @@ class CashierComponent extends Component
             $user_id         = Auth::user()->id;
             $product_id      = $product->id;
             $contribution_id = $product->contribution_id;
-            $saletype        = $product->pivot->saletype;
 
             $sales[] = [
                 'id'                => $sale_id,
@@ -210,12 +203,11 @@ class CashierComponent extends Component
                 'net_price'         => $net_price,
                 'cost'              => $cost,
                 'amount'            => $amount,
-                'type'              => 'retail',
                 'total'             => $total_price,
                 'profit'            => $profit,
                 'user_id'           => $user_id,
-                'product_id'        => $product_id,
-                'saletype_id'       => $saletype,
+                'saleable_id'       => $product_id,
+                'saleable_type'     => 'App\Models\Product',
                 'contribution_id'   => $contribution_id,
                 'created_at'        => $product->pivot->created_at,
                 'updated_at'        => $product->pivot->updated_at,
@@ -453,7 +445,6 @@ class CashierComponent extends Component
             'net_price'   => [],
             'net_cost'   => [],
             'description'   => [],
-            'saletype'   => [],
         ];
 
         $this->{$propertyName}[$product_id."-".$pivot_id]          = $product->pivot->{$propertyName};

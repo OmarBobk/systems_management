@@ -104,6 +104,11 @@ class Product extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    public function sales(): MorphMany
+    {
+        return $this->morphMany(Sale::class, 'saleable');
+    }
+
 
 
 }

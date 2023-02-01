@@ -37,7 +37,7 @@
                         <thead>
                         <tr class="bg-gray-100">
                             <th class="px-2 py-2 text-center w-20">No</th>
-                            <th class="px-2 py-2 text-center">Product Code</th>
+                            <th class="px-2 py-2 text-center">Code</th>
                             <th class="px-2 py-2 text-center">Description</th>
                             <th class="px-2 py-2 text-center">Amount</th>
                             <th class="px-2 py-2 text-center">Price</th>
@@ -53,7 +53,10 @@
                         @forelse($sales as $sale)
                             <tr>
                                 <td class="border text-center">{{$sale->id}}</td>
-                                <td class="border text-center">{{$sale->product->code}}</td>
+                                <td class="border text-center">
+                                    @if($sale->saleable instanceof App\Models\Product) {{$sale->saleable->code}} @endif
+                                    @if($sale->saleable instanceof App\Models\Invoice) {{$sale->saleable->invoicecust}} @endif
+                                </td>
                                 <td class="border px-2 py-2 text-center">{{$sale->description}}</td>
                                 <td class="border text-center">{{$sale->amount}}</td>
                                 <td class="border text-center">{{number_format($sale->net_price/1000, 3)}}</td>
