@@ -6,13 +6,17 @@ use App\Models\Invoice;
 use App\Models\Invoicecustomer;
 use App\Models\Invoicerecord;
 use App\Traits\JsonRespondController;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class InvoiceComponent extends Component
 {
     use JsonRespondController, WithPagination;
+
     public $searchKeyword = '';
     protected $queryString = [
         'searchKeyword' => ['except' => '']
@@ -20,10 +24,11 @@ class InvoiceComponent extends Component
 
     public $fields, $breadcrumbs;
     public $orderByColumn;
-    public $create_customer_name, $create_customer_phone;
+    public $create_customer_name, $create_customer_phone, $what_to_delete;
 
     // invoice
     public $create_invoice_serial;
+    public $invoices_pdf;
 
     // record
     public $create_record_name, $create_record_cost, $create_record_price, $create_record_serial;
@@ -35,25 +40,25 @@ class InvoiceComponent extends Component
     public $all_records, $all_profits, $all_costs;
 
     public $name, $phone,
-           $edit_method_name,
-           $is_view_customer_actions,
-           $is_view_customer_details_actions,
-           $is_view_customer_details,
-           $is_view_invoice_details,
-           $is_edit,
-           $is_edit_details;
+        $edit_method_name,
+        $is_view_customer_actions,
+        $is_view_customer_details_actions,
+        $is_view_customer_details,
+        $is_view_invoice_details,
+        $is_edit,
+        $is_edit_details;
 
     // Create Mode
     protected array $create_properties_rules = [
-        'create_customer_name'  => 'required',
+        'create_customer_name' => 'required',
         'create_customer_phone' => 'required|integer',
     ];
 
     // Create Mode
     protected array $create_properties_message = [
-        'create_customer_name.required'          => 'This Field is required!',
-        'create_customer_phone.required'          => 'This Field is required!',
-        'create_customer_phone.integer'        => 'This Field should be integer!',
+        'create_customer_name.required' => 'This Field is required!',
+        'create_customer_phone.required' => 'This Field is required!',
+        'create_customer_phone.integer' => 'This Field should be integer!',
     ];
 
     // Edit Mode
@@ -71,11 +76,17 @@ class InvoiceComponent extends Component
         ],
     ];
 
+    protected $rules = [
+        'create_invoice_serial' => 'required|integer'
+    ];
 
 
     public function mount()
     {
+        $this->what_to_delete = [];
+        $this->orderByColumn = 'id';
         $this->is_view_customer_actions = [0 => false];
+        $this->is_view_customer_details_actions = [0 => false];
         $this->is_edit = [
             'name' => [],
             'phone' => [],
@@ -90,8 +101,8 @@ class InvoiceComponent extends Component
         $this->is_create_new_invoice = false;
         $this->is_create_new_record = false;
 
-        $is_view_customer_details = [];
-        $is_view_invoice_details = [];
+        $this->is_view_customer_details = [0 => false];
+        $this->is_view_invoice_details = [0 => false];
 
         $this->fields = [
             'id' => 'id',
@@ -111,19 +122,26 @@ class InvoiceComponent extends Component
                 'index' => 'Invoices'
             ],
         ];
+
+        $this->reset('searchKeyword');
     }
 
     public function render()
     {
+        $dir = [
+            'old' => 'ASC',
+            'new' => 'DESC',
+        ];
+
         $all_invoicerecords = Invoicerecord::all();
-        $this->all_records  = $all_invoicerecords->count();
-        $this->all_costs    = $all_invoicerecords->sum('cost');
-        $this->all_profits  = $all_invoicerecords->sum('profits');
+        $this->all_records = $all_invoicerecords->count();
+        $this->all_costs = $all_invoicerecords->sum('cost');
+        $this->all_profits = $all_invoicerecords->sum('profits');
 
         $customers = Invoicecustomer::query()->search(
             needle: $this->searchKeyword,
             orderByColumn: ($this->orderByColumn != "") ? $this->fields[$this->orderByColumn] : 'id',
-            orderByDirection: ($this->orderByColumn == 'old') ? 'DESC' : 'ASC',
+            orderByDirection: ($this->orderByColumn == 'old' | $this->orderByColumn == 'new') ? $dir[$this->orderByColumn] : 'ASC',
         );
 
         $customers = $customers->paginate(5);
@@ -139,6 +157,7 @@ class InvoiceComponent extends Component
     public function create_new_customer()
     {
         $this->is_create_new_customer = true;
+
     }
 
     public function not_create_new_customer()
@@ -149,7 +168,9 @@ class InvoiceComponent extends Component
 
     public function create_new_invoice()
     {
+
         $this->is_create_new_invoice = true;
+        $this->is_create_new_record = false;
     }
 
     public function not_create_new_invoice()
@@ -161,6 +182,8 @@ class InvoiceComponent extends Component
     public function create_new_record()
     {
         $this->is_create_new_record = true;
+        $this->is_create_new_invoice = false;
+
     }
 
     public function not_create_new_record()
@@ -178,10 +201,10 @@ class InvoiceComponent extends Component
 
             // Create New Customer
             Invoicecustomer::create([
-                'name'          => $this->create_customer_name,
-                'phone'         => $this->create_customer_phone,
-                'created_at'    => now(),
-                'updated_at'    => now(),
+                'name' => $this->create_customer_name,
+                'phone' => $this->create_customer_phone,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
         } catch (ModelNotFoundException $e) {
@@ -205,30 +228,30 @@ class InvoiceComponent extends Component
         try {
             // Validate data
             $this->validate([
-                'create_record_name'  => 'required',
+                'create_record_name' => 'required',
                 'create_record_cost' => 'required|integer',
                 'create_record_serial' => 'required|integer',
                 'create_record_price' => 'required|integer',
             ], [
-                'create_record_name.required'          => 'This Field is required!',
-                'create_record_cost.required'          => 'This Field is required!',
-                'create_record_cost.integer'        => 'This Field should be integer!',
-                'create_record_serial.required'          => 'This Field is required!',
-                'create_record_serial.integer'        => 'This Field should be integer!',
-                'create_record_price.required'          => 'This Field is required!',
-                'create_record_price.integer'        => 'This Field should be integer!',
+                'create_record_name.required' => 'This Field is required!',
+                'create_record_cost.required' => 'This Field is required!',
+                'create_record_cost.integer' => 'This Field should be integer!',
+                'create_record_serial.required' => 'This Field is required!',
+                'create_record_serial.integer' => 'This Field should be integer!',
+                'create_record_price.required' => 'This Field is required!',
+                'create_record_price.integer' => 'This Field should be integer!',
             ]);
 
             // Create New Record
             Invoicerecord::create([
-                'name'          => $this->create_record_name,
-                'cost'          => $this->create_record_cost,
-                'price'         => $this->create_record_price,
-                'profit'        => $this->create_record_price - $this->create_record_cost,
-                'serial'        => $this->create_record_serial,
-                'invoice_id'    => $invoice->id,
-                'created_at'    => now(),
-                'updated_at'    => now(),
+                'name' => $this->create_record_name,
+                'cost' => $this->create_record_cost,
+                'price' => $this->create_record_price,
+                'profit' => $this->create_record_price - $this->create_record_cost,
+                'serial' => $this->create_record_serial,
+                'invoice_id' => $invoice->id,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
             $cost = $invoice->recordsCost();
@@ -256,36 +279,32 @@ class InvoiceComponent extends Component
 
     public function store_new_invoice(Invoicecustomer $invoicecustomer)
     {
-
         try {
             // Validate data
             $this->validate([
                 'create_invoice_serial' => 'required|integer',
             ], [
-                'create_invoice_invoice.required'          => 'This Field is required!',
-                'create_invoice_invoice.integer'           => 'This Field should be integer!',
-                ],
+                'create_invoice_invoice.required' => 'This Field is required!',
+                'create_invoice_invoice.integer' => 'This Field should be integer!',
+            ],
             );
 
             // Create New Customer
             Invoice::create([
-                'cost'                  => 0,
-                'price'                 => 0,
-                'profit'                => 0,
-                'amount'                => 0,
-                'serial'                => $this->create_invoice_serial,
-                'invoicecustomer_id'    => $invoicecustomer->id,
-                'created_at'            => now(),
-                'updated_at'            => now(),
+                'cost' => 0,
+                'price' => 0,
+                'profit' => 0,
+                'amount' => 0,
+                'serial' => $this->create_invoice_serial,
+                'invoicecustomer_id' => $invoicecustomer->id,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
         } catch (ModelNotFoundException $e) {
             return $this->respondNotFound();
         } catch (\Throwable $throwable) {
-            return $this->respondInvalidQuery([
-                'status' => false,
-                'message' => $throwable->getMessage()
-            ]);
+            dd($throwable->getMessage());
         }
 
         $this->reset('create_invoice_serial');
@@ -296,13 +315,21 @@ class InvoiceComponent extends Component
 
     public function view_customer_details($id)
     {
-        $this->is_view_customer_details = (isset($this->is_view_customer_details))
-            ? (isset($this->is_view_customer_details[$id])
-                ? (($this->is_view_customer_details[$id])
-                    ? [$id => false]
-                    : [$id => true])
-                : [$id => true])
-            : [$id => true];
+        $this->is_create_new_invoice = false;
+        $this->is_create_new_record = false;
+        if (isset($this->is_view_customer_details)) {
+            if (isset($this->is_view_customer_details[$id])) {
+                if (($this->is_view_customer_details[$id])) {
+                    $this->is_view_customer_details = [$id => false];
+                } else {
+                    $this->is_view_customer_details = [$id => true];
+                }
+            } else {
+                $this->is_view_customer_details = [$id => true];
+            }
+        } else {
+            $this->is_view_customer_details = [$id => true];
+        }
 
 
     }
@@ -311,18 +338,18 @@ class InvoiceComponent extends Component
     public function view_invoice_details($customer_id, $invoice_id)
     {
         $this->is_view_invoice_details = (isset($this->is_view_invoice_details))
-            ? (isset($this->is_view_invoice_details[$customer_id.'-'.$invoice_id])
-                ? (($this->is_view_invoice_details[$customer_id.'-'.$invoice_id])
-                    ? [$customer_id.'-'.$invoice_id => false]
-                    : [$customer_id.'-'.$invoice_id => true])
-                : [$customer_id.'-'.$invoice_id => true])
-            : [$customer_id.'-'.$invoice_id => true];
+            ? (isset($this->is_view_invoice_details[$customer_id . '-' . $invoice_id])
+                ? (($this->is_view_invoice_details[$customer_id . '-' . $invoice_id])
+                    ? [0 => false]
+                    : [$customer_id . '-' . $invoice_id => true])
+                : [$customer_id . '-' . $invoice_id => true])
+            : [$customer_id . '-' . $invoice_id => true];
     }
 
     public function editNew(Invoicecustomer $customer, $propertyName)
     {
         $this->is_edit = [
-            'name'  => [],
+            'name' => [],
             'phone' => [],
         ];
         $this->{$propertyName}[$customer->id] = $customer->{$propertyName};
@@ -357,10 +384,90 @@ class InvoiceComponent extends Component
 
     public function updated($propertyName)
     {
-        $this->validateOnly(
-            $propertyName,
-            $this->create_properties_rules,
-            $this->create_properties_message);
+        $rules = [
+            'create_invoice_serial.*' => 'required|integer',
+        ];
+
+
+        $messages = [
+            'create_invoice_invoice.*.required' => 'This Field is required!',
+            'create_invoice_invoice.*.integer' => 'This Field should be integer!',
+        ];
+
+
+//        $this->validateOnly(
+//            $propertyName,
+//            $this->create_properties_rules,
+//            $this->create_properties_message);
+
+        try {
+            $this->validateOnly(
+                $propertyName);
+        } catch (\Throwable $e) {
+            dd($e->getMessage(), $this->errorBag);
+        }
+    }
+
+    public function export_to_pdf(Invoicecustomer $invoicecustomer, Invoice $invoice)
+    {
+
+        $records = $invoice->invoicerecords;
+
+        $total = $records->sum('price');
+
+        $customer = new Buyer([
+            'serial' => $invoice->serial,
+            'date' => $invoice->updated_at->format('d M Y'),
+            'invoicerecords' => $records,
+            'total' => $total
+        ]);
+
+        $invoice = \LaravelDaily\Invoices\Invoice::make()
+            ->template('karman')
+            ->buyer($customer)
+            ->addItem((new InvoiceItem())->pricePerUnit(2));
+
+        return $invoice->stream();
+
+    }
+
+    public function what_to_delete(int $id, string $name)
+    {
+        $this->what_to_delete = [
+            'name' => $name,
+            'id' => $id,
+        ];
+        $this->emit('showModalEvent');
+    }
+
+    public function delete_item()
+    {
+        $name = $this->what_to_delete['name'];
+        $id = $this->what_to_delete['id'];
+        // Delete Invoice
+        if ($name == 'invoice') {
+            // Delete Invoice with all its records
+            $invoice = Invoice::find($id);
+            $invoice->invoicerecords()->delete();
+            $invoice->delete();
+
+            session()->flash('message', "Invoice has been Deleted Successfully.");
+            session()->flash('alert', 'danger');
+
+        }
+
+        // Delete Record
+        if ($name == 'record') {
+            // Delete record
+            $record = Invoicerecord::find($id);
+            $record->delete();
+        }
+//        $this->emit('closeModalEvent');
+    }
+
+    public function close_modal()
+    {
+        $this->emit('closeModalEvent');
     }
 
     public function hydrate()
@@ -371,6 +478,6 @@ class InvoiceComponent extends Component
 
     public function testfuck()
     {
-        dd('fuck');
+        dd($this->what_to_delete);
     }
 }

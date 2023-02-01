@@ -16,6 +16,8 @@ Route::name('backend.')
     ->middleware(['adminAuth'])
     ->group(function () {
 
+        Route::post('invoice_pdf/{invoicecustomer}/{invoice}', [\App\Http\Livewire\Backend\InvoiceComponent::class, 'export_to_pdf'])->name('invoice_pdf');
+
         // Backend Dashboard.
         Route::get('dashboard', \App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
 

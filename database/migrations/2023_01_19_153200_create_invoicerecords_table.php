@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->comment('Electric, Gaz, Water...');
 
-            $table->integer('serial');
+            $table->unsignedBigInteger('serial');
             $table->integer('cost');
             $table->integer('price')->comment('price - cost = profit');
             $table->integer('profit');

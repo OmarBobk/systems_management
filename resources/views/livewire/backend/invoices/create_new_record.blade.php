@@ -6,10 +6,10 @@
                 Name
             </th>
             <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                Cost
+                Serial
             </th>
             <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                Serial
+                Cost
             </th>
             <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
                 Price
@@ -32,17 +32,6 @@
                         @error('create_record_name') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
                 </td>
-                <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                    <div class=" truncate">
-                        <input type="number" name="create_record_cost" placeholder="Cost" id="cost"
-                               wire:model.lazy="create_record_cost"
-                               wire:keydown.enter="store_new_record({{$invoice->id}})"
-                               wire:keydown.escape="not_create_new_record"
-                               autocomplete="given-cost"
-                               class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-4 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
-                        @error('create_record_cost') <span class="text-red-500">{{ $message }}</span> @enderror
-                    </div>
-                </td>
                 <td class=" text-gray-600 px-2 py-3  border-t border-gray-100 whitespace-nowrap">
                     <div class=" truncate">
                         <input type="number" name="create_record_serial" placeholder="Serial" id="serial"
@@ -52,6 +41,17 @@
                                autocomplete="given-profit"
                                class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-4 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
                         @error('create_record_serial') <span class="text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                </td>
+                <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
+                    <div class=" truncate">
+                        <input type="number" name="create_record_cost" placeholder="Cost" id="cost"
+                               wire:model.lazy="create_record_cost"
+                               wire:keydown.enter="store_new_record({{$invoice->id}})"
+                               wire:keydown.escape="not_create_new_record"
+                               autocomplete="given-cost"
+                               class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-4 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
+                        @error('create_record_cost') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
                 </td>
                 <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">

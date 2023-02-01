@@ -239,4 +239,76 @@
             </div>
         </div>
     </div>
+    <!-- component -->
+    <style>
+        dialog[open] {
+            animation: appear .15s cubic-bezier(0, 1.8, 1, 1.8);
+        }
+
+        dialog::backdrop {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(54, 54, 54, 0.5));
+            backdrop-filter: blur(3px);
+        }
+
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateX(-3rem);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+
+    <dialog id="confirm_modal" wire:ignore class=" w-full my-[3rem] sm:w-1/4 p-5  bg-white rounded-md ">
+
+        <div class="flex flex-col w-full h-auto ">
+            <!-- Header -->
+            <div class="flex w-full h-auto justify-center items-center">
+                <div class="flex w-10/12 h-auto py-3 justify-center items-center text-2xl font-bold">
+                    Delete Confirmation
+                </div>
+                <div onclick="document.getElementById('confirm_modal').close();" class="flex w-1/12 h-auto justify-center cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </div>
+                <!--Header End-->
+            </div>
+            <!-- Modal Content-->
+            <div class="flex w-full text-2xl h-auto py-10 px-2 justify-center items-center bg-gray-200 rounded text-center text-gray-500">
+                Are You sure you want to delete this?
+            </div>
+            <!-- End of Modal Content-->
+
+            <div class="flex justify-end mt-[1rem]">
+                <button class="text-slate-800 !bg-red-500 hover:text-blue-600 text-sm hover:bg-slate-100 border border-slate-200
+                        font-medium px-4 py-2 inline-flex space-x-1 items-center"
+                        onclick="document.getElementById('confirm_modal').close();@this.delete_item()"
+                    >
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                             class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+                        </svg>
+                    </span>
+                    <span class="hidden md:inline">Delete</span>
+                </button>
+                @push('scripts')
+                    <script>
+                        window.livewire.on('showModalEvent', () => {
+                            document.getElementById('confirm_modal').showModal()
+                            console.log('show')
+                        });
+                    </script>
+                @endpush
+            </div>
+
+
+
+        </div>
+    </dialog>
 </div>  

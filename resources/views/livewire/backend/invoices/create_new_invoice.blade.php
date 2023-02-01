@@ -14,9 +14,9 @@
             <tr>
                 <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
                     <div class=" truncate">
-                        <input type="number" name="create_invoice_serial" placeholder="Serial" id="serial"
-                               wire:model.lazy="create_invoice_serial"
-                               wire:keydown.enter="store_new_invoice"
+                        <input type="text" name="create_invoice_serial" placeholder="Serial" id="serial"
+                               wire:model="create_invoice_serial"
+                               wire:keydown.enter="store_new_invoice({{$customer->id}})"
                                wire:keydown.escape="not_create_new_invoice"
                                autocomplete="given-name"
                                class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-4 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">

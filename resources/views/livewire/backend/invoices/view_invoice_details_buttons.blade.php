@@ -50,12 +50,32 @@
         </span>
         <span class="hidden md:inline">View</span>
     </button>
+
 @endif
+{{--Export Button --}}
+<form target="_blank" action="{{route('backend.invoice_pdf', [$customer->id, $invoice->id])}}" method="POST">
+    @csrf
+{{--    <input type="hidden" value="{{$customer->id}}-{{$invoice->id}}" wire:model.lazy="invoices_pdf">--}}
+
+        <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
+                border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
+                type="submit">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-slate-800">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+
+
+            </span>
+            <span class="hidden md:inline">PDF</span>
+        </button>
+</form>
 
 {{--Delete--}}
 <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200
         rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
-        wire:click="testfuck">
+        wire:click="what_to_delete({{$invoice->id}}, 'invoice')" id="btn"
+>
     <span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
              class="w-6 h-6 text-red-500">
