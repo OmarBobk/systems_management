@@ -46,6 +46,7 @@ class InvoiceComponent extends Component
         $is_view_customer_details,
         $is_view_invoice_details,
         $is_edit,
+        $editable_type,
         $is_edit_details;
 
     // Create Mode
@@ -80,6 +81,8 @@ class InvoiceComponent extends Component
         'create_invoice_serial' => 'required|integer'
     ];
 
+    public $table_data;
+
 
     public function mount()
     {
@@ -90,6 +93,10 @@ class InvoiceComponent extends Component
         $this->is_edit = [
             'name' => [],
             'phone' => [],
+        ];
+        $this->editable_type = [
+            'name' => 'text',
+            'phone' => 'tel',
         ];
         $this->is_edit_details = [
             'description' => [],
@@ -123,6 +130,16 @@ class InvoiceComponent extends Component
             ],
         ];
 
+        $this->table_data = [
+            'thead'             => [],
+            'tbody'             => [],
+            'td'                => [],
+            'details_table'     => '',
+            'buttons'           => '',
+            'is_details_table'  => false,
+            'paginate'          => false
+        ];
+
         $this->reset('searchKeyword');
     }
 
@@ -145,6 +162,20 @@ class InvoiceComponent extends Component
         );
 
         $customers = $customers->paginate(5);
+
+
+        $this->table_data['thead']              = ['ID', 'Name', 'Phone', 'Actions',];
+        $this->table_data['tbody']              = $customers;
+        $this->table_data['td']                 = [
+            'id' => false,
+            'name' => true,
+            'phone' => true,
+            'actions' => false,
+            ];
+        $this->table_data['buttons']            = 'livewire.backend.invoices.buttons';
+        $this->table_data['details_table']      = 'livewire.backend.invoices.details_table';
+        $this->table_data['is_details_table']   = true;
+        $this->table_data['paginate']           = true;
 
         return view('livewire.backend.invoices.index', [
             'customers' => $customers
@@ -346,14 +377,16 @@ class InvoiceComponent extends Component
             : [$customer_id . '-' . $invoice_id => true];
     }
 
-    public function editNew(Invoicecustomer $customer, $propertyName)
+    public function edit_field(Invoicecustomer $customer, $propertyName)
     {
         $this->is_edit = [
             'name' => [],
             'phone' => [],
         ];
         $this->{$propertyName}[$customer->id] = $customer->{$propertyName};
+
         $this->is_edit[$propertyName][$customer->id] = true;
+
         $this->is_view_customer_actions = [];
         $this->is_view_customer_actions[$customer->id] = true;
         $this->is_edit_details[$propertyName][$customer->id] = false;

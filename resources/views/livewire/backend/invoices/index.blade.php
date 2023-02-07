@@ -113,130 +113,9 @@
                 </div>
             @endif
 
-            <div class="overflow-x-auto">
-                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
-                    <thead>
-                    <tr class="text-center">
-                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                            ID
-                        </th>
-                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                            Name
-                        </th>
-                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                            Phone
-                        </th>
-                        <th class="bg-gray-50 sticky top-0 border-b border-gray-100 px-2 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs truncate">
-                            Actions
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    @foreach($customers as $customer)
-                        <tr>
-                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                <div class=" inline-block truncate">{{$customer->id}}</div>
-                            </td>
-                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                <div class=" inline-block truncate">
-                                    @if(isset($is_edit['name'][$customer->id]))
-                                        @if($is_edit['name'][$customer->id])
-                                            <input type="text"
-                                                   class=" w-full border-2 border-gray-300 bg-white h-10 w-40 !pl-4 rounded-lg text-sm
-                                                   focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0"
-                                                   wire:model.lazy="name.{{$customer->id}}"
-                                                   wire:keydown.enter="updateNew('{{$customer->id}}', 'name')"
-                                                   wire:keydown.escape="closeEdit('{{$customer->id}}', 'name')">
-                                        @else
-                                            <div wire:click="editNew({{$customer->id}}, 'name')">{{$customer->name}}</div>
-                                        @endif
-                                    @else
-                                        <div wire:click="editNew({{$customer->id}}, 'name')">{{$customer->name}}</div>
-                                    @endif
-
-                                    @error("name.$customer->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </div>
-                            </td>
-                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                <div class=" inline-block truncate">
-                                    @if(isset($is_edit['phone'][$customer->id]))
-                                        @if($is_edit['phone'][$customer->id])
-                                            <input type="text"
-                                                   class=""
-                                                   wire:model.lazy="phone.{{$customer->id}}"
-                                                   wire:keydown.enter="updateNew('{{$customer->id}}', 'phone')"
-                                                   wire:keydown.escape="closeEdit('{{$customer->id}}', 'phone')">
-                                        @else
-                                            <div wire:click="editNew({{$customer->id}}, 'phone')">{{$customer->phone}}</div>
-                                        @endif
-                                    @else
-                                        <div wire:click="editNew({{$customer->id}}, 'phone')">{{$customer->phone}}</div>
-                                    @endif
-
-                                    @error("phone.$customer->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </div>
-                            </td>
-
-                            {{--Actions--}}
-                            <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap w-1/4">
-                                <div class="inline-flex items-center rounded-md shadow-sm">
-
-                                        @if(isset($is_view_customer_actions[$customer->id]))
-                                            @if($is_view_customer_actions[$customer->id])
-                                                {{-- Update --}}
-                                                <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
-                                                        rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                                                        wire:click="updateNew('{{$customer->id}}', '{{$edit_method_name}}')">
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
-                                                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                        </svg>
-
-                                                    </span>
-                                                    <span class="hidden md:inline">Update</span>
-                                                </button>
-
-                                                {{--Close--}}
-                                                <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200
-                                                        rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                                                        wire:click="closeEdit('{{$customer->id}}', '{{$edit_method_name}}')">
-                                                    <span>
-                                                        <svg class="h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                    </span>
-                                                    <span class="hidden md:inline">Close</span>
-                                                </button>
-                                            @else
-                                                {{--Details Buttons--}}
-                                                @include('livewire.backend.invoices.view_customer_details_buttons')
-                                            @endif
-                                        @else
-                                            {{--Details Buttons--}}
-                                            @include('livewire.backend.invoices.view_customer_details_buttons')
-                                        @endif
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        {{--Invoices Table--}}
-                        @if(isset($is_view_customer_details[$customer->id]))
-                            @if($is_view_customer_details[$customer->id])
-                                <tr>
-                                    <td colspan="4" class=" text-gray-600 !px-2 sm:!px-10 py-3 border-t border-gray-100 whitespace-nowrap">
-                                        @include('livewire.backend.invoices.invoices')
-                                    </td>
-                                </tr>
-                            @endif
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
-                <div class="!mt-8">
-                    {{$customers->links()}}
-                </div>
-            </div>
+            <x-dataset :table_data="$this->table_data"
+                       :is_edit="$this->is_edit"
+                       :editable_type="$this->editable_type"></x-dataset>
         </div>
     </div>
     <!-- component -->
@@ -311,4 +190,4 @@
 
         </div>
     </dialog>
-</div>  
+</div>

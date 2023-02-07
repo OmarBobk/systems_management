@@ -1,10 +1,10 @@
 {{--View Details & Delete Buttons--}}
-@if(isset($is_view_invoice_details[$customer->id.'-'.$invoice->id]))
-    @if($is_view_invoice_details[$customer->id.'-'.$invoice->id])
+@if(isset($this->is_view_invoice_details[$item->id.'-'.$invoice->id]))
+    @if($this->is_view_invoice_details[$item->id.'-'.$invoice->id])
         {{--Close View Details Button --}}
         <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
                 rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                wire:click="view_invoice_details('{{$customer->id}}', '{{$invoice->id}}')">
+                wire:click="view_invoice_details('{{$item->id}}', '{{$invoice->id}}')">
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                          viewBox="0 0 24 24" stroke-width="1.5"
@@ -21,7 +21,7 @@
         {{--View Details Button --}}
         <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
                 rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                wire:click="view_invoice_details('{{$customer->id}}', '{{$invoice->id}}')">
+                wire:click="view_invoice_details('{{$item->id}}', '{{$invoice->id}}')">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                      viewBox="0 0 24 24" stroke-width="1.5"
@@ -38,7 +38,7 @@
     {{--View Details Button --}}
     <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
             rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
-            wire:click="view_invoice_details('{{$customer->id}}', '{{$invoice->id}}')">
+            wire:click="view_invoice_details('{{$item->id}}', '{{$invoice->id}}')">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24" stroke-width="1.5"
@@ -53,9 +53,9 @@
 
 @endif
 {{--Export Button --}}
-<form target="_blank" action="{{route('backend.invoice_pdf', [$customer->id, $invoice->id])}}" method="POST">
+<form target="_blank" action="{{route('backend.invoice_pdf', [$item->id, $invoice->id])}}" method="POST">
     @csrf
-{{--    <input type="hidden" value="{{$customer->id}}-{{$invoice->id}}" wire:model.lazy="invoices_pdf">--}}
+{{--    <input type="hidden" value="{{$item->id}}-{{$invoice->id}}" wire:model.lazy="invoices_pdf">--}}
 
         <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
                 border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"

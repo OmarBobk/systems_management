@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Backend;
 
 use App\Models\Cart;
+use App\Models\CartProduct;
 use App\Models\Contribution;
 use App\Models\Debt;
 use App\Models\Debtor;
@@ -16,14 +17,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 use function redirect;
 use function session;
 use function view;
 
 class CashierComponent extends Component
 {
+    use WithPagination;
 
-    public $searchKeyword, $result, $cart, $amount, $net_price, $description, $net_cost, $isEditAmount, $isEditPrice;
+    public  $testi;
+    public $searchKeyword = '';
+    public  $cart, $amount, $net_price, $description, $net_cost, $isEditAmount, $isEditPrice;
     public $is_checkout, $is_checkout_with_debt, $is_create_new_debtor_form, $is_checkout_with_debtor_exists;
 
     public $debtorSearchKeyword, $debtorsSearched, $is_ask_for_debts_due, $whoToAskForDebtsDueDebtorId, $due_date;
@@ -36,11 +41,13 @@ class CashierComponent extends Component
 
 
     // New Edit Proccess
-    public $edit_method_name, $is_edit, $is_view_product_actions;
+    public $edit_method_name, $is_edit,  $editable_type, $is_view_product_actions;
 
     // Products Amount in pivot table before updating.
     public $products_amount_in_pivot;
 
+
+    public $table_data;
 
     protected array $rules = [
         'newDebtorName'  => 'required',
@@ -51,11 +58,29 @@ class CashierComponent extends Component
     {
 
         $this->is_edit = [
-            'amount'   => [],
-            'net_price'   => [],
-            'net_cost'   => [],
+            'amount'        => [],
+            'net_price'     => [],
+            'net_cost'      => [],
             'description'   => [],
         ];
+
+        $this->editable_type = [
+            'amount'        => 'number',
+            'net_price'     => 'number',
+            'net_cost'      => 'number',
+            'description'   => 'textarea',
+        ];
+
+        $this->table_data = [
+            'thead'             => [],
+            'tbody'             => [],
+            'td'                => [],
+            'details_table'     => '',
+            'buttons'           => '',
+            'is_details_table'  => false,
+            'paginate'          => false
+        ];
+
 
     }
 
@@ -68,12 +93,45 @@ class CashierComponent extends Component
             ],
         ];
 
-        $this->cart = Cart::with('products')->whereId(1)->first();
+        $this->cart = Cart::whereId(1)->first();
+
         $this->is_amount_error = false;
 
-        return view('livewire.backend.cashier-component')
+        $cart_products = CartProduct::where('cart_id', 1)->get();
+
+
+        $this->table_data['thead'] = [
+            'No', 'Name', 'Description', 'Code', 'Amount', 'Price', 'Cost', 'Total Price', 'Total Profits', 'Date', 'Actions'
+        ];
+        $this->table_data['tbody'] = $cart_products;
+        $this->table_data['td'] = [
+            'id'            => false,
+            'name'          => false,
+            'description'   => true,
+            'code'          => false,
+            'amount'        => true,
+            'net_price'     => true,
+            'net_cost'      => false,
+            'total_price'   => false,
+            'total_profits' => false,
+            'date'          => false,
+            'actions'       => false,
+            ];
+        $this->table_data['buttons']            = 'livewire.backend.cashier.buttons';
+        $this->table_data['details_table']      = '';
+        $this->table_data['is_details_table']   = false;
+        $this->table_data['paginate']           = false;
+
+        return view('livewire.backend.cashier-component', [
+            'result' => Product::where('amount', '>=', 1)
+                ->search(
+                    $this->searchKeyword,
+                    'id',
+                )->paginate(5),
+        ])
             ->layout('layouts.user', [
                 'breadcrumbs' => $breadcrumbs,
+
             ]);
     }
 
@@ -82,12 +140,9 @@ class CashierComponent extends Component
      */
     public function updatedSearchKeyword()
     {
-        $this->result = Product::where('amount', '>=', 1)
-            ->search(
-                $this->searchKeyword,
-                'id',
-            )
-            ->get();
+
+        $this->resetPage();
+
     }
 
     /**
@@ -99,6 +154,8 @@ class CashierComponent extends Component
         $product->decrement('amount', 1);
 
         $this->cart->products()->attach($product->id, ['amount' => 1,
+            'code'        => $product->code,
+            'name'        => $product->name,
             'net_price'   => $product->price,
             'net_cost'    => $product->cost,
             'description' => 'Description',
@@ -106,7 +163,7 @@ class CashierComponent extends Component
             'updated_at'  => Carbon::now(),
             ]);
 
-        if($product->amount < 1 ) $this->result = [];
+//        if($product->amount < 1 ) $this->result->forget($product->id);
     }
 
     /**
@@ -136,8 +193,10 @@ class CashierComponent extends Component
         $products->updateExistingPivot($product->id, ['amount' => $product->pivot->amount + 1]);
     }
 
-    public function removeItemFromCart($product_id, $pivot_id)
+    public function removeItemFromCart(CartProduct $cartProduct)
     {
+        $product_id = $cartProduct->product_id;
+        $pivot_id   = $cartProduct->id;
         $products = $this->cart->products();
         $product  = $products->whereProductId($product_id)->wherePivot('id', $pivot_id);
 
@@ -433,12 +492,11 @@ class CashierComponent extends Component
     }
 
 
-    public function editNew($product_id, $pivot_id, $propertyName)
+    public function edit_field(CartProduct $product, $propertyName)
     {
-        $this->products_amount_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first()->pivot->amount;
 
-        // Product with pivot table.
-        $product = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
+        $this->testi = $product->id;
+        $this->products_amount_in_pivot = $product->amount;
 
         $this->is_edit = [
             'amount'   => [],
@@ -447,46 +505,48 @@ class CashierComponent extends Component
             'description'   => [],
         ];
 
-        $this->{$propertyName}[$product_id."-".$pivot_id]          = $product->pivot->{$propertyName};
-        $this->is_edit[$propertyName][$product_id."-".$pivot_id]   = true;
+        $this->{$propertyName}[$product->id]          = $product->{$propertyName};
+        $this->is_edit[$propertyName][$product->id]   = true;
         $this->is_view_product_actions                = [];
-        $this->is_view_product_actions[$product_id."-".$pivot_id]  = true;
+        $this->is_view_product_actions[$product->id]  = true;
         $this->edit_method_name                       = $propertyName;
     }
-    public function updateNew($product_id, $pivot_id, $propertyName)
+    public function updateNew($product_id, $propertyName)
     {
 
+        $this->testi = $this->{$propertyName}[$product_id];
         // Product with pivot table.
         $products = $this->cart->products();
-        $product = $products->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
 
         // Updating the amount in the cart_product table (pivot)
         // Not the amount in the products table.
-        $products->updateExistingPivot($product_id, [$propertyName => $this->{$propertyName}[$product_id.'-'.$pivot_id]]);
+        CartProduct::find($product_id)->update([$propertyName => $this->{$propertyName}[$product_id]]);
+//        $products->updateExistingPivot($product_id, [$propertyName => $this->{$propertyName}[$product_id]]);
 
-        $this->closeEdit($product_id, $pivot_id, $propertyName);
+        $this->closeEdit($product_id, $propertyName);
     }
-    public function closeEdit($product_id, $pivot_id, $propertyName)
+    public function closeEdit($product_id, $propertyName)
     {
-        $this->is_edit[$propertyName][$product_id.'-'.$pivot_id]  = false;
-        $this->is_view_product_actions[$product_id.'-'.$pivot_id] = false;
+        $this->is_edit[$propertyName][$product_id]  = false;
+        $this->is_view_product_actions[$product_id] = false;
 
-        if ( $propertyName === 'amount') $this->updateProductsAmountInTheStock($product_id, $pivot_id);
+        if ( $propertyName === 'amount') $this->updateProductsAmountInTheStock($product_id);
     }
 
-    public function updateProductsAmountInTheStock($product_id, $pivot_id)
+    public function updateProductsAmountInTheStock($id)
     {
+        $cartProduct = CartProduct::find($id);
         // Product need to be updated.
-        $product_in_stock = Product::find($product_id);
+        $product_in_stock = Product::find($cartProduct->product_id);
 
         // Product in pivot table.
-        $product_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first();
+        $product_in_pivot = $cartProduct;
 
         // Old Amount In the Pivot.
         $old_pivot_amount = $this->products_amount_in_pivot;
 
         // New Amount In the Pivot.
-        $new_pivot_amount = $product_in_pivot->pivot->amount;
+        $new_pivot_amount = $product_in_pivot->amount;
 
         if ($old_pivot_amount != null) {
             if($new_pivot_amount > $old_pivot_amount) {
@@ -507,10 +567,11 @@ class CashierComponent extends Component
 
     public function updatingAmount($value, $index)
     {
-        $product_id = explode('-', $index)[0];
-        $pivot_id   = explode('-', $index)[1];
+//        dd($value, $index);
+//        $product_id = explode('-', $index)[0];
+//        $pivot_id   = explode('-', $index)[1];
 
-        $this->products_amount_in_pivot = $this->cart->products()->whereProductId($product_id)->wherePivot('id', $pivot_id)->first()->pivot->amount;
+        $this->products_amount_in_pivot = CartProduct::find($index)->amount;
     }
 
 }

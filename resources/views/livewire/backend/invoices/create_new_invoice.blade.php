@@ -16,7 +16,7 @@
                     <div class=" truncate">
                         <input type="text" name="create_invoice_serial" placeholder="Serial" id="serial"
                                wire:model="create_invoice_serial"
-                               wire:keydown.enter="store_new_invoice({{$customer->id}})"
+                               wire:keydown.enter="store_new_invoice({{$item->id}})"
                                wire:keydown.escape="not_create_new_invoice"
                                autocomplete="given-name"
                                class=" w-full border-2 border-gray-300 bg-white h-10 !pl-4 !pr-4 rounded-lg text-sm focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0">
@@ -28,7 +28,7 @@
                     <div class="inline-flex items-center rounded-md shadow-sm">
                         <button class="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border-y border-l
                             rounded-l-lg border-slate-200 font-medium px-4 py-2 inline-flex space-x-1 items-center"
-                                wire:click="store_new_invoice({{$customer->id}})">
+                                wire:click="store_new_invoice({{$item->id}})">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

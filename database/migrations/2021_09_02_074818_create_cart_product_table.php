@@ -15,6 +15,9 @@ class CreateCartProductTable extends Migration
     {
         Schema::create('cart_product', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code');
+
             $table->integer('amount');
             $table->integer('net_price');
             $table->integer('net_cost');

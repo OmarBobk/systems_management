@@ -27,3 +27,10 @@
     - invoicerecord
     - invoicerecord
     - invoicerecord
+- 
+- 
+- 
+- 
+- 
+- When deleting invoicerecord need to update the invoice.
+- Database backup bug

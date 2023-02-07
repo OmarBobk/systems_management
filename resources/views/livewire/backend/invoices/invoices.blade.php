@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody class="text-center">
-        @foreach($customer->invoices as $invoice)
+        @foreach($item->invoices as $invoice)
             <tr>
                 <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
                     <div class=" inline-block truncate">{{$invoice->serial}}</div>
@@ -49,8 +49,8 @@
                 </td>
             </tr>
         {{--Records Table--}}
-        @if(isset($is_view_invoice_details[$customer->id.'-'.$invoice->id]))
-            @if($is_view_invoice_details[$customer->id.'-'.$invoice->id])
+        @if(isset($this->is_view_invoice_details[$item->id.'-'.$invoice->id]))
+            @if($this->is_view_invoice_details[$item->id.'-'.$invoice->id])
                 <tr>
                     <td colspan="6" class=" text-gray-600 !px-2 sm:!px-10 py-3 border-t border-gray-100 whitespace-nowrap">
                         @include('livewire.backend.invoices.records')
