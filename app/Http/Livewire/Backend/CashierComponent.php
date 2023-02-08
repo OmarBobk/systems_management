@@ -97,7 +97,7 @@ class CashierComponent extends Component
 
         $this->is_amount_error = false;
 
-        $cart_products = CartProduct::where('cart_id', 1)->get();
+        $cart_products = CartProduct::where('cart_id', 1)->orderBy('created_at', 'DESC')->get();
 
 
         $this->table_data['thead'] = [

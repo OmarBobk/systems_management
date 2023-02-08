@@ -17,7 +17,7 @@
 
 
     {{--Start Main Table--}}
-    <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
+    <table class="border-collapse lg:table-fixed md:table-auto sm:table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
         {{--Start Table Header--}}
         <thead>
         <tr class="text-center">
@@ -41,8 +41,8 @@
 
                                 @if(isset($is_edit[$property][$item->id]))
                                     @if( $is_edit[$property][$item->id] )
-                                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                            <div class=" inline-block truncate">
+                                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 ">
+                                            <div class=" ">
                                                 @if($editable_type[$property] != 'textarea')
                                                     <input type="{{$editable_type[$property]}}"
                                                            class=" w-full border-2 border-gray-300 bg-white h-10 w-40 !pl-4 rounded-lg text-sm
@@ -52,9 +52,8 @@
                                                            wire:keydown.escape="closeEdit('{{$item->id}}', '{{ $property }}')">
                                                 @else
                                                     <textarea
-                                                            cols="5"
-                                                            rows="5"
-                                                            class=" w-full border-2 border-gray-300 bg-white h-10 w-40 !pl-4 rounded-lg text-sm
+                                                            rows="10"
+                                                            class=" w-full border-2 border-gray-300 bg-white !pl-4 rounded-lg text-sm
                                                                focus:outline-none focus:border-2 focus:border-gray-500 focus:ring-[none] focus:ring-0"
                                                             wire:model.lazy="{{ $property }}.{{ $item->id  }}"></textarea>
                                                 @endif
@@ -63,29 +62,29 @@
                                         </td>
                                     @else
                                         {{--Editable but !is_edit--}}
-                                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap"
+                                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 "
                                             wire:click="edit_field({{ $item->id }}, '{{ $property }}')">
-                                            <div class=" inline-block truncate">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                            <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                         </td>
                                     @endif
                                 @else
                                     {{--Editable but !is_edit--}}
-                                    <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap"
+                                    <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 "
                                         wire:click="edit_field({{ $item->id }}, '{{ $property }}')">
-                                        <div class=" inline-block truncate">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                        <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                     </td>
                                 @endif
                             @else
                                 {{--Not Editable--}}
-                                <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                    <div class=" inline-block truncate">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 ">
+                                    <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                 </td>
                             @endif
                         @endif
                     @endforeach
 
                         {{--Actions--}}
-                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap ">
+                        <td class=" text-gray-600 px-2 py-3 border-t border-gray-100  ">
                             @include($table_data['buttons'])
                         </td>
 
