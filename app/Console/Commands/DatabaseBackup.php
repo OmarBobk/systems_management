@@ -45,7 +45,7 @@ class DatabaseBackup extends Command
         $host      = env('DB_HOST');
         $db_name   = env('DB_DATABASE');
         $file_path = storage_path()."/database_backups/$file_name";
-        $command   = 'mysqldump --user="'.$username.'" --password --host="'.$host.'" "'.$db_name.'" > ' . $file_path;
+        $command   = 'mysqldump --user="'.$username.'" --password="'.$password.'" --host="'.$host.'" "'.$db_name.'" > ' . $file_path;
 
         exec($command);
 
