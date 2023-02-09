@@ -17,7 +17,7 @@
 
 
     {{--Start Main Table--}}
-    <table class="border-collapse lg:table-fixed md:table-auto sm:table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
+    <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative border">
         {{--Start Table Header--}}
         <thead>
         <tr class="text-center">
@@ -42,7 +42,7 @@
                                 @if(isset($is_edit[$property][$item->id]))
                                     @if( $is_edit[$property][$item->id] )
                                         <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 ">
-                                            <div class=" ">
+                                            <div class=" break-words mx-auto max-w-[10rem] ">
                                                 @if($editable_type[$property] != 'textarea')
                                                     <input type="{{$editable_type[$property]}}"
                                                            class=" w-full border-2 border-gray-300 bg-white h-10 w-40 !pl-4 rounded-lg text-sm
@@ -64,20 +64,20 @@
                                         {{--Editable but !is_edit--}}
                                         <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 "
                                             wire:click="edit_field({{ $item->id }}, '{{ $property }}')">
-                                            <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                            <div class=" break-words mx-auto max-w-[10rem] ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                         </td>
                                     @endif
                                 @else
                                     {{--Editable but !is_edit--}}
                                     <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 "
                                         wire:click="edit_field({{ $item->id }}, '{{ $property }}')">
-                                        <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                        <div class=" break-words mx-auto max-w-[10rem] ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                     </td>
                                 @endif
                             @else
                                 {{--Not Editable--}}
                                 <td class=" text-gray-600 px-2 py-3 border-t border-gray-100 ">
-                                    <div class=" ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
+                                    <div class=" break-words mx-auto max-w-[10rem] ">{{ (isset($editable_type[$property]) ? ($editable_type[$property] == 'number' && $property != 'amount') ? number_format($item->{$property}/1000, 3) : $item->{$property} : $item->{$property}) }}</div>
                                 </td>
                             @endif
                         @endif
