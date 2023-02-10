@@ -54,6 +54,19 @@ class CashierComponent extends Component
         'newDebtorPhone' => 'required',
     ];
 
+    public $start_from = '';
+    public $end_at = '';
+
+    protected $queryString = [
+        'start_from' => ['except' => ''],
+        'end_at'     => ['except' => ''],
+    ];
+
+    public $menu_data =[];
+//    public $pagination = 5;
+//    public $selling_type = 'All';
+    public $order_by = 'Date';
+
     public function mount()
     {
 
@@ -93,11 +106,33 @@ class CashierComponent extends Component
             ],
         ];
 
+        $this->menu_data = [
+//            'pagination'   => ['All', 5, 10, 15],
+//            'selling_type' => ['All', 'Kontor', 'Invoice', 'Products'],
+            'order_by' => ['Date', 'ID', 'Name', 'Price'],
+        ];
+
+        $ordering = [
+            'Date' => 'created_at',
+            'Price' => 'net_price',
+            'ID' => 'id',
+            'Name' => 'name',
+        ];
+
         $this->cart = Cart::whereId(1)->first();
 
         $this->is_amount_error = false;
 
-        $cart_products = CartProduct::where('cart_id', 1)->orderBy('created_at', 'DESC')->get();
+        $cart_products = CartProduct::where('cart_id', 1)
+            ->whereBetween('created_at', [
+                $this->start_from ==''?'1900-01-01':date('Y-m-d H:i:s', strtotime($this->start_from)),
+                $this->end_at == '' ? '2322-02-11':date('Y-m-d H:i:s', strtotime($this->end_at))
+            ])
+            ->orderBy(
+                $ordering[$this->order_by],
+                'DESC'
+            )
+            ->get();
 
 
         $this->table_data['thead'] = [

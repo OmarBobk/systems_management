@@ -1,6 +1,6 @@
 <div>
     <div class="container-fluid mt--6">
-        <div class="bg-white card overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        <div class="bg-white card shadow-xl sm:rounded-lg px-4 py-4">
 
             @if(session()->has('message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
@@ -47,6 +47,14 @@
             @if($searchKeyword != '' or $searchKeyword != null)
                 @include('livewire.backend.search.result-component', $result)
             @endif
+
+                <div class=" mx-[1rem] mt-[1rem] p-[1rem] bg-gray-50 flex flex-col sm:flex-row gap-[1rem] ">
+                    <x-data-filter :datepicker="true"
+                                   :menu_data="$this->menu_data"
+                    ></x-data-filter>
+
+
+                </div>
 
             {{--Card--}}
             <div class="px-[15px] mt-[1rem]">

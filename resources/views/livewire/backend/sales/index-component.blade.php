@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                @include('livewire.backend.sales.datepicker')
+                <x-datepicker></x-datepicker>
 
                 <div>
                     <table class="table-fixed w-full">
@@ -55,7 +55,7 @@
                                 <td class="border text-center">{{$sale->id}}</td>
                                 <td class="border text-center">
                                     @if($sale->saleable instanceof App\Models\Product) {{$sale->saleable->code}} @endif
-                                    @if($sale->saleable instanceof App\Models\Invoice) {{$sale->saleable->invoicecust}} @endif
+                                    @if($sale->saleable instanceof App\Models\Invoice) {{$sale->saleable->invoicecustomer}} @endif
                                 </td>
                                 <td class="border px-2 py-2 text-center">{{$sale->description}}</td>
                                 <td class="border text-center">{{$sale->amount}}</td>
