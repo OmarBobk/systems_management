@@ -1,5 +1,5 @@
 <div>
-    <div class="py-12">
+    <div class="py-12 px-[2rem]">
         <div class="bg-white shadow-xl sm:rounded-lg px-4 py-4">
             @if(session()->has('message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
@@ -30,7 +30,13 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <x-datepicker></x-datepicker>
+
+                <div class=" mb-[1rem] mt-[1rem] p-[1rem] bg-gray-50 flex flex-col sm:flex-row gap-[1rem] ">
+                    <x-data-filter :datepicker="true"
+                                   :menu_data="$this->menu_data"
+                    ></x-data-filter>
+                </div>
+{{--                <x-datepicker></x-datepicker>--}}
 
                 <div>
                     <table class="table-fixed w-full">
@@ -74,7 +80,9 @@
 
                         </tbody>
                     </table>
-                    {{--                    {{$sales->links()}}--}}
+                    <div class="mt-[1rem]">
+                        {{$sales->links()}}
+                    </div>
                 </div>
 
         </div>

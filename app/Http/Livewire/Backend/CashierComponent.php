@@ -113,7 +113,7 @@ class CashierComponent extends Component
         ];
 
         $ordering = [
-            'Date' => 'created_at',
+            'Date' => 'updated_at',
             'Price' => 'net_price',
             'ID' => 'id',
             'Name' => 'name',
@@ -124,7 +124,7 @@ class CashierComponent extends Component
         $this->is_amount_error = false;
 
         $cart_products = CartProduct::where('cart_id', 1)
-            ->whereBetween('created_at', [
+            ->whereBetween('updated_at', [
                 $this->start_from ==''?'1900-01-01':date('Y-m-d H:i:s', strtotime($this->start_from)),
                 $this->end_at == '' ? '2322-02-11':date('Y-m-d H:i:s', strtotime($this->end_at))
             ])

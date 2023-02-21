@@ -19,11 +19,6 @@ class Sale extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function saletype(): BelongsTo
-    {
-        return $this->belongsTo(Saletype::class);
-    }
-
     public function profits(): HasMany
     {
         return $this->hasMany(Income::class)->whereType('profit');
