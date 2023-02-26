@@ -196,8 +196,10 @@
                 @push('scripts')
                     <script>
                         window.livewire.on('showModalEvent', () => {
+
                             document.getElementById('confirm_modal').showModal()
                             console.log('show')
+
                         });
                     </script>
                 @endpush

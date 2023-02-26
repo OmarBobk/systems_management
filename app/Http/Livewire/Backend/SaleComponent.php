@@ -51,7 +51,7 @@ class SaleComponent extends Component
     {
 
         $this->menu_data = [
-            'pagination'   => ['All', 5, 10, 15],
+            'pagination'   => ['All', 5, 10, 15, 50, 100],
             'selling_type' => ['All', 'Kontor', 'Invoice', 'Products'],
             'order_by' => ['Date', 'ID', 'Profit', 'Price'],
         ];
@@ -77,7 +77,7 @@ class SaleComponent extends Component
                 'DESC'
             );
 
-        foreach($sales as $sale) {
+        foreach($sales->get() as $sale) {
             $this->all_profits += $sale->profit;
             $this->all_amounts += $sale->amount;
             $this->all_costs   += $sale->cost * $sale->amount;
