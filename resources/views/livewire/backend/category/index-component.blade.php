@@ -13,7 +13,7 @@
             @endif
             <button class="btn btn-primary my-4"
                     wire:click="create">
-                New Product
+                New Category
             </button>
 
             @if($isModalOpen)

@@ -221,6 +221,21 @@
     - 66- Type-c to Type-c Cable:
         - Serial => 8580009521066.
         - Code => ORG-TCTOTC
+    - 67- T800 Ultra SmartWatch:
+        - Serial => 8580009521067.
+        - Code => T800-ULTRA
+    - 68- Y80:
+        - Serial => 8580009521068.
+        - Code => Y80
+    - 69- KTS-1057:
+        - Serial => 8580009521069.
+        - Code => KTS-1057
+    - 70- Earbud hang case:
+        - Serial => 8580009521070.
+        - Code => EARBUD-CASE
+    - 71- Privacy Screen Protector:
+        - Serial => 8580009521071.
+        - Code => 13-14-PRO
 
 
 
