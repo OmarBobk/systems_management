@@ -2,10 +2,7 @@
 
 - Version 1.0 Will be online on 19/01/2023
 
-- New Design.
-  - Tailwind Courses.
-    - Beginners: 340 min = 5.6 hr
-    - Design Dashboard.
+
 - Sections.
 
 - Test the money Path with fake data.
@@ -17,20 +14,23 @@
   - Add a select from options so the user can choose which contribution he to see the details of.
 
 
-- Invoices.
-  - /backend/invoice
-    - Table of all Sales where Sale Type == Invoice
-  - /backend/invoice/{id}
-    - Table of Sale's details
-    - button to export details into pdf.
-  - invoice
-    - invoicerecord
-    - invoicerecord
-    - invoicerecord
-- 
-- 
-- 
-- 
-- 
-- When deleting invoicerecord need to update the invoice.
-- Database backup bug
+- Invoices Manager.
+  - Model Structure:
+    - Invoicecustomer
+      - Invoice
+        - Invoicerecord
+        - Invoicerecord
+  - Bugs:
+    - When deleting invoicerecord need to update the invoice.
+    - Search field should be able to search by: invoicecustomer:name, invoice:serial, invoicerecord:serial 
+
+
+- Contributions Manager.
+- Cashier
+- Stock
+- Debt Manager
+- Bills + Product Containers Manager.
+- Incomes
+
+
+
