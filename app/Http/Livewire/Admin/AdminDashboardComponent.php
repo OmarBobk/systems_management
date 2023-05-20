@@ -25,7 +25,7 @@ class AdminDashboardComponent extends Component
         $dates =[];
         foreach ($data as $obj) {
             $vals[] = number_format($obj->total / 1000 , 3);
-            $dates[] = $obj->new_date;
+            $dates[] = $obj->month;
         }
 
 
