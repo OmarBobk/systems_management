@@ -20,7 +20,7 @@ class AdminDashboardComponent extends Component
         ];
 
         $chart = new MonthlyProfitsChart;
-        $data = DB::table('sales')->select(DB::raw('sum(profit) as total'), DB::raw('date_format(created_at, "%m-%d") new_date'))->groupBy('new_date')->get();
+        $data = DB::table('sales')->select(DB::raw('sum(profit) as total'), DB::raw('MONTH(created_at) month'))->groupBy('month')->get();
         $vals = [];
         $dates =[];
         foreach ($data as $obj) {
