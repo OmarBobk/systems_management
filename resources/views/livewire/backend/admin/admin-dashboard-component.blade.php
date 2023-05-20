@@ -10,7 +10,7 @@
 
     <div class="container grid grid-cols-3 mt-24">
     @foreach($all_charts as $ch)
-
+{{--        omar--}}
             <div>
                 {!! $ch[0]->container() !!}
             </div>
