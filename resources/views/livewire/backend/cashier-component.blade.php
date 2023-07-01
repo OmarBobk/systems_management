@@ -12,6 +12,14 @@
                     </div>
                 </div>
             @endif
+                <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                     role="alert">
+                    <div class="flex">
+                        <div>
+                            <p class="text-sm alert alert-danger">Sana Karman is Amazing</p>
+                        </div>
+                    </div>
+                </div>
 
             @if(session()->has('sales_message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
