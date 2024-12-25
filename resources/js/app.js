@@ -1,7 +1,8 @@
 import './bootstrap';
 
 import Alpine from 'alpinejs';
-// import ApexCharts from 'apexcharts'
+// import Chart from 'chart.js/auto';
+import Chart from 'chart.js';
 
 window.Alpine = Alpine;
 

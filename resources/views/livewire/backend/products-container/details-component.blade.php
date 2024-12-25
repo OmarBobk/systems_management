@@ -19,14 +19,31 @@
 
                 @if(isset($is_edit_details['description'][$id]))
                     @if($is_edit_details['description'][$id])
+                        {{dd($description)}}
                         <textarea class="form-control"
                                   wire:model.lazy="description.{{$id}}"
                                   wire:keydown.escape="closeEdit('{{$id}}', 'description')"></textarea>
+
                     @else
-                        <div wire:click="editDetails({{$id}}, 'description')">{{$product['description']}}</div>
+                        <div wire:click="editDetails({{$id}}, 'description')">
+                            <ul class="list-group">
+                                @forelse($product['description'] as $k => $v)
+                                    <li class="list-group-item !py-[3px]">{{$k . '- '. $v}}</li>
+                                @empty
+                                @endforelse
+                            </ul>
+                        </div>
                     @endif
                 @else
-                    <div wire:click="editDetails({{$id}}, 'description')">{{$product['description']}}</div>
+                    <div wire:click="editDetails({{$id}}, 'description')">
+                        <ul class="list-group">
+                            @forelse($product['description'] as $k => $v)
+                                <li class="list-group-item !py-[3px]">{{$k . '- '. $v}}</li>
+                            @empty
+                            @endforelse
+                        </ul>
+
+                    </div>
                 @endif
 
                 @error("description.$id") <h1 class="alert-danger">{{$message}}</h1> @enderror

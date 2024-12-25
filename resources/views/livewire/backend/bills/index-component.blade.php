@@ -17,7 +17,7 @@
             </button>
 
             @if($isCreateComponentOpen)
-                @include('livewire.bills.create-component')
+                @include('livewire.backend.bills.create-component')
             @endif
 
             <table class="table-fixed w-full">

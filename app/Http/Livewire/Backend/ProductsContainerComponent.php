@@ -22,6 +22,12 @@ class ProductsContainerComponent extends Component
 {
     use WithPagination;
 
+    /*
+     * [line_number => 'description line',]
+     * */
+    public $description_array;
+    public $description_line_create;
+
     // Edit & Create Product.
     public $name, $price, $cost, $serial, $category_id, $bill_id, $amount,
         $code, $contribution_id, $description, $brand_id, $edit_method_name,
@@ -41,7 +47,7 @@ class ProductsContainerComponent extends Component
 
     public $container;
 
-    public $name_create, $code_create, $serial_create, $cost_create, $description_create,
+    public $name_create, $code_create, $serial_create, $cost_create,
         $price_create, $amount_create, $brand_id_create, $category_id_create;
 
     public $brands_create;
@@ -66,7 +72,6 @@ class ProductsContainerComponent extends Component
         'serial_create'      => ['serial_create.*' => 'required|integer'],
         'category_id_create' => ['category_id_create.*' => 'required|integer'],
         'brand_id_create'    => ['brand_id_create.*' => 'required|integer'],
-        'description_create' => ['description_create.*' => 'required'],
     ];
 
     // Edit Mode
@@ -99,7 +104,6 @@ class ProductsContainerComponent extends Component
             'brand_id_create.*.required' => 'This Field is required!',
             'brand_id_create.*.integer' => 'Please Choose an other value.'
         ],
-        'description_create' => ['description_create.*.required' => 'This Field is required!'],
     ];
 
     // Create Mode
@@ -112,7 +116,6 @@ class ProductsContainerComponent extends Component
         'serial_create' => 'required|integer',
         'category_id_create' => 'required|integer',
         'brand_id_create' => 'required|integer',
-        'description_create' => 'required',
     ];
 
     // Create Mode
@@ -133,7 +136,6 @@ class ProductsContainerComponent extends Component
         'category_id_create.integer'    => 'Please Choose an other value.',
         'brand_id_create.required'      => 'This Field is required!',
         'brand_id_create.integer'       => 'Please Choose an other value.',
-        'description_create.required'   => 'This Field is required!',
     ];
 
     public function mount(ProductsContainer $productsContainer)
@@ -163,6 +165,9 @@ class ProductsContainerComponent extends Component
             'contribution_id' => [],
             'updated_at' => [],
         ];
+        $this->description_array = [];
+        $this->description_line_create = '';
+
 
     }
 
@@ -235,7 +240,6 @@ class ProductsContainerComponent extends Component
                 ],
             'category_id_create' => 'required|integer',
             'brand_id_create' => 'required|integer',
-            'description_create' => 'required',
         ], [
             'name_create.required'          => 'This Field is required!',
             'code_create.required'          => 'This Field is required!',
@@ -252,7 +256,6 @@ class ProductsContainerComponent extends Component
             'category_id_create.integer'    => 'Please Choose an other value.',
             'brand_id_create.required'      => 'This Field is required!',
             'brand_id_create.integer'       => 'Please Choose an other value.',
-            'description_create.required'   => 'This Field is required!',
         ]);
 
         $id = (!empty($data)) ? array_key_last($data) + 1 : (Product::latest('id')->first()?->id | 1) + 1;
@@ -260,7 +263,7 @@ class ProductsContainerComponent extends Component
         $data[$id] = [
             'id'                => $id,
             'name'              => $this->name_create,
-            'description'       => $this->description_create,
+            'description'       => $this->description_array,
             'code'              => $this->code_create,
             'amount'            => $this->amount_create,
             'cost'              => $this->cost_create,
@@ -273,6 +276,8 @@ class ProductsContainerComponent extends Component
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now(),
         ];
+
+//        dd($data);
 
         $flash_message = '';
 
@@ -319,7 +324,8 @@ class ProductsContainerComponent extends Component
             'code_create',
             'serial_create',
             'cost_create',
-            'description_create',
+            'description_line_create',
+            'description_array',
             'price_create',
             'amount_create',
             'brand_id_create',
@@ -327,6 +333,7 @@ class ProductsContainerComponent extends Component
         ];
 
         $this->reset(...$create_fields);
+        $this->description_array =[];
     }
 
     public function hydrate()
@@ -479,7 +486,7 @@ class ProductsContainerComponent extends Component
 
     public function updated($propertyName)
     {
-        if ($propertyName == 'search') return;
+        if ($propertyName == 'search' or $propertyName == 'description_line_create') return;
         $name = explode('.', $propertyName)[0];
         $data = json_decode($this->container->container, true);
         $id   = ($this->updateMode) ? explode('.', $propertyName)[1] : 0;
@@ -581,9 +588,6 @@ class ProductsContainerComponent extends Component
                 'brand_id_create' => [
                     'brand_id_create' => 'required|integer',
                 ],
-                'description_create' => [
-                    'description_create' => 'required',
-                ],
 
             ][$propertyName], [
                 'name_create' => [
@@ -618,9 +622,6 @@ class ProductsContainerComponent extends Component
                 'brand_id_create' => [
                     'brand_id_create.required'      => 'This Field is required!',
                     'brand_id_create.integer'       => 'Please Choose an other value.',
-                ],
-                'description_create' => [
-                    'description_create.required'   => 'This Field is required!',
                 ],
             ][$propertyName]);
         }
@@ -680,7 +681,7 @@ class ProductsContainerComponent extends Component
                         session()->flash('alert' , 'danger');
                         return;
                     }
-                    $products[] = [
+                    Product::create([
                         'id'              => $id,
                         'name'            => $product['name'],
                         'description'     => $product['description'],
@@ -698,14 +699,14 @@ class ProductsContainerComponent extends Component
                         'slug'            => Str::slug($product['name']),
                         'created_at'      => Carbon::now(),
                         'updated_at'      => Carbon::now()
-                    ];
+                    ]);
                 }
 
-                $chunks = array_chunk($products, 50);
-
-                foreach ($chunks as $chunk) {
-                    Product::insert($chunk);
-                }
+//                $chunks = array_chunk($products, 50);
+//
+//                foreach ($chunks as $chunk) {
+//                    Product::insert($chunk);
+//                }
 
                 $container->update(['is_created' => 1]);
                 $this->is_products_created = 1;
@@ -731,15 +732,46 @@ class ProductsContainerComponent extends Component
 
             $this->name_create        = $product_databse->name;
             $this->code_create        = $product_databse->code;
-            $this->description_create = $product_databse->description;
+            $this->description_array  = $product_databse->description->all();
             $this->brand_id_create    = $product_databse->brand_id;
             $this->category_id_create = $product_databse->category_id;
 
         } catch (ModelNotFoundException $e) {
             $this->name_create        = 'Product Not Found In Database!';
             $this->code_create        = 'Product Not Found In Database!';
-            $this->description_create = 'Product Not Found In Database!';
         }
+    }
+
+    public function addNewDescriptionLine()
+    {
+        // add the line to the description array
+//        $this->description_array;
+        if ($this->description_line_create == '') {
+            session()->flash('message', 'You Can not add empty line');
+            session()->flash('alert' , 'danger');
+            return;
+        }
+        if ( empty($this->description_array) ) {
+            $this->description_array += [
+                1 => $this->description_line_create,
+            ];
+        } else {
+            $this->description_array += [
+                array_key_last($this->description_array) + 1 => $this->description_line_create,
+            ];
+        }
+
+        // reset the input.
+
+        $this->description_line_create = '';
+
+    }
+
+    public function clearDescriptionArray()
+    {
+        $this->description_array = [];
+        $this->description = '';
+//        $this->reset('description_array', 'description');
     }
 
 }

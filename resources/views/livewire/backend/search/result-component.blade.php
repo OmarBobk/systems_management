@@ -1,16 +1,16 @@
 <div>
-    <div class="row">
+    <div class="row m-[0]">
         @forelse($result as $product)
-            <div class="col-4">
-                    <div class="card card-stats" style="background: rgb(0 0 0 / 8%);">
+            <div class="col-12 col-sm-4 mt-[1rem]">
+                    <div class="card card-stats h-full" style="background: rgb(0 0 0 / 8%);">
                         <!-- Card body -->
-                        <div class="card-body">
+                        <div class="card-body flex flex-col justify-evenly">
                             <div class="row align-items-center">
                                 {{--Product Img--}}
                                 <div class="col-auto">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img class="w-full h-full rounded-full"
-                                             src="{{asset('/assets/img/products/'.$product->serial.'.jpg')}}"
+                                             src="{{$product->images()->first()?->path}}"
                                              alt="" />
                                     </div>
                                 </div>
@@ -43,6 +43,9 @@
         @empty
             no
         @endforelse
+        <div class="w-full mb-[1rem] px-[15px] mt-[1rem]">
+            {{$result->links()}}
+        </div>
     </div>
 </div>
 

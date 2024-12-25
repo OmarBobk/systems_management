@@ -258,7 +258,7 @@
                                         <div class="product-head">
                                             <a href="#">
                                                 <img
-                                                    src="{{\Illuminate\Support\Facades\Vite::asset('resources/images/products/'.$product->serial.'.jpg')}}"
+                                                    src="{{asset('assets/img/products/'.$product->serial.'.jpg')}}"
                                                     class="img-fluid !h-56 sm:!h-72 w-full object-cover" alt="product"></a>
                                             <p><span class="badge badge-info text-sm sm:font-14">Product Code: {{$product->code}}</span></p>
                                         </div>

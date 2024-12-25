@@ -30,7 +30,7 @@ class RedirectIfAuthenticated
                 if ($request->expectsJson()) {
                     return response()->json(['error' => 'Already authenticated.'], 200);
                 }
-                return redirect(RouteServiceProvider::HOME);
+                return redirect(route('backend.cashier'));
             }
         }
 

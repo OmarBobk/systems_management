@@ -15,12 +15,12 @@
 
             {{--Search Result--}}
             @if($searchKeyword != '' or $searchKeyword != null)
-                @include('livewire.sellers.searchResult-component')
+                @include('livewire.backend.sellers.searchResult-component')
             @endif
 
             {{-- New Seller Form --}}
             @if(isset($is_create_new_seller) and $is_create_new_seller)
-                @include('livewire.sellers.create-new-seller-component')
+                @include('livewire.backend.sellers.create-new-seller-component')
             @endif
 
             {{--Sellers--}}
@@ -209,7 +209,7 @@
                                                     <tr>
                                                         <td colspan="10">
                                                             @if(isset($is_create_new_brand) and $is_create_new_brand)
-                                                                @include('livewire.sellers.create-new-brand-component')
+                                                                @include('livewire.backend.sellers.create-new-brand-component')
                                                             @endif
                                                         </td>
                                                     </tr>

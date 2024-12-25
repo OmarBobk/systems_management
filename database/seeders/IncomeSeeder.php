@@ -21,12 +21,14 @@ class IncomeSeeder extends Seeder
 
         // Sale 1
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(1)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(1)->id,
             'contribution_id'   => $sale(1)->contribution_id,
         ];
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(1)->profit,
             'type'              => 'profit',
             'sale_id'           => $sale(1)->id,
@@ -35,12 +37,14 @@ class IncomeSeeder extends Seeder
 
         // Sale 2
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(2)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(2)->id,
             'contribution_id'   => $sale(2)->contribution_id,
         ];
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(2)->profit,
             'type'              => 'profit',
             'sale_id'           => $sale(2)->id,
@@ -49,12 +53,14 @@ class IncomeSeeder extends Seeder
 
         // Sale 3
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(3)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(3)->id,
             'contribution_id'   => $sale(3)->contribution_id,
         ];
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(3)->profit,
             'type'              => 'profit',
             'sale_id'           => $sale(3)->id,
@@ -63,12 +69,14 @@ class IncomeSeeder extends Seeder
 
         // Sale 4
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(4)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(4)->id,
             'contribution_id'   => $sale(4)->contribution_id,
         ];
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(4)->profit,
             'type'              => 'profit',
             'sale_id'           => $sale(4)->id,
@@ -77,12 +85,14 @@ class IncomeSeeder extends Seeder
 
         // Sale 5
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(5)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(5)->id,
             'contribution_id'   => $sale(5)->contribution_id,
         ];
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(5)->profit,
             'type'              => 'profit',
             'sale_id'           => $sale(5)->id,
@@ -91,22 +101,48 @@ class IncomeSeeder extends Seeder
 
         // Sale 6
         $incomes[] = [
+            'user_id'           => 1,
             'amount'            => $sale(6)->cost,
             'type'              => 'cost',
             'sale_id'           => $sale(6)->id,
             'contribution_id'   => $sale(6)->contribution_id,
         ];
         $incomes[] = [
-            'amount'            => $sale(6)->profit * $sale(6)->contribution->profits_percent / 100,
+            'user_id'           => 1,
+            'amount'            => $sale(6)->profit - ($sale(6)->profit * $sale(6)->contribution->profits_percent / 100),
             'type'              => 'profit',
             'sale_id'           => $sale(6)->id,
             'contribution_id'   => $owner,
         ];
         $incomes[] = [
-            'amount'            => $sale(6)->profit,
+            'user_id'           => 1,
+            'amount'            => $sale(6)->profit * $sale(6)->contribution->profits_percent / 100,
             'type'              => 'profit',
             'sale_id'           => $sale(6)->id,
             'contribution_id'   => $sale(6)->contribution_id,
+        ];
+
+        // Sale 7
+        $incomes[] = [
+            'user_id'           => 1,
+            'amount'            => $sale(7)->cost,
+            'type'              => 'cost',
+            'sale_id'           => $sale(7)->id,
+            'contribution_id'   => $sale(7)->contribution_id,
+        ];
+        $incomes[] = [
+            'user_id'           => 1,
+            'amount'            => $sale(7)->profit - ($sale(7)->profit * $sale(7)->contribution->profits_percent / 100),
+            'type'              => 'profit',
+            'sale_id'           => $sale(7)->id,
+            'contribution_id'   => $owner,
+        ];
+        $incomes[] = [
+            'user_id'           => 1,
+            'amount'            => $sale(7)->profit * $sale(7)->contribution->profits_percent / 100,
+            'type'              => 'profit',
+            'sale_id'           => $sale(7)->id,
+            'contribution_id'   => $sale(7)->contribution_id,
         ];
 
         $chunks = array_chunk($incomes, 50);

@@ -121,7 +121,7 @@ class BillComponent extends Component
 
     public function render()
     {
-        $this->bills = Bill::all();
+        $this->bills = Bill::orderBy('created_at', 'DESC')->limit(5)->get();
         return view('livewire.backend.bills.index-component')
             ->layout('layouts.user', [
                 'breadcrumbs' => [
@@ -176,8 +176,8 @@ class BillComponent extends Component
         ]);
 
         // Update Contribution that used to buy this bill.
-        Contribution::find($this->contribution_id)
-            ->decrement('amount', $this->amount);
+//        Contribution::find($this->contribution_id)
+//            ->decrement('amount', $this->amount);
 
         ProductsContainer::create([
             'container'  => '{}',

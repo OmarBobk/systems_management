@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/public/build
 /public/vendor
 .env
 .env.backup
@@ -15,3 +16,4 @@ yarn-error.log
 /.idea
 /.vscode
 /public/bobkphpmyadmintalebetti.com
+/storage/database_backups/*.sql

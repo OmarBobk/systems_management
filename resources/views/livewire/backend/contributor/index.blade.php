@@ -105,7 +105,7 @@
                                         </td>
                                         <td
                                             class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
-                                            <div class=" inline-block truncate">{{number_format($record->amount/1000, 3)}}</div>
+                                            <div class=" inline-block truncate">{{number_format($record->amount/1000, 1)}}</div>
                                         </td>
                                         <td
                                             class="text-gray-600 px-2 py-3 border-t border-gray-100 whitespace-nowrap">
@@ -127,35 +127,6 @@
 
             </x-table>
             </div>
-
-
-
-{{--            <div class="flex justify-center">--}}
-{{--                <div id="chart" class="w-2/4 h-2/4"></div>--}}
-{{--            </div>--}}
-
-{{--            <script>--}}
-{{--                document.addEventListener('alpine:init', () => {--}}
-
-{{--                    var options = {--}}
-{{--                        chart: {--}}
-{{--                            type: 'line'--}}
-{{--                        },--}}
-{{--                        series: [{--}}
-{{--                            name: 'sales',--}}
-{{--                            data: [10, 9, 8.5, 11]--}}
-{{--                        }],--}}
-{{--                        xaxis: {--}}
-{{--                            categories: ['01-11', '03-11', '05-11', '10-11']--}}
-{{--                        }--}}
-{{--                    }--}}
-
-{{--                    var chart = new ApexCharts(document.querySelector("#chart"), options);--}}
-
-{{--                    chart.render();--}}
-
-{{--                })--}}
-{{--            </script>--}}
 
         </div>
     </div>

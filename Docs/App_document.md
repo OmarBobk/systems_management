@@ -1,102 +1,23 @@
 #git token
 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
 
-- Development
-  - /public/bobkdevtalebetti/public/index.php
-- Production
-  - /public/index.php
-- Phpmyadmin
-  - /public/bobkphpmyadmintalebetti
+Online Accounting System.
+- Stocktaking.
+- Debts Manager
+- Investors Manager: Every Store Can have Investors. 
+- Notifications System.
 
-- V1.0.0
-    - Visitor Will explore the products in a single product page.
-    - The product price will be shown for visitors.
-- Images.
-    - Slider
-        - 1265 * 660
-- Main Ideas
-    - live chat.
-    - GSD (General Services Delivery).
-- Main Pages
-    - Home
-    - Shop
-    - Contact Us
-    - Single Product
-    - FAQ
-- Tools
-    - Jetstream
-    - Livewire
-    - Blade Template Inheritance
-- Models
-    - Product
-        - Attributes
-            - id
-            - serial
-            - name
-            - description
-            - code
-            - amount
-            - price
-            - cost
-            - slug
-            - category_id
-            - brand_id
-        - Relations
-            - category
-            - images (Polymorphic)
-    - Brand.
-        - Attributes.
-            - id.
-            - name.
-            - description.
-        - Relations
-            - seller
-    - Category
-        - Attributes
-            - id
-            - name
-            - slug
-            - status
-            - category_id
-        - Relations
-            - products
-            - categories
-            - childrenCategories
-            - image (Polymorphic)
-            - products
-    - Image
-        - Attributes
-            - id
-            - path
-            - name
-            - type
-            - order
-            - imageable_id
-            - imageable_type
-        - Relations
-            - imageable
-    - slider
-      - Attributes
-        - id
-        - title
-        - bg
-        - status
-    - slidercontent
-      - Attributes
-        - id
-        - title
-        - sub_title
-        - url
-        - img
-        - sm_img
-    - User
-      - Attributes
-        - id
-        - name
-        - email
-        - phone
-        - profile_photo_path
-    - Order
-      - id
-      - status (Done, Doing, To Do)
-- 
+- V2.0
+  - Move your Real Store into online one.
+    - Create a Trendyol Seller Account with one click with all your products.
+    - Manage trendyol seller account from the dashboard.
+  - if you are store owner request a contribution.
+  - if you are a contributor invest in the recommended stores.
+
+
+
+
+
+## Sections
+- Contributions
+  - Amount should never have changed, It will save its original amount, and it will be accounted on the fly (amount - expenses + profits etc.)

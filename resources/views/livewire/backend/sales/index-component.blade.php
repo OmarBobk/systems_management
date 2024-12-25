@@ -1,5 +1,5 @@
 <div>
-    <div class="py-12">
+    <div class="py-12 px-[2rem]">
         <div class="bg-white shadow-xl sm:rounded-lg px-4 py-4">
             @if(session()->has('message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
@@ -30,14 +30,20 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                @include('livewire.sales.datepicker')
+
+                <div class=" mb-[1rem] mt-[1rem] p-[1rem] bg-gray-50 flex flex-col sm:flex-row gap-[1rem] ">
+                    <x-data-filter :datepicker="true"
+                                   :menu_data="$this->menu_data"
+                    ></x-data-filter>
+                </div>
+{{--                <x-datepicker></x-datepicker>--}}
 
                 <div>
                     <table class="table-fixed w-full">
                         <thead>
                         <tr class="bg-gray-100">
                             <th class="px-2 py-2 text-center w-20">No</th>
-                            <th class="px-2 py-2 text-center">Product Code</th>
+                            <th class="px-2 py-2 text-center">Code</th>
                             <th class="px-2 py-2 text-center">Description</th>
                             <th class="px-2 py-2 text-center">Amount</th>
                             <th class="px-2 py-2 text-center">Price</th>
@@ -53,7 +59,10 @@
                         @forelse($sales as $sale)
                             <tr>
                                 <td class="border text-center">{{$sale->id}}</td>
-                                <td class="border text-center">{{$sale->product->code}}</td>
+                                <td class="border text-center">
+                                    @if($sale->saleable instanceof App\Models\Product) {{$sale->saleable->code}} @endif
+                                    @if($sale->saleable instanceof App\Models\Invoice) {{$sale->saleable->invoicecustomer}} @endif
+                                </td>
                                 <td class="border px-2 py-2 text-center">{{$sale->description}}</td>
                                 <td class="border text-center">{{$sale->amount}}</td>
                                 <td class="border text-center">{{number_format($sale->net_price/1000, 3)}}</td>
@@ -71,7 +80,9 @@
 
                         </tbody>
                     </table>
-                    {{--                    {{$sales->links()}}--}}
+                    <div class="mt-[1rem]">
+                        {{$sales->links()}}
+                    </div>
                 </div>
 
         </div>

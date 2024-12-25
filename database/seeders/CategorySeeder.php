@@ -18,6 +18,22 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
+        $name       = 'Other';
+        $electronic = Category::create([
+                'id' => 101,
+                'name' => $name,
+                'slug' => Str::slug($name),
+                'status' => 1,
+                'category_id' => null,
+            ]
+        );
+        $electronic->image()->create([
+            'path' => asset('assets/images/categories').'/'.$electronic->slug.'.jpg',
+            'name' => $electronic->slug,
+            'type' => 'jpg',
+            'order' => 0,
+        ]);
+
         $name       = 'Electronic';
         $electronic = Category::create([
                 'id' => 1,
@@ -49,8 +65,6 @@ class CategorySeeder extends Seeder
             'type' => 'jpg',
             'order' => 0,
         ]);
-
-
 
 
         $name       = 'Phones';

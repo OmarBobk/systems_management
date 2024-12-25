@@ -2,20 +2,20 @@
 ###Start At: 858 000 95<span style="text-decoration: underline">0</span> 000 0
 - 1- Perfumes [858 000 951 <span style="text-decoration: underline">0</span>00 0]
     - 1- Essence:
-        - Serial => 858 000 951 100 1.
+        - Serial => 8580009511001.
         - Code => PR-1001.
     - 2- Glass(empty):
-        - Serial => 858 000 951 200 1.
+        - Serial => 8580009512001.
         - Code => GL-2001.
     - 3- Ready Perfumes:
-        - Serial => 858 000 951 300 1.
+        - Serial => 8580009513001.
         - Code => RPR-3001.
     - 4- Gift boxes & bags:
-        - Serial => 858 000 951 400 1.
+        - Serial => 8580009514001.
         - Code => GBB-4001.
 - 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
     - 1- Pubg Fingers:
-        - Serial => 858 000 952 100 1.
+        - Serial => 8580009521001.
         - Code   => PUBG-FINGER
     - 2- Wireless Sport:
         - Serial => 858 000 952 100 2.
@@ -27,62 +27,7 @@
         - Serial => 858 000 952 100 5.
         - Code   => INPODS12-1005
     - 5- BT Speaker:
-        - Serial => 858 000 952 100 4.
-        - Code   => ZQS-2201.
-    - 6- Relax team earphone:
-        - Serial => 858 000 952 100 6.
-        - Code   => AE-38.
-    - 7- Touch Lamp Portable speaker:
-        - Serial => 858 000 952 100 7.
-        - Code   => CL-671.
-    - 8- Wireless Speaker:
-        - Serial => 858 000 952 100 8.
-        - Code   => RS-3155.
-    - 9- Wireless Speaker:
-        - Serial => 858 000 952 100 9.
-        - Code   => PRO4.
-    - 10- keyboard stickers:
-        - Serial => 858 000 952 101 0.
-        - Code   => KS77.
-    - 11- keyboard stickers:
-        - Serial => 858 000 952 101 1.
-        - Code   => NDR-P44.
-    - 12- Kimiso Speaker:
-        - Serial => 858 000 952 101 2.
-        - Code   => KMS-5012.
-    - 12- i12 tws:
-        - Serial => 12824.
-        - Code   => TWS-i12
-##Serializng & Coding
-###Start At: 858 000 95<span style="text-decoration: underline">0</span> 000 0
-- 1- Perfumes [858 000 951 <span style="text-decoration: underline">0</span>00 0]
-    - 1- Essence:
-        - Serial => 858 000 951 100 1.
-        - Code => PR-1001.
-    - 2- Glass(empty):
-        - Serial => 858 000 951 200 1.
-        - Code => GL-2001.
-    - 3- Ready Perfumes:
-        - Serial => 858 000 951 300 1.
-        - Code => RPR-3001.
-    - 4- Gift boxes & bags:
-        - Serial => 858 000 951 400 1.
-        - Code => GBB-4001.
-- 2- Accessories [858 000 952 <span style="text-decoration: underline">0</span>00 0]
-    - 1- Pubg Fingers:
-        - Serial => 858 000 952 100 1.
-        - Code   => PUBG-FINGER
-    - 2- Wireless Sport:
-        - Serial => 858 000 952 100 2.
-        - Code   => WS-1002
-    - 3- Earbuds A10s:
-        - Serial => 858 000 952 100 3.
-        - Code   => TWS-A10S
-    - 4- inPods i12 renkli:
-        - Serial => 858 000 952 100 5.
-        - Code   => INPODS12-1005
-    - 5- BT Speaker:
-        - Serial => 858 000 952 100 4.
+        - Serial => 8580009521004.
         - Code   => ZQS-2201.
     - 6- Relax team earphone:
         - Serial => 858 000 952 100 6.
@@ -98,7 +43,7 @@
         - Code   => PRO4.
     - 10- keyboard stickers:
         - Serial => 858 000 952 101 0.
-        - Code   => KS77.
+        - Code   => KH-KS77.
     - 11- keyboard stickers:
         - Serial => 858 000 952 101 1.
         - Code   => NDR-P44.
@@ -121,7 +66,7 @@
         - Serial => 858 000 952 101 4.
         - Code   => TWS-PRO5S.
     - 18- Gaming Airpods:
-        - Serial => 858 000 952 101 5.
+        - Serial => 8580009521015.
         - Code   => K-80
     - 19- Powerbank Airpods:
         - Serial => 858 000 952 101 6.
@@ -141,3 +86,156 @@
     - 24- Electric Socket Convertor:
         - Serial => 858 000 952 102 1.
         - Code   => TC-EAR
+    - 25- Pubg Fingers normal:
+        - Serial => 858 000 952 102 2.
+        - Code   => PUBG-FINGER2
+    - 26- Original Cable Type-c 2A:
+        - Serial => 858 000 952 102 3.
+        - Code   => ORG-TC2A
+    - 26- Original Cable Type-c 6A:
+        - Serial => 8580009521024.
+        - Code   => ORG-TC6A
+    - 26- Original Cable Micro 5A:
+        - Serial => 858 000 952 102 5.
+        - Code   => ORG-M5A
+    - 26- Original Samsung Cable:
+        - Serial => 858 000 952 102 6.
+        - Code   => ORG-SAM
+    - 27- DT NO.1 MAX:
+        - Serial => 8580009521027.
+        - Code   => DT8MAX8
+    - 28- HW 3 Pro:
+        - Serial => 8580009521028.
+        - Code   => HW3PRO
+    - 29- GS 8+ Ultra:
+        - Serial => 8580009521029.
+        - Code   => GS8PLUS-ULTRA
+    - 30- KTS-1359 8" Speaker:
+        - Serial => 858 000 952 103 0.
+        - Code   => KTS-1359
+    - 31- Syrox ORG iPhone Earphones:
+        - Serial => 858 000 952 103 1.
+        - Code   => ORG-IP
+    - 32- Smartwatch Strap:
+        - Serial => 8580009521032.
+        - Code   => STRAP
+    - 33- KTS-1175 Bluetooth Speaker:
+        - Serial => 8580009521033.
+        - Code   => KTS-1175
+    - 34- Xiaomi 33w Charger:
+        - Serial => 8580009521034.
+        - Code   => ORG-33W
+    - 35- Adaptor Fis mini F17
+        - Serial => 8580009521035.
+        - Code => F-17
+    - 36- ZQS Speaker
+        - Serial => 8580009521036.
+        - Code => ZQS4235
+    - 37- Pro 5:
+        - Serial => 8580009521037.
+        - Code => PRO5
+    - 38- Pro 5 Original Flash:
+        - Serial => 8580009521038.
+        - Code => PRO5-FLASH
+    - 39- Pro 3 Black:
+        - Serial => 8580009521039.
+        - Code => PRO3
+    - 40- Fast Cable Type-c 5A:
+        - Serial => 8580009521040.
+        - Code   => FAST-TC5A
+    - 41- Foxconn:
+        - Serial => 8580009521041.
+        - Code   => IP-FOXCONN
+    - 42- triple socket F-18
+        - Serial => 8580009521042.
+        - Code => F-18
+    - 43- KTS-1083 Speaker:
+        - Serial => 8580009521043.
+        - Code => KTS-1083
+    - 44- M10 BT wireless:
+        - Serial => 8580009521044.
+        - Code => M10
+    - 45- E10 BT wireless:
+        - Serial => 8580009521045.
+        - Code => E10
+    - 46- Carboon Speaker System:
+        - Serial => 8580009521046.
+        - Code => TS-21
+    - 47- Earbuds TWS A11S:
+        - Serial => 8580009521047.
+        - Code => TWS-A11S
+    - 48- Redmi AirDotspro S100:
+        - Serial => 8580009521048.
+        - Code => TWS-S100
+    - 49- K8 Wireless Microphone:
+        - Serial => 8580009521049.
+        - Code => K8
+    - 50- M28 Wireless Earbuds:
+        - Serial => 8580009521050.
+        - Code => M28
+    - 51- PRO 60:
+        - Serial => 8580009521051.
+        - Code => PRO60
+    - 52- M90:
+        - Serial => 8580009521052.
+        - Code => M90
+    - 53- Airpods Second Gen:
+        - Serial => 8580009521053.
+        - Code => AIRPODS-2TH
+    - 54- Type-C Cables with no label:
+        - Serial => 8580009521054.
+        - Code => TC-CABLE
+    - 55- Samsung Old Original Earphones:
+        - Serial => 8580009521055.
+        - Code => OLD-ORG-EARPHONE
+    - 56- hawaii & MI Original Earphones:
+        - Serial => 8580009521056.
+        - Code => ORG-HAWAII
+    - 57- J5 Original Earphones:
+        - Serial => 8580009521057.
+        - Code => J5-EARPHONES
+    - 58- Xiaomi 33W Wide Socket:
+        - Serial => 8580009521058.
+        - Code => ORG-33W
+    - 59- Xiaomi 67W Wide Triple Socket:
+        - Serial => 8580009521059.
+        - Code => ORG-67W
+    - 60- Portable Microphone XL:
+        - Serial => 8580009521060.
+        - Code => XL-MICROPHONE
+    - 61- Portable Microphone MD:
+        - Serial => 8580009521061.
+        - Code => MD-MICROPHONE
+    - 62- Square Box Earphone:
+        - Serial => 8580009521062.
+        - Code => SQUARE-EARPHONE
+    - 63- Iphone K22A Earphone Square Box:
+        - Serial => 8580009521063.
+        - Code => K22A
+    - 64- Original Xiaomi 67W Yellow Charger:
+        - Serial => 8580009521064.
+        - Code => YELLOW-67W
+    - 65- Original Samsung Charger:
+        - Serial => 8580009521065.
+        - Code => EP-TA200
+    - 66- Type-c to Type-c Cable:
+        - Serial => 8580009521066.
+        - Code => ORG-TCTOTC
+    - 67- T800 Ultra SmartWatch:
+        - Serial => 8580009521067.
+        - Code => T800-ULTRA
+    - 68- Y80:
+        - Serial => 8580009521068.
+        - Code => Y80
+    - 69- KTS-1057:
+        - Serial => 8580009521069.
+        - Code => KTS-1057
+    - 70- Earbud hang case:
+        - Serial => 8580009521070.
+        - Code => EARBUD-CASE
+    - 71- Privacy Screen Protector:
+        - Serial => 8580009521071.
+        - Code => 13-14-PRO
+
+
+

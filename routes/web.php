@@ -15,7 +15,12 @@ Route::name('backend.')
     ->prefix('backend')
     ->middleware(['adminAuth'])
     ->group(function () {
+
+        Route::post('invoice_pdf/{invoicecustomer}/{invoice}', [\App\Http\Livewire\Backend\InvoiceComponent::class, 'export_to_pdf'])->name('invoice_pdf');
+
         // Backend Dashboard.
+        Route::get('dashboard', \App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
+
         Route::get('test', function() {
             dd('test');
         })->name('test');
@@ -93,6 +98,11 @@ Route::name('backend.')
             action: App\Http\Livewire\Backend\ProductsDatabaseComponent::class)
             ->name('productsdatabase');
 
+        Route::get(
+            uri: '/invoices',
+            action: App\Http\Livewire\Backend\InvoiceComponent::class)
+            ->name('invoices');
+
 
     });
 
@@ -133,15 +143,6 @@ Route::get('/testing', function (\Illuminate\Http\Request $request) {})->name('t
 //
 //})->name('home');
 
-Route::get('dashboard', function () {
-
-    if (Auth::check()) {
-        return redirect(route('backend.cashier'));
-    } else {
-        return redirect(route('login'));
-    }
-
-})->name('dashboard');
 
 // Users and Admins
 Route::group([
@@ -156,12 +157,12 @@ Route::group([
     });
 
     // Admins
-    Route::middleware('adminAuth')
-        ->name('admin.')
-        ->prefix('admin')
-        ->group(function () {
-        Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
-    });
+//    Route::middleware('adminAuth')
+//        ->name('admin.')
+//        ->prefix('admin')
+//        ->group(function () {
+//        Route::get('/dashboard', App\Http\Livewire\Admin\AdminDashboardComponent::class)->name('dashboard');
+//    });
 });
 
 //Route::fallback(function() {

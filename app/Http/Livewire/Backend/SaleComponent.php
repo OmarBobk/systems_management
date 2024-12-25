@@ -23,6 +23,11 @@ class SaleComponent extends Component
     public $start_from = '';
     public $end_at = '';
 
+    public $menu_data =[];
+    public $pagination = 5;
+    public $selling_type = 'All';
+    public $order_by = 'Date';
+
     protected $queryString = [
         'start_from' => ['except' => ''],
         'end_at'     => ['except' => '']
@@ -44,25 +49,42 @@ class SaleComponent extends Component
 
     public function render()
     {
+
+        $this->menu_data = [
+            'pagination'   => ['All', 5, 10, 15, 50, 100],
+            'selling_type' => ['All', 'Kontor', 'Invoice', 'Products'],
+            'order_by' => ['Date', 'ID', 'Profit', 'Price'],
+        ];
+
+        $ordering = [
+            'Date' => 'updated_at',
+            'Price' => 'net_price',
+            'ID' => 'id',
+            'Profit' => 'profit',
+        ];
+
+
         $this->all_profits = 0;
         $this->all_amounts = 0;
         $this->all_costs = 0;
         $sales = Sale::with('product')
-            ->whereBetween('created_at', [
+            ->whereBetween('updated_at', [
                 $this->start_from ==''?'1900-01-01':date('Y-m-d H:i:s', strtotime($this->start_from)),
                 $this->end_at == '' ? '2322-02-11':date('Y-m-d H:i:s', strtotime($this->end_at))
             ])
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy(
+                $ordering[$this->order_by],
+                'DESC'
+            );
 
-        foreach($sales as $sale) {
+        foreach($sales->get() as $sale) {
             $this->all_profits += $sale->profit;
             $this->all_amounts += $sale->amount;
             $this->all_costs   += $sale->cost * $sale->amount;
         }
 
         return view('livewire.backend.sales.index-component', [
-            'sales' => $sales,
+            'sales' => $sales->paginate($this->pagination),
         ])->layout('layouts.user', [
             'breadcrumbs' => [
                 [

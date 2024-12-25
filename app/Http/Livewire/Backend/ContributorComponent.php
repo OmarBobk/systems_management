@@ -88,8 +88,12 @@ class ContributorComponent extends Component
             $profit      = $contribution->profits->sum('amount');
             $cost        = $contribution->costs->sum('amount');
             $expense     = $contribution->expenses->sum('amount');
-            $org_amount += $contribution->amount + $shopping_expenses;
-            $rem_amount += $contribution->amount + $cost + $profit;
+//            $org_amount += $contribution->amount + $shopping_expenses;
+            $org_amount += $contribution->amount;
+
+            // Amount - Expenses + Cost + Profits
+//            $rem_amount += $contribution->amount + $cost + $profit;
+            $rem_amount += ($contribution->amount + $cost + $profit) - $shopping_expenses;
 
             $profits[] = [
                 'type' => 'Profits',

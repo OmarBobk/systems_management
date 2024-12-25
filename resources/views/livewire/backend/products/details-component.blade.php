@@ -2,7 +2,7 @@
     <table class="table-fixed w-full">
         <thead>
         <tr class="bg-gray-100">
-            <th class="text-center" style="padding:10px 5px">Description</th>
+            <th class="text-center" style="padding:10px 5px" colspan="5">Description</th>
             <th class="text-center" style="padding:10px 5px">Seller</th>
             <th class="text-center" style="padding:10px 5px">Brand</th>
             <th class="text-center" style="padding:10px 5px">Bill</th>
@@ -17,18 +17,61 @@
         <tr>
 
             {{-- Description --}}
-            <td class="border text-center" style="padding:10px 5px">
+            <td class="border text-center" style="padding:10px 5px" colspan="5">
 
                 @if(isset($is_edit_details['description'][$product->id]))
                     @if($is_edit_details['description'][$product->id])
-                        <textarea class="form-control"
-                                  wire:model.lazy="description.{{$product->id}}"
-                                  wire:keydown.escape="closeEdit('{{$product->id}}', 'description')"></textarea>
+{{--                        <textarea class="form-control"--}}
+{{--                                  wire:model.lazy="description.{{$product->id}}"--}}
+{{--                                  wire:keydown.escape="closeEdit('{{$product->id}}', 'description')"></textarea>--}}
+
+                        <div class="form-group">
+                        <textare>
+                            @forelse($description_array as $k => $v)
+                                {{$k . '- '. $v}}<br>@if(!$loop->last)<hr>@endif
+                            @empty
+                            @endforelse
+                        </textare>
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control"
+                                   wire:model.lazy="description_line_create"
+                                   wire:keydown.enter="addNewDescriptionLine"
+                                   placeholder="Description"
+                                   aria-label="Description"
+                                   aria-describedby="description">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary"
+                                        wire:click="addNewDescriptionLine"
+                                        type="button" id="description">Save</button>
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-danger"
+                                        wire:click="clearDescriptionArray"
+                                        type="button" id="description">Clear</button>
+                            </div>
+                        </div>
                     @else
-                        <div wire:click="editDetails({{$product->id}}, 'description')">{{$product->description}}</div>
+                        <div wire:click="editDetails({{$product->id}}, 'description')">
+                            <textare>
+                                @forelse($product->description as $k => $v)
+                                    {{$k . '- '. $v}}<br><hr>
+                                @empty
+                                @endforelse
+                            </textare>
+                        </div>
                     @endif
                 @else
-                    <div wire:click="editDetails({{$product->id}}, 'description')">{{$product->description}}</div>
+                    <div wire:click="editDetails({{$product->id}}, 'description')">
+                        <textare>
+                            @forelse($product->description as $k => $v)
+                                {{$k . '- '. $v}}<br><hr>
+                            @empty
+                            @endforelse
+                        </textare>
+                    </div>
                 @endif
 
                 @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror

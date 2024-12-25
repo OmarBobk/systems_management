@@ -1,6 +1,6 @@
 <div>
     <div class="container-fluid mt--6">
-        <div class="bg-white card overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        <div class="bg-white card shadow-xl sm:rounded-lg px-4 py-4">
 
             @if(session()->has('message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
@@ -12,6 +12,14 @@
                     </div>
                 </div>
             @endif
+                <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
+                     role="alert">
+                    <div class="flex">
+                        <div>
+                            <p class="text-sm alert alert-danger">Sana Karman is Amazing</p>
+                        </div>
+                    </div>
+                </div>
 
             @if(session()->has('sales_message'))
                 <div class="bg-teal-100  border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
@@ -35,10 +43,10 @@
             @endif
 
             <form>
-                <div class="form-group mb-3">
+                <div class="form-group mb-[0rem] px-[15px]">
                     <div class="input-group input-group-merge input-group-alternative">
                         <input class="form-control" placeholder="Search"
-                               type="text" wire:model="searchKeyword">
+                               type="text" wire:model.debounce.500ms="searchKeyword">
                     </div>
                 </div>
             </form>
@@ -48,197 +56,21 @@
                 @include('livewire.backend.search.result-component', $result)
             @endif
 
+                <div class=" mx-[1rem] mt-[1rem] p-[1rem] bg-gray-50 flex flex-col sm:flex-row gap-[1rem] ">
+                    <x-data-filter :datepicker="true"
+                                   :menu_data="$this->menu_data"
+                    ></x-data-filter>
+
+
+                </div>
+
             {{--Card--}}
-            <div>
-                <table class="table-fixed w-full">
-                    <thead>
-                    <tr class="bg-gray-100">
-                        <th class="text-center py-2 w-20">No</th>
-{{--                        <th class="text-center py-2">Img</th>--}}
-                        <th class="text-center py-2">Name</th>
-                        <th class="text-center py-2">Description</th>
-                        <th class="text-center py-2">Code</th>
-                        <th class="text-center py-2">Amount</th>
-                        <th class="text-center py-2">Price</th>
-                        <th class="text-center py-2">Cost</th>
-                        <th class="text-center py-2">Total Price</th>
-                        <th class="text-center py-2">Total Profits</th>
-                        <th class="text-center py-2">Created At</th>
-                        <th class="text-center py-2">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @if(isset($cart))
-                        @forelse($cart->products as $product)
-                            <tr>
-                                <td class="border text-center py-2">{{$product->id}}</td>
-{{--                                <td class="border text-center py-2"><img src="https://via.placeholder.com/75/09f/fff.png"></td>--}}
+            <div class="px-[15px] mt-[1rem]">
 
-                                <td class="border text-center py-2">{{$product->name}}</td>
-
-                                {{-- Description --}}
-                                <td class="border text-center py-2 text-sm">
-
-                                    @if(isset($is_edit['description'][$product->id."-".$product->pivot->id]))
-                                        @if($is_edit['description'][$product->id."-".$product->pivot->id])
-                                            {{--                                            {{dd($amount)}}--}}
-                                            <textarea
-                                                cols="5"
-                                                rows="5"
-                                                class="form-control"
-                                                wire:model.lazy="description.{{$product->id}}-{{$product->pivot->id}}"
-                                                wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'description')"></textarea>
-                                        @else
-                                            <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">{{$product->pivot->description}}</div>
-                                        @endif
-                                    @else
-
-                                        <div
-                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'description')">{{$product->pivot->description}}</div>
-                                    @endif
-
-                                    @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </td>
-
-                                <td class="border text-center py-2">{{$product->code}}</td>
-
-                                {{-- Amount --}}
-                                <td class="border text-center py-2" style="padding:15px 15px">
-
-                                    @if(isset($is_edit['amount'][$product->id."-".$product->pivot->id]))
-                                        @if($is_edit['amount'][$product->id."-".$product->pivot->id])
-                                            {{--                                            {{dd($amount)}}--}}
-                                            <input type="number"
-                                                   class="form-control"
-                                                   wire:model.lazy="amount.{{$product->id}}-{{$product->pivot->id}}"
-                                                   wire:keydown.enter="updateNew('{{$product->id}}', '{{$product->pivot->id}}', 'amount')"
-                                                   wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'amount')">
-                                        @else
-                                            <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'amount')">{{$product->pivot->amount}}</div>
-                                        @endif
-                                    @else
-                                        <div
-                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'amount')">{{$product->pivot->amount}}</div>
-                                    @endif
-
-                                    @error("amount.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </td>
-
-                                {{-- Price --}}
-                                <td class="border text-center py-2" style="padding:15px 15px">
-
-                                    @if(isset($is_edit['net_price'][$product->id."-".$product->pivot->id]))
-                                        @if($is_edit['net_price'][$product->id."-".$product->pivot->id])
-                                            {{--                                            {{dd($price)}}--}}
-                                            <input type="number"
-                                                   class="form-control"
-                                                   wire:model.lazy="net_price.{{$product->id}}-{{$product->pivot->id}}"
-                                                   wire:keydown.enter="updateNew('{{$product->id}}', '{{$product->pivot->id}}', 'net_price')"
-                                                   wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'net_price')">
-                                        @else
-                                            <div
-                                                wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{number_format($product->pivot->net_price/1000,3)}}</div>
-                                        @endif
-                                    @else
-                                        <div
-                                            wire:click="editNew({{$product->id}}, '{{$product->pivot->id}}', 'net_price')">{{number_format($product->pivot->net_price/1000,3)}}</div>
-                                    @endif
-
-                                    @error("net_price.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                </td>
-
-                                {{-- Net Cost--}}
-                                <td class="border text-center py-2">
-                                    {{-- Product That you can edit the cost --}}
-                                    @if($product->id === 1)
-                                        @if(isset($is_edit['net_cost'][$product->id."-".$product->pivot->id]))
-                                            @if($is_edit['net_cost'][$product->id."-".$product->pivot->id])
-                                                <input type="number"
-                                                       class="form-control"
-                                                       wire:model.lazy="net_cost.{{$product->id}}-{{$product->pivot->id}}"
-                                                       wire:keydown.enter="updateNew('{{$product->id}}', '{{$product->pivot->id}}', 'net_cost')"
-                                                       wire:keydown.escape="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', 'net_cost')">
-                                            @else
-                                                <div
-                                                    wire:click="editNew({{$product->id}}, '{{number_format($product->pivot->id/1000,3)}}', 'net_cost')">
-                                                    {{$product->pivot->net_cost}}
-                                                </div>
-                                            @endif
-                                        @else
-                                            <div
-                                                wire:click="editNew({{$product->id}}, '{{number_format($product->pivot->id/1000,3)}}', 'net_cost')">
-                                                {{$product->pivot->net_cost}}
-                                            </div>
-                                        @endif
-
-                                        @error("net_cost.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
-                                    @else
-                                        {{$product->pivot->net_cost}}
-                                    @endif
-                                </td>
-
-                                {{-- Total Price--}}
-                                <td class="border text-center py-2">
-                                    {{number_format(($product->pivot->net_price * $product->pivot->amount)/1000, 3)}}
-                                </td>
-
-                                {{-- Total Profits--}}
-                                <td class="border text-center py-2">
-                                    {{number_format((($product->pivot->net_price - $product->pivot->net_cost) * $product->pivot->amount)/1000, 3)}}
-                                </td>
-
-                                <td class="border text-center py-2">{{$product->pivot->updated_at->format('Y-m-d H:i a')}}</td>
-
-                                {{--Actions--}}
-                                <td class="border text-center px-3 py-2">
-                                    <div class="d-flex">
-                                        @if(isset($is_view_product_actions[$product->id."-".$product->pivot->id]))
-                                            @if($is_view_product_actions[$product->id."-".$product->pivot->id])
-                                                {{-- Update --}}
-                                                <button class="btn-success btn-sm"
-                                                        wire:click="updateNew('{{$product->id}}', '{{$product->pivot->id}}', '{{$edit_method_name}}')">
-                                                    <i class="ni ni-2x ni-active-40"></i>
-                                                </button>
-
-                                                {{-- Close --}}
-                                                <button class="btn-danger btn-sm"
-                                                        wire:click="closeEdit('{{$product->id}}', '{{$product->pivot->id}}', '{{$edit_method_name}}')">
-                                                    <i class="ni ni-2x ni-fat-remove"></i>
-                                                </button>
-                                            @else
-                                                <button class="btn-danger btn-sm float-right"
-                                                        wire:click="removeItemFromCart('{{$product->id}}', '{{$product->pivot->id}}')">
-                                                    <i class="ni ni-2x ni-fat-remove"></i>
-                                                </button>
-                                            @endif
-                                        @else
-                                            <button class="btn-danger btn-sm float-right"
-                                                    wire:click="removeItemFromCart('{{$product->id}}', '{{$product->pivot->id}}')">
-                                                <i class="ni ni-2x ni-fat-remove"></i>
-                                            </button>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="10" class="text-center">
-                                    <h1>Your Card is Empty</h1>
-                                </td>
-                            </tr>
-                        @endforelse
-                    @else
-                        <tr>
-                            <td colspan="10" class="border text-center px-4 py-2">You didn't add any items to your cart
-                                yet.
-                            </td>
-                        </tr>
-                    @endif
-
-                    </tbody>
-                </table>
+                <x-dataset :table_data="$this->table_data"
+                           :is_edit="$this->is_edit"
+                           :editable_type="$this->editable_type"
+                ></x-dataset>
             </div>
 
             {{--Checkout--}}
@@ -361,13 +193,15 @@
     </div>
 
 
-    <script>
-        Livewire.on('askForDueEvent', debtorId => {
-            $('#askForDueModal').modal('show');
-        })
+    @push('scripts')
+        <script>
+            Livewire.on('askForDueEvent', debtorId => {
+                $('#askForDueModal').modal('show');
+            })
 
-        Livewire.on('amountError', function () {
-            $('#amountError').css({display: "block"});
-        })
-    </script>
+            Livewire.on('amountError', function () {
+                $('#amountError').css({display: "block"});
+            })
+        </script>
+    @endpush
 </div>

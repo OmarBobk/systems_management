@@ -66,7 +66,7 @@ class Product extends Model
      */
     public function carts(): BelongsToMany
     {
-        return $this->belongsToMany(Cart::class)->withPivot('id', 'amount', 'net_price', 'net_cost', 'description');
+        return $this->belongsToMany(Cart::class)->withPivot('id', 'code', 'name', 'amount', 'net_price', 'net_cost', 'description');
     }
 
     public function contribution(): BelongsTo
@@ -102,6 +102,11 @@ class Product extends Model
     public function productsection(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function sales(): MorphMany
+    {
+        return $this->morphMany(Sale::class, 'saleable');
     }
 
 

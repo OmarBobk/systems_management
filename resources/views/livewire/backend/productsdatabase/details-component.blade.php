@@ -21,10 +21,24 @@
                                   wire:model.lazy="description.{{$product->id}}"
                                   wire:keydown.escape="closeEdit('{{$product->id}}', 'description')"></textarea>
                     @else
-                        <div wire:click="editDetails({{$product->id}}, 'description')">{{$product->description}}</div>
+                        <div wire:click="editDetails({{$product->id}}, 'description')">
+                            <ul class="list-group">
+                                @forelse($product['description'] as $k => $v)
+                                    <li class="list-group-item !py-[3px]">{{$k . '- '. $v}}</li>
+                                @empty
+                                @endforelse
+                            </ul>
+                        </div>
                     @endif
                 @else
-                    <div wire:click="editDetails({{$product->id}}, 'description')">{{$product->description}}</div>
+                    <div wire:click="editDetails({{$product->id}}, 'description')">
+                        <ul class="list-group">
+                            @forelse($product['description'] as $k => $v)
+                                <li class="list-group-item !py-[3px]">{{$k . '- '. $v}}</li>
+                            @empty
+                            @endforelse
+                        </ul>
+                    </div>
                 @endif
 
                 @error("description.$product->id") <h1 class="alert-danger">{{$message}}</h1> @enderror
@@ -37,7 +51,7 @@
                     @if($is_edit_details['brand_id'][$product->id])
                         <select class="form-control" wire:model.lazy="brand_id.{{$product->id}}"
                                 wire:keydown.escape="closeEdit('{{$product->id}}', 'brand_id')">
-                            <option >...</option>
+                            <option>...</option>
                             @forelse($brands as $brand)
                                 <option value="{{$brand->id}}">
                                     {{$brand->name}}
@@ -66,7 +80,7 @@
                     @if($is_edit_details['category_id'][$product->id])
                         <select class="form-control" wire:model.lazy="category_id.{{$product->id}}"
                                 wire:keydown.escape="closeEdit('{{$product->id}}', 'category_id')">
-                            <option >...</option>
+                            <option>...</option>
                             @forelse($product->category->all() as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @empty
@@ -74,7 +88,8 @@
                         </select>
 
                     @else
-                        <div wire:click="editDetails({{$product->id}}, 'category_id')">{{$product->category->name}}</div>
+                        <div
+                            wire:click="editDetails({{$product->id}}, 'category_id')">{{$product->category->name}}</div>
                     @endif
                 @else
                     <div wire:click="editDetails({{$product->id}}, 'category_id')">{{$product->category->name}}</div>
@@ -85,7 +100,7 @@
 
             {{-- Date --}}
             <td class="border text-center" style="padding:10px 5px">
-{{--                {{$product->created_at}}--}}
+                {{--                {{$product->created_at}}--}}
                 {{\Carbon\Carbon::parse($product->created_at)->format('Y-m-d')}}
             </td>
             {{--Actions--}}

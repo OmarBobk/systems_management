@@ -1,27 +1,22 @@
 <div>
 
-        <livewire:debtor-powergrid/>
+    <div class="container mt-24">
+        <div>
+            {!! $chart->container() !!}
+        </div>
+    </div>
 
+    {!! $chart->script() !!}
 
-    <div id="newChart" style="max-width: 650px;margin: 35px auto;"></div>
+    <div class="container grid grid-cols-3 mt-24">
+    @foreach($all_charts as $ch)
+{{--        omar--}}
+            <div>
+                {!! $ch[0]->container() !!}
+            </div>
 
-    <script>
-        var options = {
-            chart: {
-                type: 'bar'
-            },
-            series: [{
-                name: 'sales',
-                data: [30,40,45,50,49,60,70,91,125]
-            }],
-            xaxis: {
-                categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-            }
-        }
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-        chart.render();
-    </script>
+        {!! $ch[0]->script() !!}
+    @endforeach
+    </div>
 
 </div>

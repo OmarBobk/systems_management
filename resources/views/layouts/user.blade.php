@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $breadcrumbs[0]['index'] }}</title>
+        <title>@if(isset($breadcrumbs[0]['title'])) {{$breadcrumbs[0]['title']}} @else {{$breadcrumbs[0]['index']}} @endif</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -55,20 +55,14 @@
         <script src="{{asset('assets/vendor/js-cookie/js.cookie.js')}}"></script>
         <script src="{{asset('assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js')}}"></script>
         <script src="{{asset('assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js')}}"></script>
-        <!-- Optional JS -->
-        <script src="{{asset('assets/vendor/chart.js/dist/Chart.min.js')}}"></script>
-        <script src="{{asset('assets/vendor/chart.js/dist/Chart.extension.js')}}"></script>
+
         <!-- Argon JS -->
         <script src="{{asset('assets/js/argon.js?v=1.2.0')}}"></script>
-        <!-- Scripts -->
-        <!-- ENd Laravel mid scripts -->
-        @livewireChartsScripts
+
         @livewireScripts
         @stack('scripts')
         <script src="{{asset('assets/js/plugins.js')}}"></script>
         @vite('resources/js/app.js')
         {{--        @powerGridScripts--}}
-
-
     </body>
 </html>
