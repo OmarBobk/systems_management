@@ -121,7 +121,7 @@ class BillComponent extends Component
 
     public function render()
     {
-        $this->bills = Bill::all();
+        $this->bills = Bill::orderBy('created_at', 'DESC')->limit(5)->get();
         return view('livewire.backend.bills.index-component')
             ->layout('layouts.user', [
                 'breadcrumbs' => [

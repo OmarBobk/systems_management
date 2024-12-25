@@ -24,7 +24,7 @@ class AdminDashboardComponent extends Component
         $vals = [];
         $dates =[];
         foreach ($data as $obj) {
-            $vals[] = number_format($obj->total / 1000 , 3);
+            $vals[] = number_format($obj->total / 1000);
             $dates[] = $obj->month;
         }
 
@@ -34,6 +34,7 @@ class AdminDashboardComponent extends Component
             'dates' => $dates,
             'values' => $vals,
         ];
+
 
         $chart->labels($data['dates']);
 //        $chart->dataset('Monthly Report', 'pie', $data['values']);
