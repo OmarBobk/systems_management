@@ -12,13 +12,32 @@
   ),
   'barryvdh/laravel-debugbar' => 
   array (
+    'aliases' => 
+    array (
+      'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
+    ),
     'providers' => 
     array (
       0 => 'Barryvdh\\Debugbar\\ServiceProvider',
     ),
+  ),
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
     'aliases' => 
     array (
-      'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
+      'Pdf' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
+      'PDF' => 'Barryvdh\\DomPDF\\Facade\\Pdf',
+    ),
+  ),
+  'consoletvs/charts' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'ConsoleTVs\\Charts\\ChartsServiceProvider',
     ),
   ),
   'fruitcake/laravel-cors' => 
@@ -81,6 +100,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'laraveldaily/laravel-invoices' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'LaravelDaily\\Invoices\\InvoiceServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Invoice' => 'LaravelDaily\\Invoices\\Facades\\Invoice',
+    ),
+  ),
   'livewire/livewire' => 
   array (
     'providers' => 
@@ -118,6 +148,13 @@
     'providers' => 
     array (
       0 => 'PowerComponents\\LivewirePowerGrid\\Providers\\PowerGridServiceProvider',
+    ),
+  ),
+  'recca0120/laravel-erd' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Recca0120\\LaravelErd\\LaravelErdServiceProvider',
     ),
   ),
   'spatie/laravel-ignition' => 
